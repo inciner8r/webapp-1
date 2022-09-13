@@ -17,6 +17,13 @@ const Content = () => {
       reviewBy:user?.address?.toLowerCase()
     },
   });
+
+  if (loading) {
+    return <div className='text-center'>
+      <img src="/loading.gif" alt="Loading" className='w-10 h-10 mx-auto my-32'/>
+    </div>    
+  }
+
   console.log(data)
   return (
     <>

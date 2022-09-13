@@ -12,6 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     cache: new InMemoryCache(),
   });
   return (<>
+  <div className='backgroundImage'></div>
   <WagmiConfig client={wagmiClient}>
   <RainbowKitProvider chains={chains}>
   <ApolloProvider client={client}>
