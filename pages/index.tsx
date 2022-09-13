@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Content from './myreviews'
 
-const Home: NextPage = () => {
+const Home: NextPage = (p:any) => {
   return (
     <>
+      <Content/>
+
     </>
   )
 }

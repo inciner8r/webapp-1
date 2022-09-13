@@ -1,19 +1,27 @@
 import React from 'react'
 
+// rainbowkit imports
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Link from 'next/link';
+
 const Navbar = () => {
   return (
     <header className='font-serif'>
       <div className='flex pt-10 px-32 flex-wrap'>
         <h1 className='text-6xl font-semibold xs:mb-7 lg:mb-0 mr-60 text-white'>NetSepio</h1>
-        <button className='mx-auto font-medium text-2xl h-12 w-52 bg-blue-700 text-white text-center rounded-2xl hover:scale-90 transition duration-300'>Connect</button>
+        <span className='mx-auto'>
+        <ConnectButton/>
+        </span>
       </div>
 
       <div>
         <nav className='flex flex-wrap'>
           <div>
-          <ul className='flex flex-wrap text-4xl font-medium pl-32 pt-10'>
-            <li className='mr-16 px-2 pb-1 cursor-pointer hover:border-b-4 border-white text-white'>My Reviews</li>
-            <li className='cursor-pointer px-2 pb-1 hover:border-b-4 border-white text-white'>Explorer</li>
+          <ul className='flex flex-wrap text-4xl font-medium pl-32 pt-10 text-red-500'>
+            <li className='mr-16 px-2 pb-1 cursor-pointer hover:border-b-4 border-white'>
+              <Link href="/myreviews"> My Reviews </Link>
+              </li>
+            <li className='cursor-pointer px-2 pb-1 hover:border-b-4 border-white'>Explorer</li>
           </ul>
           </div>
 

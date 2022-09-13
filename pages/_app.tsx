@@ -1,8 +1,10 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Navbar from '../components/Navbar'
-import Content from '../components/Content'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import {wagmiClient, Chains as chains} from '../walletConfig'
+import { WagmiConfig } from 'wagmi';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -10,12 +12,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     cache: new InMemoryCache(),
   });
   return (<>
+  <WagmiConfig client={wagmiClient}>
+  <RainbowKitProvider chains={chains}>
   <ApolloProvider client={client}>
-
+  
   <Navbar/>
-  <Content/>
+
   <Component {...pageProps} />
   </ApolloProvider>
+  </RainbowKitProvider>
+  </WagmiConfig>
   </>)
 }
 
