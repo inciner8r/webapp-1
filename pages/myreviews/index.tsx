@@ -23,7 +23,7 @@ const Content = () => {
 
     <div className='flex flex-wrap text-white justify-center mt-14'>
 
-      {data?.reviews.map(e=> <Card data={e}></Card>)}
+      {data?.reviews.map(e=> <Card data={e} key={e.id}></Card>)}
 
     </div>
     </>
