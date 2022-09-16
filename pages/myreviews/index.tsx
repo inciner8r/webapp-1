@@ -20,7 +20,7 @@ const Content = () => {
 
   if (loading) {
     return <div className='text-center'>
-      <img src="/loading.gif" alt="Loading" className='w-10 h-10 mx-auto my-32'/>
+      <img src="/loading.gif" alt="Loading" className='w-12 h-12 mx-auto my-32'/>
     </div>    
   }
 

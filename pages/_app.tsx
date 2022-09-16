@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import {wagmiClient, Chains as chains} from '../walletConfig'
 import { WagmiConfig } from 'wagmi';

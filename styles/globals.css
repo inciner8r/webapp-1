@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 .backgroundImage{
     position: fixed;
@@ -11,4 +13,37 @@
     background: url('/bg-wallpaper.png');
     background-size: cover;
     z-index: -10;
+}
+*{
+    font-family: 'Arimo', sans-serif;
+}
+
+.NetSepio{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* .card{
+    animation: move 2s;
+    animation-fill-mode: forwards;
+}
+@keyframes move {
+    from{top: 0%;}
+    to{bottom: 50%;}    
+} */
+
+
+
+@media(max-width: 1024px) {
+    .backgroundImage{
+        display: none;
+    }
+    body {
+            background: linear-gradient(
+              #061a2a,
+              #071e31 24.9%,
+              #104169 50.1%,
+              #14588f 100%
+            );
+            background-repeat: no-repeat;
+    }
 }
