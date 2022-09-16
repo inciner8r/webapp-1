@@ -7,12 +7,12 @@ export default function Navbar() {
 
     return (
         <>
-        <nav className="w-full fixed top-0 left-0 z-30 bg-green-400 shadow md:rounded-b-full">
+        <nav className="w-full fixed top-0 left-0 z-30 md:bg-green-400 xs:bg-black shadow md:rounded-b-full">
             <div className="justify-between px-4 py-1 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                         <a href="javascript:void(0)">
-                            <h1 className="NetSepio text-4xl font-extrabold text-emerald-900">NetSepio</h1>
+                            <h1 className="NetSepio text-4xl font-extrabold md:text-emerald-900 xs:text-white">NetSepio</h1>
                         </a>
                         <div className="md:hidden">
                             <button
@@ -76,11 +76,11 @@ export default function Navbar() {
             </div>
         </nav>
 
-        <div className="fixed top-0 left-0 right-5 z-20 h-40 w-full flex flex-wrap justify-between px-36 pt-28 pb-5 text-2xl font-medium bg-gray-400/25 backdrop-blur-3xl">
+        <div className="fixed top-0 left-0 right-5 z-20 md:h-40 xs:h-36 w-full flex justify-between md:px-36 xs:px-3 md:pt-28 xs:pt-24 pb-5 md:text-lg xs:text-sm font-medium bg-gray-400/25 backdrop-blur-3xl">
 
         <div>
-          <label className='text-white mr-5'>Safety:</label>
-          <select className='mr-16 rounded-md text-xl py-1 px-1 cursor-pointer lg:mb-0 xs:mb-5'>
+          <label className='text-white md:mr-5 xs:mr-1'>Safety:</label>
+          <select className='rounded-md py-1 px-1 cursor-pointer'>
             <option>Any</option>
             <option>Phishing</option>
             <option>Adware</option>
@@ -91,8 +91,8 @@ export default function Navbar() {
           </div>
 
           <div>
-          <label className='mr-5 text-white'>Type:</label>
-          <select className='rounded-md text-xl py-1 px-1 cursor-pointer'>
+          <label className='text-white md:mr-5 xs:mr-1'>Type:</label>
+          <select className='rounded-md py-1 px-1 cursor-pointer'>
             <option value="">Any</option>
             <option value="">Common Website</option>
             <option value="">Social Media</option>
@@ -103,6 +103,11 @@ export default function Navbar() {
           </select>
           </div>
 
+        </div>
+        <div className="md:hidden inline-block relative top-40 left-1/3">                  
+                    <span className='py-3'>
+                        <ConnectButton/>
+                    </span>
         </div>
         </>
     );

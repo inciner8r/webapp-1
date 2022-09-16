@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
   return (<>
   <div className='backgroundImage'></div>
+  <div className='backgroundImage2'></div>
   <WagmiConfig client={wagmiClient}>
   <RainbowKitProvider chains={chains}>
   <ApolloProvider client={client}>
