@@ -5,7 +5,6 @@ const Home: NextPage = (p:any) => {
   return (
     <>
       <Content/>
-
     </>
   )
 }
