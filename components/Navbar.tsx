@@ -34,12 +34,12 @@ export default function Navbar(this: any) {
 
     return (
         <>
-            <nav className="w-full fixed top-0 left-0 z-30 shadow bg-white dark:bg-black">
+            <nav className="w-full fixed top-0 left-0 z-30 shadow bg-white dark:bg-zinc-900">
                 <div className="justify-around px-4 py-1 mx-5 lg:max-w-full md:items-center md:flex md:px-1">
                     <div>
                         <div className="flex items-center justify-between py-3 md:py-5 md:block">
                             <Link href="/myreviews">
-                                <h1 className="NetSepio text-4xl font-extrabold text-black dark:text-white cursor-pointer">
+                                <h1 className="NetSepio text-4xl font-extrabold text-black dark:text-white cursor-pointer pr-10 border-r-4 border-black dark:border-white">
                                     <img src="/icon-dark-transparent.png" alt="NetSepio Logo" className="h-10 inline-block mr-3 dark:hidden" />
                                     <img src="/icon-light-transparent.png" alt="NetSepio Logo" className="h-10 hidden dark:inline-block mr-3" />
                                     NetSepio
@@ -88,10 +88,10 @@ export default function Navbar(this: any) {
                             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"
                                 }`} >
                             <ul className="items-center justify-center space-y-8 md:flex md:space-x-12 md:space-y-0 nav-items-bg md:pb-0 xs:pb-8">
-                                <li className="text-black dark:text-white text-xl hover:text-orange-600 md:hover:scale-110 duration-500 xs:pt-8 md:pt-0 md:border-none xs:border-t-2 xs:border-t-black xs:dark:border-t-white nav-items ">
-                                    <Link href="/#">Explorer</Link>
+                                <li className="text-black dark:text-white text-xl md:hover:scale-110 duration-500 xs:pt-8 md:pt-0 md:border-none xs:border-t-2 xs:border-t-black xs:dark:border-t-white nav-items ">
+                                    <Link href="/explorer">Explorer</Link>
                                 </li>
-                                <li className="text-black dark:text-white text-xl hover:text-orange-600 md:hover:scale-110 duration-500 nav-items">
+                                <li className="text-black dark:text-white text-xl md:hover:scale-110 duration-500 nav-items">
                                     <Link href="/myreviews"> My Reviews </Link>
                                 </li>
                             </ul>
@@ -112,7 +112,7 @@ export default function Navbar(this: any) {
                 </div>
             </nav>
 
-            <div className="flex justify-start ml-5 mr-14 px-1 relative top-28 left-10">
+            <div className="flex justify-start px-1 relative top-28 left-1">
 
                 <div className="button-2 md:hidden">
                     <span className='py-3'>
@@ -120,8 +120,8 @@ export default function Navbar(this: any) {
                     </span>
                 </div>
 
-                <div>
-                    <input type="search" placeholder="Search" className="border-none shadow-md px-3 py-1 md:w-72 xs:w-40 ml-28 md:mt-5 xs:mt-1 md:mr-32 rounded-full" />
+                <div className="md:ml-auto md:mr-auto xs:ml-0 xs:mr-0">
+                    <input type="search" placeholder="Search..." className="border-none shadow-md pl-10 pr-3 py-2 md:w-96 xs:w-40 ml-2 md:mt-5 xs:mt-1 rounded-full text-xl" />
                 </div>
 
             </div>

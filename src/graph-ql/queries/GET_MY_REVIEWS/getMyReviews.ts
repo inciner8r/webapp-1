@@ -15,5 +15,6 @@ export const GET_MY_REVIEWS = gql`
       category
       siteTag
       metaDataUri
+      createdAt
   }
 }`

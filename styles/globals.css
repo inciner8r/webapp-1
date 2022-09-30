@@ -68,8 +68,9 @@
 }
 
 @keyframes card-move {
-    0%{ margin-left: -600px; }
-    100%{ margin-left: 0; }
+    0%{ transform: translateX(0); }
+    50%{ transform: translateX(2); }
+    100%{ transform: translateX(4); }
 }
 
 

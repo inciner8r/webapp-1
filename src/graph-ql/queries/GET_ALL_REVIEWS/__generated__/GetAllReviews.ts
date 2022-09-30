@@ -4,18 +4,18 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetMyReviews
+// GraphQL query operation: GetAllReviews
 // ====================================================
 
-export interface GetMyReviews_reviews_reviewBy {
+export interface GetAllReviews_reviews_reviewBy {
   __typename: "User";
   id: string;
 }
 
-export interface GetMyReviews_reviews {
+export interface GetAllReviews_reviews {
   __typename: "Review";
   id: string;
-  reviewBy: GetMyReviews_reviews_reviewBy;
+  reviewBy: GetAllReviews_reviews_reviewBy;
   domainAddress: string;
   siteSafety: string;
   siteType: string;
@@ -26,10 +26,6 @@ export interface GetMyReviews_reviews {
   createdAt: any;
 }
 
-export interface GetMyReviews {
-  reviews: GetMyReviews_reviews[];
-}
-
-export interface GetMyReviewsVariables {
-  reviewBy?: any | null;
+export interface GetAllReviews {
+  reviews: GetAllReviews_reviews[];
 }

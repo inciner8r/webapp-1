@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React, { useState } from 'react'
-import { GET_MY_REVIEWS } from '../../src/graph-ql/queries/GET_MY_REVIEWS/getMyReviews';
-import { GetMyReviews } from '../../src/graph-ql/queries/GET_MY_REVIEWS/__generated__/GetMyReviews';
+import { GET_ALL_REVIEWS } from '../../src/graph-ql/queries/GET_ALL_REVIEWS/getAllReviews';
+import { GetAllReviews } from '../../src/graph-ql/queries/GET_ALL_REVIEWS/__generated__/GetAllReviews';
 import {useAccount} from "wagmi"
 import Card from '../../components/Card';
 
@@ -12,16 +12,11 @@ const Content = () => {
     loading,
     data,
     error,
-  } = useQuery<GetMyReviews>(GET_MY_REVIEWS, {
+  } = useQuery<GetAllReviews>(GET_ALL_REVIEWS, {
     variables: {
       reviewBy:user?.address?.toLowerCase()
     },
   });
-
-  if(user?.address===undefined){
-    return <> <h1 className='h-screen flex flex-col justify-center text-black dark:text-white text-center text-4xl'>Please connect a wallet to get all your reviews ;)</h1> 
-    </>
-  }
 
   if (loading) {
     return <div className='text-center'>
@@ -29,7 +24,7 @@ const Content = () => {
     </div>  
   }
 
-  // console.log(data)
+//   console.log(data)
 
   return (
     <>

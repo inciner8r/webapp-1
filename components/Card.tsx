@@ -16,6 +16,11 @@ const Card = (p:Props) => {
   } 
   get(p.data.metaDataUri)
   }, [p.data.metaDataUri])
+
+  // const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]; 
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const time = new Date(p.data.createdAt*100)
+  const formatedTime = months[time.getMonth()] + " " + time.getDate() + ", [" + time.getHours() + ":" + time.getMinutes() + "]"
   
   return (
   <>
@@ -23,11 +28,12 @@ const Card = (p:Props) => {
         <a href="#" className='text-xl font-semibold block mb-1 text-blue-600 dark:text-white'>{p.data.domainAddress}</a> <br />
         <span className='border-b-2 border-black dark:border-gray-200 text-3xl font-medium text-black dark:text-gray-200'>N/A</span>
         <p className='my-4 text-xl font-normal text-gray-700 dark:text-gray-300'>{description}</p>
-        <div className='flex text-2xl font-medium mt-32'>
-        <button className='bg-sky-300 text-blue-800 py-1 px-3 rounded-3xl cursor-auto fixed bottom-5 left-5 font-semibold'>{p.data.siteSafety}</button>
-        <button className='bg-purple-400 text-purple-900 py-1 px-3 rounded-3xl cursor-auto fixed bottom-5 right-5 font-semibold'>{p.data.siteType}</button>
+        <div className='flex flex-col text-center text-xl font-medium mt-32'>
+        <button className='bg-sky-300 text-blue-800 py-1 px-3 my-1 rounded-3xl cursor-auto font-semibold fixed bottom-24'>{p.data.siteSafety}</button>
+        <button className='bg-purple-400 text-purple-900 py-1 px-3 my-2 rounded-3xl cursor-auto font-semibold fixed bottom-12'>{p.data.siteType}</button>
         </div>
-    </div>
+        <p className='text-black dark:text-white fixed bottom-5 right-5'>{formatedTime.toString()}</p>
+        </div>
     </>
   )
 }
