@@ -8,9 +8,9 @@ export const GET_MY_REVIEWS = gql`
     reviewBy {
       id
     }
-    domainAddress
-    siteSafety
-    siteType
+      domainAddress
+      siteSafety
+      siteType
       siteURL
       category
       siteTag

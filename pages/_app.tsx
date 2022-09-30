@@ -1,10 +1,12 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import {wagmiClient, Chains as chains} from '../walletConfig'
 import { WagmiConfig } from 'wagmi';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { ThemeProvider } from 'next-themes';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -12,8 +14,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     cache: new InMemoryCache(),
   });
   return (<>
-  <div className='backgroundImage'></div>
-  <div className='backgroundImage2'></div>
+  <ThemeProvider enableSystem={true} attribute='class'>
+
   <WagmiConfig client={wagmiClient}>
   <RainbowKitProvider chains={chains}>
   <ApolloProvider client={client}>
@@ -24,6 +26,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   </ApolloProvider>
   </RainbowKitProvider>
   </WagmiConfig>
+
+  <Footer/>
+
+  </ThemeProvider>
+
   </>)
 }
 
