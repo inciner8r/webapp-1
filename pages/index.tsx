@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
-import Content from './myreviews'
+import AllReviews from './explorer'
 
 const Home: NextPage = (p:any) => {
   return (
     <>
-      <Content/>
+      <AllReviews/>
     </>
   )
 }

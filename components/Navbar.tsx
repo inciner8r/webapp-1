@@ -39,7 +39,7 @@ export default function Navbar(this: any) {
                     <div>
                         <div className="flex items-center justify-between py-3 md:py-5 md:block">
                             <Link href="/myreviews">
-                                <h1 className="NetSepio text-4xl font-extrabold text-black dark:text-white cursor-pointer pr-10 border-r-4 border-black dark:border-white">
+                                <h1 className="NetSepio text-4xl font-extrabold text-black dark:text-white cursor-pointer pr-10 border-r-2 border-gray-200">
                                     <img src="/icon-dark-transparent.png" alt="NetSepio Logo" className="h-10 inline-block mr-3 dark:hidden" />
                                     <img src="/icon-light-transparent.png" alt="NetSepio Logo" className="h-10 hidden dark:inline-block mr-3" />
                                     NetSepio
@@ -121,7 +121,7 @@ export default function Navbar(this: any) {
                 </div>
 
                 <div className="md:ml-auto md:mr-auto xs:ml-0 xs:mr-0">
-                    <input type="search" placeholder="Search..." className="border-none shadow-md pl-10 pr-3 py-2 md:w-96 xs:w-40 ml-2 md:mt-5 xs:mt-1 rounded-full text-xl" />
+                    <input type="search" placeholder="Search..." className="border-2 dark:border-none pl-5 pr-3 py-2 md:w-96 xs:w-40 ml-2 md:mt-5 xs:mt-1 rounded-full text-xl" />
                 </div>
 
             </div>

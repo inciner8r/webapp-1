@@ -5,7 +5,7 @@ import { GetAllReviews } from '../../src/graph-ql/queries/GET_ALL_REVIEWS/__gene
 import {useAccount} from "wagmi"
 import Card from '../../components/Card';
 
-const Content = () => {
+const AllReviews = () => {
 
   let user = useAccount()
   const {
@@ -20,7 +20,7 @@ const Content = () => {
 
   if (loading) {
     return <div className='text-center'>
-      <img src="/loading.gif" alt="Loading" className='w-12 h-12 my-32 fixed top-1/3 left-1/2'/>
+      <img src="/loading.gif" alt="Loading" className='w-12 h-12 my-72 mx-auto'/>
     </div>  
   }
 
@@ -38,4 +38,4 @@ const Content = () => {
   )
 }
 
-export default Content
+export default AllReviews

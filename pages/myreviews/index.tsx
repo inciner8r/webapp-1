@@ -19,13 +19,16 @@ const Content = () => {
   });
 
   if(user?.address===undefined){
-    return <> <h1 className='h-screen flex flex-col justify-center text-black dark:text-white text-center text-4xl'>Please connect a wallet to get all your reviews ;)</h1> 
+    return <> <div className='flex h-screen'>
+    <img src="/astronot.gif" alt="Loading"/>
+    <h1 className='text-gray-600 dark:text-gray-300 text-center text-4xl my-auto mr-10'>Please connect a wallet to get all your reviews ;)</h1> 
+    </div>
     </>
   }
 
   if (loading) {
     return <div className='text-center'>
-      <img src="/loading.gif" alt="Loading" className='w-12 h-12 my-32 fixed top-1/3 left-1/2'/>
+      <img src="/loading.gif" alt="Loading" className='w-12 h-12 my-72 mx-auto'/>
     </div>  
   }
 
