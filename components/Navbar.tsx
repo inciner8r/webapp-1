@@ -38,7 +38,7 @@ export default function Navbar(this: any) {
                 <div className="justify-around px-4 py-1 mx-5 lg:max-w-full md:items-center md:flex md:px-1">
                     <div>
                         <div className="flex items-center justify-between py-3 md:py-5 md:block">
-                            <Link href="/myreviews">
+                            <Link href="/explorer">
                                 <h1 className="NetSepio text-4xl font-extrabold text-black dark:text-white cursor-pointer pr-10 border-r-2 border-gray-200">
                                     <img src="/icon-dark-transparent.png" alt="NetSepio Logo" className="h-10 inline-block mr-3 dark:hidden" />
                                     <img src="/icon-light-transparent.png" alt="NetSepio Logo" className="h-10 hidden dark:inline-block mr-3" />
