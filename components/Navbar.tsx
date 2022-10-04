@@ -34,7 +34,7 @@ export default function Navbar(this: any) {
 
     return (
         <>
-            <nav className="w-full fixed top-0 left-0 z-30 shadow bg-white dark:bg-zinc-900">
+            <nav className="w-full fixed top-0 left-0 z-30 border-b-2 dark:border-white/20 bg-white dark:bg-zinc-900">
                 <div className="justify-around px-4 py-1 mx-5 lg:max-w-full md:items-center md:flex md:px-1">
                     <div>
                         <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -94,20 +94,23 @@ export default function Navbar(this: any) {
                                 <li className="text-black dark:text-white text-xl md:hover:scale-110 duration-500 nav-items">
                                     <Link href="/myreviews"> My Reviews </Link>
                                 </li>
+                                <div className="pl-10">
+                                    {renderThemeChanger()}
+                                </div>
                             </ul>
                         </div>
                     </div>
-                    
+
                     <div className="hidden space-x-2 md:inline-block button-1">
                         <span className='py-3 dark:text-black'>
                             <ConnectButton />
                         </span>
                     </div>
 
-                    <div>
+                    {/* <div>
                     {renderThemeChanger()}
-                    </div>
-               
+                    </div> */}
+
 
                 </div>
             </nav>
