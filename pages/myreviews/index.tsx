@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { GET_MY_REVIEWS } from '../../src/graph-ql/queries/GET_MY_REVIEWS/getMyReviews';
 import { GetMyReviews } from '../../src/graph-ql/queries/GET_MY_REVIEWS/__generated__/GetMyReviews';
 import {useAccount} from "wagmi"
-import Card from '../../components/Card';
+import Card from '../../components/CardForMyReviews';
 
 const Content = () => {
 

@@ -9,8 +9,6 @@ export const GET_ALL_REVIEWS = gql`
       id
     }
       domainAddress
-      siteSafety
-      siteType
       siteURL
       category
       siteTag
