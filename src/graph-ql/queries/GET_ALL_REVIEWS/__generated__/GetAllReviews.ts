@@ -17,8 +17,6 @@ export interface GetAllReviews_reviews {
   id: string;
   reviewBy: GetAllReviews_reviews_reviewBy;
   domainAddress: string;
-  siteSafety: string;
-  siteType: string;
   siteURL: string;
   category: string;
   siteTag: string;

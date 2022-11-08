@@ -24,7 +24,7 @@ const Card = (p:Props) => {
   
   return (
   <>
-    <div className='card w-96 bg-gray-200 dark:bg-gray-400/25 p-5 m-5 rounded-2xl dark:backdrop-blur-3xl relative top-16 md:scale-90 md:hover:scale-100 duration-700'>
+    <div className='card w-96 bg-gray-200 dark:bg-gray-400/25 p-5 m-5 rounded-2xl dark:backdrop-blur-3xl relative top-16 md:scale-90 md:hover:scale-100 duration-500'>
         <a href="#" className='text-xl font-semibold block mb-1 text-blue-600 dark:text-white'>{p.data.domainAddress}</a> <br />
         <span className='border-b-2 border-black dark:border-gray-200 text-3xl font-medium text-black dark:text-gray-200'>N/A</span>
         <p className='my-4 text-xl font-normal text-gray-700 dark:text-gray-300'>{description}</p>

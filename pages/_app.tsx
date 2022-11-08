@@ -7,13 +7,18 @@ import {wagmiClient, Chains as chains} from '../walletConfig'
 import { WagmiConfig } from 'wagmi';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { ThemeProvider } from 'next-themes';
+import SearchFilter from '../components/SearchFilter';
+import SidebarFilter from '../components/SidebarFilter';
+import ReviwesState from '../context/reviews/ReviewsState';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
     uri: "https://query.graph.lazarus.network/subgraphs/name/NetSepio",
     cache: new InMemoryCache(),
   });
-  return (<>
+  return (
+  <>
+  <ReviwesState>
   <ThemeProvider enableSystem={true} attribute='class'>
 
   <WagmiConfig client={wagmiClient}>
@@ -22,7 +27,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   
   <Navbar/>
 
+  {/* <SearchFilter/> */}
+
+  {/* <div style={{display:'flex'}}> */}
   <Component {...pageProps} />
+  {/* <SidebarFilter/> */}
+  {/* </div> */}
   </ApolloProvider>
   </RainbowKitProvider>
   </WagmiConfig>
@@ -30,8 +40,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   <Footer/>
 
   </ThemeProvider>
-
-  </>)
+  </ReviwesState>
+  </>
+  )
 }
 
 export default MyApp

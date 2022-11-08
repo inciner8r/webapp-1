@@ -122,11 +122,6 @@ export default function Navbar(this: any) {
                         <ConnectButton />
                     </span>
                 </div>
-
-                <div className="md:ml-auto md:mr-auto xs:ml-0 xs:mr-0">
-                    <input type="search" placeholder="Search..." className="border-2 dark:border-none pl-5 pr-3 py-2 md:w-96 xs:w-40 ml-2 md:mt-5 xs:mt-1 rounded-full text-xl" />
-                </div>
-
             </div>
         </>
     );
