@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Profile from './Profile';
+import { WalletData } from '../modules/connect_to_metamask';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  walletData: WalletData | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ walletData }) => {
   return (
     <div className="navbar">
     <div className="flex-1">
@@ -14,9 +20,14 @@ const Navbar: React.FC = () => {
             More
             <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
           </button>
-          <ul className="p-2">
+          <ul className="-p-10">
             <li><Link to="/my-reviews" className='text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400'>My Reviews</Link></li>
             <li><Link to="/all-reviews" className='text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400'>All Reviews</Link></li>
+            <li><label htmlFor="my-modal" className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Profile</label></li>
+
+            <input type="checkbox" id="my-modal" className="modal-toggle" />
+            <div className="modal">{walletData && <Profile walletData={walletData} />}</div>
+
           </ul>
         </li>
       </ul>
@@ -26,7 +37,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-
-/*
-
-*/

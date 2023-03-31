@@ -6,14 +6,31 @@ declare global {
   }
 }
 
-export async function connectToMetamask(): Promise<string | null> {
+export interface WalletData {
+  walletAddress: string;
+  provider: ethers.providers.Web3Provider;
+  signer: ethers.Signer;
+  chainId: number;
+  balance: ethers.BigNumber;
+}
+
+export async function connectToMetamask(): Promise<{ walletAddress: string, provider: ethers.providers.Web3Provider, signer: ethers.Signer, chainId: number, balance: ethers.BigNumber } | null> {
   if (typeof window.ethereum !== 'undefined') {
     try {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const walletAddress = await signer.getAddress();
-      return walletAddress;
+      const chainId = await provider.getNetwork().then(network => network.chainId);
+      const balance = await provider.getBalance(walletAddress);
+
+      return {
+        walletAddress,
+        provider,
+        signer,
+        chainId,
+        balance
+      };
     } catch (error) {
       console.error('Error connecting to MetaMask:', error);
       return null;

@@ -11,6 +11,7 @@ interface ReviewCardProps {
     siteType: string;
     siteTag: string;
     siteSafety: string;
+    ipfsUrl: string;
   } | null;
 }
 
@@ -50,6 +51,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ metaData }) => {
                 <p className='mt-8 bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold text- rounded-lg p-2'>
                   <a href={metaData.siteUrl}>{metaData.domainAddress}</a>
                 </p>
+
                 <div className='grid grid-rows-2 grid-flow-col gap-4 mt-10 text-center'>
                   <button className="bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold rounded-lg p-2">{metaData.category}</button>
                   <button className="bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold rounded-lg p-2">{metaData.siteSafety}</button>
