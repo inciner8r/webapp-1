@@ -1,14 +1,15 @@
-// src/pages/AllReviews.tsx
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../Components/SearchBar';
 import ReviewContainer from '../Components/ReviewContainer';
 import { fetchMetadataURIAll, fetchMetadataURIBySiteURL } from '../modules/fetch_metadataURI_from_graphql';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
 import { ReviewCreated } from '../graphql/types';
+import Loader from '../Components/Loader';
 
 const AllReviews: React.FC = () => {
   const [reviews, setReviews] = useState<ReviewCreated[]>([]);
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -18,7 +19,8 @@ const AllReviews: React.FC = () => {
       }
     };
 
-    fetchReviews();
+    setLoading(true);
+    fetchReviews().finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -34,7 +36,8 @@ const AllReviews: React.FC = () => {
     };
 
     if (reviews.length > 0) {
-      fetchMetaData();
+      setLoading(true);
+      fetchMetaData().finally(() => setLoading(false));
     }
   }, [reviews]);
 
@@ -57,7 +60,7 @@ const AllReviews: React.FC = () => {
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      <ReviewContainer metaDataArray={metaDataArray} />
+      {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} />}
     </div>
   );
 };

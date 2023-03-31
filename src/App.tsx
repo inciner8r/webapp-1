@@ -15,7 +15,7 @@ const App: React.FC = () => {
           <Route path="/my-reviews" element={<MyReviews />} />
           <Route path="/" element={<AllReviews />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   );
