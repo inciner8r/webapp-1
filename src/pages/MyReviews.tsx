@@ -46,10 +46,10 @@ const MyReviews: React.FC = () => {
             <div className="px-5 mx-auto max-w-7xl">
                 <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
                     <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-6xl md:tracking-tight">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400">Protect Your Online Presence with NetSepio</span><br/>The Ultimate Cybersecurity Solution<br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400">Manage Your Reviews</span><br/>Securely Monitor and Manage Your Feedback<br/>
                     </h1>
                     <p className="px-0 mb-8 text-lg text-gray-300 md:text-xl lg:px-24">
-                        Say Goodbye to Malware and Scams with NetSepio - The Decentralized Cybersecurity Platform
+                    Monitor your submitted reviews with NetSepio, the decentralized cybersecurity platform designed to ensure the security and privacy of your online activities.
                     </p>
 
                     <div>

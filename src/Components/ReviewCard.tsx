@@ -18,9 +18,10 @@ interface ReviewCardProps {
   } | null;
   MyReviews?: boolean;
   review?: ReviewCreated;
+  onReviewDeleted?: () => void;
 }
 
-const ReviewCard: React.FC<ReviewCardProps> = ({ metaData, MyReviews = false }) => {
+const ReviewCard: React.FC<ReviewCardProps> = ({ metaData, MyReviews = false, onReviewDeleted }) => {
   const [showDescription, setShowDescription] = useState(false);
 
   if (!metaData) {
@@ -35,6 +36,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ metaData, MyReviews = false }) 
 
   const handleClick = () => {
     setShowDescription(!showDescription);
+  };
+
+  const handleDelete = () => {
+    if (onReviewDeleted) {
+      onReviewDeleted(); // Call the callback function when a review is deleted
+    }
   };
 
   return (
@@ -73,13 +80,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ metaData, MyReviews = false }) 
           >
             {showDescription ? 'Go Back' : 'Read More'}
           </button>
-
+          
           <div>
             {MyReviews && metaData.ipfsUrl ? (
-              <DeleteReview uri={metaData.ipfsUrl} id={metaData.id} onDelete={() => {}}/>
+              <DeleteReview uri={metaData.ipfsUrl} id={metaData.id} onDelete={handleDelete} />
             ) : null}
-          </div>           
-
+          </div>
 
         </div>
       </div>

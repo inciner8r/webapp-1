@@ -64,10 +64,10 @@ const AllReviews: React.FC = () => {
           <div className="px-5 mx-auto max-w-7xl">
               <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
                 <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-6xl md:tracking-tight">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400">Protect Your Online Presence with NetSepio</span><br/>The Ultimate Cybersecurity Solution<br/>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400">Explore All Reviews</span><br/>Strengthening Your Digital Defense<br/>
                 </h1>
                 <p className="px-0 mb-8 text-lg text-gray-300 md:text-xl lg:px-24">
-                    Say Goodbye to Malware and Scams with NetSepio - The Decentralized Cybersecurity Platform
+                  Browse through a wealth of verified website reviews on NetSepio, the decentralized platform built to help you choose the right solutions for a secure online presence.
                 </p>
 
                 <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">

@@ -1,7 +1,6 @@
 // /home/adimis/Desktop/Netsepio/webapp/src/Components/delete_review.tsx
 import React from 'react';
 import { deleteMyReview } from '../modules/delete_my_review';
-import { createIpfsUrl } from '../modules/ipfs_url_creator';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
 
 interface DeleteReviewProps {
@@ -12,7 +11,7 @@ interface DeleteReviewProps {
 
 export const DeleteReview: React.FC<DeleteReviewProps> = ({ uri, id, onDelete }) => {
   const handleDeleteReview = async () => {
-    const ipfsUrl = createIpfsUrl(uri);
+    const ipfsUrl = uri.replace('ipfs://', '');
     const metadata = await fetchMetadataFromIPFS(ipfsUrl, id);
     
     if (metadata) {
