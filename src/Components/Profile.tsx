@@ -1,20 +1,12 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { ethers } from 'ethers';
+import { connectToMetamask, checkWalletAuth } from '../modules/connect_to_metamask';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
-interface WalletData {
-  walletAddress: string;
-  provider: ethers.providers.Web3Provider;
-  signer: ethers.Signer;
-  chainId: number;
-  balance: ethers.BigNumber;
-}
+const Profile: React.FC = () => {
+  const walletData = useSelector((state: RootState) => state.wallet.walletData);
 
-interface ProfileProps {
-  walletData: WalletData;
-}
-
-const Profile: React.FC<ProfileProps> = ({ walletData }) => {
-  const { walletAddress, chainId, balance } = walletData;
   function getNetworkName(chainId: number): string {
     switch (chainId) {
       case 1:
@@ -53,6 +45,20 @@ const Profile: React.FC<ProfileProps> = ({ walletData }) => {
         return `Unknown Network (Chain ID: ${chainId})`;
     }
   }  
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!checkWalletAuth()) {
+        await connectToMetamask();
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (!walletData) {
+    return null;
+  }
   
   return (
     <div className="modal-box bg-black text-gray-200">
@@ -63,15 +69,15 @@ const Profile: React.FC<ProfileProps> = ({ walletData }) => {
       <div className="py-4">
         <div className="bg-gray-900 p-2 rounded-md mb-2">
           <p className="text-xs mb-1 text-green-200">Address</p>
-          <p className="font-bold text-sm truncate">{walletAddress}</p>
+          <p className="font-bold text-sm truncate">{walletData.walletAddress}</p>
         </div>
         <div className="flex justify-between items-center mb-2 mt-14">
           <p className="font-bold text-green-200">Balance</p>
-          <p>{ethers.utils.formatEther(balance)} ETH</p>
+          <p>{ethers.utils.formatEther(walletData.balance)} ETH</p>
         </div>
         <div className="flex justify-between items-center">
           <p className="font-bold text-green-200">Network</p>
-          <p>{getNetworkName(chainId)}</p>
+          <p>{getNetworkName(walletData.chainId)}</p>
         </div>
       </div>
       <div className="modal-action">

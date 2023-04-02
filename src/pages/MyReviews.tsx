@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import ReviewContainer from '../Components/ReviewContainer';
-import { WalletData } from '../modules/connect_to_metamask';
+import { connectToMetamask, checkWalletAuth } from '../modules/connect_to_metamask';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
 import { createIpfsUrl } from '../modules/ipfs_url_creator';
 import { fetchMetadataURIByUser } from '../modules/fetch_metadataURI_from_graphql';
 import Loader from '../Components/Loader';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
-interface MyReviewsProps {
-  walletData: WalletData | null;
-}
-
-const MyReviews: React.FC<MyReviewsProps> = ({ walletData }) => {
+const MyReviews: React.FC = () => {
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const walletData = useSelector((state: RootState) => state.wallet.walletData);
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      if (walletData) {
+  
+      if (!checkWalletAuth()) {
+        await connectToMetamask();
+      }
+  
+      if (walletData && walletData.walletAddress) {
         const walletAddress = walletData.walletAddress;
         const reviewCreateds = await fetchMetadataURIByUser(walletAddress);
         if (reviewCreateds) {
@@ -29,9 +33,10 @@ const MyReviews: React.FC<MyReviewsProps> = ({ walletData }) => {
           setMetaDataArray(allMetaData);
         }
       }
+  
       setLoading(false);
     }
-
+  
     fetchData();
   }, [walletData]);
 

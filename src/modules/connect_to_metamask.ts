@@ -1,4 +1,6 @@
 import { ethers } from 'ethers';
+import store from '../store';
+import { setWalletData } from '../actions/walletActions';
 
 declare global {
   interface Window {
@@ -8,13 +10,11 @@ declare global {
 
 export interface WalletData {
   walletAddress: string;
-  provider: ethers.providers.Web3Provider;
-  signer: ethers.Signer;
   chainId: number;
   balance: ethers.BigNumber;
 }
 
-export async function connectToMetamask(): Promise<{ walletAddress: string, provider: ethers.providers.Web3Provider, signer: ethers.Signer, chainId: number, balance: ethers.BigNumber } | null> {
+export async function connectToMetamask(): Promise<WalletData | null> {
   if (typeof window.ethereum !== 'undefined') {
     try {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -24,13 +24,18 @@ export async function connectToMetamask(): Promise<{ walletAddress: string, prov
       const chainId = await provider.getNetwork().then(network => network.chainId);
       const balance = await provider.getBalance(walletAddress);
 
-      return {
+      const walletData = {
         walletAddress,
-        provider,
-        signer,
         chainId,
         balance
       };
+
+      // Store the necessary data in the redux store
+      store.dispatch(setWalletData(walletData));
+      console.log("Wallet data stored in redux store.");
+
+      return walletData;
+
     } catch (error) {
       console.error('Error connecting to MetaMask:', error);
       return null;
@@ -39,4 +44,11 @@ export async function connectToMetamask(): Promise<{ walletAddress: string, prov
     console.error('MetaMask not detected. Please install MetaMask extension.');
     return null;
   }
+}
+
+export function checkWalletAuth(): boolean {
+  console.log("Checking if wallet is authenticated...");
+  const check = store.getState().wallet.walletData !== null;
+  console.log("Wallet authentication: ", check);
+  return check;
 }

@@ -1,13 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Profile from './Profile';
-import { WalletData } from '../modules/connect_to_metamask';
 
-interface NavbarProps {
-  walletData: WalletData | null;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ walletData }) => {
+const Navbar: React.FC = () => {
   return (
     <div className="navbar">
     <div className="flex-1">
@@ -26,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ walletData }) => {
             <li><label htmlFor="my-modal" className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Profile</label></li>
 
             <input type="checkbox" id="my-modal" className="modal-toggle" />
-            <div className="modal">{walletData && <Profile walletData={walletData} />}</div>
+            <div className="modal"><Profile/></div>
 
           </ul>
         </li>
