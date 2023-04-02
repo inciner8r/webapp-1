@@ -27,7 +27,7 @@ const MyReviews: React.FC = () => {
         const reviewCreateds = await fetchMetadataURIByUser(walletAddress);
         if (reviewCreateds) {
           const metaDataPromises = reviewCreateds.map((reviewCreated) =>
-            fetchMetadataFromIPFS(createIpfsUrl(reviewCreated.metadataURI)),
+            fetchMetadataFromIPFS(createIpfsUrl(reviewCreated.metadataURI),reviewCreated.id),
           );
           const allMetaData = await Promise.all(metaDataPromises);
           setMetaDataArray(allMetaData);
@@ -61,7 +61,7 @@ const MyReviews: React.FC = () => {
                 </div>
             </div>
         </section>
-      {loading ? (<Loader />) : (<ReviewContainer metaDataArray={metaDataArray} />)}
+      {loading ? (<Loader />) : (<ReviewContainer metaDataArray={metaDataArray} MyReviews={true}/>)}
     </div>
   );
 };

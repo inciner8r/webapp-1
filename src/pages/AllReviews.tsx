@@ -28,7 +28,7 @@ const AllReviews: React.FC = () => {
     const fetchMetaData = async () => {
       const metaDataPromises = reviews.map(async (review) => {
         const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
-        const metaData = await fetchMetadataFromIPFS(ipfsUrl);
+        const metaData = await fetchMetadataFromIPFS(ipfsUrl,review.id);
         return metaData;
       });
 
@@ -48,7 +48,7 @@ const AllReviews: React.FC = () => {
       setReviews(reviewResults);
       const metaDataPromises = reviewResults.map(async (review) => {
         const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
-        const metaData = await fetchMetadataFromIPFS(ipfsUrl);
+        const metaData = await fetchMetadataFromIPFS(ipfsUrl,review.id);
         return metaData;
       });
       const metaDataResults = await Promise.all(metaDataPromises);
@@ -77,7 +77,7 @@ const AllReviews: React.FC = () => {
           </div>
       </section>
       <SearchBar onSearch={handleSearch} />
-      {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} />}
+      {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
     </div>
   );
 };

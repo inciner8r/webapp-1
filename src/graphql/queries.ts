@@ -35,3 +35,11 @@ export const GET_REVIEWS_BY_SITE_URL = gql`
     }
   }
 `;
+
+export const DELETE_REVIEW = gql`
+  mutation DeleteReview($id: ID!) {
+    deleteReview(id: $id) {
+      id
+    }
+  }
+`;

@@ -1,6 +1,45 @@
+Fix issue in ReviewCard.tsx to render DeleteReview if MyReviews is true:
+
+## /home/adimis/Desktop/Netsepio/webapp/src/Components/delete_review.tsx
+// /home/adimis/Desktop/Netsepio/webapp/src/Components/delete_review.tsx
+import React from 'react';
+import { ReviewCreated } from '../graphql/types';
+import { deleteMyReview } from '../modules/delete_my_review';
+import { createIpfsUrl } from '../modules/ipfs_url_creator';
+import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
+
+interface DeleteReviewProps {
+  review: ReviewCreated;
+  onDelete: () => void;
+}
+
+export const DeleteReview: React.FC<DeleteReviewProps> = ({ review, onDelete }) => {
+  const handleDeleteReview = async () => {
+    const ipfsUrl = createIpfsUrl(review.metadataURI);
+    const metadata = await fetchMetadataFromIPFS(ipfsUrl);
+    
+    if (metadata) {
+      const success = await deleteMyReview(review.id);
+      if (success) {
+        onDelete();
+      } else {
+        console.error('Error deleting review');
+      }
+    } else {
+      console.error('Error fetching metadata from IPFS');
+    }
+  };
+
+  return (
+    <button onClick={handleDeleteReview}>
+      Delete Review
+    </button>
+  );
+};
+
+## /home/adimis/Desktop/Netsepio/webapp/src/Components/ReviewCard.tsx
 import React, { useState } from 'react';
 import { DeleteReview } from './delete_review';
-import { ReviewCreated } from '../graphql/types';
 
 interface ReviewCardProps {
   metaData: {
@@ -14,10 +53,8 @@ interface ReviewCardProps {
     siteTag: string;
     siteSafety: string;
     ipfsUrl: string;
-    id: string;
   } | null;
   MyReviews?: boolean;
-  review?: ReviewCreated;
 }
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ metaData, MyReviews = false }) => {
@@ -75,10 +112,13 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ metaData, MyReviews = false }) 
           </button>
 
           <div>
-            {MyReviews && metaData.ipfsUrl ? (
-              <DeleteReview uri={metaData.ipfsUrl} id={metaData.id} onDelete={() => {}}/>
-            ) : null}
-          </div>           
+            {MyReviews ? (
+              <DeleteReview/>
+            ) : (
+              <div>
+              </div>
+            )}
+          </div>         
 
 
         </div>
