@@ -27,7 +27,7 @@ const MyReviews: React.FC = () => {
         const reviewCreateds = await fetchMetadataURIByUser(walletAddress);
         if (reviewCreateds) {
           const metaDataPromises = reviewCreateds.map((reviewCreated) =>
-            fetchMetadataFromIPFS(createIpfsUrl(reviewCreated.metadataURI),reviewCreated.id),
+            fetchMetadataFromIPFS(createIpfsUrl(reviewCreated.metadataURI),reviewCreated.tokenId),
           );
           const allMetaData = await Promise.all(metaDataPromises);
           setMetaDataArray(allMetaData);

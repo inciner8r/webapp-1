@@ -1,4 +1,3 @@
-// /home/adimis/Desktop/Netsepio/webapp/src/Components/delete_review.tsx
 import React from 'react';
 import { deleteMyReview } from '../modules/delete_my_review';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
