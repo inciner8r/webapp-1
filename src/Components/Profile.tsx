@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { ethers } from 'ethers';
-import { connectToMetamask, checkWalletAuth } from '../modules/connect_to_metamask';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 
@@ -45,16 +43,6 @@ const Profile: React.FC = () => {
         return `Unknown Network (Chain ID: ${chainId})`;
     }
   }  
-
-  useEffect(() => {
-    async function fetchData() {
-      if (!checkWalletAuth()) {
-        await connectToMetamask();
-      }
-    }
-
-    fetchData();
-  }, []);
 
   if (!walletData) {
     return null;

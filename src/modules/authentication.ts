@@ -1,4 +1,5 @@
 import store from '../store';
+import { setJwtToken } from '../actions/walletActions';
 
 export interface FlowIdResponse {
     eula: string;
@@ -64,4 +65,30 @@ export const sendSignature = async () => {
         return error;
     }
 };
+
+export async function get_and_store_jwtToken(): Promise<boolean> {
+    try {
+        console.log('Getting JWT token...')
+        const jwtTokenResponse = await sendSignature();
+        console.log('JWT token response:', jwtTokenResponse);
+
+        // Access the token from the jwtToken response
+        const token = jwtTokenResponse.payload.token;
+
+        // Store the token in the redux store
+        store.dispatch(setJwtToken(token));
+        console.log("JWT token stored in redux store.");
+
+        // Return true if the token is successfully stored in Redux
+        return token;
+    } catch (error) {
+        console.error(error);
+        // Return false if there's an error storing the token in Redux
+        return false;
+    }
+}
   
+export function getJwtTokenFromStore(): string | null {
+    const jwtToken: string | null = store.getState().wallet.jwtToken;
+    return jwtToken;
+}

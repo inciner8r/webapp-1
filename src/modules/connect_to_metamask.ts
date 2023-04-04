@@ -1,7 +1,6 @@
 import { ethers } from 'ethers';
 import store from '../store';
-import { setWalletData, setJwtToken } from '../actions/walletActions';
-import { sendSignature } from './authentication'
+import { setWalletData } from '../actions/walletActions';
 
 declare global {
   interface Window {
@@ -36,22 +35,7 @@ export async function connectToMetamask(): Promise<WalletData | null> {
       // Store the necessary data in the redux store
       store.dispatch(setWalletData(walletData));
       console.log("Wallet data stored in redux store.");
-
-      const jwtToken = await sendSignature();
-      console.log('JWT token:', jwtToken)
-
-      // Store the tokenID in the redux store
-      console.log("JWT token being stored in redux store.")
-      store.dispatch(setJwtToken(jwtToken));
-      console.log("JWT token stored in redux store.")
-      
-      /* 
-      ## Code to get jwtToken from redux store:
-      
-      const jwttoken = store.getState().wallet.jwtToken;
-      console.log("JWT token from redux store:", jwttoken)
-      */
-      
+     
       return walletData;
 
     } catch (error) {
@@ -67,6 +51,8 @@ export async function connectToMetamask(): Promise<WalletData | null> {
 export function checkWalletAuth(): boolean {
   console.log("Checking if wallet is authenticated...");
   const check = store.getState().wallet.walletData !== null;
-  console.log("Wallet authentication: ", check);
-  return check;
+  const jwtCheck = store.getState().wallet.jwtToken !== null;
+  console.log("Wallet authentication: ", check && jwtCheck);
+  return check && jwtCheck;
 }
+

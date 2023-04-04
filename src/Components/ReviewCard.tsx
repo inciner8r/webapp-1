@@ -83,7 +83,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ metaData, MyReviews = false, on
           
           <div>
             {MyReviews && metaData.ipfsUrl ? (
-              <DeleteReview uri={metaData.ipfsUrl} id={metaData.id} onDelete={handleDelete} />
+              <>
+                <DeleteReview uri={metaData.ipfsUrl} id={metaData.id} onDelete={handleDelete} />
+              </>
             ) : null}
           </div>
 
