@@ -61,18 +61,18 @@ const Submit_review = () => {
 
   return (
     <div>
-      <label htmlFor="my-modal-3">
+      <label htmlFor="my-modal-3" className="cursor-pointer text-black">
         Submit Review
       </label>
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
 
       <div className="modal">
-        <div className="modal-box relative bg-black">
-          <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">
+        <div className="modal-box relative bg-gradient-to-r from-black via-gray-900 to-black shadow-xl shadow-green-400/30 p-8 rounded-lg">
+          <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2 text-green-300">
             ✕
           </label>
 
-          <h3 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400">Submit Your Review</h3>
+          <h3 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400 mb-6">Submit Your Review</h3>
           <p className="py-4 text-green-100">Fill out the following form to submit your review!</p>
           
           <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>

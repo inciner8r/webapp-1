@@ -5,7 +5,7 @@ import { fetchMetadataURIAll, fetchMetadataURIBySiteURL } from '../modules/fetch
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
 import { ReviewCreated } from '../graphql/types';
 import Loader from '../Components/Loader';
-import { Link } from 'react-router-dom';
+import ConnectWallet from '../Components/ConnectWalletButton';
 
 const AllReviews: React.FC = () => {
   const [reviews, setReviews] = useState<ReviewCreated[]>([]);
@@ -70,9 +70,7 @@ const AllReviews: React.FC = () => {
                   Browse through a wealth of verified website reviews on NetSepio, the decentralized platform built to help you choose the right solutions for a secure online presence.
                 </p>
 
-                <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
-                      <Link to="/my-reviews" className='inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-black bg-green-300 rounded-2xl sm:w-auto sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80'>My Reviews</Link>
-                </div>
+                <ConnectWallet />
               </div>
           </div>
       </section>

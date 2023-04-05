@@ -1,48 +1,39 @@
 import { ethers } from 'ethers';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { getNetworkName } from '../modules/Utils/utils';
+import { connectToMetamask } from '../modules/connect_to_metamask';
+import { get_and_store_jwtToken } from '../modules/authentication';
 
 const Profile: React.FC = () => {
-  const walletData = useSelector((state: RootState) => state.wallet.walletData);
+  // Function to connect to wallet
+  const connectWallet = async () => {
+      await connectToMetamask();
+      await get_and_store_jwtToken();
+  }
 
-  function getNetworkName(chainId: number): string {
-    switch (chainId) {
-      case 1:
-        return 'Ethereum Mainnet';
-      case 3:
-        return 'Ropsten Testnet';
-      case 4:
-        return 'Rinkeby Testnet';
-      case 5:
-        return 'Goerli Testnet';
-      case 42:
-        return 'Kovan Testnet';
-      case 80001:
-        return 'Polygon Mumbai Testnet';
-      case 137:
-        return 'Polygon Mainnet';
-      case 56:
-        return 'Binance Smart Chain Mainnet';
-      case 97:
-        return 'Binance Smart Chain Testnet';
-      case 100:
-        return 'xDAI Chain';
-      case 128:
-        return 'Huobi ECO Chain Mainnet';
-      case 256:
-        return 'Huobi ECO Chain Testnet';
-      case 43114:
-        return 'Avalanche Mainnet C-Chain';
-      case 43113:
-        return 'Avalanche Fuji Testnet C-Chain';
-      case 1666600000:
-        return 'Harmony Mainnet Shard 0';
-      case 1666700000:
-        return 'Harmony Testnet Shard 0';
-      default:
-        return `Unknown Network (Chain ID: ${chainId})`;
-    }
-  }  
+  // Get wallet data and jwtToken from Redux state
+  const walletData = useSelector((state: RootState) => state.wallet.walletData);
+  const jwtToken = useSelector((state: RootState) => state.wallet.jwtToken);
+  
+  if (!walletData || !jwtToken) {
+      return (
+        <div className="modal-box bg-black text-gray-200">
+        <label htmlFor="my-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+        <div className="flex justify-between items-center">
+          <h3 className="text-4xl text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-600 font-bold mb-2">Profile</h3>
+        </div>
+        <button onClick={connectWallet} className="bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold rounded-lg p-2 w-full text-center mt-5">
+          Connect Wallet
+        </button>
+        <div className="modal-action">
+          <label htmlFor="my-modal" className="bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold rounded-lg p-2 w-full text-center mt-5">
+            Close
+          </label>
+        </div>
+      </div>
+      )
+  }
 
   if (!walletData) {
     return null;
@@ -74,8 +65,7 @@ const Profile: React.FC = () => {
         </label>
       </div>
     </div>
-
-  );
+  )
 };
 
 export default Profile;

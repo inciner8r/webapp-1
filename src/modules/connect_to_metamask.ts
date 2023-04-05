@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import store from '../store';
-import { setWalletData } from '../actions/walletActions';
+import { setWalletData, deleteWalletData } from '../actions/walletActions';
 
 declare global {
   interface Window {
@@ -56,3 +56,8 @@ export function checkWalletAuth(): boolean {
   return check && jwtCheck;
 }
 
+export function deleteWalletDataFromStore(): void {
+  // Delete the Wallet Data from the Redux store
+  store.dispatch(deleteWalletData());
+  console.log("Wallet Data deleted from redux store.");
+}

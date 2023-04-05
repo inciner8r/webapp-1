@@ -1,5 +1,5 @@
 import store from '../store';
-import { setJwtToken } from '../actions/walletActions';
+import { setJwtToken, deleteJwtToken } from '../actions/walletActions';
 
 export interface FlowIdResponse {
     eula: string;
@@ -91,4 +91,9 @@ export async function get_and_store_jwtToken(): Promise<boolean> {
 export function getJwtTokenFromStore(): string | null {
     const jwtToken: string | null = store.getState().wallet.jwtToken;
     return jwtToken;
+}
+
+export function deleteJwtTokenFromStore(): void {
+    store.dispatch(deleteJwtToken());
+    console.log("JWT token deleted from redux store.");
 }

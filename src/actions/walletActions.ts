@@ -3,25 +3,55 @@ import { WalletData } from '../modules/connect_to_metamask';
 
 export const SET_WALLET_DATA = 'SET_WALLET_DATA';
 export const SET_JWT_TOKEN = 'SET_JWT_TOKEN';
+export const DELETE_JWT_TOKEN = 'DELETE_JWT_TOKEN';
+export const DELETE_WALLET_DATA = 'DELETE_WALLET_DATA';
+export const SET_USER_CONNECTION = 'SET_USER_CONNECTION';
+
+
+export interface DeleteJwtTokenAction {
+  type: typeof DELETE_JWT_TOKEN;
+}
 
 export interface SetWalletDataAction {
   type: typeof SET_WALLET_DATA;
-  payload: WalletData;
+  payload: WalletData | null; // Allow null as a valid value
 }
 
 export interface SetJwtTokenAction {
   type: typeof SET_JWT_TOKEN;
-  payload: string;
+  payload: string | null; // Allow null as a valid value
 }
 
-export type WalletActionTypes = SetWalletDataAction | SetJwtTokenAction;
+export interface SetUserConnectionAction {
+  type: typeof SET_USER_CONNECTION;
+  payload: boolean;
+}
 
-export const setWalletData = (walletData: WalletData): SetWalletDataAction => ({
+export interface DeleteWalletDataAction {
+  type: typeof DELETE_WALLET_DATA;
+}
+
+export type WalletActionTypes = SetUserConnectionAction | SetWalletDataAction | SetJwtTokenAction | DeleteJwtTokenAction | DeleteWalletDataAction;
+
+export const setWalletData = (walletData: WalletData | null): SetWalletDataAction => ({
   type: SET_WALLET_DATA,
   payload: walletData,
 });
 
-export const setJwtToken = (jwtToken: string): SetJwtTokenAction => ({
+export const setJwtToken = (jwtToken: string | null): SetJwtTokenAction => ({
   type: SET_JWT_TOKEN,
   payload: jwtToken,
+});
+
+export const setUserConnection = (userConnected: boolean ): SetUserConnectionAction => ({
+  type: SET_USER_CONNECTION,
+  payload: userConnected,
+});
+
+export const deleteJwtToken = (): DeleteJwtTokenAction => ({
+  type: DELETE_JWT_TOKEN,
+});
+
+export const deleteWalletData = (): DeleteWalletDataAction => ({
+  type: DELETE_WALLET_DATA,
 });

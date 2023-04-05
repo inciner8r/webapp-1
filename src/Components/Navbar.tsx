@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import Profile from './Profile';
+import netsepioLogo from '../assets/netsepio.png';
+import LogoutButton from './Logout';
 
 const Navbar: React.FC = () => {
   return (
     <div className="navbar">
     <div className="flex-1">
+      <img src={netsepioLogo} className="w-14 h-14" alt="Netsepio" />
       <a href="/" className="btn btn-ghost normal-case text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</a>
     </div>
     <div className="flex-none">
@@ -20,6 +23,7 @@ const Navbar: React.FC = () => {
             <li><label htmlFor="my-modal" className="bg-black z-10 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Profile</label></li>
             <input type="checkbox" id="my-modal" className="modal-toggle" />
             <div className="modal"><Profile/></div>
+            <li><LogoutButton/></li>
           </ul>
         </li>
       </ul>
