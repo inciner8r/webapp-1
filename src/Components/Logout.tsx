@@ -8,7 +8,7 @@ const LogoutButton: React.FC = () => {
   const handleLogout = () => {
     dispatch(deleteWalletData());
     dispatch(deleteJwtToken());
-    window.location.reload();
+    window.location.href = '/all-reviews';
   };
 
   return (
