@@ -77,13 +77,14 @@ const AllReviews: React.FC = () => {
             <p className="px-0 mb-8 text-lg text-gray-100 md:text-xl lg:px-24">
               Dive into a vast collection of authenticated website reviews on NetSepio - your trusted, decentralized platform for finding the perfect tools to bolster your online security.
             </p>
-  
-            <ConnectWallet />
+            <div className='mb-4 space-x-0 md:space-x-2 md:mb-8 inline-flex items-center justify-center w-full font-bold px-6 py-3 mb-2 text-lg text-black bg-green-300 rounded-2xl sm:w-auto sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80'>
+              <ConnectWallet button_text={"Connect Wallet"}/>
+            </div>
           </div>
         </div>
       </section>
       <SearchBar onSearch={handleSearch} />
-      {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false} />}
+      {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
     </div>
   );  
 };

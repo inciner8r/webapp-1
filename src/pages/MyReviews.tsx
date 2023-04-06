@@ -55,11 +55,11 @@ const MyReviews: React.FC = () => {
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400">Manage Your Reviews</span><br/>Securely Monitor and Manage Your Feedback<br/>
                     </h1>
                     <p className="px-0 mb-8 text-lg text-gray-300 md:text-xl lg:px-24">
-                    Monitor your submitted reviews with NetSepio, the decentralized cybersecurity platform designed to ensure the security and privacy of your online activities.
+                      Monitor your submitted reviews with NetSepio, the decentralized cybersecurity platform designed to ensure the security and privacy of your online activities.
                     </p>
                     <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <Link to="/all-reviews" className="inline-flex items-center font-bold justify-center w-full px-6 py-3 mb-2 text-lg text-black rounded-2xl sm:w-auto sm:mb-0 transition bg-green-400 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80">
-                            All Reviews
+                          All Reviews
                         </Link>
                         <button className='inline-flex items-center justify-center font-bold  w-full px-6 py-3 mb-2 text-lg text-black rounded-2xl sm:w-auto sm:mb-0 transition bg-base-100 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80'>
                           <SubmitReview/>
@@ -68,9 +68,7 @@ const MyReviews: React.FC = () => {
                 </div>
             </div>
       </section>
-
       {loading ? (<Loader />) : (<ReviewContainer metaDataArray={metaDataArray} MyReviews={true}/>)}
-
     </div>
   );
 };

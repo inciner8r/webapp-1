@@ -67,28 +67,25 @@ const Submit_review = () => {
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
   
       <div className="modal">
-        <div className="modal-box relative bg-gradient-to-br from-black to-gray-900 shadow-xl shadow-green-400/30 p-8 rounded-lg">
+        <div className="modal-box relative bg-black shadow-xl shadow-green-400/30 p-8 rounded-lg">
           <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2 text-green-300">
             ✕
           </label>
   
-          <h3 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400 mb-6">Submit Your Review</h3>
-          <p className="py-4 text-green-100">Fill out the following form to submit your review!</p>
+          <h3 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400 mb-3">Submit Your Review</h3>
+          <p className="mb-5 text-gray-300">Fill out the following form to submit your review!</p>
   
           <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
             <div className="mb-4">
-              <label htmlFor="title" className="text-green-200 block text-left mb-2 font-semibold">Title:</label>
-              <input type="text" id="title" className="w-full p-2 border rounded border-green-200 bg-black text-green-100" value={title} onChange={(e) => setTitle(e.target.value)} required />
+              <input type="text" id="title" className="w-full p-2 rounded shadow-md shadow-green-200/60  my-1 bg-black text-gray-300" placeholder='Enter Tile' value={title} onChange={(e) => setTitle(e.target.value)} required />
             </div>
   
             <div className="mb-4">
-              <label htmlFor="websiteUrl" className="text-green-200 block text-left mb-2 font-semibold">Website URL:</label>
-              <input type="url" id="websiteUrl" className="w-full p-2 border rounded border-green-200 bg-black text-green-100" value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)} required />
+              <input type="url" id="websiteUrl" className="w-full p-2 rounded shadow-md shadow-green-200/60  my-1 bg-black text-gray-300" placeholder='Enter Site URL' value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)} required />
             </div>
   
             <div className="mb-4">
-              <label htmlFor="siteType" className="text-green-200 block text-left mb-2 font-semibold">Site Type:</label>
-              <select id="siteType" className="w-full p-2 border rounded border-green-200 bg-black text-green-100" value={siteType} onChange={(e) => setSiteType(e.target.value)} required>
+              <select id="siteType" className="w-full p-2 rounded shadow-md shadow-green-200/60  my-1 bg-black text-gray-300" value={siteType} onChange={(e) => setSiteType(e.target.value)} required>
                 <option value="">Select Site Type</option>
                 <option value="Common Website">Common Website</option>
                 <option value="Software">Software</option>
@@ -99,8 +96,7 @@ const Submit_review = () => {
             </div>
   
             <div className="mb-4">
-              <label htmlFor="siteTag" className="text-green-200 block text-left mb-2 font-semibold">Site Tag:</label>
-              <select id="siteTag" className="w-full p-2 border rounded border-green-200 bg-black text-green-100" value={siteTag} onChange={(e) => setSiteTag(e.target.value)} required>
+              <select id="siteTag" className="w-full p-2 rounded shadow-md shadow-green-200/60  my-1 bg-black text-gray-300" value={siteTag} onChange={(e) => setSiteTag(e.target.value)} required>
                 <option value="">Select Site Tag</option>
                 <option value="Genuine">Genuine</option>
                 <option value="Hate">Hate</option>
@@ -111,8 +107,7 @@ const Submit_review = () => {
             </div> 
 
             <div className="mb-4">
-            <label htmlFor="siteType" className="text-green-200 block text-left mb-2 font-semibold">Site Safety:</label>
-            <select id="siteType" className="w-full p-2 border rounded border-green-200 bg-black text-green-100" value={siteSafety} onChange={(e) => setSiteSafety(e.target.value)} required>
+            <select id="siteType" className="w-full p-2 rounded shadow-md shadow-green-200/60  my-1 bg-black text-gray-300" value={siteSafety} onChange={(e) => setSiteSafety(e.target.value)} required>
               <option value="">Select Site Safety</option>
               <option value="Common Website">Safe</option>
               <option value="Software">Adware</option>
@@ -123,8 +118,7 @@ const Submit_review = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="description" className="text-green-200 block text-left mb-2 font-semibold">Description:</label>
-            <textarea id="description" className="w-full p-2 h-20 border rounded border-green-200 bg-black text-green-100" value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
+            <textarea id="description" className="w-full p-2 h-20 rounded shadow-md shadow-green-200/60  my-1 bg-black text-gray-300" placeholder='Write Something about your review...' value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
           </div>
 
           <button type="submit" className="w-full py-2 mt-2 text-lg text-black rounded-md font-bold text-3xl transition bg-green-400 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80">Submit</button>
