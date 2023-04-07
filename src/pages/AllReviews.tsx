@@ -97,7 +97,7 @@ const AllReviews: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="py-20"
+        className="py-10"
       >
       <section className="pt-12">
             <div className="px-5 mx-auto max-w-7xl">

@@ -10,7 +10,7 @@ const WalletNotFound = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <section className="pt-24 mb-10">
+      <section className="pt-20 mb-10">
         <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
             <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-6xl md:tracking-tight">
