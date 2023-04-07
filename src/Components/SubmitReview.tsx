@@ -3,6 +3,7 @@ import { storeMetaData, createReview } from '../modules/submit-review';
 import store from '../store';
 import Loader from './Loader';
 import {motion} from 'framer-motion'
+import { checkJwtToken } from '../modules/authentication';
 
 const Submit_review = () => {
   const [title, setTitle] = useState<string>('');
@@ -17,6 +18,43 @@ const Submit_review = () => {
 
   if (!walletData) {
     return <Loader />;
+  }
+
+  if (!checkJwtToken()) {
+    console.log('JWT token not found.');
+    return (
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <label htmlFor="my-modal-3" className="cursor-pointer text-black">
+        Submit Review
+      </label>
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+
+      <div className="modal">
+        <motion.div
+          className="modal-box relative bg-black shadow-xl shadow-green-400/30 p-8 rounded-lg"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2 text-green-300">
+            ✕
+          </label>
+
+          <div className="w-full h-full flex flex-col text-center justify-center items-center py-10">
+            <motion.h2
+              className="text-5xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400 text-center"
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              Sorry! <br/> <span className='text-xl font-semibold text-gray-700 text-center'> You can't submit your review right now! </span>
+            </motion.h2>
+          </div>
+  
+        </motion.div>
+      </div>
+      </motion.div>
+    );
   }
 
   const handleSubmit = async () => {

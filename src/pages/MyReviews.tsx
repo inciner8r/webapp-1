@@ -19,8 +19,6 @@ export interface WalletData {
 const MyReviews = () => {
   const { address, isConnecting, isDisconnected } = useAccount()
   const { data: signer } = useSigner()
-  console.log('address', address)
-  console.log('signer', signer)
 
   console.log('isConnecting', isConnecting)
   if (isConnecting) return <div><Loader/></div>
