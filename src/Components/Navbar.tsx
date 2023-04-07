@@ -71,7 +71,7 @@ export default function Header() {
           <div>
             <div className="flex flex-row items-center">
               <img src={netsepioLogo} alt="netsepio logo" className="h-12 w-12 mr-2"/>
-              <a href="/" className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</a>
+              <Link to="/" className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</Link>
             </div>
           </div>
         </Typography>
