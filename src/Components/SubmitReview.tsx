@@ -46,7 +46,7 @@ const Submit_review = () => {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              Sorry! <br/> <span className='text-xl font-semibold text-gray-700 text-center'> You can't submit your review right now! </span>
+              Sorry! <br/> <span className='text-xl font-medium text-gray-700 text-center'> You can't submit your review right now! </span>
             </motion.h2>
           </div>
   
