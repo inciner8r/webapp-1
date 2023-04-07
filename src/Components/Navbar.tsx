@@ -6,7 +6,6 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 
-import { Link } from 'react-router-dom';
 import netsepioLogo from '../assets/netsepio.png';
 import LogoutButton from './Logout';
 import ConnectWalletButton from './ConnectWallet';
@@ -77,7 +76,7 @@ export default function Header() {
           <div>
             <div className="flex flex-row items-center">
               <img src={netsepioLogo} alt="netsepio logo" className="h-12 w-12 mr-2"/>
-              <button onClick={navMain} className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</button>
+              <div onClick={navMain} className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</div>
             </div>
           </div>
         </Typography>
@@ -90,7 +89,7 @@ export default function Header() {
 
         <IconButton
           variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          className="ml-auto mb-5 h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
           ripple={false}
           onClick={() => setOpenNav(!openNav)}
         >
