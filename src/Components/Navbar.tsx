@@ -42,6 +42,7 @@ export default function Header() {
       >
         <button onClick={connectWallet} className="bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Your Reviews</button>
       </Typography>
+      {/*
       <Typography
         as="li"
         variant="small"
@@ -52,6 +53,7 @@ export default function Header() {
           All Reviews
         </Link>
       </Typography>
+      */}
       <Typography
         as="li"
         variant="small"
