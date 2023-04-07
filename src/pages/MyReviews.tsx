@@ -20,22 +20,18 @@ const MyReviews = () => {
   const { address, isConnecting, isDisconnected } = useAccount()
   const { data: signer } = useSigner()
 
-  console.log('isConnecting', isConnecting)
   if (isConnecting) return <div><Loader/></div>
 
-  console.log('isDisconnected', isDisconnected)
   if (isDisconnected) return <div><WalletNotFound/></div>
 
   const walletData = address;
   store.dispatch(setWalletData(walletData));
 
   if (checkWalletAuth() && !checkJwtToken()) {
-    console.log('Wallet Connected and JWT token not found.')
     // Function to generate {eula} and {flowID} using {walletAddress} from the gateway api.
     const askFlowId = async (address:string | undefined): Promise<FlowIdResponse> => {
       const walletData = address
       if (!walletData) {
-          console.error('User not connected to MetaMask');
           throw new Error('User not connected to MetaMask');
       }
       const walletAddress = walletData;
@@ -58,26 +54,21 @@ const MyReviews = () => {
         try {
             const { eula, flowId } = await askFlowId(address);
             const message = `${eula}${flowId}`;
-            console.log('message:', message)
 
             const walletData = address;
             
             if (!walletData) {
-            console.error('User not connected to MetaMask');
             return false;
             }
 
             const Signer = signer;
-            console.log("Signer from authentication:", Signer);
         
             // Check if Signer is not null or undefined
             if (!Signer) {
-              console.error("Signer is null or undefined");
               return false;
             }
         
             const signature = await Signer.signMessage(message);
-            console.log('signature:', signature)
 
             const requestOptions: RequestInit = {
             method: 'POST',
@@ -91,9 +82,7 @@ const MyReviews = () => {
             };
             const gateway = process.env.REACT_APP_DEV_GATEWAY_URL;
             const response = await fetch(`${gateway}/authenticate`, requestOptions);
-            console.log('response:', response)
             const tokenID_json = await response.json()
-            console.log('tokenID_json:', tokenID_json)
             return tokenID_json;
         } catch (error) {
             console.error('Error:', error);
@@ -104,14 +93,11 @@ const MyReviews = () => {
     // Driver function to get and store jwtToken in redux store.
     const get_and_store_jwtToken = async (): Promise<boolean> => {
         try {
-            console.log('Getting JWT token...')
             const jwtTokenResponse = await sendSignature(address);
-            console.log('JWT token response:', jwtTokenResponse);
     
             const token = jwtTokenResponse.payload.token;
     
             store.dispatch(setJwtToken(token));
-            console.log("JWT token stored in redux store.");
     
             return token;
         } catch (error) {
@@ -120,12 +106,11 @@ const MyReviews = () => {
         }
     }
 
-    console.log(get_and_store_jwtToken())
+    get_and_store_jwtToken()
 
   }
 
   if (!checkWalletAuth() && !checkJwtToken()) {
-    console.log("Wallet and JWT token not found.")
     return (
       <div>
         <WalletNotFound />

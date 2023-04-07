@@ -67,7 +67,6 @@ const AllReviews: React.FC = () => {
       });
       const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
       setMetaDataArray(metaDataResults);
-      console.log('metaDataArray: ', metaDataArray)
     } else {
       setMetaDataArray([]);
     }

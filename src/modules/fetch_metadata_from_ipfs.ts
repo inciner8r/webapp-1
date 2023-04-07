@@ -8,10 +8,8 @@ export async function fetchMetadataFromIPFS(ipfsUrl: string, id: string): Promis
       ipfsUrl: ipfsUrl,
       id: id,      
     }
-    console.log('Metadata fetched from IPFS:', data);
     return data;
   } catch (error) {
-    console.error('Error fetching metadata from IPFS:', error);
     return null;
   }
 }

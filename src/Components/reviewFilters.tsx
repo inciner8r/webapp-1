@@ -12,7 +12,6 @@ const FilterButton: React.FC<FilterButtonProps> = ({ onFilterChange }) => {
 
   const handleSiteSafety = (siteSafety: string) => {
     setSelectedSiteSafety(siteSafety);
-    console.log('siteSafety: ', siteSafety)
     onFilterChange(siteSafety);
   };
 

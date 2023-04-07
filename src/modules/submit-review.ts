@@ -44,9 +44,7 @@ interface ReviewType {
 
 export const createReview = async (data: ReviewType) => {
 	try {
-		console.log('data for create review', data)
         const token = await getJwtTokenFromStore();
-		console.log('jwtToken', token)
 		let response = await fetch(`${PUBLIC_GATEWAY_URL}/delegateReviewCreation`, {
 			method: 'POST',
 			headers: {
@@ -57,10 +55,8 @@ export const createReview = async (data: ReviewType) => {
 		});
 
 		let result = await response.json();
-		console.log('result', result)
 		return [result, null];
 	} catch (error) {
-		console.error(error);
 		return [null, error];
 	}
 };

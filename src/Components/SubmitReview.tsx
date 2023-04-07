@@ -21,7 +21,6 @@ const Submit_review = () => {
   }
 
   if (!checkJwtToken()) {
-    console.log('JWT token not found.');
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       <label htmlFor="my-modal-3" className="cursor-pointer text-black">
@@ -58,9 +57,7 @@ const Submit_review = () => {
   }
 
   const handleSubmit = async () => {
-    console.log('Submitting review...');
     const domainAddress = new URL(`${websiteUrl}`).hostname;
-    console.log('domainAddress: ', domainAddress);
     let metaData = {
       name: title,
       description: description,
@@ -72,11 +69,8 @@ const Submit_review = () => {
       siteTag: siteTag,
       siteSafety: siteSafety,
     };
-    console.log('metaData: ', metaData);
     let [CID] = await storeMetaData(metaData);
-    console.log('CID: ', CID);
     let metaDataUri = `ipfs://${CID}`.split(',')[0];
-    console.log('metaDataUri: ', metaDataUri);
 
     let reviewData = {
       category: category,
@@ -90,10 +84,8 @@ const Submit_review = () => {
     };
     
 
-    console.log('reviewData: ', reviewData);
     let [error] = await createReview(reviewData);
     if (error) {
-      console.log('error: ', error);
     } else {
       window.location.reload();
     }
