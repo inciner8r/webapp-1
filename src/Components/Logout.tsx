@@ -5,9 +5,20 @@ import { deleteWalletData, deleteJwtToken } from '../actions/walletActions';
 const LogoutButton: React.FC = () => {
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
+  const lockMetaMask = async () => {
+    if (window.ethereum && window.ethereum.provider) {
+      try {
+        await window.ethereum.provider.request({ method: 'wallet_lock' });
+      } catch (error) {
+        console.error('Error locking MetaMask:', error);
+      }
+    }
+  };
+
+  const handleLogout = async () => {
     dispatch(deleteWalletData());
     dispatch(deleteJwtToken());
+    await lockMetaMask();
     window.location.href = '/all-reviews';
   };
 

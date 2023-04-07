@@ -30,18 +30,19 @@ export const askFlowId = async (): Promise<FlowIdResponse> => {
 export const sendSignature = async () => {
     try {
         const { eula, flowId } = await askFlowId();
-        console.log('eula:', eula)
-        console.log('flowId:', flowId)
         const message = `${eula}${flowId}`;
         console.log('message:', message)
+
         const walletData = store.getState().wallet.walletData;
+        
         if (!walletData) {
         console.error('User not connected to MetaMask');
         return false;
         }
 
         const signer = walletData.signer;
-        console.log('signer:', signer)
+        console.log('Signer from authentication:', signer)
+
         const signature = await signer.signMessage(message);
         console.log('signature:', signature)
         const requestOptions: RequestInit = {
@@ -72,18 +73,14 @@ export async function get_and_store_jwtToken(): Promise<boolean> {
         const jwtTokenResponse = await sendSignature();
         console.log('JWT token response:', jwtTokenResponse);
 
-        // Access the token from the jwtToken response
         const token = jwtTokenResponse.payload.token;
 
-        // Store the token in the redux store
         store.dispatch(setJwtToken(token));
         console.log("JWT token stored in redux store.");
 
-        // Return true if the token is successfully stored in Redux
         return token;
     } catch (error) {
         console.error(error);
-        // Return false if there's an error storing the token in Redux
         return false;
     }
 }
@@ -91,6 +88,13 @@ export async function get_and_store_jwtToken(): Promise<boolean> {
 export function getJwtTokenFromStore(): string | null {
     const jwtToken: string | null = store.getState().wallet.jwtToken;
     return jwtToken;
+}
+
+export function checkJwtToken(): boolean {
+    console.log("Checking if JWT token is stored...");
+    const check = store.getState().wallet.jwtToken !== null;
+    console.log("JWT token stored: ", check);
+    return check;
 }
 
 export function deleteJwtTokenFromStore(): void {

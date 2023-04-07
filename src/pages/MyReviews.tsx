@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import SubmitReview from '../Components/SubmitReview';
-import { get_and_store_jwtToken } from '../modules/authentication';
+import { get_and_store_jwtToken, checkJwtToken } from '../modules/authentication';
 
 const MyReviews: React.FC = () => {
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
@@ -25,6 +25,9 @@ const MyReviews: React.FC = () => {
   
       if (!checkWalletAuth()) {
         await connectToMetamask();
+      }
+
+      if (!checkJwtToken()) {
         await get_and_store_jwtToken();
       }
   

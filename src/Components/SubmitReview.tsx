@@ -47,8 +47,9 @@ const Submit_review = () => {
       siteTag: siteTag,
       siteSafety: siteSafety,
       metaDataUri: metaDataUri,
-      voter: walletData.walletAddress,
+      voter: walletData.walletAddress || '',
     };
+    
 
     console.log('reviewData: ', reviewData);
     let [error] = await createReview(reviewData);

@@ -1,36 +1,131 @@
+import { useState, useEffect } from "react";
+import {
+  Navbar,
+  MobileNav,
+  Typography,
+  IconButton,
+} from "@material-tailwind/react";
+
 import { Link } from 'react-router-dom';
-import Profile from './Profile';
 import netsepioLogo from '../assets/netsepio.png';
 import LogoutButton from './Logout';
-import ConnectWallet from './ConnectWalletButton';
+import ConnectWalletButton from './ConnectWallet';
+import { connectToMetamask,checkWalletAuth } from '../modules/connect_to_metamask';
+ 
+export default function Header() {
+  const [openNav, setOpenNav] = useState(false);
+ 
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
+  }, []);
 
-const Navbar: React.FC = () => {
+  const connectWallet = async () => {
+    if (!checkWalletAuth()) {
+      await connectToMetamask();
+    }
+    window.location.href = '/my-reviews';
+  }
+ 
+  const navList = (
+    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <button onClick={connectWallet} className="bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Your Reviews</button>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link to="/all-reviews" className='bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400'>
+          All Reviews
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal font-bold"
+      >
+        <LogoutButton/>
+      </Typography>
+    </ul>
+  );
+ 
   return (
-    <div className="navbar">
-    <div className="flex-1">
-      <img src={netsepioLogo} className="w-14 h-14" alt="Netsepio" />
-      <a href="/" className="btn btn-ghost normal-case text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</a>
-    </div>
-    <div className="flex-none">
-      <ul className="menu menu-horizontal px-1">
-        <li tabIndex={0}>
-          <button className='bg-gradient-to-r from-green-200 to-green-400 font-semibold'>
-            More
-            <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
-          </button>
-          <ul className="bg-black -p-10">
-            <li className='bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400'><ConnectWallet button_text={"Connect"}/></li>
-            <li><Link to="/all-reviews" className='bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400'>All Reviews</Link></li>
-            <li><label htmlFor="my-modal" className="bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Profile</label></li>
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
-            <div className="modal font-bold"><Profile/></div>
-            <li className='font-bold'><LogoutButton/></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    </div>
-  )
-};
+    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 bg-black">
+      <div className="container mx-auto flex items-center justify-between">
+        <Typography
+          as="a"
+          href="#"
+          variant="small"
+          className="mr-4 cursor-pointer py-1.5 font-bold"
+        >
+          <div>
+            <a href="/" className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</a>
+          </div>
+        </Typography>
+        
+        <button className="hidden lg:inline-block p-1 md:ml-5">
+          <div><ConnectWalletButton/></div>
+        </button>
 
-export default Navbar;
+        <div className="hidden lg:block">{navList}</div>
+
+        <IconButton
+          variant="text"
+          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          ripple={false}
+          onClick={() => setOpenNav(!openNav)}
+        >
+          {openNav ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              className="h-6 w-6"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          )}
+        </IconButton>
+      </div>
+      <MobileNav open={openNav}>
+        <div className="container mx-auto">
+          {navList}
+          <div className="mx-auto">
+            <ConnectWalletButton/>
+          </div>
+        </div>
+      </MobileNav>
+    </Navbar>
+  );
+}

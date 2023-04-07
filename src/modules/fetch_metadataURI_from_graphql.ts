@@ -1,5 +1,5 @@
 import { client } from '../graphql/client';
-import { GET_ALL_REVIEWS, GET_ALL_REVIEWS_BY_USER, GET_REVIEWS_BY_SITE_URL } from '../graphql/queries';
+import { GET_ALL_REVIEWS, GET_ALL_REVIEWS_BY_USER, GET_REVIEWS_BY_SITE_URL, GET_REVIEWS_BY_SITE_SAFETY, GET_REVIEWS_BY_SITE_TYPE, GET_REVIEWS_BY_SITE_TAG } from '../graphql/queries';
 import { ReviewCreated } from '../graphql/types';
 
 export async function fetchMetadataURIByUser(walletAddress: string): Promise<ReviewCreated[] | null> {
@@ -34,6 +34,45 @@ export async function fetchMetadataURIBySiteURL(siteURL: string): Promise<Review
     return data.reviewCreateds;
   } catch (error) {
     console.error('Error fetching metadata URI by site URL:', error);
+    return null;
+  }
+}
+
+export async function fetchMetadataURIBySiteSafety(siteSafety: string): Promise<ReviewCreated[] | null> {
+  try {
+    const { data } = await client.query({
+      query: GET_REVIEWS_BY_SITE_SAFETY,
+      variables: { siteSafety },
+    });
+    return data.reviewCreateds;
+  } catch (error) {
+    console.error('Error fetching metadata URI by site Safety:', error);
+    return null;
+  }
+}
+
+export async function fetchMetadataURIBySiteType(siteType: string): Promise<ReviewCreated[] | null> {
+  try {
+    const { data } = await client.query({
+      query: GET_REVIEWS_BY_SITE_TYPE,
+      variables: { siteType },
+    });
+    return data.reviewCreateds;
+  } catch (error) {
+    console.error('Error fetching metadata URI by siteType:', error);
+    return null;
+  }
+}
+
+export async function fetchMetadataURIBySiteTag(siteTag: string): Promise<ReviewCreated[] | null> {
+  try {
+    const { data } = await client.query({
+      query: GET_REVIEWS_BY_SITE_TAG,
+      variables: { siteTag },
+    });
+    return data.reviewCreateds;
+  } catch (error) {
+    console.error('Error fetching metadata URI by siteTag:', error);
     return null;
   }
 }

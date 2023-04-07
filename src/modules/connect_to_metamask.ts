@@ -4,7 +4,7 @@ import { setWalletData, deleteWalletData } from '../actions/walletActions';
 
 declare global {
   interface Window {
-    ethereum: any;
+    ethereum?: any;
   }
 }
 export interface WalletData {
@@ -51,9 +51,9 @@ export async function connectToMetamask(): Promise<WalletData | null> {
 export function checkWalletAuth(): boolean {
   console.log("Checking if wallet is authenticated...");
   const check = store.getState().wallet.walletData !== null;
-  const jwtCheck = store.getState().wallet.jwtToken !== null;
-  console.log("Wallet authentication: ", check && jwtCheck);
-  return check && jwtCheck;
+  //const jwtCheck = store.getState().wallet.jwtToken !== null;
+  console.log("Wallet authentication: ", check);
+  return check;
 }
 
 export function deleteWalletDataFromStore(): void {
