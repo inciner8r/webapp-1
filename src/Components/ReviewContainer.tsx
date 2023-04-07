@@ -1,6 +1,7 @@
 // ReviewContainer.tsx
 import React from 'react';
 import ReviewCard from './ReviewCard';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface MyReviewContainerProps {
   metaDataArray: any[];
@@ -14,30 +15,45 @@ const ReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, MyRe
   };
 
   const renderNoReviewsFound = () => (
-    <div className="w-full text-center py-10">
-      <h2 className="text-2xl font-semibold text-gray-700">No Reviews Found</h2>
-    </div>
+    <motion.div
+      className="w-full text-center py-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h2 className="text-4xl font-semibold text-gray-700">No Reviews Found</h2>
+    </motion.div>
   );
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8">
+      <motion.div
+        className="container mx-auto px-4 py-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         {metaDataArray.length === 0 ? (
           renderNoReviewsFound()
         ) : (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <motion.div
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             {metaDataArray.map((metaData, index) => (
-              <div key={index} className="py-2 flex">
+              <motion.div key={index} className="py-2 flex">
                 <ReviewCard
                   metaData={metaData}
                   MyReviews={MyReviews}
                   onReviewDeleted={handleReviewDeleted}
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </>
   );
 };

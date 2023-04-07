@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { storeMetaData, createReview } from '../modules/submit-review';
 import store from '../store';
 import Loader from './Loader';
+import {motion} from 'framer-motion'
 
 const Submit_review = () => {
   const [title, setTitle] = useState<string>('');
@@ -47,7 +48,7 @@ const Submit_review = () => {
       siteTag: siteTag,
       siteSafety: siteSafety,
       metaDataUri: metaDataUri,
-      voter: walletData.walletAddress || '',
+      voter: walletData || '',
     };
     
 
@@ -61,18 +62,23 @@ const Submit_review = () => {
   };
 
   return (
-    <div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       <label htmlFor="my-modal-3" className="cursor-pointer text-black">
         Submit Review
       </label>
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-  
+
       <div className="modal">
-        <div className="modal-box relative bg-black shadow-xl shadow-green-400/30 p-8 rounded-lg">
+        <motion.div
+          className="modal-box relative bg-black shadow-xl shadow-green-400/30 p-8 rounded-lg"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2 text-green-300">
             ✕
           </label>
-  
+
           <h3 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400 mb-3">Submit Your Review</h3>
           <p className="mb-5 text-gray-300">Fill out the following form to submit your review!</p>
   
@@ -125,9 +131,9 @@ const Submit_review = () => {
           <button type="submit" className="w-full py-2 mt-2 text-lg text-black rounded-md font-bold text-3xl transition bg-green-400 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80">Submit</button>
 
         </form>
-      </div>
+      </motion.div>
     </div>
-  </div>
+  </motion.div>
 );
 };
 

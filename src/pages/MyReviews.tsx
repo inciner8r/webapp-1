@@ -1,79 +1,145 @@
-import React, { useEffect, useState } from 'react';
-import ReviewContainer from '../Components/ReviewContainer';
-import { connectToMetamask, checkWalletAuth } from '../modules/connect_to_metamask';
-import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
-import { createIpfsUrl } from '../modules/ipfs_url_creator';
-import { fetchMetadataURIByUser } from '../modules/fetch_metadataURI_from_graphql';
+import { checkWalletAuth } from '../modules/connect_to_metamask';
+import { checkJwtToken } from '../modules/authentication';
+import { useAccount, useSigner } from 'wagmi';
+import { setJwtToken, setWalletData } from '../actions/walletActions';
+import store from '../store';
 import Loader from '../Components/Loader';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import SubmitReview from '../Components/SubmitReview';
-import { get_and_store_jwtToken, checkJwtToken } from '../modules/authentication';
+import WalletNotFound from '../Components/MyReviews/walletNotFound';
+import Main from '../Components/MyReviews/main';
 
-const MyReviews: React.FC = () => {
-  const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  // State to check if the user is connected to Metamask:
-  const walletData = useSelector((state: RootState) => state.wallet.walletData);
+export interface FlowIdResponse {
+  eula: string;
+  flowId: string;
+}
 
-  const walletAddress = walletData?.walletAddress;
+export interface WalletData {
+  walletAddress: string | undefined;
+}
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-  
-      if (!checkWalletAuth()) {
-        await connectToMetamask();
+const MyReviews = () => {
+  const { address, isConnecting, isDisconnected } = useAccount()
+  const { data: signer } = useSigner()
+  console.log('address', address)
+  console.log('signer', signer)
+
+  console.log('isConnecting', isConnecting)
+  if (isConnecting) return <div><Loader/></div>
+
+  console.log('isDisconnected', isDisconnected)
+  if (isDisconnected) return <div><WalletNotFound/></div>
+
+  const walletData = address;
+  store.dispatch(setWalletData(walletData));
+
+  if (checkWalletAuth() && !checkJwtToken()) {
+    console.log('Wallet Connected and JWT token not found.')
+    // Function to generate {eula} and {flowID} using {walletAddress} from the gateway api.
+    const askFlowId = async (address:string | undefined): Promise<FlowIdResponse> => {
+      const walletData = address
+      if (!walletData) {
+          console.error('User not connected to MetaMask');
+          throw new Error('User not connected to MetaMask');
       }
+      const walletAddress = walletData;
+      //const gateway = process.env.REACT_APP_DEV_GATEWAY_URL;
+      const gateway = process.env.REACT_APP_GATEWAY_URL;
+      const response = await fetch(`${gateway}/flowid?walletAddress=${walletAddress}`);
+      const json = await response.json();
+      if (response.status !== 200) {
+          throw new Error(json.message);
+      }
+      const data = {
+          eula: json.payload.eula,
+          flowId: json.payload.flowId,
+      };
+      return data;
+    };
 
-      if (!checkJwtToken()) {
-        await get_and_store_jwtToken();
-      }
-  
-      if (walletAddress) {
-        const reviewCreateds = await fetchMetadataURIByUser(walletAddress);
-        if (reviewCreateds) {
-          const metaDataPromises = reviewCreateds.map((reviewCreated) =>
-            fetchMetadataFromIPFS(createIpfsUrl(reviewCreated.metadataURI), reviewCreated.tokenId),
-          );
-          const allMetaData = await Promise.all(metaDataPromises);
-          setMetaDataArray(allMetaData);
-        }
-      }
-  
-      setLoading(false);
-    }
-  
-    fetchData();
-  }, [walletAddress]); // Change the dependency to walletAddress
-  
+    // Function to get {tokenID} from the gateway api.
+    const sendSignature = async (address:string | undefined) => {
+        try {
+            const { eula, flowId } = await askFlowId(address);
+            const message = `${eula}${flowId}`;
+            console.log('message:', message)
+
+            const walletData = address;
+            
+            if (!walletData) {
+            console.error('User not connected to MetaMask');
+            return false;
+            }
+
+            const Signer = signer;
+            console.log("Signer from authentication:", Signer);
         
+            // Check if Signer is not null or undefined
+            if (!Signer) {
+              console.error("Signer is null or undefined");
+              return false;
+            }
+        
+            const signature = await Signer.signMessage(message);
+            console.log('signature:', signature)
+
+            const requestOptions: RequestInit = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                flowId,
+                signature,
+            }),
+            };
+            const gateway = process.env.REACT_APP_DEV_GATEWAY_URL;
+            const response = await fetch(`${gateway}/authenticate`, requestOptions);
+            console.log('response:', response)
+            const tokenID_json = await response.json()
+            console.log('tokenID_json:', tokenID_json)
+            return tokenID_json;
+        } catch (error) {
+            console.error('Error:', error);
+            return error;
+        }
+    };
+
+    // Driver function to get and store jwtToken in redux store.
+    const get_and_store_jwtToken = async (): Promise<boolean> => {
+        try {
+            console.log('Getting JWT token...')
+            const jwtTokenResponse = await sendSignature(address);
+            console.log('JWT token response:', jwtTokenResponse);
+    
+            const token = jwtTokenResponse.payload.token;
+    
+            store.dispatch(setJwtToken(token));
+            console.log("JWT token stored in redux store.");
+    
+            return token;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
+
+    console.log(get_and_store_jwtToken())
+
+  }
+
+  if (!checkWalletAuth() && !checkJwtToken()) {
+    console.log("Wallet and JWT token not found.")
+    return (
+      <div>
+        <WalletNotFound />
+      </div>
+    )
+  }  
+
   return (
     <div>
-      <section className="pt-24 mb-10">
-            <div className="px-5 mx-auto max-w-7xl">
-                <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
-                    <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-6xl md:tracking-tight">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400">Manage Your Reviews</span><br/>Securely Monitor and Manage Your Feedback<br/>
-                    </h1>
-                    <p className="px-0 mb-8 text-lg text-gray-300 md:text-xl lg:px-24">
-                      Monitor your submitted reviews with NetSepio, the decentralized cybersecurity platform designed to ensure the security and privacy of your online activities.
-                    </p>
-                    <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
-                        <Link to="/all-reviews" className="inline-flex items-center font-bold justify-center w-full px-6 py-3 mb-2 text-lg text-black rounded-2xl sm:w-auto sm:mb-0 transition bg-green-400 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80">
-                          All Reviews
-                        </Link>
-                        <button className='inline-flex items-center justify-center font-bold  w-full px-6 py-3 mb-2 text-lg text-black rounded-2xl sm:w-auto sm:mb-0 transition bg-base-100 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80'>
-                          <SubmitReview/>
-                        </button>
-                    </div>
-                </div>
-            </div>
-      </section>
-      {loading ? (<Loader />) : (<ReviewContainer metaDataArray={metaDataArray} MyReviews={true}/>)}
+      <Main />
     </div>
-  );
-};
+  )
+}
 
-export default MyReviews;
+export default MyReviews

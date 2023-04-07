@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import netsepioLogo from '../assets/netsepio.png';
 import LogoutButton from './Logout';
 import ConnectWalletButton from './ConnectWallet';
-import { connectToMetamask,checkWalletAuth } from '../modules/connect_to_metamask';
  
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
@@ -23,9 +22,6 @@ export default function Header() {
   }, []);
 
   const connectWallet = async () => {
-    if (!checkWalletAuth()) {
-      await connectToMetamask();
-    }
     window.location.href = '/my-reviews';
   }
  
@@ -35,7 +31,7 @@ export default function Header() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-1 font-bold text-lg"
       >
         <button onClick={connectWallet} className="bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Your Reviews</button>
       </Typography>
@@ -43,9 +39,9 @@ export default function Header() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-1 font-bold text-lg"
       >
-        <Link to="/all-reviews" className='bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400'>
+        <Link to="/" className='bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400'>
           All Reviews
         </Link>
       </Typography>
@@ -53,7 +49,7 @@ export default function Header() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal font-bold"
+        className="p-1 font-bold text-lg font-bold"
       >
         <LogoutButton/>
       </Typography>
@@ -70,7 +66,10 @@ export default function Header() {
           className="mr-4 cursor-pointer py-1.5 font-bold"
         >
           <div>
-            <a href="/" className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</a>
+            <div className="flex flex-row items-center">
+              <img src={netsepioLogo} alt="netsepio logo" className="h-12 w-12 mr-2"/>
+              <a href="/" className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</a>
+            </div>
           </div>
         </Typography>
         

@@ -6,7 +6,7 @@ import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
 import { ReviewCreated } from '../graphql/types';
 import Loader from '../Components/Loader';
 import FilterButton from '../Components/reviewFilters';
-import { connectToMetamask,checkWalletAuth } from '../modules/connect_to_metamask';
+import { motion } from "framer-motion";
 
 const AllReviews: React.FC = () => {
   const [reviews, setReviews] = useState<ReviewCreated[]>([]);
@@ -14,13 +14,11 @@ const AllReviews: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const connectWallet = async () => {
-    if (!checkWalletAuth()) {
-      await connectToMetamask();
-    }
     window.location.href = '/my-reviews';
   }
 
   useEffect(() => {
+    setLoading(true);
     const fetchReviews = async () => {
       const reviewResults = await fetchMetadataURIAll();
       if (reviewResults) {
@@ -28,7 +26,6 @@ const AllReviews: React.FC = () => {
       }
     };
 
-    setLoading(true);
     fetchReviews().finally(() => setLoading(false));
   }, []);
 
@@ -94,8 +91,13 @@ const AllReviews: React.FC = () => {
   
 
   return (
-    <div>
-      <section className="pt-20">
+    <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="py-20"
+      >
+      <section className="pt-12">
             <div className="px-5 mx-auto max-w-7xl">
                 <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
                     <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-6xl md:tracking-tight">
@@ -110,10 +112,17 @@ const AllReviews: React.FC = () => {
                 </div>
             </div>
       </section>
-      <SearchBar onSearch={handleSearch} />
-      <FilterButton onFilterChange={handleFilterChange} />
-      {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
-    </div>
+      <motion.div
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="mt-16"
+      >
+        <SearchBar onSearch={handleSearch} />
+        <FilterButton onFilterChange={handleFilterChange} />
+        {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
+      </motion.div>
+    </motion.div>
   );  
 };
 

@@ -8,7 +8,7 @@ interface FilterButtonProps {
 const FilterButton: React.FC<FilterButtonProps> = ({ onFilterChange }) => {
   const siteSafetyCategories = ['all','safe', 'phishing', 'adware', 'malware', 'spyware'];
 
-  const [selectedSiteSafety, setSelectedSiteSafety] = useState('safe');
+  const [selectedSiteSafety, setSelectedSiteSafety] = useState('all');
 
   const handleSiteSafety = (siteSafety: string) => {
     setSelectedSiteSafety(siteSafety);

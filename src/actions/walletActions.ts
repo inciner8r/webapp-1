@@ -1,6 +1,4 @@
 // src/actions/walletActions.ts
-import { WalletData } from '../modules/connect_to_metamask';
-
 export const SET_WALLET_DATA = 'SET_WALLET_DATA';
 export const SET_JWT_TOKEN = 'SET_JWT_TOKEN';
 export const DELETE_JWT_TOKEN = 'DELETE_JWT_TOKEN';
@@ -14,7 +12,7 @@ export interface DeleteJwtTokenAction {
 
 export interface SetWalletDataAction {
   type: typeof SET_WALLET_DATA;
-  payload: WalletData | null; // Allow null as a valid value
+  payload: string | undefined;
 }
 
 export interface SetJwtTokenAction {
@@ -33,7 +31,7 @@ export interface DeleteWalletDataAction {
 
 export type WalletActionTypes = SetUserConnectionAction | SetWalletDataAction | SetJwtTokenAction | DeleteJwtTokenAction | DeleteWalletDataAction;
 
-export const setWalletData = (walletData: WalletData | null): SetWalletDataAction => ({
+export const setWalletData = (walletData: string | undefined): SetWalletDataAction => ({
   type: SET_WALLET_DATA,
   payload: walletData,
 });

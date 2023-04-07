@@ -1,7 +1,8 @@
 import { NFTStorage } from 'nft.storage';
 import {getJwtTokenFromStore} from './authentication';
 
-const PUBLIC_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL;
+//const PUBLIC_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL;
+const PUBLIC_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL;
 const API_KEY = process.env.REACT_APP_NFT_STORAGE_API_KEY;
 const client = new NFTStorage({ token: API_KEY! });
 

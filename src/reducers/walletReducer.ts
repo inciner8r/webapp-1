@@ -1,6 +1,5 @@
 // src/reducers/walletReducer.ts
 import { WalletActionTypes, SET_WALLET_DATA, SET_USER_CONNECTION, SET_JWT_TOKEN, DELETE_JWT_TOKEN, DELETE_WALLET_DATA } from '../actions/walletActions';
-import { WalletData } from '../modules/connect_to_metamask';
 
 const initialState: WalletState = {
   walletData: null,
@@ -10,7 +9,7 @@ const initialState: WalletState = {
 
 // Add jwtToken to WalletState
 export interface WalletState {
-  walletData: WalletData | null;
+  walletData: string | undefined | null;
   jwtToken: string | null;
   userConnected: boolean;
 }
