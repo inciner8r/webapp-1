@@ -7,16 +7,19 @@ import { ReviewCreated } from '../graphql/types';
 import Loader from '../Components/Loader';
 import FilterButton from '../Components/reviewFilters';
 import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
+
 
 const AllReviews: React.FC = () => {
   const [reviews, setReviews] = useState<ReviewCreated[]>([]);
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
 
   const connectWallet = async () => {
-    window.location.href = '/my-reviews';
-  }
-
+    navigate('/my-reviews');
+  };
+  
   useEffect(() => {
     setLoading(true);
     const fetchReviews = async () => {

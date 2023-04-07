@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import netsepioLogo from '../assets/netsepio.png';
 import LogoutButton from './Logout';
 import ConnectWalletButton from './ConnectWallet';
+import {useNavigate} from 'react-router-dom';
  
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
@@ -21,9 +22,11 @@ export default function Header() {
     );
   }, []);
 
+  const navigate = useNavigate();
+
   const connectWallet = async () => {
-    window.location.href = '/my-reviews';
-  }
+    navigate('/my-reviews');
+  };
  
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
