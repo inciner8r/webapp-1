@@ -1,7 +1,7 @@
 // ReviewContainer.tsx
 import React from 'react';
 import ReviewCard from './ReviewCard';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface MyReviewContainerProps {
   metaDataArray: any[];

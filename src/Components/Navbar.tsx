@@ -81,9 +81,7 @@ export default function Header() {
           </div>
         </Typography>
         
-        <button className="hidden lg:inline-block p-1 md:ml-5">
-          <div><ConnectWalletButton/></div>
-        </button>
+        <div className="hidden lg:inline-block p-1 md:ml-5"><ConnectWalletButton/></div>
 
         <div className="hidden lg:block">{navList}</div>
 

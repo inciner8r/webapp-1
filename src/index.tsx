@@ -1,11 +1,11 @@
 // src/index.tsx
 import './polyfills';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 
 import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultWallets, RainbowKitProvider, darkTheme, midnightTheme } from '@rainbow-me/rainbowkit';
+import { getDefaultWallets, RainbowKitProvider, midnightTheme } from '@rainbow-me/rainbowkit';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
@@ -40,7 +40,8 @@ const wagmiClient = createClient({
 
 const rootElement = document.getElementById('root') as HTMLElement;
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(rootElement);
+root.render(
   <React.StrictMode>
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider 
@@ -61,6 +62,5 @@ ReactDOM.render(
         </ApolloProvider>
       </RainbowKitProvider>
     </WagmiConfig>
-  </React.StrictMode>,
-  rootElement
+  </React.StrictMode>
 );
