@@ -1,7 +1,7 @@
 {
   "name": "webapp",
   "version": "0.1.0",
-  "homepage": "https://NetSepio.github.io/webapp/",
+  "homepage": "https://app.netsepio.com/",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.7.10",
