@@ -10,7 +10,6 @@ export async function fetchMetadataURIByUser(walletAddress: string): Promise<Rev
     });
     return data.reviewCreateds;
   } catch (error) {
-    console.error('Error fetching metadata URI by user:', error);
     return null;
   }
 }
@@ -20,7 +19,6 @@ export async function fetchMetadataURIAll(): Promise<ReviewCreated[] | null> {
     const { data } = await client.query({ query: GET_ALL_REVIEWS });
     return data.reviewCreateds;
   } catch (error) {
-    console.error('Error fetching all metadata URIs:', error);
     return null;
   }
 }
@@ -33,7 +31,6 @@ export async function fetchMetadataURIBySiteURL(siteURL: string): Promise<Review
     });
     return data.reviewCreateds;
   } catch (error) {
-    console.error('Error fetching metadata URI by site URL:', error);
     return null;
   }
 }
@@ -46,7 +43,6 @@ export async function fetchMetadataURIBySiteSafety(siteSafety: string): Promise<
     });
     return data.reviewCreateds;
   } catch (error) {
-    console.error('Error fetching metadata URI by site Safety:', error);
     return null;
   }
 }
@@ -59,7 +55,6 @@ export async function fetchMetadataURIBySiteType(siteType: string): Promise<Revi
     });
     return data.reviewCreateds;
   } catch (error) {
-    console.error('Error fetching metadata URI by siteType:', error);
     return null;
   }
 }
@@ -72,7 +67,6 @@ export async function fetchMetadataURIBySiteTag(siteTag: string): Promise<Review
     });
     return data.reviewCreateds;
   } catch (error) {
-    console.error('Error fetching metadata URI by siteTag:', error);
     return null;
   }
 }

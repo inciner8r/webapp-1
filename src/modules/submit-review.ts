@@ -26,7 +26,6 @@ export const storeMetaData = async (data: MetaDataType) => {
 		const metadata = await client.storeBlob(objectBlob);
 		return [metadata, null];
 	} catch (error) {
-		console.error(error);
 		return [null, error];
 	}
 };
