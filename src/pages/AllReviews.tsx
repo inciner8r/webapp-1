@@ -54,7 +54,14 @@ const AllReviews: React.FC = () => {
   }, [reviews]);  
 
   const handleFilterChange = async (siteSafety: string) => {
-    const reviewResults = await fetchMetadataURIBySiteSafety(siteSafety);
+    let reviewResults;
+  
+    if (siteSafety === "all") {
+      reviewResults = await fetchMetadataURIAll();
+    } else {
+      reviewResults = await fetchMetadataURIBySiteSafety(siteSafety);
+    }
+  
     if (reviewResults) {
       setReviews(reviewResults);
       const metaDataPromises = reviewResults.map(async (review) => {
@@ -70,7 +77,7 @@ const AllReviews: React.FC = () => {
     } else {
       setMetaDataArray([]);
     }
-  };
+  };  
   
   const handleSearch = async (siteURL: string) => {
     const reviewResults = await fetchMetadataURIBySiteURL(siteURL);
