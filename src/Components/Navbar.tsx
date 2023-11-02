@@ -7,6 +7,7 @@ import {
 } from "@material-tailwind/react";
 
 import netsepioLogo from '../assets/netsepio.png';
+import netsepio from '../assets/netsepio_logo_light.png';
 import LogoutButton from './Logout';
 import ConnectWalletButton from './ConnectWallet';
 import {useNavigate} from 'react-router-dom';
@@ -75,8 +76,8 @@ export default function Header() {
         >
           <div>
             <div className="flex flex-row items-center">
-              <img src={netsepioLogo} alt="netsepio logo" className="h-12 w-12 mr-2"/>
-              <div onClick={navMain} className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">Netsepio</div>
+              <img src={netsepio} alt="netsepio logo" className="h-12 w-12 mr-2"/>
+              <div onClick={navMain} className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">NetSepio</div>
             </div>
           </div>
         </Typography>
