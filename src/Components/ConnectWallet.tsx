@@ -6,8 +6,13 @@ import nacl from 'tweetnacl';
 
 const ConnectWalletButton = () => {
 
+  const loggedin = Cookies.get("platform_token");
+  const wallet = Cookies.get("platform_wallet");
+
   const [profileId, setProfileId] = useState<string | null>(null);
   const [userWallet, setUserWallet] = useState<string | null>(null);
+  const [aptBalance, setAptBalance] = useState<string | null>(null);
+  const [value, setValue] = useState<boolean | null>(true);
 
   const getAptosWallet = () => {
     if ('aptos' in window) {
@@ -63,30 +68,68 @@ const ConnectWalletButton = () => {
         const token = await response?.data?.payload?.token;
             // localStorage.setItem("platform_token", token);
             Cookies.set("platform_token", token, { expires: 7 });
+            Cookies.set("platform_wallet", account.address, { expires: 7 });
+
+            setUserWallet(account.address);
+
+            const MORALIS_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6ImNhYjYxMDViLWVjMGQtNGI4Ny1hNThiLWI5ZDcwMjZkNzU4YyIsIm9yZ0lkIjoiMzYzNDM0IiwidXNlcklkIjoiMzczNTE1IiwidHlwZUlkIjoiMTc3ZGVlZGMtOTdhMi00YjA0LWEyZTYtZTIwMmYzODVkMjE0IiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE2OTkyMDQ5ODYsImV4cCI6NDg1NDk2NDk4Nn0.0B8k4sEUUYCLTBPjO9d86yb1Cln6wZMhPDuToCmtyAc";
+        
+            const options = {
+              method: 'GET',
+              headers: {
+                accept: 'application/json',
+                "X-API-Key": MORALIS_API_KEY,
+              },
+            };
+        
+            fetch(`https://mainnet-aptos-api.moralis.io/wallets/coins?limit=10&owner_addresses[0]=${account.address}`, options)
+              .then(response => response.json())
+              .then(response => {
+                console.log(response);
+                // Handle the API response data here
+              })
+              .catch(err => {
+                console.error(err);
+                // Handle any errors here
+              });
+
       } catch (error) {
         console.error(error);
       }
-
-      setProfileId("");
-      setUserWallet("");
 
     } catch (err) {
       console.log(err);
     }
   }
 
+  const handleDeleteCookie = () => {
+    // Replace 'your_cookie_name' with the actual name of the cookie you want to delete
+    Cookies.remove('platform_wallet');
+    Cookies.remove('platform_token');
+    setValue(false);
+  };
+
   return (
     <>
       <div className='text-white font-bold text-center text-xl md:ml-30'>
         {/* <ConnectButton /> */}
-        {profileId ? (
+        {loggedin && wallet && value ? (
         <>
-          <h3>Profile ID: {profileId}</h3>
-          <h3>Wallet Address: {userWallet}</h3>
-          <button onClick={() => setProfileId(null)}>Logout</button>
+          {/* <h2>APT Balance:</h2>
+      {aptBalance !== null ? (
+        <p>{aptBalance} APT</p>
+      ) : (
+        <p>Loading balance...</p>
+      )} */}
+          <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
+          <button 
+
+          onClick={handleDeleteCookie}>Logout</button>
         </>
       ) : (
-        <button onClick={connectWallet}> Connect Wallet</button>
+        <button 
+        className="bg-green-500 text-black p-2 rounded-lg"
+        onClick={connectWallet}> Connect Wallet</button>
       )}
       </div>
     </>
