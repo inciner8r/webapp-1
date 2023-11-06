@@ -9,11 +9,23 @@ import {
 import netsepioLogo from '../assets/netsepio.png';
 import netsepio from '../assets/netsepio_logo_light.png';
 import LogoutButton from './Logout';
-import ConnectWalletButton from './ConnectWallet';
+// import ConnectWalletButton from './ConnectWallet';
 import {useNavigate} from 'react-router-dom';
+
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import nacl from 'tweetnacl';
  
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
+
+  const loggedin = Cookies.get("platform_token");
+  const wallet = Cookies.get("platform_wallet");
+
+  const [profileId, setProfileId] = useState<string | null>(null);
+  const [userWallet, setUserWallet] = useState<string | null>(null);
+  const [aptBalance, setAptBalance] = useState<string | null>(null);
+  const [value, setValue] = useState<boolean | null>(true);
  
   useEffect(() => {
     window.addEventListener(
@@ -24,7 +36,7 @@ export default function Header() {
 
   const navigate = useNavigate();
 
-  const connectWallet = async () => {
+  const myreviews = async () => {
     navigate('/my-reviews');
   };
 
@@ -32,6 +44,13 @@ export default function Header() {
     navigate('/');
   };
  
+  const handleDeleteCookie = () => {
+    // Replace 'your_cookie_name' with the actual name of the cookie you want to delete
+    Cookies.remove('platform_wallet');
+    Cookies.remove('platform_token');
+    setValue(false);
+  };
+
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -40,7 +59,7 @@ export default function Header() {
         color="blue-gray"
         className="p-1 font-bold text-lg"
       >
-        <button onClick={connectWallet} className="bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Your Reviews</button>
+        <button onClick={myreviews} className="bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Your Reviews</button>
       </Typography>
       {/*
       <Typography
@@ -58,12 +77,104 @@ export default function Header() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-bold text-lg font-bold"
+        className="p-1 font-semibold text-lg"
       >
-        <LogoutButton/>
+        {/* <LogoutButton/> */}
+        {loggedin && wallet && value ?(
+          <button onClick={handleDeleteCookie} className="text-green-400 hover:text-red-400">Logout</button>
+        ): null}
       </Typography>
     </ul>
   );
+
+  const getAptosWallet = () => {
+    if ('aptos' in window) {
+      return (window as any).aptos;
+    } else {
+      window.open('https://petra.app/', '_blank');
+    }
+  }
+
+  const connectWallet = async () => {
+    setValue(true);
+    const wallet = getAptosWallet();
+    try {
+      const response = await wallet.connect();
+
+      const account = await wallet.account();
+      console.log("account",account)
+
+      const { data } = await axios.get(`https://aptos.gateway.netsepio.com/api/v1.0/flowid?walletAddress=${account.address}`);
+      console.log(data);
+
+      const message = data.payload.eula;
+      const nonce = data.payload.flowId;
+      const publicKey = account.publicKey;
+
+      const { signature, fullMessage } = await wallet.signMessage({
+        message,
+        nonce
+      });
+      console.log("sign", signature, "full message", fullMessage);
+
+
+
+      const authenticationData = {
+        "flowId": nonce,
+        "signature": `0x${signature}`,
+        "pubKey": publicKey,
+      };
+
+      const authenticateApiUrl = 'https://aptos.gateway.netsepio.com/api/v1.0/authenticate';
+
+      const config = {
+        url: authenticateApiUrl,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: authenticationData,
+      };
+
+      try {
+        const response = await axios(config);
+        console.log("auth data", response.data);
+        const token = await response?.data?.payload?.token;
+            // localStorage.setItem("platform_token", token);
+            Cookies.set("platform_token", token, { expires: 7 });
+            Cookies.set("platform_wallet", account.address, { expires: 7 });
+
+            setUserWallet(account.address);
+
+            const MORALIS_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6ImNhYjYxMDViLWVjMGQtNGI4Ny1hNThiLWI5ZDcwMjZkNzU4YyIsIm9yZ0lkIjoiMzYzNDM0IiwidXNlcklkIjoiMzczNTE1IiwidHlwZUlkIjoiMTc3ZGVlZGMtOTdhMi00YjA0LWEyZTYtZTIwMmYzODVkMjE0IiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE2OTkyMDQ5ODYsImV4cCI6NDg1NDk2NDk4Nn0.0B8k4sEUUYCLTBPjO9d86yb1Cln6wZMhPDuToCmtyAc";
+        
+            const options = {
+              method: 'GET',
+              headers: {
+                accept: 'application/json',
+                "X-API-Key": MORALIS_API_KEY,
+              },
+            };
+        
+            fetch(`https://mainnet-aptos-api.moralis.io/wallets/coins?limit=10&owner_addresses[0]=${account.address}`, options)
+              .then(response => response.json())
+              .then(response => {
+                console.log(response);
+                // Handle the API response data here
+              })
+              .catch(err => {
+                console.error(err);
+                // Handle any errors here
+              });
+
+      } catch (error) {
+        console.error(error);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
  
   return (
     <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 bg-black border border-green-200">
@@ -82,7 +193,19 @@ export default function Header() {
           </div>
         </Typography>
         
-        <div className="hidden lg:inline-block p-1 md:ml-5"><ConnectWalletButton/></div>
+        {/* <div className="hidden lg:inline-block p-1 md:ml-5"><ConnectWalletButton/></div> */}
+
+        <div className='text-white font-bold text-center text-xl md:ml-30'>
+        {loggedin && wallet && value ? (
+        <>
+          <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
+        </>
+      ) : (
+        <button 
+        className="bg-green-500 text-black p-2 rounded-lg"
+        onClick={connectWallet}> Connect Wallet</button>
+      )}
+      </div>
 
         <div className="hidden lg:block">{navList}</div>
 
@@ -128,7 +251,18 @@ export default function Header() {
         <div className="container mx-auto">
           {navList}
           <div className="mx-auto">
-            <ConnectWalletButton/>
+            {/* <ConnectWalletButton/> */}
+            <div className='text-white font-bold text-center text-xl md:ml-30'>
+        {loggedin && wallet && value ? (
+        <>
+          <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
+        </>
+      ) : (
+        <button 
+        className="bg-green-500 text-black p-2 rounded-lg"
+        onClick={connectWallet}> Connect Wallet</button>
+      )}
+      </div>
           </div>
         </div>
       </MobileNav>
