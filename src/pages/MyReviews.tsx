@@ -3,6 +3,7 @@ import { checkJwtToken } from '../modules/authentication';
 import { useAccount, useSigner } from 'wagmi';
 import { setJwtToken, setWalletData } from '../actions/walletActions';
 import store from '../store';
+import Cookies from 'js-cookie';
 import Loader from '../Components/Loader';
 import WalletNotFound from '../Components/MyReviews/walletNotFound';
 import Main from '../Components/MyReviews/main';
@@ -91,12 +92,15 @@ const MyReviews = () => {
 
   if (isConnecting) return <div><Loader/></div>
 
-  if (isDisconnected) return <div><WalletNotFound/></div>
+  // if (isDisconnected) return <div><WalletNotFound/></div>
 
   const walletData = address;
   store.dispatch(setWalletData(walletData));
 
-  if (!checkWalletAuth() && !checkJwtToken()) {
+  const loggedin = Cookies.get("platform_token");
+  const wallet = Cookies.get("platform_wallet");
+
+  if (!loggedin && !wallet) {
     return (
       <div>
         <WalletNotFound />

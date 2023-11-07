@@ -60,6 +60,10 @@ const style2 = {
   backgroundColor: '#11D9C5',
 };
 
+const border = {
+  border: '1px solid #11D9C5',
+}
+
 const [hovered, setHovered] = useState(false);
 
 const logout = {
@@ -72,9 +76,12 @@ const logout = {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-bold text-lg"
+        className="p-1 text-md"
       >
-        <button onClick={myreviews} className="z-10 font-bold leading-12" style={style}>Your Reviews</button>
+         <button onClick={navMain} className="z-10 font-bold leading-12 text-white p-2 rounded-lg mr-2" style={border}>View Reviews</button>
+        { loggedin && wallet && value && (
+          <button onClick={myreviews} className="z-10 font-bold leading-12 text-black p-2 rounded-lg" style={style2}>Submit Reviews</button>
+        )}
       </Typography>
       {/*
       <Typography
