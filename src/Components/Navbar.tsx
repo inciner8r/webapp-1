@@ -8,6 +8,7 @@ import {
 
 import netsepioLogo from '../assets/netsepio.png';
 import netsepio from '../assets/netsepio_logo_light.png';
+import netsepioname from '../assets/productname.png';
 import LogoutButton from './Logout';
 // import ConnectWalletButton from './ConnectWallet';
 import {useNavigate} from 'react-router-dom';
@@ -51,6 +52,20 @@ export default function Header() {
     setValue(false);
   };
 
+  const style = {
+    color: '#11D9C5',
+};
+
+const style2 = {
+  backgroundColor: '#11D9C5',
+};
+
+const [hovered, setHovered] = useState(false);
+
+const logout = {
+  color: hovered ? 'red' : '#11D9C5',
+}
+
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -59,7 +74,7 @@ export default function Header() {
         color="blue-gray"
         className="p-1 font-bold text-lg"
       >
-        <button onClick={myreviews} className="bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400">Your Reviews</button>
+        <button onClick={myreviews} className="z-10 font-bold leading-12" style={style}>Your Reviews</button>
       </Typography>
       {/*
       <Typography
@@ -81,7 +96,8 @@ export default function Header() {
       >
         {/* <LogoutButton/> */}
         {loggedin && wallet && value ?(
-          <button onClick={handleDeleteCookie} className="text-green-400 hover:text-red-400">Logout</button>
+          <button onClick={handleDeleteCookie} className="hover:text-red-400" style={logout} onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}>Logout</button>
         ): null}
       </Typography>
     </ul>
@@ -175,9 +191,13 @@ export default function Header() {
       console.log(err);
     }
   }
+
+  const background = {
+    backgroundColor: '#141a31'
+  }
  
   return (
-    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 bg-black border border-green-200">
+    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 border border-green-200" style={background}>
       <div className="container mx-auto flex items-center justify-between">
         <Typography
           as="a"
@@ -188,21 +208,23 @@ export default function Header() {
           <div>
             <div className="flex flex-row items-center">
               <img src={netsepio} alt="netsepio logo" className="h-12 w-12 mr-2"/>
-              <div onClick={navMain} className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">NetSepio</div>
+              <div onClick={navMain} className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl">
+              <img src={netsepioname} className="w-26 h-8"/>
+              </div>
             </div>
           </div>
         </Typography>
         
         {/* <div className="hidden lg:inline-block p-1 md:ml-5"><ConnectWalletButton/></div> */}
 
-        <div className='text-white font-bold text-center text-xl md:ml-30'>
+        <div className='text-white font-bold text-center text-xl md:ml-30 hidden lg:inline-block '>
         {loggedin && wallet && value ? (
         <>
           <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
         </>
       ) : (
         <button 
-        className="bg-green-500 text-black p-2 rounded-lg"
+        className="text-black p-2 rounded-lg" style={style2}
         onClick={connectWallet}> Connect Wallet</button>
       )}
       </div>
@@ -259,7 +281,7 @@ export default function Header() {
         </>
       ) : (
         <button 
-        className="bg-green-500 text-black p-2 rounded-lg"
+        className="bg-green-500 text-black p-2 rounded-lg" style={style2}
         onClick={connectWallet}> Connect Wallet</button>
       )}
       </div>

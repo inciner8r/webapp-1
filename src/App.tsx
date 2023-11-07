@@ -6,9 +6,14 @@ import AllReviews from './pages/AllReviews';
 import Footer from './Components/Footer';
 
 const App: React.FC = () => {
+
+  const background = {
+    backgroundColor: '#141a31'
+  }
+  
   return (
     <Router>
-      <div>
+      <div style={background}>
         <Navbar/>
         <Routes>
           <Route path="/my-reviews" element={<MyReviews/>} />
