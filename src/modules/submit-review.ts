@@ -44,7 +44,7 @@ interface ReviewType {
 export const createReview = async (data: ReviewType) => {
 	try {
         const token = await getJwtTokenFromStore();
-		let response = await fetch(`${PUBLIC_GATEWAY_URL}/delegateReviewCreation`, {
+		let response = await fetch(`https://aptos.gateway.netsepio.com/api/v1.0/delegateReviewCreation`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

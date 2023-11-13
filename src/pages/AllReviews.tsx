@@ -8,10 +8,11 @@ import Loader from '../Components/Loader';
 import FilterButton from '../Components/reviewFilters';
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
+import axios from "axios";
 
 const AllReviews: React.FC = () => {
-  const [reviews, setReviews] = useState<ReviewCreated[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]);
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
@@ -23,9 +24,46 @@ const AllReviews: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     const fetchReviews = async () => {
-      const reviewResults = await fetchMetadataURIAll();
-      if (reviewResults) {
-        setReviews(reviewResults);
+      // const reviewResults = await fetchMetadataURIAll();
+      // if (reviewResults) {
+      //   setReviews(reviewResults);
+      // }
+
+      const auth = Cookies.get("platform_token");
+
+      try {
+
+        const config = {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `${auth}`,
+          },
+        };
+
+        const reviewResults = await axios.get(
+          `https://aptos.gateway.netsepio.com/api/v1.0/getreviews`,
+          config
+        );
+
+        // const reviewResults = await fetch(`https://aptos.gateway.netsepio.com/api/v1.0/getreviews`, 
+        
+        // { 
+        //   method: 'GET', 
+        //   headers: {
+        //   'Authorization': `Bearer ${auth}`,
+        //   'Content-Type': 'application/json', }
+        // });
+        
+        // if (reviewResults.ok) {
+        //   const reviewsData = await reviewResults.json();
+        //   setReviews(reviewsData);
+        // } else {
+        //   console.error('Failed to fetch reviews:', reviewResults.statusText);
+        // }
+        console.log(reviewResults);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
       }
     };
 
