@@ -20,7 +20,7 @@ const StarRating: React.FC<StarRatingProps> = ({ totalStars, onRatingChange }) =
         <span
           key={index}
           onClick={() => handleStarClick(index + 1)}
-          style={{ fontSize: '40px', cursor: 'pointer', color: index < rating ? 'orange' : 'gray' }}
+          style={{ fontSize: '40px', cursor: 'pointer', color: index < rating ? '#11D9C5' : 'gray' }}
         >
           &#9733;
         </span>

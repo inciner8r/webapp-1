@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from "axios";
+import aptos from '../assets/Protocolicon.png';
 
 const AllReviews: React.FC = () => {
   const [reviews, setReviews] = useState<any[]>([]);
@@ -181,9 +182,28 @@ const background = {
         transition={{ delay: 1 }}
         className="mt-16"
       >
-        <SearchBar onSearch={handleSearch} />
-        <FilterButton onFilterChange={handleFilterChange} />
+        {/* <SearchBar onSearch={handleSearch} /> */}
+        {/* <FilterButton onFilterChange={handleFilterChange} /> */}
+        <div className="inline-flex items-center justify-center w-full">
+        <button className="text-white border rounded-full py-2 px-6 mt-10">All reviews</button>
+        </div>
+        <div className="inline-flex items-center justify-center w-full my-10">
+        <h1 className="text-white text-3xl font-bold">Your Path to Safe and Secure Browsing</h1>
+        </div>
+
         {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
+
+<div className="mb-60 mt-20">
+        <div className="inline-flex items-center justify-center w-full my-10">
+        <h1 className="text-white text-3xl font-bold">Backed by</h1>
+        </div>
+
+        <div className="inline-flex items-center justify-center w-full">
+        <img src={aptos} className="w-26 h-10"/>
+        <h1 className="text-white text-3xl">Aptos</h1>
+        </div>
+        </div>
+
       </motion.div>
     </motion.div>
   );  

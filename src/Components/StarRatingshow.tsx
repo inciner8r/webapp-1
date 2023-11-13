@@ -13,8 +13,8 @@ const StarRatingshow: React.FC<StarRatingProps> = ({ totalStars, rating }) => {
         <span
           key={index}
           style={{
-            color: index < rating ? 'orange' : 'gray',
-            fontSize: '20px'
+            color: index < rating ? '#11D9C5' : 'white',
+            fontSize: '25px'
           }}
         >
           &#9733;

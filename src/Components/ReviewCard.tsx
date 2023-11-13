@@ -24,6 +24,22 @@ interface ReviewCardProps {
   onReviewDeleted?: () => void;
 }
 
+const background = {
+  backgroundColor: '#222944'
+}
+
+const color = {
+  color: '#11D9C5'
+}
+
+const border = {
+  border: '1px solid #11D9C5',
+}
+
+const backgroundbutton = {
+  backgroundColor: '#11D9C5'
+}
+
 const ReviewCard: React.FC<ReviewCardProps> = ({ metaData, MyReviews = false, onReviewDeleted }) => {
   const [showDescription, setShowDescription] = useState(false);
 
@@ -64,16 +80,20 @@ return (
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.3 }}
   >
-    <div className="w-full h-full p-5 bg-gradient-to-r from-black via-gray-900 to-black shadow-xl shadow-green-400/30 bg-center bg-cover rounded-lg shadow-md">
+    <div className="w-full h-full p-5 bg-center bg-cover rounded-lg"
+    // shadow-xl shadow-green-400/30 shadow-md
+    style={background}
+    >
       <motion.div className="flex flex-col h-full justify-between" initial={{ y: -20 }} animate={{ y: 0 }} transition={{ duration: 0.4 }}>
         <div>
           {showDescription ? (
             <div>
               <motion.h3
-                className="text-2xl text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-600 font-bold mb-2"
+                className="text-2xl leading-12 font-bold mb-2"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.4 }}
+                style={color}
               >
                 {metaData.name}
               </motion.h3>
@@ -86,10 +106,11 @@ return (
           ) : (
             <div>
               <motion.h3
-                className="text-2xl text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-600 font-bold mb-2"
+                className="text-2xl leading-12 font-bold mb-2"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.4 }}
+                style={color}
               >
                 {metaData.name}
               </motion.h3>
@@ -121,11 +142,12 @@ return (
         </div>
 
         <motion.button
-          className="bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold rounded-lg p-2 w-full text-center mt-5"
+          className="text-white font-semibold rounded-lg p-2 w-full text-center mt-5"
           onClick={handleClick}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
+          style={border}
         >
           {showDescription ? 'Go Back' : 'Read More'}
         </motion.button>
