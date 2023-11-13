@@ -21,6 +21,7 @@ const MyReviews: React.FC = () => {
   const [category, setCategory] = useState<string>("");
   const [siteSafety, setSiteSafety] = useState<string>("");
   const [siteType, setSiteType] = useState<string>("");
+  const [msg, setmsg] = useState<string>("");
 
   const wallet = Cookies.get("platform_wallet");
 
@@ -84,7 +85,7 @@ const MyReviews: React.FC = () => {
       siteSafety: siteSafety,
     };
     let [CID] = await storeMetaData(metaData);
-    let metaDataUri = `ipfs://sdhjxkcvbdfgjggffdjg`;
+    let metaDataUri = `ipfs://sdhnfgjggffdjg`;
 
     let reviewData = {
       category: category,
@@ -115,10 +116,18 @@ const MyReviews: React.FC = () => {
       if (response.ok) {
         // Request was successful, handle the response if needed
         console.log('Review data submitted successfully');
-        window.location.reload(); // Optional: reload the page after successful submission
+        setTitle("");
+        setDescription("");
+        setWebsiteUrl("");
+        setSiteType("");
+        setCategory("");
+        setSiteSafety("");
+        setSiteTag("");
+        setmsg("success");
       } else {
         // Handle error response
         console.error('Error submitting review data:', response.status, response.statusText);
+        setmsg("error")
       }
     } catch (error) {
       // Handle network or other errors
@@ -333,8 +342,17 @@ const MyReviews: React.FC = () => {
                       </div>
                     </div>
                   </form>
+{
+   msg == "success" && (
+    <p className="text-green-500">Thankyou! Your review has been submitted successfully.</p>
+   )
+}
 
-                  <p id="submissionMessage" className="text-blue-500"></p>
+{
+   msg == "error" && (
+    <p className="text-red-500">There is some issue in submitting your review. Try again after sometime.</p>
+   )
+}
                 </div>
               </div>
             </section>
