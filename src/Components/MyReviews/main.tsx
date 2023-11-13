@@ -85,7 +85,7 @@ const MyReviews: React.FC = () => {
       siteSafety: siteSafety,
     };
     let [CID] = await storeMetaData(metaData);
-    let metaDataUri = `ipfs://sdhnfgjggffdjg`;
+    let metaDataUri = `ipfs://${CID}`.split(',')[0];
 
     let reviewData = {
       category: category,
