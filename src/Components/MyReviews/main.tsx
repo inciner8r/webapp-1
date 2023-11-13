@@ -7,6 +7,7 @@ import Loader from "../../Components/Loader";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import StarRating from "../../Components/StarRating"
 import SubmitReview from "../../Components/SubmitReview";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
@@ -27,6 +28,13 @@ const MyReviews: React.FC = () => {
 
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const [selectedRating, setSelectedRating] = useState<number>(0);
+
+  const handleRatingChange = (rating: number) => {
+    setSelectedRating(rating);
+  };
+
   // State to check if the user is connected to Metamask:
   const walletData = useSelector((state: RootState) => state.wallet.walletData);
 
@@ -83,6 +91,7 @@ const MyReviews: React.FC = () => {
       siteType: siteType,
       siteTag: siteTag,
       siteSafety: siteSafety,
+      starRating: selectedRating
     };
     let [CID] = await storeMetaData(metaData);
     let metaDataUri = `ipfs://${CID}`.split(',')[0];
@@ -100,6 +109,7 @@ const MyReviews: React.FC = () => {
     };
 
     console.log("review data", reviewData);
+    console.log('Submitted Rating:', selectedRating);
 
     try {
       const auth = Cookies.get("platform_token");
@@ -123,6 +133,7 @@ const MyReviews: React.FC = () => {
         setCategory("");
         setSiteSafety("");
         setSiteTag("");
+        setSelectedRating(0);
         setmsg("success");
       } else {
         // Handle error response
@@ -279,6 +290,16 @@ const MyReviews: React.FC = () => {
                         >
                           <option value="">Select Category</option>
                           <option value="Social Media">Social Media</option>
+                          <option value="Technology">Technology</option>
+                          <option value="Travel">Travel</option>
+                          <option value="entertainment">entertainment</option>
+                          <option value="Health">Health</option>
+                          <option value="news">news</option>
+                          <option value="E-commerce">E-commerce</option>
+                          <option value="education">education</option>
+                          <option value="sports">sports</option>
+                          <option value="Technology">food and drink</option>
+                          <option value="Technology">Lifestyle</option>
                         </select>
                         {/* <input
                           style={border}
@@ -328,6 +349,9 @@ const MyReviews: React.FC = () => {
                         required
                       ></textarea>
                     </div>
+
+                    <label className="text-white">Rate the website from 1 to 10</label>
+      <StarRating totalStars={10} onRatingChange={handleRatingChange} />
 
                     <div className="text-center pt-10">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
