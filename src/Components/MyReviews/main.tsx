@@ -361,7 +361,7 @@ const MyReviews: React.FC = () => {
                           value="submit"
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
-                          Apply
+                          Submit
                         </button>
                       </div>
                     </div>
