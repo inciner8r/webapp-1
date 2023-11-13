@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DeleteReview } from './Delete_Review';
 import { ReviewCreated } from '../graphql/types';
 import { motion } from 'framer-motion';
+import StarRatingshow from "./StarRatingshow"
 
 interface ReviewCardProps {
   metaData: {
@@ -14,6 +15,7 @@ interface ReviewCardProps {
     siteType: string;
     siteTag: string;
     siteSafety: string;
+    starRating: number;
     ipfsUrl: string;
     id: string;
   } | null;
@@ -101,6 +103,11 @@ return (
                 <button className="bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold rounded-lg p-2">{metaData.siteTag}</button>
                 <button className="bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold rounded-lg p-2">{metaData.siteType}</button>
               </motion.div>
+
+{ metaData.starRating && 
+              (<div className="mt-4">
+              <StarRatingshow totalStars={10} rating={metaData.starRating} /></div>)
+}
             </div>
           )}
         </div>
