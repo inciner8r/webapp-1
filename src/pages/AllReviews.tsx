@@ -62,6 +62,8 @@ const AllReviews: React.FC = () => {
         //   console.error('Failed to fetch reviews:', reviewResults.statusText);
         // }
         console.log(reviewResults);
+        const reviewsData = await reviewResults.data.payload;
+        setReviews(reviewsData);
       } catch (error) {
         console.error('Error fetching reviews:', error);
       }
@@ -73,8 +75,8 @@ const AllReviews: React.FC = () => {
   useEffect(() => {
     const fetchMetaData = async () => {
       const metaDataPromises = reviews.map(async (review) => {
-        if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
-          const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
+        if (review.metaDataUri && review.metaDataUri.startsWith('ipfs://')) {
+          const ipfsUrl = `https://ipfs.io/ipfs/${review.metaDataUri.split('ipfs://')[1]}`;
           const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
           return metaData;
         }
@@ -82,6 +84,7 @@ const AllReviews: React.FC = () => {
       });
   
       const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
+      console.log("metaDataResults",metaDataResults);
       setMetaDataArray(metaDataResults);
     };
   
