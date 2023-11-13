@@ -79,6 +79,7 @@ const MyReviews: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const domainAddress = new URL(`${websiteUrl}`).hostname;
     let metaData = {
       name: title,
@@ -125,6 +126,7 @@ const MyReviews: React.FC = () => {
   
       if (response.ok) {
         // Request was successful, handle the response if needed
+        setLoading(false);
         console.log('Review data submitted successfully');
         setTitle("");
         setDescription("");
@@ -137,6 +139,7 @@ const MyReviews: React.FC = () => {
         setmsg("success");
       } else {
         // Handle error response
+        setLoading(false);
         console.error('Error submitting review data:', response.status, response.statusText);
         setmsg("error")
       }
@@ -366,6 +369,14 @@ const MyReviews: React.FC = () => {
                       </div>
                     </div>
                   </form>
+
+                  {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
+            <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
+              {/* <Loader/> */}
+            </div>
+          </div>
+        </div>)}
 {
    msg == "success" && (
     <p className="text-green-500">Thankyou! Your review has been submitted successfully.</p>
