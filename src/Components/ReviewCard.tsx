@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { DeleteReview } from './Delete_Review';
 import { ReviewCreated } from '../graphql/types';
 import { motion } from 'framer-motion';
@@ -84,6 +85,7 @@ return (
     // shadow-xl shadow-green-400/30 shadow-md
     style={background}
     >
+    <Link to={`/domainspecific/${metaData.domainAddress}`}>
       <motion.div className="flex flex-col h-full justify-between" initial={{ y: -20 }} animate={{ y: 0 }} transition={{ duration: 0.4 }}>
         <div>
           {showDescription ? (
@@ -152,7 +154,9 @@ return (
           {showDescription ? 'Go Back' : 'Read More'}
         </motion.button>
       </motion.div>
+       </Link>
     </div>
+   
   </motion.div>
 );
 
