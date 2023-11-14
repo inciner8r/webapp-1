@@ -62,6 +62,10 @@ export default function Header() {
   const navMain = async () => {
     navigate('/');
   };
+
+  const seemyreviews = async () => {
+    navigate('/view-my-reviews');
+  };
  
   const handleDeleteCookie = () => {
     // Replace 'your_cookie_name' with the actual name of the cookie you want to delete
@@ -96,10 +100,13 @@ const logout = {
         color="blue-gray"
         className="p-1 text-md"
       >
-         <button onClick={navMain} className="z-10 font-bold leading-12 text-white p-2 rounded-lg mr-2" style={border}>View Reviews</button>
         { loggedin && wallet && value && (
-          <button onClick={myreviews} className="z-10 font-bold leading-12 text-black p-2 rounded-lg" style={style2}>Submit Reviews</button>
+          <>
+         <button onClick={seemyreviews} className="z-10 font-bold leading-12 text-white p-2 rounded-lg mr-2" style={border}>My Reviews</button>
+          </>
         )}
+          <button onClick={myreviews} className="z-10 font-bold leading-12 text-black p-2 rounded-lg" style={style2}>Submit Reviews</button>
+
       </Typography>
       {/*
       <Typography
