@@ -6,6 +6,7 @@ import MyReviews from './pages/MyReviews';
 import AllReviews from './pages/AllReviews';
 import Footer from './Components/Footer';
 import DynamicPage from './pages/DynamicPage';
+import Profile from './pages/Profile';
 
 const App: React.FC = () => {
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route path="/my-reviews" element={<MyReviews/>} />
           <Route path="/" element={<AllReviews />} />
           <Route path="/domainspecific/:id" Component={DynamicPage} />
+          <Route path="/profile" element={<Profile/>} />
         </Routes>
         <Footer />
       </div>
