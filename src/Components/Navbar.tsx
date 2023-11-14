@@ -12,7 +12,7 @@ import netsepioname from '../assets/productname.png';
 import LogoutButton from './Logout';
 // import ConnectWalletButton from './ConnectWallet';
 import {useNavigate} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import nacl from 'tweetnacl';
@@ -27,6 +27,7 @@ export default function Header() {
   const [userWallet, setUserWallet] = useState<string | null>(null);
   const [aptBalance, setAptBalance] = useState<string | null>(null);
   const [value, setValue] = useState<boolean | null>(true);
+  const [hidefilter, setHideFilter] = useState(false);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -132,6 +133,7 @@ const logout = {
           onMouseLeave={() => setHovered(false)}>Logout</button>
         ): null}
       </Typography>
+      
     </ul>
   );
 
@@ -275,6 +277,61 @@ const logout = {
       </div>
 
         <div className="hidden lg:block">{navList}</div>
+
+<button className="hidden lg:block" 
+onClick={() => { setHideFilter(!hidefilter);}}>
+        <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+            </button>
+
+            {
+              hidefilter && (
+                <>
+                  {/* Dropdown menu */}
+                  <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 right-24 absolute">
+                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                      <li className="flex flex-row dark:hover:bg-gray-600 hover:bg-gray-100">
+                        {/* <FaUserCircle className="text-lg mt-2 ml-2" /> */}
+                        <Link to="/profile" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</Link>
+                      </li>
+                    </ul>
+
+                    <div className="py-2 ">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/dashboard" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
+                      </div>
+
+                    </div>
+                    {/* <div className="py-2 ">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" />
+                        <Link href="/marketplace" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Marketplaces</Link>
+                      </div>
+
+                    </div>
+                    <div className="py-2">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        <FaCog className="text-lg mt-2 ml-2 dark:text-white dark:text-black" />
+                        <Link href="/logout" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</Link>
+                      </div>
+                    </div> */}
+                  </div>
+
+                </>
+              )
+            }
 
         <IconButton
           variant="text"
