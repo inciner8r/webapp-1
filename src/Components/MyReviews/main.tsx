@@ -92,7 +92,7 @@ const MyReviews: React.FC = () => {
       siteType: siteType,
       siteTag: siteTag,
       siteSafety: siteSafety,
-      starRating: selectedRating
+      siteRating: selectedRating
     };
     let [CID] = await storeMetaData(metaData);
     let metaDataUri = `ipfs://${CID}`.split(',')[0];

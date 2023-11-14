@@ -15,7 +15,7 @@ interface ReviewCardProps {
     siteType: string;
     siteTag: string;
     siteSafety: string;
-    starRating: number;
+    siteRating: number;
     ipfsUrl: string;
     id: string;
   } | null;
@@ -125,9 +125,9 @@ return (
                 <button className="bg-gradient-to-r from-green-600 to-green-400 text-gray-900 font-semibold rounded-lg p-2">{metaData.siteType}</button>
               </motion.div>
 
-{ metaData.starRating && 
+{ metaData.siteRating && 
               (<div className="mt-4">
-              <StarRatingshow totalStars={10} rating={metaData.starRating} /></div>)
+              <StarRatingshow totalStars={10} rating={metaData.siteRating} /></div>)
 }
             </div>
           )}

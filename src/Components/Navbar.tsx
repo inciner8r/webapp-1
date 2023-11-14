@@ -27,6 +27,24 @@ export default function Header() {
   const [userWallet, setUserWallet] = useState<string | null>(null);
   const [aptBalance, setAptBalance] = useState<string | null>(null);
   const [value, setValue] = useState<boolean | null>(true);
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const handleCopyClick = () => {
+    if (typeof wallet === 'string') {
+      navigator.clipboard.writeText(wallet);
+      setIsHovered(false);
+      // alert('Address copied to clipboard!');
+    }
+  };
  
   useEffect(() => {
     window.addEventListener(
@@ -227,7 +245,20 @@ const logout = {
         <div className='text-white font-bold text-center text-xl md:ml-30 hidden lg:inline-block '>
         {loggedin && wallet && value ? (
         <>
-          <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
+        <button 
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} 
+            data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" className="ms-3 mb-2 md:mb-0 text-white rounded-lg text-xl font-bold px-5 py-2.5 text-center">
+          {wallet.slice(0, 4)}...{wallet.slice(-4)}
+        {/* </button> */}
+        {isHovered ? (
+        <div id="tooltip-bottom" role="tooltip" className="p-4 absolute z-10 inline-block text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
+            {wallet}
+            <div className="cursor-pointer w-1/4 rounded-lg mx-auto py-1 my-4" style={border} onClick={handleCopyClick}>copy</div>
+        </div>
+        ):''}
+        </button>
+          {/* <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3> */}
         </>
       ) : (
         <button 
