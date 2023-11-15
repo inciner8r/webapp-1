@@ -60,7 +60,16 @@ const Profile = () => {
                    
                   >
                     <div className="lg:flex md:flex justify-between">
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+
+                      <div className="block lg:hidden md:hidden">
+                    <div className="flex items-center -mt-10 mb-10 justify-center">
+            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
+              {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
+            </div>
+          </div>
+          </div>
+
+                      <div className="mb-10 lg:w-2/3 md:w-2/3">
                         <input
                           type="text"
                           id="title"
@@ -72,6 +81,26 @@ const Profile = () => {
                           required
                         />
                       </div>
+
+                      {/* {profileDetails?.profilePictureUrl ? (
+          <div className="flex items-center justify-start -mt-24 ml-16">
+            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
+              <img
+                className="text-3xl text-gray-500 w-48 h-48 rounded-full"
+                alt=""
+                src={`https://cloudflare-ipfs.com/ipfs/${removePrefix(
+                  profileDetails?.profilePictureUrl
+                )}`}
+              />
+            </div>
+          </div> */}
+        {/* ) : ( */}
+          <div className="flex items-center justify-start -mt-24 ml-16 mb-10 hidden lg:block md:block">
+            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
+              {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
+            </div>
+          </div>
+        {/* )} */}
                       
                     </div>
 
