@@ -43,11 +43,11 @@ const ViewMyReviews: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://aptos.gateway.netsepio.com/api/v1.0/getreviews`,
+          `https://gateway.netsepio.com/api/v1.0/getreviews`,
           config
         );
 
-        // const reviewResults = await fetch(`https://aptos.gateway.netsepio.com/api/v1.0/getreviews`, 
+        // const reviewResults = await fetch(`https://gateway.netsepio.com/api/v1.0/getreviews`, 
         
         // { 
         //   method: 'GET', 

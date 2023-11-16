@@ -154,7 +154,7 @@ const logout = {
       const account = await wallet.account();
       console.log("account",account)
 
-      const { data } = await axios.get(`https://aptos.gateway.netsepio.com/api/v1.0/flowid?walletAddress=${account.address}`);
+      const { data } = await axios.get(`https://gateway.netsepio.com/api/v1.0/flowid?walletAddress=${account.address}`);
       console.log(data);
 
       const message = data.payload.eula;
@@ -175,7 +175,7 @@ const logout = {
         "pubKey": publicKey,
       };
 
-      const authenticateApiUrl = 'https://aptos.gateway.netsepio.com/api/v1.0/authenticate';
+      const authenticateApiUrl = 'https://gateway.netsepio.com/api/v1.0/authenticate';
 
       const config = {
         url: authenticateApiUrl,
@@ -227,11 +227,12 @@ const logout = {
   }
 
   const background = {
-    backgroundColor: '#141a31'
+    backgroundColor: '#141a31',
+    borderColor: '#141a31'
   }
  
   return (
-    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 border border-green-200" style={background}>
+    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4" style={background}>
       <div className="container mx-auto flex items-center justify-between">
         <Typography
           as="a"

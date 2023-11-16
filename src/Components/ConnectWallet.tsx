@@ -30,7 +30,7 @@ const ConnectWalletButton = () => {
       const account = await wallet.account();
       console.log("account",account)
 
-      const { data } = await axios.get(`https://aptos.gateway.netsepio.com/api/v1.0/flowid?walletAddress=${account.address}`);
+      const { data } = await axios.get(`https://gateway.netsepio.com/api/v1.0/flowid?walletAddress=${account.address}`);
       console.log(data);
 
       const message = data.payload.eula;
@@ -51,7 +51,7 @@ const ConnectWalletButton = () => {
         "pubKey": publicKey,
       };
 
-      const authenticateApiUrl = 'https://aptos.gateway.netsepio.com/api/v1.0/authenticate';
+      const authenticateApiUrl = 'https://gateway.netsepio.com/api/v1.0/authenticate';
 
       const config = {
         url: authenticateApiUrl,
