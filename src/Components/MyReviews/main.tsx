@@ -115,7 +115,7 @@ const MyReviews: React.FC = () => {
     try {
       const auth = Cookies.get("platform_token");
       // Make the POST request
-      const response = await fetch(`https://gateway.netsepio.com/api/v1.0/delegateReviewCreation`, {
+      const response = await fetch(`https://testnet.gateway.netsepio.com/api/v1.0/delegateReviewCreation`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

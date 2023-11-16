@@ -154,7 +154,7 @@ const logout = {
       const account = await wallet.account();
       console.log("account",account)
 
-      const { data } = await axios.get(`https://gateway.netsepio.com/api/v1.0/flowid?walletAddress=${account.address}`);
+      const { data } = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/flowid?walletAddress=${account.address}`);
       console.log(data);
 
       const message = data.payload.eula;
@@ -175,7 +175,7 @@ const logout = {
         "pubKey": publicKey,
       };
 
-      const authenticateApiUrl = 'https://gateway.netsepio.com/api/v1.0/authenticate';
+      const authenticateApiUrl = 'https://testnet.gateway.netsepio.com/api/v1.0/authenticate';
 
       const config = {
         url: authenticateApiUrl,
