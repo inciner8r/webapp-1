@@ -43,7 +43,7 @@ const AllReviews: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews`,
+          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=1`,
           config
         );
 

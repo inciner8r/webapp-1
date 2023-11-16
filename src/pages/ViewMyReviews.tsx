@@ -31,6 +31,7 @@ const ViewMyReviews: React.FC = () => {
       // }
 
       const auth = Cookies.get("platform_token");
+      const wallet = Cookies.get("platform_wallet");
 
       try {
 
@@ -43,7 +44,7 @@ const ViewMyReviews: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews`,
+          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=1&walletAddress=${wallet}`,
           config
         );
 
