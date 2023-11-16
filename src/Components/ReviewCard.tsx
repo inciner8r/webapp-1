@@ -85,7 +85,7 @@ return (
     // shadow-xl shadow-green-400/30 shadow-md
     style={background}
     >
-    <Link to={`/domainspecific/${metaData.domainAddress}`}>
+    <Link to={`/reviews/${metaData.domainAddress}`}>
       <motion.div className="flex flex-col h-full justify-between" initial={{ y: -20 }} animate={{ y: 0 }} transition={{ duration: 0.4 }}>
         <div>
           {showDescription ? (

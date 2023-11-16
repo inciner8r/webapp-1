@@ -22,7 +22,7 @@ const App: React.FC = () => {
         <Route path="/view-my-reviews" element={<ViewMyReviews/>} />
           <Route path="/my-reviews" element={<MyReviews/>} />
           <Route path="/" element={<AllReviews />} />
-          <Route path="/domainspecific/:id" Component={DynamicPage} />
+          <Route path="/reviews/:id" Component={DynamicPage} />
           <Route path="/profile" element={<Profile/>} />
         </Routes>
         <Footer />
