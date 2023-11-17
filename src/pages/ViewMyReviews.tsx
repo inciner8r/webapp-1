@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../Components/SearchBar';
-import ReviewContainer from '../Components/ReviewContainer';
+import MyReviewContainer from '../Components/Myreviewcontainer';
 import { fetchMetadataURIAll, fetchMetadataURIBySiteURL, fetchMetadataURIBySiteSafety } from '../modules/fetch_metadataURI_from_graphql';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
 import { ReviewCreated } from '../graphql/types';
@@ -177,7 +177,7 @@ const background = {
         <h1 className="text-white text-3xl font-bold">Your Path to Safe and Secure Browsing</h1>
         </div>
 
-        {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
+        {loading ? <Loader /> : <MyReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">

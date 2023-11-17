@@ -85,8 +85,8 @@ return (
     // shadow-xl shadow-green-400/30 shadow-md
     style={background}
     >
-    <Link to={`/reviews/${metaData.domainAddress}`}>
       <motion.div className="flex flex-col h-full justify-between" initial={{ y: -20 }} animate={{ y: 0 }} transition={{ duration: 0.4 }}>
+    <Link to={`/reviews/${metaData.domainAddress}`}>
         <div>
           {showDescription ? (
             <div>
@@ -135,6 +135,8 @@ return (
           )}
         </div>
 
+        </Link>
+
         <div>
           {MyReviews && metaData.ipfsUrl ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
@@ -154,7 +156,7 @@ return (
           {showDescription ? 'Go Back' : 'Read More'}
         </motion.button>
       </motion.div>
-       </Link>
+       {/* </Link> */}
     </div>
    
   </motion.div>
