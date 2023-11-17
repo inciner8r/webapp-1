@@ -39,7 +39,7 @@ const ViewMyReviews: React.FC = () => {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
-            Authorization: `${auth}`,
+            Authorization: `Bearer ${auth}`,
           },
         };
 
