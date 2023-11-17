@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../Components/SearchBar';
-import ReviewContainer from '../Components/ReviewContainer';
+import DomainReviewContainer from '../Components/Domainreviewcontainer';
 import { fetchMetadataURIAll, fetchMetadataURIBySiteURL, fetchMetadataURIBySiteSafety } from '../modules/fetch_metadataURI_from_graphql';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
 import { ReviewCreated } from '../graphql/types';
@@ -12,12 +12,15 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
+import StarRatingshow from "../Components/StarRatingshow";
 
 const DynamicPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const [reviews, setReviews] = useState<any[]>([]);
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
+  const [siteUrl, setsiteurl] = useState<string>("");
+  const [siteRating, setsiterating] = useState<number>();
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -68,7 +71,17 @@ const DynamicPage: React.FC = () => {
   
       const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
       console.log("metaDataResults",metaDataResults);
+
       setMetaDataArray(metaDataResults);
+      setsiteurl(metaDataResults[0]?.siteUrl);
+
+      // Calculate the average siteRating
+      const totalSiteRating = metaDataResults.reduce((sum, metaData) => sum + (metaData?.siteRating || 0), 0);
+      const averageSiteRating = metaDataResults.length > 0 ? totalSiteRating / metaDataResults.length : 0;
+      console.log("averageSiteRating", averageSiteRating);
+      setsiterating(averageSiteRating);
+
+      console.log("siteUrl", siteUrl);
     };
   
     if (reviews.length > 0) {
@@ -148,11 +161,29 @@ const background = {
         transition={{ delay: 1 }}
         className="mt-16"
       >
-        <div className="inline-flex items-center justify-center w-full my-10">
-        <h1 className="text-white text-3xl font-bold">Recent Reviews on {id}</h1>
+
+        <div className="mx-auto max-w-8xl px-16">
+          <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
+        <h1 className="text-white text-3xl font-bold">Reviews for {id?.replace('.com', '')}</h1>
+        <div className="flex gap-6">
+          <div>
+        <a href={siteUrl} target="_blank"><p className='my-4' style={style}>{siteUrl}</p></a>
+        </div>
+        <div className="-mt-2">
+        {siteRating && (
+                          <div className="mt-4">
+                            <StarRatingshow
+                              totalStars={10}
+                              rating={siteRating}
+                            />
+                          </div>
+                        )}
+                        </div>
+          </div>
+        </div>
         </div>
 
-        {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
+        {loading ? <Loader /> : <DomainReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">
