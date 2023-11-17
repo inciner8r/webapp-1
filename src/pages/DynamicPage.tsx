@@ -164,7 +164,7 @@ const background = {
 
         <div className="mx-auto max-w-8xl px-16">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
-        <h1 className="text-white text-3xl font-bold">Reviews for {id?.replace('.com', '')}</h1>
+        <h1 className="text-white text-3xl font-bold">Reviews for {id?.replace(/^www\.|\.com$/g, '')}</h1>
         <div className="flex gap-6">
           <div>
         <a href={siteUrl} target="_blank"><p className='my-4' style={style}>{siteUrl}</p></a>
