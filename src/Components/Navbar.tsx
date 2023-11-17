@@ -94,7 +94,7 @@ const logout = {
 }
 
   const navList = (
-    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <Typography
         as="li"
         variant="small"
@@ -121,18 +121,17 @@ const logout = {
         </Link>
       </Typography>
       */}
-      <Typography
+      {/* <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-semibold text-lg"
       >
-        {/* <LogoutButton/> */}
         {loggedin && wallet && value ?(
           <button onClick={handleDeleteCookie} className="hover:text-red-400" style={logout} onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}>Logout</button>
         ): null}
-      </Typography>
+      </Typography> */}
       
     </ul>
   );
@@ -277,6 +276,7 @@ const logout = {
       )}
       </div>
 
+<div className="flex flex-row gap-2">
         <div className="hidden lg:block">{navList}</div>
 
 <button className="hidden lg:block" 
@@ -295,6 +295,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
               />
             </svg>
             </button>
+            </div>
 
             {
               hidefilter && (
@@ -315,6 +316,16 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                       </div>
 
                     </div>
+
+                    {loggedin && wallet && value ?(
+                    <div className="py-4 px-2 text-sm">
+                      <div className="flex flex-row">
+                      <button onClick={handleDeleteCookie} className="hover:text-red-400 text-gray-700" onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}>Logout</button>
+                      </div>
+                    </div>
+                     ): null}
+       
                     {/* <div className="py-2 ">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" />
