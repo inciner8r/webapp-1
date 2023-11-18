@@ -11,6 +11,10 @@ import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
+import { removePrefix } from "../modules/Utils/ipfsUtil";
+import { NFTStorage } from "nft.storage";
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
+const client = new NFTStorage({ token: API_KEY });
 
 export interface FlowIdResponse {
   eula: string;
@@ -26,7 +30,7 @@ interface FormData {
   discord: string;
   twitter: string;
   country: string;
-  profilePicture: File | null;
+  profilePictureUrl: string;
 }
 
 const Profile = () => {
@@ -69,7 +73,7 @@ const Profile = () => {
   const initialFormData: FormData = {
     name: '',
     country: '',
-    profilePicture: null,
+    profilePictureUrl: '',
     discord: '',
     twitter: '',
   };
@@ -84,6 +88,32 @@ const Profile = () => {
     }));
   };
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      profilePicture: file,
+    }));
+  };
+
+  async function uploadImage(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const blobDataImage = new Blob([e.target.files![0]]);
+      const metaHash = await client.storeBlob(blobDataImage);
+      setFormData({
+        ...formData,
+        profilePictureUrl: `ipfs://${metaHash}`,
+      });
+      console.log("profilePictureUrl",metaHash)
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -97,9 +127,7 @@ const Profile = () => {
       formDataObj.append('country', formData.country);
       formDataObj.append('discord', formData.discord);
       formDataObj.append('twitter', formData.twitter);
-      if (formData.profilePicture) {
-        formDataObj.append('profilePicture', formData.profilePicture);
-      }
+      formDataObj.append('profilePictureUrl', formData.profilePictureUrl);
 
       // Convert FormData to JavaScript Object
 const formDataObject: { [key: string]: string | File | null } = {};
@@ -222,14 +250,53 @@ const jsonData = JSON.stringify(formDataObject);
                 )}`}
               />
             </div>
-          </div> */}
-        {/* ) : ( */}
-          <div className="flex items-center justify-start -mt-24 ml-16 mb-10 hidden lg:block md:block">
+          </div>
+        ) : (
+          <div className="flex items-center justify-start -mt-24 ml-16">
             <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
+              <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" />
             </div>
           </div>
-        {/* )} */}
+        )} */}
+
+
+                  <div className="flex items-center justify-start -mt-24 ml-16 mb-4">
+                    <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
+                  {
+                    formData.profilePictureUrl ? (
+                    <img
+                      alt="alt"
+                      src={`${
+                        "https://cloudflare-ipfs.com/ipfs"
+                      }/${removePrefix(formData.profilePictureUrl)}`}
+                      className=""
+                      width="200"
+                      height="200"
+                    />
+                  ) :(<label
+                        htmlFor="upload"
+                        className="flex flex-col items-center gap-2 cursor-pointer mt-20"
+                      >
+                      <input id="upload" type="file" className="hidden" 
+                      onChange={uploadImage}
+                      accept="image/*"
+                      />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-10 w-10 fill-white stroke-indigo-500"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                      </label>)}
+                    </div>
+                  </div>
                       
                     </div>
 
