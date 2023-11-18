@@ -136,7 +136,20 @@ const Profile = () => {
                       </div>
                       </div>
 
-                
+                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                        <input
+                          type="url"
+                          id="websiteUrl"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Country"
+                          // value={websiteUrl}
+                          // onChange={(e) => setWebsiteUrl(e.target.value)}
+                          required
+                        />
+
+                  
+                      </div>
 
                     
 
@@ -185,6 +198,124 @@ const Profile = () => {
     <p className="text-red-500">There is some issue in submitting your review. Try again after sometime.</p>
    )
 } */}
+                </div>
+              </div>
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+                    <span className="text-white">Basic Information</span>
+                  </h1>
+            <section className="pb-10 rounded-xl" style={bg}>
+              <div className="px-5 mx-auto max-w-2xl rounded-xl">
+                <div className="w-full mx-auto text-left py-20">
+                  
+
+                  <form
+                    id="myForm"
+                    className="rounded pt-10"
+                   
+                  >
+                    <div className="lg:flex md:flex justify-between gap-10">
+
+                    <div className="">
+                    <div className="flex items-center -mt-10 mb-10 justify-center">
+                      <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
+                        {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
+                      </div>
+                    </div>
+                    </div>
+
+                    <div>
+                      <div className="mb-10">
+                        <input
+                          type="text"
+                          id="title"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Your Name"
+                          required
+                        />
+                      </div>
+
+                      <div className="mb-10">
+                        <input
+                          type="url"
+                          id="websiteUrl"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Country"
+                          required
+                        />
+                      </div>
+
+                    <div className="lg:flex md:flex justify-between gap-2">
+                    <div className="mb-10 lg:w-1/2 md:w-1/2">
+                        <input
+                          type="url"
+                          id="websiteUrl"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Discord"
+                          required
+                        />
+
+                  
+                      </div>
+
+                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                        <input
+                          type="url"
+                          id="websiteUrl"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Twitter"
+                          required
+                        />
+
+                  
+                      </div>
+                      </div>
+
+                      </div>
+                    </div>
+
+                    
+
+                     
+
+                    <div className="text-center pt-10">
+                      <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
+                        <button
+                          style={button}
+                          type="submit"
+                          value="submit"
+                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                        >
+                          Edit Profile
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+                  {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
+            <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
+              {/* <Loader/> */}
+            </div>
+          </div>
+        </div>)}
                 </div>
               </div>
             </section>

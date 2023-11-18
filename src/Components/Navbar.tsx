@@ -386,6 +386,18 @@ onClick={() => { setHideFilter(!hidefilter);}}>
       <MobileNav open={openNav}>
         <div className="container mx-auto">
           {navList}
+          <div className="flex justify-between">
+          <Link to="/profile" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Profile</Link>
+          <Link to="/dashboard" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Dashboard</Link>
+          {loggedin && wallet && value ?(
+                    <div className="">
+                      <div className="">
+                      <button onClick={handleDeleteCookie} className="hover:text-red-400 text-white p-2 rounded-lg" style={border} onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}>Logout</button>
+                      </div>
+                    </div>
+                     ): null}
+          </div>
           <div className="mx-auto">
             {/* <ConnectWalletButton/> */}
             <div className='text-white font-bold text-center text-xl md:ml-30'>
