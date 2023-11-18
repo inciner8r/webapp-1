@@ -33,6 +33,7 @@ const Profile = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [profileset, setprofileset] = useState<boolean>(false);
+  const [profileData, setProfileData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
 
   useEffect(() => {
@@ -133,6 +134,36 @@ const jsonData = JSON.stringify(formDataObject);
       setLoading(false);
     }
   };
+
+
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      setLoading(true);
+      try {
+        const auth = Cookies.get("platform_token");
+
+        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/profile', {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
+          },
+        });
+
+        if (response.status === 200) {
+          setProfileData(response.data.payload);
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, [profileset]);
 
   return (
     <motion.div
@@ -313,64 +344,50 @@ const jsonData = JSON.stringify(formDataObject);
                     className="rounded pt-10"
                    
                   >
-                    <div className="lg:flex md:flex justify-between gap-10">
+                    <div className="lg:flex md:flex justify-between gap-2">
 
-                    <div className="">
-                    <div className="flex items-center -mt-10 mb-10 justify-center">
+                    <div className="lg:w-1/3 md:w-1/3">
+                    <div className="flex items-center mb-10 justify-center">
                       <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
                         {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
                       </div>
                     </div>
                     </div>
 
-                    <div>
-                      <div className="mb-10">
-                        <input
-                          type="text"
-                          id="title"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Your Name"
-                          required
-                        />
+                    <div className="lg:w-2/3 md:w-2/3">
+                      <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
+                      {profileData.name}
                       </div>
 
-                      <div className="mb-10">
-                        <input
-                          type="url"
-                          id="websiteUrl"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Country"
-                          required
-                        />
+                      <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
+                      {profileData.country}
                       </div>
 
-                    <div className="lg:flex md:flex justify-between gap-2">
+                    {/* <div className="lg:flex md:flex justify-between gap-2">
                     <div className="mb-10 lg:w-1/2 md:w-1/2">
                         <input
-                          type="url"
-                          id="websiteUrl"
                           style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Discord"
-                          required
+                          className="rounded w-full py-4 px-3 text-gray-200 leading-tight"
+                          placeholder={profileData.discord}
                         />
-
-                  
                       </div>
 
                       <div className="mb-10 lg:w-1/2 md:w-1/2">
-                        <input
-                          type="url"
-                          id="websiteUrl"
+                      <input
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Twitter"
-                          required
+                          placeholder={profileData.twitter}
                         />
+                      </div>
+                      </div> */}
 
-                  
+                      <div className="lg:flex md:flex justify-between gap-2">
+                    <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
+                    {profileData.discord}
+                      </div>
+
+                      <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
+                    {profileData.twitter}
                       </div>
                       </div>
 
@@ -385,8 +402,7 @@ const jsonData = JSON.stringify(formDataObject);
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
                           style={button}
-                          type="submit"
-                          value="submit"
+                          onClick={() => setprofileset(false)}
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
                           Edit Profile
