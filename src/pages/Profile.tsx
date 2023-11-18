@@ -36,7 +36,7 @@ interface FormData {
 const Profile = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [profileset, setprofileset] = useState<boolean>(false);
+  const [profileset, setprofileset] = useState<boolean>(true);
   const [profileData, setProfileData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
 
@@ -47,6 +47,10 @@ const Profile = () => {
       const storedSubmissionProfile = localStorage.getItem('submissionProfile');
       if (storedSubmissionProfile === 'true') {
         setprofileset(true);
+      }
+      else
+      {
+        setprofileset(false);
       }
       setLoading(false);
     }, 3000); // 3 seconds
@@ -408,12 +412,12 @@ const jsonData = JSON.stringify(formDataObject);
                     <div className="lg:w-1/3 md:w-1/3">
                     <div className="flex items-center mb-10 justify-center">
                     {
-                    profileData.profilePictureUrl ? (
+                    profileData?.profilePictureUrl ? (
                     <img
                       alt="alt"
                       src={`${
                         "https://cloudflare-ipfs.com/ipfs"
-                      }/${removePrefix(profileData.profilePictureUrl)}`}
+                      }/${removePrefix(profileData?.profilePictureUrl)}`}
                       className=""
                       width="200"
                       height="200"
@@ -428,11 +432,11 @@ const jsonData = JSON.stringify(formDataObject);
 
                     <div className="lg:w-2/3 md:w-2/3">
                       <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
-                      {profileData.name}
+                      {profileData?.name}
                       </div>
 
                       <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
-                      {profileData.country}
+                      {profileData?.country}
                       </div>
 
                     {/* <div className="lg:flex md:flex justify-between gap-2">
@@ -455,11 +459,11 @@ const jsonData = JSON.stringify(formDataObject);
 
                       <div className="lg:flex md:flex justify-between gap-2">
                     <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData.discord}
+                    {profileData?.discord}
                       </div>
 
                       <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData.twitter}
+                    {profileData?.twitter}
                       </div>
                       </div>
 

@@ -183,7 +183,7 @@ const background = {
         </div>
         </div>
 
-        {loading ? <Loader /> : <DomainReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
+        {loading ? <Loader /> : <DomainReviewContainer metaDataArray={metaDataArray} reviews={reviews} MyReviews={false}/>}
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">

@@ -5,10 +5,11 @@ import { motion } from 'framer-motion';
 
 interface MyReviewContainerProps {
   metaDataArray: any[];
+  reviews: any[];
   MyReviews?: boolean;
 }
 
-const MyReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, MyReviews = false }) => {
+const MyReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray,reviews, MyReviews = false }) => {
 
   const handleReviewDeleted = () => {
     window.location.reload();
@@ -46,6 +47,7 @@ const MyReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, My
               <motion.div key={index} className="py-2 flex">
                 <DomainReviewCard
                   metaData={metaData}
+                  reviews={reviews[index]}
                   MyReviews={MyReviews}
                   onReviewDeleted={handleReviewDeleted}
                 />

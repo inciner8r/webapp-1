@@ -20,6 +20,10 @@ interface ReviewCardProps {
     ipfsUrl: string;
     id: string;
   } | null;
+  reviews: {
+    name: string;
+    voter: string;
+  } | null;
   MyReviews?: boolean;
   review?: ReviewCreated;
   onReviewDeleted?: () => void;
@@ -43,6 +47,7 @@ const backgroundbutton = {
 
 const MyReviewCard: React.FC<ReviewCardProps> = ({
   metaData,
+  reviews,
   MyReviews = false,
   onReviewDeleted,
 }) => {
@@ -131,7 +136,13 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                     // style={color}
                   >
                     <div className="flex gap-6">
-                      <div>{metaData.name}</div>
+                      {
+                       reviews?.name ? (
+                        <div>{reviews?.name}</div>
+                       ): (
+                        <div>{reviews?.voter.slice(0, 4)}...{reviews?.voter.slice(-4)}</div>
+                        
+                       )}
                       <div className="-mt-4">
                         {metaData.siteRating && (
                           <div className="mt-4">
