@@ -88,14 +88,6 @@ const Profile = () => {
     }));
   };
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      profilePicture: file,
-    }));
-  };
-
   async function uploadImage(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     try {
@@ -415,9 +407,22 @@ const jsonData = JSON.stringify(formDataObject);
 
                     <div className="lg:w-1/3 md:w-1/3">
                     <div className="flex items-center mb-10 justify-center">
+                    {
+                    profileData.profilePictureUrl ? (
+                    <img
+                      alt="alt"
+                      src={`${
+                        "https://cloudflare-ipfs.com/ipfs"
+                      }/${removePrefix(profileData.profilePictureUrl)}`}
+                      className=""
+                      width="200"
+                      height="200"
+                    />
+                  ) :(
                       <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
                         {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
                       </div>
+                  )}
                     </div>
                     </div>
 
