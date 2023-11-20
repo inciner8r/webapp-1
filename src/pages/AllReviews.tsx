@@ -220,12 +220,16 @@ const handlePrevPage = () => {
           )}
 
           <div className="inline-flex items-center justify-center w-full mt-4">
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>
-              Previous Page
+            <button onClick={handlePrevPage} disabled={currentPage === 1} className='text-white'>
+            <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+  <path d="M160,220a11.96287,11.96287,0,0,1-8.48535-3.51465l-80-80a12.00062,12.00062,0,0,1,0-16.9707l80-80a12.0001,12.0001,0,0,1,16.9707,16.9707L96.9707,128l71.51465,71.51465A12,12,0,0,1,160,220Z"/>
+</svg>
             </button>
-            <span className="mx-2">Page {currentPage}</span>
-            <button onClick={handleNextPage}>
-              Next Page
+            <span className="mx-2 text-gray-500">Page {currentPage}</span>
+            <button onClick={handleNextPage} className='text-white'>
+            <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+  <path d="M96,220a12,12,0,0,1-8.48535-20.48535L159.0293,128,87.51465,56.48535a12.0001,12.0001,0,0,1,16.9707-16.9707l80,80a12.00062,12.00062,0,0,1,0,16.9707l-80,80A11.96287,11.96287,0,0,1,96,220Z"/>
+</svg>
             </button>
           </div>
 
