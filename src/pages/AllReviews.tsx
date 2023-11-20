@@ -18,13 +18,15 @@ const AllReviews: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   const connectWallet = async () => {
     navigate('/my-reviews');
   };
   
   useEffect(() => {
     setLoading(true);
-    const fetchReviews = async () => {
+    const fetchReviews = async (page: number) => {
       // const reviewResults = await fetchMetadataURIAll();
       // if (reviewResults) {
       //   setReviews(reviewResults);
@@ -43,7 +45,7 @@ const AllReviews: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=1`,
+          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=${page}`,
           config
         );
 
@@ -64,14 +66,23 @@ const AllReviews: React.FC = () => {
         // }
         console.log(reviewResults);
         const reviewsData = await reviewResults.data.payload;
-        setReviews(reviewsData);
+        if (reviewsData.length == 0) {
+          console.log("No reviews found");
+          setReviews([]);
+        } else {
+          setReviews(reviewsData);
+        }
       } catch (error) {
         console.error('Error fetching reviews:', error);
       }
     };
 
-    fetchReviews().finally(() => setLoading(false));
-  }, []);
+    const fetchReviewsData = async () => {
+      await fetchReviews(currentPage);
+    };
+  
+    fetchReviewsData().finally(() => setLoading(false));
+  }, [currentPage]);
 
   useEffect(() => {
     const fetchMetaData = async () => {
@@ -151,6 +162,15 @@ const style2 = {
 const background = {
   backgroundColor: '#141a31'
 }
+
+
+const handleNextPage = () => {
+  setCurrentPage((prevPage) => prevPage + 1);
+};
+
+const handlePrevPage = () => {
+  setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+};
   
 
   return (
@@ -191,7 +211,23 @@ const background = {
         <h1 className="text-white text-3xl font-bold">Your Path to Safe and Secure Browsing</h1>
         </div>
 
-        {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} reviews={reviews} MyReviews={false}/>}
+        {loading ? (
+            <Loader />
+          ) : reviews.length == 0 ? (
+            <p>No reviews found</p>
+          ) : (
+            <ReviewContainer metaDataArray={metaDataArray} reviews={reviews} MyReviews={false}/>
+          )}
+
+          <div className="inline-flex items-center justify-center w-full mt-4">
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+              Previous Page
+            </button>
+            <span className="mx-2">Page {currentPage}</span>
+            <button onClick={handleNextPage}>
+              Next Page
+            </button>
+          </div>
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">
