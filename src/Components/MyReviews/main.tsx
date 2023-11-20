@@ -119,7 +119,7 @@ const MyReviews: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `${auth}`
+          'Authorization': `Bearer ${auth}`
         },
         body: JSON.stringify(reviewData),
       });
@@ -295,14 +295,14 @@ const MyReviews: React.FC = () => {
                           <option value="Social Media">Social Media</option>
                           <option value="Technology">Technology</option>
                           <option value="Travel">Travel</option>
-                          <option value="entertainment">entertainment</option>
+                          <option value="Entertainment">entertainment</option>
                           <option value="Health">Health</option>
-                          <option value="news">news</option>
+                          <option value="News">news</option>
                           <option value="E-commerce">E-commerce</option>
-                          <option value="education">education</option>
-                          <option value="sports">sports</option>
-                          <option value="Technology">food and drink</option>
-                          <option value="Technology">Lifestyle</option>
+                          <option value="Education">education</option>
+                          <option value="Sports">sports</option>
+                          <option value="Food and Drink">food and drink</option>
+                          <option value="Lifestyle">Lifestyle</option>
                         </select>
                         {/* <input
                           style={border}

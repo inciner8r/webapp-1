@@ -79,7 +79,7 @@ const AllReviews: React.FC = () => {
         if (review.metaDataUri && review.metaDataUri.startsWith('ipfs://')) {
           const ipfsUrl = `https://ipfs.io/ipfs/${review.metaDataUri.split('ipfs://')[1]}`;
           const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
-          return metaData;
+          return { transactionHash: review.transactionHash, metaData };
         }
         return null;
       });
@@ -191,7 +191,7 @@ const background = {
         <h1 className="text-white text-3xl font-bold">Your Path to Safe and Secure Browsing</h1>
         </div>
 
-        {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>}
+        {loading ? <Loader /> : <ReviewContainer metaDataArray={metaDataArray} reviews={reviews} MyReviews={false}/>}
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">

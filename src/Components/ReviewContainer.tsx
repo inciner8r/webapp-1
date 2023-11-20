@@ -5,10 +5,11 @@ import { motion } from 'framer-motion';
 
 interface MyReviewContainerProps {
   metaDataArray: any[];
+  reviews: any[];
   MyReviews?: boolean;
 }
 
-const ReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, MyReviews = false }) => {
+const ReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, reviews, MyReviews = false }) => {
 
   const handleReviewDeleted = () => {
     window.location.reload();
@@ -42,15 +43,25 @@ const ReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, MyRe
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {metaDataArray.map((metaData, index) => (
-              <motion.div key={index} className="py-2 flex">
-                <ReviewCard
-                  metaData={metaData}
-                  MyReviews={MyReviews}
-                  onReviewDeleted={handleReviewDeleted}
-                />
-              </motion.div>
-            ))}
+            {metaDataArray.map(({ metaData, transactionHash }, index) => {
+              // Find the corresponding review based on transactionHash
+              const matchingReview = reviews.find(review => review.transactionHash === transactionHash);
+              console.log("matchingData",matchingReview);
+
+              if (matchingReview) {
+                return (
+                  <motion.div key={index} className="py-2 flex">
+                    <ReviewCard
+                      metaData={metaData}
+                      reviews={matchingReview}
+                      MyReviews={MyReviews}
+                      onReviewDeleted={handleReviewDeleted}
+                    />
+                  </motion.div>
+                );
+              }
+              return null;
+            })}
           </motion.div>
         )}
       </motion.div>
