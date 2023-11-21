@@ -66,7 +66,7 @@ const AllReviews: React.FC = () => {
         // }
         console.log(reviewResults);
         const reviewsData = await reviewResults.data.payload;
-        if (reviewsData.length == 0) {
+        if (reviewResults.data.message === "No reviews found") {
           console.log("No reviews found");
           setReviews([]);
         } else {
@@ -214,7 +214,14 @@ const handlePrevPage = () => {
         {loading ? (
             <Loader />
           ) : reviews.length == 0 ? (
-            <p>No reviews found</p>
+            <motion.div
+            className="w-full text-center py-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-4xl font-semibold text-gray-700">No Reviews Found</h2>
+          </motion.div>
           ) : (
             <ReviewContainer metaDataArray={metaDataArray} reviews={reviews} MyReviews={false}/>
           )}

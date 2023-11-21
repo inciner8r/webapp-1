@@ -24,13 +24,15 @@ const DynamicPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   const connectWallet = async () => {
     navigate('/my-reviews');
   };
   
   useEffect(() => {
     setLoading(true);
-    const fetchReviews = async () => {
+    const fetchReviews = async (page: number) => {
       const auth = Cookies.get("platform_token");
 
       try {
@@ -44,19 +46,28 @@ const DynamicPage: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=1&domain=${id}`,
+          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=${page}&domain=${id}`,
           config
         );
         console.log(reviewResults);
         const reviewsData = await reviewResults.data.payload;
-        setReviews(reviewsData);
+        if (reviewResults.data.message === "No reviews found") {
+          console.log("No reviews found");
+          setReviews([]);
+        } else {
+          setReviews(reviewsData);
+        }
       } catch (error) {
         console.error('Error fetching reviews:', error);
       }
     };
 
-    fetchReviews().finally(() => setLoading(false));
-  }, []);
+    const fetchReviewsData = async () => {
+      await fetchReviews(currentPage);
+    };
+  
+    fetchReviewsData().finally(() => setLoading(false));
+  }, [currentPage]);
 
   useEffect(() => {
     const fetchMetaData = async () => {
@@ -147,6 +158,14 @@ const background = {
   backgroundColor: '#141a31'
 }
 
+const handleNextPage = () => {
+  setCurrentPage((prevPage) => prevPage + 1);
+};
+
+const handlePrevPage = () => {
+  setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+};
+
   return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -183,7 +202,34 @@ const background = {
         </div>
         </div>
 
-        {loading ? <Loader /> : <DomainReviewContainer metaDataArray={metaDataArray} reviews={reviews} MyReviews={false}/>}
+        {loading ? (
+            <Loader />
+          ) : reviews.length == 0 ? (
+            <motion.div
+            className="w-full text-center py-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-4xl font-semibold text-gray-700">No Reviews Found</h2>
+          </motion.div>
+          ) : (
+            <DomainReviewContainer metaDataArray={metaDataArray} reviews={reviews} MyReviews={false}/>
+          )}
+
+          <div className="inline-flex items-center justify-center w-full mt-4">
+            <button onClick={handlePrevPage} disabled={currentPage === 1} className='text-white'>
+            <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+  <path d="M160,220a11.96287,11.96287,0,0,1-8.48535-3.51465l-80-80a12.00062,12.00062,0,0,1,0-16.9707l80-80a12.0001,12.0001,0,0,1,16.9707,16.9707L96.9707,128l71.51465,71.51465A12,12,0,0,1,160,220Z"/>
+</svg>
+            </button>
+            <span className="mx-2 text-gray-500">Page {currentPage}</span>
+            <button onClick={handleNextPage} className='text-white'>
+            <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+  <path d="M96,220a12,12,0,0,1-8.48535-20.48535L159.0293,128,87.51465,56.48535a12.0001,12.0001,0,0,1,16.9707-16.9707l80,80a12.00062,12.00062,0,0,1,0,16.9707l-80,80A11.96287,11.96287,0,0,1,96,220Z"/>
+</svg>
+            </button>
+          </div>
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">
