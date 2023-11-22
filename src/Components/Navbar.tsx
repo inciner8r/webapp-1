@@ -279,6 +279,7 @@ const logout = {
 <div className="flex flex-row gap-2">
         <div className="hidden lg:block">{navList}</div>
 
+        {loggedin && wallet && value ?(
 <button className="hidden lg:block" 
 onClick={() => { setHideFilter(!hidefilter);}}>
         <svg
@@ -295,6 +296,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
               />
             </svg>
             </button>
+        ): null}
             </div>
 
             {
@@ -302,6 +304,9 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                 <>
                   {/* Dropdown menu */}
                   <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 right-24 absolute">
+                    
+                  {loggedin && wallet && value ?(
+<>
                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                       <li className="flex flex-row dark:hover:bg-gray-600 hover:bg-gray-100">
                         {/* <FaUserCircle className="text-lg mt-2 ml-2" /> */}
@@ -316,6 +321,9 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                       </div>
 
                     </div>
+                    </>
+                  ): null}
+
 
                     {loggedin && wallet && value ?(
                     <div className="py-4 px-2 text-sm">
@@ -340,7 +348,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                       </div>
                     </div> */}
                   </div>
-
+{/* ): null} */}
                 </>
               )
             }
@@ -387,8 +395,12 @@ onClick={() => { setHideFilter(!hidefilter);}}>
         <div className="container mx-auto">
           {navList}
           <div className="flex justify-between">
+          {loggedin && wallet && value ?(
+            <>
           <Link to="/profile" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Profile</Link>
           <Link to="/dashboard" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Dashboard</Link>
+          </>
+          ):null }
           {loggedin && wallet && value ?(
                     <div className="">
                       <div className="">
@@ -403,7 +415,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
             <div className='text-white font-bold text-center text-xl md:ml-30'>
         {loggedin && wallet && value ? (
         <>
-          <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
+          <h3 className="mt-6">{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
         </>
       ) : (
         <button 

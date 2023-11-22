@@ -46,7 +46,7 @@ const ViewMyReviews: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=${page}&walletAddress=${wallet}`,
+          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=${page}&voter=${wallet}`,
           config
         );
 

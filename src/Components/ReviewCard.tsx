@@ -91,7 +91,7 @@ return (
     style={background}
     >
       <motion.div className="flex flex-col h-full justify-between" initial={{ y: -20 }} animate={{ y: 0 }} transition={{ duration: 0.4 }}>
-    <Link to={`/reviews/${metaData.domainAddress}`}>
+    <Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
         <div>
           {showDescription ? (
             <div>
