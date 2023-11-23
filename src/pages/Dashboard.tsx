@@ -201,6 +201,55 @@ const jsonData = JSON.stringify(formDataObject);
     fetchProfileData();
   }, [profileset]);
 
+
+
+
+
+  const handleVerify = async (e: FormEvent) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const auth = Cookies.get("platform_token");
+    const domainid: string | null = localStorage.getItem('domainId');
+
+    try {
+      const formDataObj = new FormData();
+    
+// Convert FormData to JavaScript Object
+const formDataObject: { domainId: string } = {
+    domainId: domainid as string
+  };
+
+// Convert JavaScript Object to JSON string
+const jsonData = JSON.stringify(formDataObject);
+
+console.log("jsonData",jsonData);
+
+  const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/domain/verify', {
+        method: 'PATCH',
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth}`,
+        },
+        body: jsonData,
+      });
+
+      if (response.status === 200) {
+        const responseData = await response.json();
+        setMsg('success');
+        console.log("domain data",responseData);
+      } else {
+        setMsg('error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMsg('error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -513,6 +562,7 @@ const jsonData = JSON.stringify(formDataObject);
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
                           style={button}
+                          onClick={handleVerify}
                         //   onClick={() => setprofileset(false)}
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
