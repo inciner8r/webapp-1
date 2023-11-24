@@ -33,6 +33,8 @@ interface FormData {
   description: string;
   profilePictureUrl: string;
   coverImageHash:string;
+  yourname:string;
+  role:string;
 }
 
 const Profile = () => {
@@ -41,6 +43,10 @@ const Profile = () => {
   const [profileset, setprofileset] = useState<boolean>(true);
   const [profileData, setProfileData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
+
+  const [verify,setverify] = useState<boolean>(false);
+
+  const txtvalue = localStorage.getItem('txtvalue');
 
   useEffect(() => {
     setLoading(true);
@@ -76,6 +82,14 @@ const Profile = () => {
     backgroundColor: "#11D9C5",
   };
 
+  const text= {
+    color: "#788AA3"
+  }
+
+  const bgverify = {
+    backgroundColor: "#141a31",
+  }
+
   const initialFormData: FormData = {
     domainName: '',
     title: '',
@@ -84,11 +98,13 @@ const Profile = () => {
     description: '',
     profilePictureUrl: '',
     coverImageHash:'',
+    yourname:'',
+    role:''
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -153,9 +169,11 @@ const jsonData = JSON.stringify(formDataObject);
       if (response.status === 200) {
         const responseData = await response.json();
         setFormData(initialFormData);
-        setMsg('success');
+        // setMsg('success');
         console.log("domain data",responseData);
         localStorage.setItem('domainId', responseData.payload.domainId);
+        localStorage.setItem('txtvalue',responseData.payload.txtValue);
+        setverify(true);
       } else {
         setMsg('error');
       }
@@ -261,11 +279,12 @@ console.log("jsonData",jsonData);
         <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
            
-            { !profileset && (<section className="pb-10 rounded-xl" style={bg}>
+            {/* { !profileset && ( */}
+            <section className="pb-10 rounded-xl" style={bg}>
               <div className="px-5 mx-auto max-w-2xl rounded-xl">
                 <div className="w-full mx-auto text-left py-20">
                   <h1 className="mb-8 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white">Add Details</span>
+                    <span className="text-white">Add Registration Details</span>
                   </h1>
 
                   <form
@@ -275,49 +294,14 @@ console.log("jsonData",jsonData);
                   >
                     <div className="lg:flex md:flex justify-between">
 
-                      <div className="block lg:hidden md:hidden">
+                      {/* <div className="block lg:hidden md:hidden">
                     <div className="flex items-center -mt-10 mb-10 justify-center">
             <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
             </div>
           </div>
-          </div>
+          </div> */}
 
-                      <div className="mb-10 lg:w-2/3 md:w-2/3">
-                        <input
-                          type="text"
-                          id="domainName"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Domain Name"
-                          value={formData.domainName}
-              onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-
-                      {/* {profileDetails?.profilePictureUrl ? (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <img
-                className="text-3xl text-gray-500 w-48 h-48 rounded-full"
-                alt=""
-                src={`https://cloudflare-ipfs.com/ipfs/${removePrefix(
-                  profileDetails?.profilePictureUrl
-                )}`}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" />
-            </div>
-          </div>
-        )} */}
-
-
-                  <div className="flex items-center justify-start -mt-24 ml-16 mb-4">
+          <div className="flex items-center lg:justify-start md:justify-start justify-center lg:-mt-80 md:-mt-80 lg:mb-10 md:mb-10 mb-10">
                     <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
                   {
                     formData.profilePictureUrl ? (
@@ -354,17 +338,18 @@ console.log("jsonData",jsonData);
                       </label>)}
                     </div>
                   </div>
-                      
-                    </div>
+                  
 
-                    <div className="lg:flex md:flex justify-between gap-2">
+                      <div className="mb-10 lg:w-2/3 md:w-2/3 lg:border-l md:border-l lg:pl-6 md:pl-6">
+
+                      <div className="lg:flex md:flex justify-between gap-2">
                     <div className="mb-10 lg:w-1/2 md:w-1/2">
                         <input
                           type="text"
                           id="title"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Title"
+                          placeholder="Company Name"
                           value={formData.title}
               onChange={handleInputChange}
                           required
@@ -389,7 +374,22 @@ console.log("jsonData",jsonData);
                       </div>
                       </div>
 
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                        <div>
+                        <input
+                          type="text"
+                          id="domainName"
+                          style={border}
+                          className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Domain Name"
+                          value={formData.domainName}
+              onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+
+                      
+
+                      <div className="mb-10">
                         <input
                           type="text"
                           id="headline"
@@ -404,7 +404,7 @@ console.log("jsonData",jsonData);
                   
                       </div>
 
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      {/* <div className="mb-10">
                         <input
                           type="text"
                           id="description"
@@ -417,7 +417,83 @@ console.log("jsonData",jsonData);
                         />
 
                   
+                      </div> */}
+
+<div className="lg:flex md:flex justify-between gap-2">
+                    <div className="mb-10 lg:w-1/2 md:w-1/2">
+                        <input
+                          type="text"
+                          id="yourname"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Your Name"
+                          value={formData.yourname}
+              onChange={handleInputChange}
+                          required
+                        />
+
+                  
                       </div>
+
+                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                        <input
+                          type="text"
+                          id="role"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Your role"
+                          value={formData.role}
+              onChange={handleInputChange}
+                          required
+                        />
+
+                  
+                      </div>
+                      </div>
+
+                      <div className="mb-10">
+                      <textarea
+                        style={border}
+                        id="description"
+                        rows={4}
+                        className="block p-2.5 w-full text-sm text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Description"
+                        value={formData.description}
+                        onChange={handleInputChange}
+                        required
+                      ></textarea>
+                    </div>
+
+                      </div>
+
+                      {/* {profileDetails?.profilePictureUrl ? (
+          <div className="flex items-center justify-start -mt-24 ml-16">
+            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
+              <img
+                className="text-3xl text-gray-500 w-48 h-48 rounded-full"
+                alt=""
+                src={`https://cloudflare-ipfs.com/ipfs/${removePrefix(
+                  profileDetails?.profilePictureUrl
+                )}`}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-start -mt-24 ml-16">
+            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
+              <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" />
+            </div>
+          </div>
+        )} */}
+
+
+                  
+                      
+                    </div>
+
+                    
+
+                      
 
                     <div className="text-center pt-10">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
@@ -427,11 +503,54 @@ console.log("jsonData",jsonData);
                           value="submit"
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
-                          Register your Domain
+                          Register
                         </button>
                       </div>
                     </div>
                   </form>
+
+                  {
+              verify && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+    <div className="relative p-4 lg:w-1/3 w-full max-w-2xl max-h-full">
+        <div className="relative rounded-lg shadow dark:bg-gray-700" style={bg}>
+            <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
+                <h3 className="text-2xl font-semibold text-white">
+                Verify Your Registration
+                </h3>
+                <button 
+                    onClick={() => setverify(false)}
+                    type="button" 
+                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span className="sr-only">Close modal</span>
+                </button>
+            </div>
+            <div className="p-4 md:p-5 space-y-4">
+                <p className="text-md text-center" style={text}>
+                  Your domain has been registered successfully!
+                  Add below TXT in cloudfare and then click verify button.
+                </p>
+            </div>
+<div className="p-4 md:p-5 space-y-4">
+                <p className="text-lg text-center text-white">
+                  {/* The TXT value is :  */}
+                  {txtvalue}
+                </p>
+            </div>
+            <div className="flex items-center p-4 md:p-5 rounded-b">
+                <button 
+                style={button}
+                onClick={handleVerify}
+                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
+              </div>
+        </div>
+    </div>
+</div>
+)
+}
 
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
@@ -442,19 +561,19 @@ console.log("jsonData",jsonData);
         </div>)}
             {
               msg == "success" && (
-                <p className="text-green-500">Your profile details has been updated successfully.</p>
+                <p className="text-green-500">Verified successfully.</p>
               )
             }
 
             {
               msg == "error" && (
-                <p className="text-red-500">There is some issue in updating your profile. Try again after sometime.</p>
+                <p className="text-red-500">Not verified</p>
               )
             }
                 </div>
               </div>
             </section>
-            )}
+            {/* )} */}
 
 
 
@@ -467,7 +586,7 @@ console.log("jsonData",jsonData);
 
 
 
-{
+{/* {
   profileset && (
     <>
     <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
@@ -500,39 +619,13 @@ console.log("jsonData",jsonData);
                     />
                   ) :(
                       <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-                        {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
                       </div>
                   )}
                     </div>
                     </div>
 
                     <div className="lg:w-2/3 md:w-2/3">
-                      {/* <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
-                      {profileData?.domainName}
-                      </div>
-
-                      <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
-                      {profileData?.category}
-                      </div> */}
-
-                    {/* <div className="lg:flex md:flex justify-between gap-2">
-                    <div className="mb-10 lg:w-1/2 md:w-1/2">
-                        <input
-                          style={border}
-                          className="rounded w-full py-4 px-3 text-gray-200 leading-tight"
-                          placeholder={profileData.discord}
-                        />
-                      </div>
-
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
-                      <input
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder={profileData.twitter}
-                        />
-                      </div>
-                      </div> */}
-
+                      
                       <div className="lg:flex md:flex justify-between gap-2">
                     <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
                     {profileData?.domainName}
@@ -563,7 +656,6 @@ console.log("jsonData",jsonData);
                         <button
                           style={button}
                           onClick={handleVerify}
-                        //   onClick={() => setprofileset(false)}
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
                           Verify Domain
@@ -575,7 +667,6 @@ console.log("jsonData",jsonData);
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
             <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
-              {/* <Loader/> */}
             </div>
           </div>
         </div>)}
@@ -584,7 +675,7 @@ console.log("jsonData",jsonData);
             </section>
     </>
   )
-}
+} */}
             
           </div>
         </div>
