@@ -252,13 +252,14 @@ console.log("jsonData",jsonData);
         },
         body: jsonData,
       });
-
+      const responseData = await response.json();
+      console.log("response", responseData);
       if (response.status === 200) {
-        const responseData = await response.json();
-        setMsg('success');
-        console.log("domain data",responseData);
+        // const responseData = await response.json();
+        setMsg(responseData.status);
+        // console.log("domain data",responseData);
       } else {
-        setMsg('error');
+        setMsg(responseData.error);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -540,13 +541,16 @@ console.log("jsonData",jsonData);
                   {txtvalue}
                 </p>
             </div>
+            <p style={text} className="p-4">{msg}</p>
+
             <div className="flex items-center p-4 md:p-5 rounded-b">
                 <button 
                 style={button}
                 onClick={handleVerify}
                 type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
               </div>
-        </div>
+
+        </div>          
     </div>
 </div>
 )
