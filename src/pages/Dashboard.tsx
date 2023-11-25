@@ -130,6 +130,24 @@ const Profile = () => {
     }
   }
 
+  async function uploadcoverImage(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const blobDataImage = new Blob([e.target.files![0]]);
+      const metaHash = await client.storeBlob(blobDataImage);
+      setFormData({
+        ...formData,
+        coverImageHash: `ipfs://${metaHash}`,
+      });
+      console.log("coverImageHash",metaHash)
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -145,7 +163,7 @@ const Profile = () => {
       formDataObj.append('headline', formData.headline);
       formDataObj.append('description', formData.description);
       formDataObj.append('logohash', formData.profilePictureUrl);
-      formDataObj.append('coverImageHash', formData.profilePictureUrl);
+      formDataObj.append('coverImageHash', formData.coverImageHash);
 
       // Convert FormData to JavaScript Object
 const formDataObject: { [key: string]: string | File | null } = {};
@@ -256,7 +274,7 @@ console.log("jsonData",jsonData);
       console.log("response", responseData);
       if (response.status === 200) {
         // const responseData = await response.json();
-        setMsg(responseData.status);
+        setMsg(responseData.message);
         // console.log("domain data",responseData);
       } else {
         setMsg(responseData.error);
@@ -311,7 +329,7 @@ console.log("jsonData",jsonData);
                       src={`${
                         "https://cloudflare-ipfs.com/ipfs"
                       }/${removePrefix(formData.profilePictureUrl)}`}
-                      className=""
+                      className="rounded-full"
                       width="200"
                       height="200"
                     />
@@ -464,6 +482,44 @@ console.log("jsonData",jsonData);
                         required
                       ></textarea>
                     </div>
+
+                    <div className="flex items-center lg:justify-start md:justify-start justify-center">
+                    <div className="w-full h-48 ring-1 ring-gray-200 rounded-md">
+                  {
+                    formData.coverImageHash ? (
+                    <img
+                      alt="alt"
+                      src={`${
+                        "https://cloudflare-ipfs.com/ipfs"
+                      }/${removePrefix(formData.coverImageHash)}`}
+                      className=""
+                      width="200"
+                      height="200"
+                    />
+                  ) :(<label
+                        htmlFor="upload"
+                        className="flex flex-col items-center gap-2 cursor-pointer mt-20"
+                      >
+                      <input id="upload" type="file" className="hidden" 
+                      onChange={uploadcoverImage}
+                      accept="image/*"
+                      />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-10 w-10 fill-none stroke-white"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                      </label>)}
+                    </div>
+                  </div>
 
                       </div>
 
