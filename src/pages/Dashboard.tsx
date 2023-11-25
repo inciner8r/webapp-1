@@ -43,6 +43,8 @@ const Profile = () => {
   const [profileset, setprofileset] = useState<boolean>(true);
   const [profileData, setProfileData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
+  const [successmsg, setsuccessMsg] = useState<string>("");
+  const [errormsg, seterrorMsg] = useState<string>("");
 
   const [verify,setverify] = useState<boolean>(false);
 
@@ -276,10 +278,10 @@ console.log("jsonData",jsonData);
       console.log("response", responseData);
       if (response.status === 200) {
         // const responseData = await response.json();
-        setMsg(responseData.message);
+        setsuccessMsg(responseData.message);
         // console.log("domain data",responseData);
       } else {
-        setMsg(responseData.error);
+        seterrorMsg(responseData.error);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -599,7 +601,10 @@ console.log("jsonData",jsonData);
                   {txtvalue}
                 </p>
             </div>
-            <p style={text} className="p-4">{msg}</p>
+            <p style={text} className="p-4 text-green-500">{successmsg}</p>
+            
+            {
+              errormsg && !successmsg && (<p style={text} className="p-4 text-red-500">{errormsg}. Try again in 3-5 mins if already added txt in dns.</p>)}
 
             <div className="flex items-center p-4 md:p-5 rounded-b">
                 <button 
