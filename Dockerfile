@@ -1,8 +1,8 @@
-FROM node:20 as builder
+FROM node:20.9.0 as builder
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
-RUN npm i --no-package-lock
+RUN npm ci
 COPY . .
 RUN npm run build
 
