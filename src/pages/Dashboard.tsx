@@ -164,6 +164,8 @@ const Profile = () => {
       formDataObj.append('description', formData.description);
       formDataObj.append('logohash', formData.profilePictureUrl);
       formDataObj.append('coverImageHash', formData.coverImageHash);
+      formDataObj.append('adminName', formData.yourname);
+      formDataObj.append('adminRole', formData.role);
 
       // Convert FormData to JavaScript Object
 const formDataObject: { [key: string]: string | File | null } = {};
@@ -211,7 +213,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1', {
+        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domainName?page=1', {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -588,7 +590,7 @@ console.log("jsonData",jsonData);
             <div className="p-4 md:p-5 space-y-4">
                 <p className="text-md text-center" style={text}>
                   Your domain has been registered successfully!
-                  Add below TXT in cloudfare and then click verify button.
+                  Add below TXT in DNS and then click verify button.
                 </p>
             </div>
 <div className="p-4 md:p-5 space-y-4">
