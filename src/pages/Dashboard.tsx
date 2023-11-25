@@ -494,15 +494,15 @@ console.log("jsonData",jsonData);
                       src={`${
                         "https://cloudflare-ipfs.com/ipfs"
                       }/${removePrefix(formData.coverImageHash)}`}
-                      className=""
-                      width="200"
-                      height="200"
+                      className="w-full h-full"
+                      // width="400"
+                      // height="200"
                     />
                   ) :(<label
-                        htmlFor="upload"
+                        htmlFor="uploadbg"
                         className="flex flex-col items-center gap-2 cursor-pointer mt-20"
                       >
-                      <input id="upload" type="file" className="hidden" 
+                      <input id="uploadbg" type="file" className="hidden" 
                       onChange={uploadcoverImage}
                       accept="image/*"
                       />
