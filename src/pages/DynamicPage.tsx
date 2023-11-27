@@ -286,6 +286,23 @@ const handlePrevPage = () => {
         <div className="mx-auto max-w-8xl px-16">
         <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
           <h1 className="text-white text-3xl font-bold mt-20">Reviews for {id?.replace(/^www\.|\.com$/g, '')}</h1>
+       { !domaindata && ( 
+          <div className="flex gap-8">
+          <div>
+        <a href={siteUrl} target="_blank"><p className='my-4' style={style}>{siteUrl}</p></a>
+        </div>
+        <div className="-mt-2">
+        {siteRating && (
+                          <div className="mt-4">
+                            <StarRatingshow
+                              totalStars={10}
+                              rating={siteRating}
+                            />
+                          </div>
+                        )}
+                        </div>
+                        </div>
+)} 
         </div>
         </div>
         
