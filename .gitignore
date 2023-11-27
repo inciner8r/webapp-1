@@ -4,3 +4,5 @@ node_modules
 Todo.md
 ./build
 build
+.env.production
+.env.dev
