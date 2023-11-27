@@ -42,6 +42,7 @@ const Profile = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [profileset, setprofileset] = useState<boolean>(true);
+  const [buttonset, setbuttonset] = useState<boolean>(false);
   const [profileData, setProfileData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
   const [successmsg, setsuccessMsg] = useState<string>("");
@@ -313,7 +314,7 @@ console.log("jsonData",jsonData);
         <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
            
-            {/* { !profileset && ( */}
+            { buttonset && (
             <section className="pb-10 rounded-xl" style={bg}>
               <div className="px-5 mx-auto max-w-2xl rounded-xl">
                 <div className="w-full mx-auto text-left py-20">
@@ -327,13 +328,6 @@ console.log("jsonData",jsonData);
                     onSubmit={handleSubmit}
                   >
                     <div className="lg:flex md:flex justify-between">
-
-                      {/* <div className="block lg:hidden md:hidden">
-                    <div className="flex items-center -mt-10 mb-10 justify-center">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-            </div>
-          </div>
-          </div> */}
 
           <div className="flex items-center lg:justify-start md:justify-start justify-center lg:-mt-80 md:-mt-80 lg:mb-10 md:mb-10 mb-10">
                     <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
@@ -454,26 +448,7 @@ console.log("jsonData",jsonData);
               onChange={handleInputChange}
                           required
                         />
-
-                  
                       </div>
-
-                      {/* <div className="mb-10">
-                        <input
-                          type="text"
-                          id="description"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Description"
-                          value={formData.description}
-              onChange={handleInputChange}
-                          required
-                        />
-
-                  
-                      </div> */}
-
-
 
                       <div className="mb-10">
                       <textarea
@@ -500,8 +475,6 @@ console.log("jsonData",jsonData);
               onChange={handleInputChange}
                           required
                         />
-
-                  
                       </div>
 
                       <div className="mb-10 lg:w-1/2 md:w-1/2">
@@ -515,8 +488,6 @@ console.log("jsonData",jsonData);
               onChange={handleInputChange}
                           required
                         />
-
-                  
                       </div>
                       </div>
 
@@ -532,8 +503,6 @@ console.log("jsonData",jsonData);
                         "https://cloudflare-ipfs.com/ipfs"
                       }/${removePrefix(formData.coverImageHash)}`}
                       className="w-full h-full"
-                      // width="400"
-                      // height="200"
                     />
                   ) :(<label
                         htmlFor="uploadbg"
@@ -559,37 +528,8 @@ console.log("jsonData",jsonData);
                       </label>)}
                     </div>
                   </div>
-
-                      </div>
-
-                      {/* {profileDetails?.profilePictureUrl ? (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <img
-                className="text-3xl text-gray-500 w-48 h-48 rounded-full"
-                alt=""
-                src={`https://cloudflare-ipfs.com/ipfs/${removePrefix(
-                  profileDetails?.profilePictureUrl
-                )}`}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" />
-            </div>
-          </div>
-        )} */}
-
-
-                  
-                      
+                      </div>     
                     </div>
-
-                    
-
-                      
 
                     <div className="text-center pt-10">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
@@ -614,7 +554,7 @@ console.log("jsonData",jsonData);
                 Verify Your Registration
                 </h3>
                 <button 
-                    onClick={() => setverify(false)}
+                    onClick={() => setbuttonset(false)}
                     type="button" 
                     className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 >
@@ -632,7 +572,6 @@ console.log("jsonData",jsonData);
             </div>
 <div className="p-4 md:p-5 space-y-4">
                 <p className="text-lg text-center text-white">
-                  {/* The TXT value is :  */}
                   {txtvalue}
                 </p>
             </div>
@@ -657,7 +596,6 @@ console.log("jsonData",jsonData);
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
             <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
-              {/* <Loader/> */}
             </div>
           </div>
         </div>)}
@@ -675,7 +613,7 @@ console.log("jsonData",jsonData);
                 </div>
               </div>
             </section>
-            {/* )} */}
+         )}
 
 
 
@@ -688,8 +626,8 @@ console.log("jsonData",jsonData);
 
 
 
-{/* {
-  profileset && (
+{
+  !buttonset && (
     <>
     <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
                     <span className="text-white">Basic Information</span>
@@ -757,7 +695,7 @@ console.log("jsonData",jsonData);
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
                           style={button}
-                          onClick={handleVerify}
+                          onClick={() => setbuttonset(true)}
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
                           Verify Domain
@@ -777,7 +715,7 @@ console.log("jsonData",jsonData);
             </section>
     </>
   )
-} */}
+}
             
           </div>
         </div>
