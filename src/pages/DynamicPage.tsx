@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import StarRatingshow from "../Components/StarRatingshow";
+import { removePrefix } from "../modules/Utils/ipfsUtil";
 
 interface DomainData {
   category: string;
@@ -21,6 +22,7 @@ interface DomainData {
   description: string;
   headline: string;
   logoHash: string;
+  creatorName:string;
 }
 
 const DynamicPage: React.FC = () => {
@@ -201,6 +203,10 @@ const background = {
   backgroundColor: '#141a31'
 }
 
+const background2 = {
+  backgroundColor: '#222944'
+}
+
 const handleNextPage = () => {
   setCurrentPage((prevPage) => prevPage + 1);
 };
@@ -224,10 +230,27 @@ const handlePrevPage = () => {
         className="mt-16"
       >
 
+{ domaindata && (
         <div className="mx-auto max-w-8xl px-16">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
+            <div className="flex">
+              <div className="w-1/4">
+          <img
+                      alt="alt"
+                      src={`${
+                        "https://cloudflare-ipfs.com/ipfs"
+                      }/${removePrefix(domaindata?.logoHash)}`}
+                      className=""
+                      width="200"
+                      height="200"
+                    />
+                    </div>
+                    <div className="w-3/4">
         <h1 className="text-white text-3xl font-bold">{id?.replace(/^www\.|\.com$/g, '')}</h1>
         <div className="flex gap-6">
+        <div>
+        <p className='my-4' style={style}>{domaindata?.title}</p>
+        </div>
           <div>
         <a href={siteUrl} target="_blank"><p className='my-4' style={style}>{siteUrl}</p></a>
         </div>
@@ -235,8 +258,9 @@ const handlePrevPage = () => {
         <p className='my-4' style={style}>{domaindata?.category}</p>
         </div>
         <div>
-        <p className='my-4' style={style}>{domaindata?.title}</p>
+        <p className='my-4' style={style}>{domaindata?.blockchain}</p>
         </div>
+        
         <div className="-mt-2">
         {siteRating && (
                           <div className="mt-4">
@@ -248,7 +272,19 @@ const handlePrevPage = () => {
                         )}
                         </div>
           </div>
-          <div>{domaindata?.description}</div>
+          <div className='text-white'>Creator Name : {domaindata?.creatorName}</div>
+          <div style={background2} className='p-6 mt-10 rounded-xl'>
+          <div className='text-white'>Headline : {domaindata?.headline}</div>
+          <div className='text-white'>Description : {domaindata?.description}</div>
+          </div>
+          </div>
+          </div>
+        </div>
+        </div>
+        )}
+
+        <div className="mx-auto max-w-8xl px-16">
+        <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
           <h1 className="text-white text-3xl font-bold mt-20">Reviews for {id?.replace(/^www\.|\.com$/g, '')}</h1>
         </div>
         </div>
