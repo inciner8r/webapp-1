@@ -35,6 +35,7 @@ interface FormData {
   coverImageHash:string;
   yourname:string;
   role:string;
+  blockchain:string;
 }
 
 const Profile = () => {
@@ -109,7 +110,8 @@ const Profile = () => {
     profilePictureUrl: '',
     coverImageHash:'',
     yourname:'',
-    role:''
+    role:'',
+    blockchain:''
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -176,6 +178,7 @@ const Profile = () => {
       formDataObj.append('coverImageHash', formData.coverImageHash);
       formDataObj.append('adminName', formData.yourname);
       formDataObj.append('adminRole', formData.role);
+      formDataObj.append('blockchain', formData.blockchain);
 
       // Convert FormData to JavaScript Object
 const formDataObject: { [key: string]: string | File | null } = {};
@@ -426,6 +429,18 @@ console.log("jsonData",jsonData);
                         />
                       </div>
 
+                      <div>
+                        <input
+                          type="text"
+                          id="blockchain"
+                          style={border}
+                          className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Blockchain (optional)"
+                          value={formData.blockchain}
+              onChange={handleInputChange}
+                        />
+                      </div>
+
                       
 
                       <div className="mb-10">
@@ -434,7 +449,7 @@ console.log("jsonData",jsonData);
                           id="headline"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Headline"
+                          placeholder="Headline (optional)"
                           value={formData.headline}
               onChange={handleInputChange}
                           required
