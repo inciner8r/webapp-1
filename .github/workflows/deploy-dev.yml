@@ -3,7 +3,7 @@ name: "Build and Push to GHCR"
 on:
   push:
     branches: 
-      - 3-dev-deployment
+      - dev
 jobs:
   build_push:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy on DEV server
-      if: github.ref == 'refs/heads/3-dev-deployment'
+      if: github.ref == 'refs/heads/dev'
       uses: appleboy/ssh-action@v0.1.7
       with:         
         host: ${{ secrets.DEV_REMOTE_SERVER_ADDRESS }}
@@ -51,6 +51,6 @@ jobs:
         script: |
           pwd
           cd gateway
-          docker stop webapp || true && docker image rm ghcr.io/netsepio/webapp:3-dev-deployment
-          docker pull ghcr.io/netsepio/webapp:3-dev-deployment
-          docker run --name="webapp" --rm --env-file=.env -p 4000:80 --net=bridge -d ghcr.io/netsepio/webapp:3-dev-deployment
+          docker stop webapp || true && docker image rm ghcr.io/netsepio/webapp:dev
+          docker pull ghcr.io/netsepio/webapp:dev
+          docker run --name="webapp" --rm --env-file=.env -p 4000:80 --net=bridge -d ghcr.io/netsepio/webapp:dev
