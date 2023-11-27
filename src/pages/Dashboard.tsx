@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
+import MyProjectsContainer from '../Components/Myprojectscontainer';
 import { NFTStorage } from "nft.storage";
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
 const client = new NFTStorage({ token: API_KEY });
@@ -43,7 +44,7 @@ const Profile = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [profileset, setprofileset] = useState<boolean>(true);
   const [buttonset, setbuttonset] = useState<boolean>(false);
-  const [profileData, setProfileData] = useState<any>(null);
+  const [projectsData, setprojectsData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
   const [successmsg, setsuccessMsg] = useState<string>("");
   const [errormsg, seterrorMsg] = useState<string>("");
@@ -222,12 +223,12 @@ const jsonData = JSON.stringify(formDataObject);
 
 
   useEffect(() => {
-    const fetchProfileData = async () => {
+    const fetchProjectsData = async () => {
       setLoading(true);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domainName?page=1', {
+        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1', {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -237,10 +238,10 @@ const jsonData = JSON.stringify(formDataObject);
 
         if (response.status === 200) {
             // Filter the data based on the domain ID
-            const domainid = localStorage.getItem('domainId');
+            const wallet = Cookies.get("platform_wallet");
             const payload: any[] = response.data.payload;
-    const filteredData = payload.filter(item => item.id === domainid);
-          setProfileData(filteredData[0]);
+    const filteredData = payload.filter(item => item.createdBy === wallet);
+    setprojectsData(filteredData);
           console.log(filteredData)
         }
       } catch (error) {
@@ -250,8 +251,8 @@ const jsonData = JSON.stringify(formDataObject);
       }
     };
 
-    fetchProfileData();
-  }, [profileset]);
+    fetchProjectsData();
+  }, [buttonset]);
 
 
 
@@ -630,79 +631,36 @@ console.log("jsonData",jsonData);
   !buttonset && (
     <>
     <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white">Basic Information</span>
+                    <span className="text-white">My Projects</span>
                   </h1>
-            <section className="pb-10 rounded-xl" style={bg}>
-              <div className="px-5 mx-auto max-w-2xl rounded-xl">
-                <div className="w-full mx-auto text-left py-20">
-                  
-
-                  <form
-                    id="myForm"
-                    className="rounded pt-10"
-                   
-                  >
-                    <div className="lg:flex md:flex justify-between gap-2">
-
-                    <div className="lg:w-1/3 md:w-1/3">
-                    <div className="flex items-center mb-10 justify-center">
-                    {
-                    profileData?.logoHash ? (
-                    <img
-                      alt="alt"
-                      src={`${
-                        "https://cloudflare-ipfs.com/ipfs"
-                      }/${removePrefix(profileData?.logoHash)}`}
-                      className=""
-                      width="200"
-                      height="200"
-                    />
-                  ) :(
-                      <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-                      </div>
-                  )}
-                    </div>
-                    </div>
-
-                    <div className="lg:w-2/3 md:w-2/3">
-                      
-                      <div className="lg:flex md:flex justify-between gap-2">
-                    <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.domainName}
-                      </div>
-
-                      <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.category}
-                      </div>
-                      </div>
-                      <div style={border} className="mb-10 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.title}
-                      </div>
-                      <div style={border} className="mb-10 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.headline}
-                      </div>
-                      <div style={border} className="mb-10 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.description}
-                      </div>
-                      </div>
-                    </div>
-
-                    
-
+            <section className="pb-10 rounded-xl">
+              
+            {loading ? (
+            <Loader />
+          ) : projectsData?.length == 0 ? (
+            <motion.div
+            className="w-full text-center py-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-4xl font-semibold text-gray-700">No Projects Found</h2>
+          </motion.div>
+          ) : (
+            <MyProjectsContainer metaDataArray={projectsData} MyReviews={false}/>
+          )}
                      
 
-                    <div className="text-center pt-10">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
                           style={button}
                           onClick={() => setbuttonset(true)}
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
-                          Verify Domain
+                          Create Project
                         </button>
                       </div>
-                    </div>
-                  </form>
+
 
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
@@ -710,8 +668,6 @@ console.log("jsonData",jsonData);
             </div>
           </div>
         </div>)}
-                </div>
-              </div>
             </section>
     </>
   )
