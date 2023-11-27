@@ -8,6 +8,7 @@ import Footer from './Components/Footer';
 import DynamicPage from './pages/DynamicPage';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import { HelmetProvider } from 'react-helmet-async';
 import { Helmet } from 'react-helmet-async';
 
 const App: React.FC = () => {
@@ -69,6 +70,7 @@ const App: React.FC = () => {
         <link rel="icon" type="image/svg+xml" sizes="16x16" href="/netsepio_logo_light.png" />
       </Helmet>
     <Router>
+    <HelmetProvider>
       <div style={background}>
         <Navbar/>
         <Routes>
@@ -81,6 +83,7 @@ const App: React.FC = () => {
         </Routes>
         <Footer />
       </div>
+    </HelmetProvider>
     </Router>
     </div>
   );
