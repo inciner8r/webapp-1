@@ -88,6 +88,14 @@ const Profile = () => {
     color: "#788AA3"
   }
 
+  const successtext= {
+    color: "#141a31"
+  }
+
+  const errortext= {
+    color: "#EE4B2B"
+  }
+
   const bgverify = {
     backgroundColor: "#141a31",
   }
@@ -601,10 +609,10 @@ console.log("jsonData",jsonData);
                   {txtvalue}
                 </p>
             </div>
-            <p style={text} className="p-4 text-green-500">{successmsg}</p>
+            <p style={successtext} className="p-4">{successmsg}</p>
             
             {
-              errormsg && !successmsg && (<p style={text} className="p-4 text-red-500">{errormsg}. Try again in 3-5 mins if already added txt in dns.</p>)}
+              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}. Try again in 3-5 mins if already added txt in dns.</p>)}
 
             <div className="flex items-center p-4 md:p-5 rounded-b">
                 <button 

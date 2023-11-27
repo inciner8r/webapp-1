@@ -292,17 +292,17 @@ const MyReviews: React.FC = () => {
                           required
                         >
                           <option value="">Select Category</option>
-                          <option value="Social Media">Social Media</option>
-                          <option value="Technology">Technology</option>
-                          <option value="Travel">Travel</option>
-                          <option value="Entertainment">entertainment</option>
-                          <option value="Health">Health</option>
-                          <option value="News">news</option>
+                          <option value="Marketplace">Marketplace</option>
+                          <option value="NFT">NFT</option>
+                          <option value="Games">Games</option>
+                          <option value="DeFi">DeFi</option>
+                          <option value="Wallet">Wallet</option>
+                          {/* <option value="News">news</option>
                           <option value="E-commerce">E-commerce</option>
                           <option value="Education">education</option>
                           <option value="Sports">sports</option>
                           <option value="Food and Drink">food and drink</option>
-                          <option value="Lifestyle">Lifestyle</option>
+                          <option value="Lifestyle">Lifestyle</option> */}
                         </select>
                         {/* <input
                           style={border}
