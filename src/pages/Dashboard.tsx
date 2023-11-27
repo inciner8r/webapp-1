@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import { NFTStorage } from "nft.storage";
@@ -300,6 +301,12 @@ console.log("jsonData",jsonData);
   };
 
   return (
+    <>
+    <Helmet>
+        <title>My Page Title</title>
+        <meta name="description" content="Description for My Page" />
+        {/* Add other metadata as needed */}
+      </Helmet>
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -768,6 +775,7 @@ console.log("jsonData",jsonData);
         </div>
       </section>
     </motion.div>
+    </>
   )
 }
 
