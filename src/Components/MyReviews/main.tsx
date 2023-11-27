@@ -16,6 +16,7 @@ import { storeMetaData, createReview } from "../../modules/submit-review";
 const MyReviews: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [blockchain, setblockchain] = useState<string>("");
   const [websiteUrl, setWebsiteUrl] = useState<string>("");
   // const [category] = useState<string>("website");
   const [siteTag, setSiteTag] = useState<string>("");
@@ -92,7 +93,8 @@ const MyReviews: React.FC = () => {
       siteType: siteType,
       siteTag: siteTag,
       siteSafety: siteSafety,
-      siteRating: selectedRating
+      siteRating: selectedRating,
+      blockchain: blockchain,
     };
     let [CID] = await storeMetaData(metaData);
     let metaDataUri = `ipfs://${CID}`.split(',')[0];
@@ -130,6 +132,7 @@ const MyReviews: React.FC = () => {
         console.log('Review data submitted successfully');
         setTitle("");
         setDescription("");
+        setblockchain("");
         setWebsiteUrl("");
         setSiteType("");
         setCategory("");
@@ -341,6 +344,18 @@ const MyReviews: React.FC = () => {
                           value={siteTag} onChange={(e) => setSiteTag(e.target.value)} required
                         /> */}
                       </div>
+                    </div>
+
+                    <div className="mb-10">
+                    <input
+                          type="text"
+                          id="blockchain"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Blockchain"
+                          value={blockchain}
+                          onChange={(e) => setblockchain(e.target.value)}
+                        />
                     </div>
 
                     <div className="mb-10">

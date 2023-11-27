@@ -14,11 +14,21 @@ import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import StarRatingshow from "../Components/StarRatingshow";
 
+interface DomainData {
+  category: string;
+  title: string;
+  blockchain: string;
+  description: string;
+  headline: string;
+  logoHash: string;
+}
+
 const DynamicPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const [reviews, setReviews] = useState<any[]>([]);
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
+  const [domaindata, setdomaindata] = useState<DomainData | null>(null);
   const [siteUrl, setsiteurl] = useState<string>("");
   const [siteRating, setsiterating] = useState<number>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -100,6 +110,39 @@ const DynamicPage: React.FC = () => {
       fetchMetaData().finally(() => setLoading(false));
     }
   }, [reviews]);  
+
+
+  useEffect(() => {
+    const getdomaindata = async () => {
+      setLoading(true);
+      try {
+        const auth = Cookies.get("platform_token");
+
+        const response = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1&verified=true&domainName=${id}`, {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
+          },
+        });
+
+        if (response.status === 200) {
+            // Filter the data based on the domain ID
+            // const domainid = localStorage.getItem('domainId');
+            const payload: any[] = response.data.payload;
+    const filteredData = payload.filter(item => item?.domainName === id);
+    setdomaindata(filteredData.length > 0 ? filteredData[0] : null);
+          console.log("domain data", filteredData)
+        }
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getdomaindata();
+  }, []);
 
   const handleFilterChange = async (siteSafety: string) => {
     let reviewResults;
@@ -183,10 +226,16 @@ const handlePrevPage = () => {
 
         <div className="mx-auto max-w-8xl px-16">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
-        <h1 className="text-white text-3xl font-bold">Reviews for {id?.replace(/^www\.|\.com$/g, '')}</h1>
+        <h1 className="text-white text-3xl font-bold">{id?.replace(/^www\.|\.com$/g, '')}</h1>
         <div className="flex gap-6">
           <div>
         <a href={siteUrl} target="_blank"><p className='my-4' style={style}>{siteUrl}</p></a>
+        </div>
+        <div>
+        <p className='my-4' style={style}>{domaindata?.category}</p>
+        </div>
+        <div>
+        <p className='my-4' style={style}>{domaindata?.title}</p>
         </div>
         <div className="-mt-2">
         {siteRating && (
@@ -199,8 +248,11 @@ const handlePrevPage = () => {
                         )}
                         </div>
           </div>
+          <div>{domaindata?.description}</div>
+          <h1 className="text-white text-3xl font-bold mt-20">Reviews for {id?.replace(/^www\.|\.com$/g, '')}</h1>
         </div>
         </div>
+        
 
         {loading ? (
             <Loader />
