@@ -315,7 +315,7 @@ console.log("jsonData",jsonData);
               <div className="px-5 mx-auto max-w-2xl rounded-xl">
                 <div className="w-full mx-auto text-left py-20">
                   <h1 className="mb-8 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white">Add Registration Details</span>
+                    <span className="text-white">Verify your project</span>
                   </h1>
 
                   <form
@@ -336,6 +336,8 @@ console.log("jsonData",jsonData);
                     <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
                   {
                     formData.profilePictureUrl ? (
+                      <>
+                      <div className="text-gray-400 -mt-10 mb-4 text-center">Project logo</div>
                     <img
                       alt="alt"
                       src={`${
@@ -345,6 +347,7 @@ console.log("jsonData",jsonData);
                       width="200"
                       height="200"
                     />
+                    </>
                   ) :(<label
                         htmlFor="upload"
                         className="flex flex-col items-center gap-2 cursor-pointer mt-20"
@@ -380,7 +383,7 @@ console.log("jsonData",jsonData);
                           id="title"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Company Name"
+                          placeholder="Project Name"
                           value={formData.title}
               onChange={handleInputChange}
                           required
@@ -450,7 +453,22 @@ console.log("jsonData",jsonData);
                   
                       </div> */}
 
-<div className="lg:flex md:flex justify-between gap-2">
+
+
+                      <div className="mb-10">
+                      <textarea
+                        style={border}
+                        id="description"
+                        rows={4}
+                        className="block p-2.5 w-full text-sm text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Show description of your project (50 words)"
+                        value={formData.description}
+                        onChange={handleInputChange}
+                        required
+                      ></textarea>
+                    </div>
+
+                    <div className="lg:flex md:flex justify-between gap-2">
                     <div className="mb-10 lg:w-1/2 md:w-1/2">
                         <input
                           type="text"
@@ -482,18 +500,7 @@ console.log("jsonData",jsonData);
                       </div>
                       </div>
 
-                      <div className="mb-10">
-                      <textarea
-                        style={border}
-                        id="description"
-                        rows={4}
-                        className="block p-2.5 w-full text-sm text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Description"
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        required
-                      ></textarea>
-                    </div>
+                      <div className="text-gray-400">Project page cover photo</div>
 
                     <div className="flex items-center lg:justify-start md:justify-start justify-center">
                     <div className="w-full h-48 ring-1 ring-gray-200 rounded-md">
