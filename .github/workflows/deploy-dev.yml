@@ -5,7 +5,7 @@ on:
     branches: 
       - 3-dev-deployment
 jobs:
-  Deploy:
+  build_push:
     runs-on: ubuntu-latest
     steps:
     
@@ -36,7 +36,11 @@ jobs:
         docker push $GITHUB_REF_IMAGE
         docker push $GITHUB_BRANCH_IMAGE
         rm -rf .env
-    - name: Deploy on DEV server 
+  deploy:
+    needs: build_push
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy on DEV server
       if: github.ref == 'refs/heads/3-dev-deployment'
       uses: appleboy/ssh-action@v0.1.7
       with:         
