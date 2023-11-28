@@ -18,7 +18,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="inline-flex items-center justify-center w-full gap-4 mb-10">
+    <div className="inline-flex items-center justify-center w-full gap-4 mb-10 text-lg">
       <Link
         to="/view-my-reviews"
         onClick={() => changePage('reviews')}
@@ -46,7 +46,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate }) => {
       <Link
         to="/vpn"
         onClick={() => changePage('vpns')}
-        className={`rounded-lg px-12 py-8 font-bold`}
+        className={`rounded-lg px-14 py-8 font-bold`}
         style={{
             color: location.pathname.includes('vpn') ? 'white' : '#788AA3',
             backgroundColor: location.pathname.includes('vpn') ? '#4B5995' : '',

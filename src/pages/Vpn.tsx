@@ -69,8 +69,12 @@ const Vpn = () => {
     }
   }, [msg]);
 
-  const bg = {
+  const bg2 = {
     backgroundColor: "white",
+  };
+
+  const bg = {
+    backgroundColor: "#222944",
   };
 
   const border = {
@@ -150,9 +154,9 @@ const jsonData = JSON.stringify(formDataObject);
         const responseData = await response.json();
         setFormData(initialFormData);
         // setMsg('success');
-        console.log("domain data",responseData);
-        localStorage.setItem('domainId', responseData.payload.domainId);
-        localStorage.setItem('txtvalue',responseData.payload.txtValue);
+        console.log("vpn data",responseData);
+        // localStorage.setItem('domainId', responseData.payload.domainId);
+        // localStorage.setItem('txtvalue',responseData.payload.txtValue);
         setverify(true);
       } else {
         setMsg('error');
@@ -376,7 +380,7 @@ console.log("jsonData",jsonData);
                   {
               verify && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
     <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
-        <div className="relative rounded-lg shadow dark:bg-gray-700" style={bg}>
+        <div className="relative rounded-lg shadow dark:bg-gray-700" style={bg2}>
             <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
                 {/* <h3 className="text-2xl font-semibold">
                 Verify Your Registration
@@ -435,13 +439,13 @@ console.log("jsonData",jsonData);
         </div>)}
             {
               msg == "success" && (
-                <p className="text-green-500">Verified successfully.</p>
+                <p className="text-green-500">Successful</p>
               )
             }
 
             {
               msg == "error" && (
-                <p className="text-red-500">Not verified</p>
+                <p className="text-red-500">Failed to create VPN. Enter unique name.</p>
               )
             }
                 </div>

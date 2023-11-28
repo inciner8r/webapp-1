@@ -212,7 +212,7 @@ const MyReviews: React.FC = () => {
                           id="websiteUrl"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="URL"
+                          placeholder="URL (Enter http link)"
                           value={websiteUrl}
                           onChange={(e) => setWebsiteUrl(e.target.value)}
                           required
@@ -364,14 +364,14 @@ const MyReviews: React.FC = () => {
                         id="message"
                         rows={4}
                         className="block p-2.5 w-full text-sm text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Write your thoughts here..."
+                        placeholder="Additional feedback"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
                       ></textarea>
                     </div>
 
-                    <label className="text-white">Rate the website from 1 to 10</label>
+                    <label className="text-white">Your service rating</label>
       <StarRating totalStars={10} onRatingChange={handleRatingChange} />
 
                     <div className="text-center pt-10">
