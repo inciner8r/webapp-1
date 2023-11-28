@@ -13,6 +13,7 @@ import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import MyProjectsContainer from '../Components/Myprojectscontainer';
+import ButtonNavigation from '../Components/Buttonnavigation';
 import { NFTStorage } from "nft.storage";
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
 const client = new NFTStorage({ token: API_KEY });
@@ -304,6 +305,11 @@ console.log("jsonData",jsonData);
     }
   };
 
+  const handleNavigation = (page: string) => {
+    console.log(`Navigating to ${page} page from projectsPage...`);
+    // Additional navigation logic if needed
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -314,6 +320,10 @@ console.log("jsonData",jsonData);
       <section className="pt-24 mb-10">
         <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+
+<div className='-mt-10'>
+          <ButtonNavigation onNavigate={handleNavigation} />
+          </div>
            
             { buttonset && (
             <section className="pb-10 rounded-xl" style={bg}>

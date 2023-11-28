@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
+import ButtonNavigation from '../Components/Buttonnavigation';
 
 const ViewMyReviews: React.FC = () => {
   const [reviews, setReviews] = useState<any[]>([]);
@@ -175,6 +176,12 @@ const handleNextPage = () => {
 const handlePrevPage = () => {
   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
 };
+
+
+const handleNavigation = (page: string) => {
+  console.log(`Navigating to ${page} page from ReviewsPage...`);
+  // Additional navigation logic if needed
+};
   
 
   return (
@@ -193,12 +200,27 @@ const handlePrevPage = () => {
       >
         {/* <SearchBar onSearch={handleSearch} /> */}
         {/* <FilterButton onFilterChange={handleFilterChange} /> */}
-        <div className="inline-flex items-center justify-center w-full">
+        {/* <div className="inline-flex items-center justify-center w-full">
         <button className="text-white border rounded-full py-2 px-6 mt-10">My reviews</button>
         </div>
         <div className="inline-flex items-center justify-center w-full my-10">
         <h1 className="text-white text-3xl font-bold">Your Path to Safe and Secure Browsing</h1>
-        </div>
+        </div> */}
+
+        {/* <div className="inline-flex items-center justify-center w-full gap-4 mb-10">
+        <button className="text-white border rounded-lg px-10 py-8">Reviews</button>
+        <button className="text-white border rounded-lg px-10 py-8">Projects</button>
+        <button className="text-white border rounded-lg px-12 py-8">VPNs</button>
+        </div> */}
+
+<ButtonNavigation onNavigate={handleNavigation} />
+<div className="px-5 mx-auto max-w-7xl">
+          <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+          <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+                    <span className="text-white">My Reviews</span>
+                  </h1>
+                  </div>
+                  </div>
 
         {loading ? (
             <Loader />
