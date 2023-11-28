@@ -8,6 +8,7 @@ import Footer from './Components/Footer';
 import DynamicPage from './pages/DynamicPage';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import Vpn from './pages/Vpn';
 
 const App: React.FC = () => {
 
@@ -26,6 +27,7 @@ const App: React.FC = () => {
           <Route path="/reviews/:id" Component={DynamicPage} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/vpn" element={<Vpn/>} />
         </Routes>
         <Footer />
       </div>

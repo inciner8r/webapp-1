@@ -27,19 +27,12 @@ export interface WalletData {
 }
 
 interface FormData {
-  domainName: string;
-  title: string;
-  category: string;
-  headline: string;
-  description: string;
-  profilePictureUrl: string;
-  coverImageHash:string;
-  yourname:string;
-  role:string;
-  blockchain:string;
+  name: string;
+  region: string;
+  domain: string;
 }
 
-const Projects = () => {
+const Vpn = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [profileset, setprofileset] = useState<boolean>(true);
@@ -104,16 +97,9 @@ const Projects = () => {
   }
 
   const initialFormData: FormData = {
-    domainName: '',
-    title: '',
-    category: '',
-    headline: '',
-    description: '',
-    profilePictureUrl: '',
-    coverImageHash:'',
-    yourname:'',
-    role:'',
-    blockchain:''
+    name: '',
+    region: '',
+    domain: '',
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -126,42 +112,6 @@ const Projects = () => {
     }));
   };
 
-  async function uploadImage(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const blobDataImage = new Blob([e.target.files![0]]);
-      const metaHash = await client.storeBlob(blobDataImage);
-      setFormData({
-        ...formData,
-        profilePictureUrl: `ipfs://${metaHash}`,
-      });
-      console.log("profilePictureUrl",metaHash)
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function uploadcoverImage(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const blobDataImage = new Blob([e.target.files![0]]);
-      const metaHash = await client.storeBlob(blobDataImage);
-      setFormData({
-        ...formData,
-        coverImageHash: `ipfs://${metaHash}`,
-      });
-      console.log("coverImageHash",metaHash)
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -171,16 +121,9 @@ const Projects = () => {
 
     try {
       const formDataObj = new FormData();
-      formDataObj.append('domainName', formData.domainName);
-      formDataObj.append('title', formData.title);
-      formDataObj.append('category', formData.category);
-      formDataObj.append('headline', formData.headline);
-      formDataObj.append('description', formData.description);
-      formDataObj.append('logohash', formData.profilePictureUrl);
-      formDataObj.append('coverImageHash', formData.coverImageHash);
-      formDataObj.append('adminName', formData.yourname);
-      formDataObj.append('adminRole', formData.role);
-      formDataObj.append('blockchain', formData.blockchain);
+      formDataObj.append('name', formData.name);
+      formDataObj.append('region', formData.region);
+      formDataObj.append('domain', formData.domain);
 
       // Convert FormData to JavaScript Object
 const formDataObject: { [key: string]: string | File | null } = {};
@@ -320,7 +263,7 @@ console.log("jsonData",jsonData);
               <div className="px-5 mx-auto max-w-2xl rounded-xl">
                 <div className="w-full mx-auto text-left py-20">
                   <h1 className="mb-8 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white">Verify your project</span>
+                    <span className="text-white text-center">Create Your VPN</span>
                   </h1>
 
                   <form
@@ -328,208 +271,56 @@ console.log("jsonData",jsonData);
                     className="rounded pt-10"
                     onSubmit={handleSubmit}
                   >
-                    <div className="lg:flex md:flex justify-between">
 
-          <div className="flex items-center lg:justify-start md:justify-start justify-center lg:-mt-80 md:-mt-80 lg:mb-10 md:mb-10 mb-10">
-                    <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
-                  {
-                    formData.profilePictureUrl ? (
-                      <>
-                      <div className="text-gray-400 -mt-10 mb-4 text-center">Project logo</div>
-                    <img
-                      alt="alt"
-                      src={`${
-                        "https://cloudflare-ipfs.com/ipfs"
-                      }/${removePrefix(formData.profilePictureUrl)}`}
-                      className="rounded-full"
-                      width="200"
-                      height="200"
-                    />
-                    </>
-                  ) :(
-                  <>
-                  <div className="text-gray-400 -mt-10 pb-4 text-center">Project logo</div>
-                  <label
-                        htmlFor="upload"
-                        className="flex flex-col items-center gap-2 cursor-pointer mt-20"
-                      >
-                      <input id="upload" type="file" className="hidden" 
-                      onChange={uploadImage}
-                      accept="image/*"
-                      />
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-10 w-10 fill-white stroke-indigo-500"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                          />
-                        </svg>
-                      </label>
-                  </>
-                      )}
-                    </div>
-                  </div>
                   
 
-                      <div className="mb-10 lg:w-2/3 md:w-2/3 lg:border-l md:border-l lg:pl-6 md:pl-6">
+                      <div className="mb-10">
 
-                      <div className="lg:flex md:flex justify-between gap-2">
-                    <div className="mb-10 lg:w-1/2 md:w-1/2">
+                    <div className="mb-10">
                         <input
                           type="text"
-                          id="title"
+                          id="name"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Project Name"
-                          value={formData.title}
+                          placeholder="Name"
+                          value={formData.name}
               onChange={handleInputChange}
                           required
                         />
 
                   
                       </div>
-
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
-                        <input
-                          type="text"
-                          id="category"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Category"
-                          value={formData.category}
-              onChange={handleInputChange}
-                          required
-                        />
-
-                  
-                      </div>
-                      </div>
-
-                        <div>
-                        <input
-                          type="text"
-                          id="domainName"
-                          style={border}
-                          className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Domain Name"
-                          value={formData.domainName}
-              onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-
-                      <div>
-                        <input
-                          type="text"
-                          id="blockchain"
-                          style={border}
-                          className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Blockchain (optional)"
-                          value={formData.blockchain}
-              onChange={handleInputChange}
-                        />
-                      </div>
-
-                      
 
                       <div className="mb-10">
                         <input
                           type="text"
-                          id="headline"
+                          id="region"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Headline (optional)"
-                          value={formData.headline}
+                          placeholder="Region"
+                          value={formData.region}
               onChange={handleInputChange}
                           required
                         />
+
+                  
                       </div>
 
                       <div className="mb-10">
-                      <textarea
-                        style={border}
-                        id="description"
-                        rows={4}
-                        className="block p-2.5 w-full text-sm text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Show description of your project (50 words)"
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        required
-                      ></textarea>
-                    </div>
-
-                    <div className="lg:flex md:flex justify-between gap-2">
-                    <div className="mb-10 lg:w-1/2 md:w-1/2">
                         <input
                           type="text"
-                          id="yourname"
+                          id="domain"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Your Name"
-                          value={formData.yourname}
+                          placeholder="Domain"
+                          value={formData.domain}
               onChange={handleInputChange}
                           required
                         />
+
+                  
                       </div>
 
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
-                        <input
-                          type="text"
-                          id="role"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Your role"
-                          value={formData.role}
-              onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-                      </div>
-
-                      <div className="text-gray-400">Project page cover photo</div>
-
-                    <div className="flex items-center lg:justify-start md:justify-start justify-center">
-                    <div className="w-full h-48 ring-1 ring-gray-200 rounded-md">
-                  {
-                    formData.coverImageHash ? (
-                    <img
-                      alt="alt"
-                      src={`${
-                        "https://cloudflare-ipfs.com/ipfs"
-                      }/${removePrefix(formData.coverImageHash)}`}
-                      className="w-full h-full"
-                    />
-                  ) :(<label
-                        htmlFor="uploadbg"
-                        className="flex flex-col items-center gap-2 cursor-pointer mt-20"
-                      >
-                      <input id="uploadbg" type="file" className="hidden" 
-                      onChange={uploadcoverImage}
-                      accept="image/*"
-                      />
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-10 w-10 fill-none stroke-white"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                          />
-                        </svg>
-                      </label>)}
-                    </div>
-                  </div>
-                      </div>     
                     </div>
 
                     <div className="text-center pt-10">
@@ -540,7 +331,7 @@ console.log("jsonData",jsonData);
                           value="submit"
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
-                          Register
+                          Create
                         </button>
                       </div>
                     </div>
@@ -680,4 +471,4 @@ console.log("jsonData",jsonData);
   )
 }
 
-export default Projects
+export default Vpn
