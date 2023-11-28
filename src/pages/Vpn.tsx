@@ -13,6 +13,7 @@ import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import MyProjectsContainer from '../Components/Myprojectscontainer';
+import emoji from '../assets/EmojiMessage.png';
 import { NFTStorage } from "nft.storage";
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
 const client = new NFTStorage({ token: API_KEY });
@@ -29,7 +30,7 @@ export interface WalletData {
 interface FormData {
   name: string;
   region: string;
-  domain: string;
+  // domain: string;
 }
 
 const Vpn = () => {
@@ -68,7 +69,7 @@ const Vpn = () => {
   }, [msg]);
 
   const bg = {
-    backgroundColor: "#222944",
+    backgroundColor: "white",
   };
 
   const border = {
@@ -99,12 +100,12 @@ const Vpn = () => {
   const initialFormData: FormData = {
     name: '',
     region: '',
-    domain: '',
+    // domain: '',
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -123,7 +124,7 @@ const Vpn = () => {
       const formDataObj = new FormData();
       formDataObj.append('name', formData.name);
       formDataObj.append('region', formData.region);
-      formDataObj.append('domain', formData.domain);
+      // formDataObj.append('domain', formData.domain);
 
       // Convert FormData to JavaScript Object
 const formDataObject: { [key: string]: string | File | null } = {};
@@ -134,7 +135,7 @@ formDataObj.forEach((value, key) => {
 // Convert JavaScript Object to JSON string
 const jsonData = JSON.stringify(formDataObject);
 
-      const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/domain', {
+      const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/vpn', {
         method: 'POST',
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -171,7 +172,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1', {
+        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/vpn?page=1', {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -198,7 +199,9 @@ const jsonData = JSON.stringify(formDataObject);
   }, [buttonset]);
 
 
-
+  const gotovpn = () => {
+setbuttonset(false);
+  }
 
 
   const handleVerify = async (e: FormEvent) => {
@@ -221,7 +224,7 @@ const jsonData = JSON.stringify(formDataObject);
 
 console.log("jsonData",jsonData);
 
-  const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/domain/verify', {
+  const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/vpn/verify', {
         method: 'PATCH',
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -291,7 +294,7 @@ console.log("jsonData",jsonData);
                   
                       </div>
 
-                      <div className="mb-10">
+                      {/* <div className="mb-10">
                         <input
                           type="text"
                           id="region"
@@ -304,9 +307,32 @@ console.log("jsonData",jsonData);
                         />
 
                   
-                      </div>
+                      </div> */}
 
                       <div className="mb-10">
+                        <select
+                          id="region"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          value={formData.region}
+                          onChange={handleInputChange}
+                          required
+                        >
+                          <option value="">Select Region</option>
+                          <option value="Genuine">us01</option>
+                          <option value="Hate">sg</option>
+                        </select>
+                        {/* <input
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          id="wallet"
+                          type="text"
+                          placeholder="tag"
+                          value={siteTag} onChange={(e) => setSiteTag(e.target.value)} required
+                        /> */}
+                      </div>
+
+                      {/* <div className="mb-10">
                         <input
                           type="text"
                           id="domain"
@@ -319,7 +345,7 @@ console.log("jsonData",jsonData);
                         />
 
                   
-                      </div>
+                      </div> */}
 
                     </div>
 
@@ -339,16 +365,16 @@ console.log("jsonData",jsonData);
 
                   {
               verify && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
-    <div className="relative p-4 lg:w-1/3 w-full max-w-2xl max-h-full">
+    <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
         <div className="relative rounded-lg shadow dark:bg-gray-700" style={bg}>
             <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
-                <h3 className="text-2xl font-semibold text-white">
+                {/* <h3 className="text-2xl font-semibold">
                 Verify Your Registration
-                </h3>
+                </h3> */}
                 <button 
                     onClick={() => setbuttonset(false)}
                     type="button" 
-                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="text-gray-900 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                     <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -356,13 +382,18 @@ console.log("jsonData",jsonData);
                     <span className="sr-only">Close modal</span>
                 </button>
             </div>
+
+            <img src={emoji} alt="info" className="mx-auto"/>
+
             <div className="p-4 md:p-5 space-y-4">
+            <p className="text-3xl text-center font-bold">
+                Done!
+                </p>
                 <p className="text-md text-center" style={text}>
-                  Your domain has been registered successfully!
-                  Add below TXT in DNS and then click verify button.
+                VPN deployment successful.
                 </p>
             </div>
-<div className="p-4 md:p-5 space-y-4">
+{/* <div className="p-4 md:p-5 space-y-4">
                 <p className="text-lg text-center text-white">
                   {txtvalue}
                 </p>
@@ -370,13 +401,14 @@ console.log("jsonData",jsonData);
             <p style={successtext} className="p-4">{successmsg}</p>
             
             {
-              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}. Try again in 3-5 mins if already added txt in dns.</p>)}
+              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}. 
+              Try again in 3-5 mins if already added txt in dns.</p>)} */}
 
             <div className="flex items-center p-4 md:p-5 rounded-b">
                 <button 
                 style={button}
-                onClick={handleVerify}
-                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
+                onClick={gotovpn}
+                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">My VPNs</button>
               </div>
 
         </div>          
@@ -422,7 +454,7 @@ console.log("jsonData",jsonData);
   !buttonset && (
     <>
     <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white">My Projects</span>
+                    <span className="text-white">My VPNs</span>
                   </h1>
             <section className="pb-10 rounded-xl">
               
@@ -446,9 +478,9 @@ console.log("jsonData",jsonData);
                         <button
                           style={button}
                           onClick={() => setbuttonset(true)}
-                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-1/3 sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
-                          Create Project
+                          Add More VPNs
                         </button>
                       </div>
 
