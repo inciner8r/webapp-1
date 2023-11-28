@@ -30,8 +30,9 @@ interface ReviewCardProps {
 }
 
 const background = {
-  backgroundColor: '#222944',
-  border: '0.2px solid #00a68f',
+  // backgroundColor: '#222944',
+  // boxShadow: '0 0 5px rgba(0, 166, 143, 0.5)'
+  boxShadow: '10px 10px 10px 0px #000', 
 }
 
 const color = {
