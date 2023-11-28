@@ -9,6 +9,7 @@ interface ReviewCardProps {
   metaData: {
     vpn_id: string;
     vpn_endpoint: string;
+    firewall_endpoint: string;
     vpn_api_port: number;
     vpn_external_port: number;
     dashboard_password: string;
@@ -98,7 +99,7 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                     transition={{ duration: 0.4 }}
                   >
                     <div className="flex">
-                      <div>{metaData.vpn_id}</div>
+                      VPN Id:<div>{metaData.vpn_id}</div>
                     </div>
                   </motion.h3>
 
@@ -109,17 +110,20 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
-                    style={color2}
                   >
-                    <button className="text-lg rounded-lg pr-1">
-                      {metaData.vpn_endpoint} /
-                    </button>     
-                    <button className="text-lg rounded-lg pr-1">
+                    
+                    <button className="text-lg rounded-lg pr-1 text-white">
+                        VPN Link : 
+                       <a href={`https://${metaData.vpn_endpoint}`} target="_blank" style={color2}>
+                          {metaData.vpn_endpoint}</a>
+                    </button>    
+  
+                    {/* <button className="text-lg rounded-lg pr-1">
                       {metaData.vpn_api_port} /
                     </button>
                     <button className="text-lg rounded-lg pr-1">
                       {metaData.vpn_external_port} /
-                    </button>
+                    </button> */}
                   </motion.div>
                   </div>
                   <div className="mt-4 text-white">
@@ -129,6 +133,11 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                     </div>
               </div>
                   
+              <button className="text-lg rounded-lg pr-1 text-white flex">
+                        Firewall Link : 
+                       <a href={`https://${metaData.firewall_endpoint}`} target="_blank" style={color2}>
+                          {metaData.firewall_endpoint}</a>
+                    </button> 
 
                   <div className="text-white text-lg flex">
                     <motion.p
