@@ -276,10 +276,9 @@ const logout = {
       )}
       </div>
 
-<div className="flex flex-row gap-2">
-        <div className="hidden lg:block">{navList}</div>
+      {loggedin && wallet && value ?(
 
-        {loggedin && wallet && value ?(
+<div className="flex flex-row gap-2">
 <button className="hidden lg:block" 
 onClick={() => { setHideFilter(!hidefilter);}}>
         <svg
@@ -296,8 +295,9 @@ onClick={() => { setHideFilter(!hidefilter);}}>
               />
             </svg>
             </button>
-        ): null}
             </div>
+        ): null}
+
 
             {
               hidefilter && (
@@ -306,7 +306,15 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                   <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 right-24 absolute">
                     
                   {loggedin && wallet && value ?(
-<>
+                      <>
+                      <div className="py-2 ">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/view-my-reviews" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reviews</Link>
+                      </div>
+
+                    </div>
+
                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                       <li className="flex flex-row dark:hover:bg-gray-600 hover:bg-gray-100">
                         {/* <FaUserCircle className="text-lg mt-2 ml-2" /> */}
@@ -317,7 +325,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                     <div className="py-2 ">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
-                        <Link to="/dashboard" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
+                        <Link to="/dashboard" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Projects</Link>
                       </div>
 
                     </div>
@@ -401,12 +409,13 @@ onClick={() => { setHideFilter(!hidefilter);}}>
       </div>
       <MobileNav open={openNav}>
         <div className="container mx-auto">
-          {navList}
+          {/* {navList} */}
           <div className="flex justify-between">
           {loggedin && wallet && value ?(
             <>
+          <Link to="/view-my-reviews" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Reviews</Link>
           <Link to="/profile" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Profile</Link>
-          <Link to="/dashboard" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Dashboard</Link>
+          <Link to="/dashboard" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Projects</Link>
           <Link to="/vpn" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Vpn</Link>
           </>
           ):null }
