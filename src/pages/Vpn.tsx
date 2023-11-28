@@ -11,8 +11,7 @@ import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
-import { removePrefix } from "../modules/Utils/ipfsUtil";
-import MyProjectsContainer from '../Components/Myprojectscontainer';
+import MyVpnContainer from '../Components/Myvpncontainer';
 import emoji from '../assets/EmojiMessage.png';
 import { NFTStorage } from "nft.storage";
 import ButtonNavigation from '../Components/Buttonnavigation';
@@ -177,7 +176,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/vpn?page=1', {
+        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/vpn/all', {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -185,11 +184,13 @@ const jsonData = JSON.stringify(formDataObject);
           },
         });
 
+        console.log("vpn response", response)
+
         if (response.status === 200) {
             // Filter the data based on the domain ID
             const wallet = Cookies.get("platform_wallet");
             const payload: any[] = response.data.payload;
-    const filteredData = payload.filter(item => item.createdBy === wallet);
+    const filteredData = payload.filter(item => item?.walletAddress === wallet);
     setprojectsData(filteredData);
           console.log(filteredData)
         }
@@ -207,53 +208,6 @@ const jsonData = JSON.stringify(formDataObject);
   const gotovpn = () => {
 setbuttonset(false);
   }
-
-
-  const handleVerify = async (e: FormEvent) => {
-    e.preventDefault();
-
-    setLoading(true);
-    const auth = Cookies.get("platform_token");
-    const domainid: string | null = localStorage.getItem('domainId');
-
-    try {
-      const formDataObj = new FormData();
-    
-// Convert FormData to JavaScript Object
-const formDataObject: { domainId: string } = {
-    domainId: domainid as string
-  };
-
-// Convert JavaScript Object to JSON string
-const jsonData = JSON.stringify(formDataObject);
-
-console.log("jsonData",jsonData);
-
-  const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/vpn/verify', {
-        method: 'PATCH',
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth}`,
-        },
-        body: jsonData,
-      });
-      const responseData = await response.json();
-      console.log("response", responseData);
-      if (response.status === 200) {
-        // const responseData = await response.json();
-        setsuccessMsg(responseData.message);
-        // console.log("domain data",responseData);
-      } else {
-        seterrorMsg(responseData.error);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setMsg('error');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleNavigation = (page: string) => {
     console.log(`Navigating to ${page} page from vpnPage...`);
@@ -481,10 +435,10 @@ console.log("jsonData",jsonData);
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-semibold text-gray-700">No Projects Found</h2>
+            <h2 className="text-4xl font-semibold text-gray-700">No VPN Found</h2>
           </motion.div>
           ) : (
-            <MyProjectsContainer metaDataArray={projectsData} MyReviews={false}/>
+            <MyVpnContainer metaDataArray={projectsData} MyReviews={false}/>
           )}
                      
 
