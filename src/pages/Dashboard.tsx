@@ -655,19 +655,19 @@ console.log("jsonData",jsonData);
                         <button
                           style={button}
                           onClick={() => setbuttonset(true)}
-                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-1/3 sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
-                          Create Project
+                          Add More Project
                         </button>
                       </div>
 
 
-                  {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
+                  {/* {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
             <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
             </div>
           </div>
-        </div>)}
+        </div>)} */}
             </section>
     </>
   )

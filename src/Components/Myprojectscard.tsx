@@ -4,6 +4,7 @@ import { DeleteReview } from "./Delete_Review";
 import { ReviewCreated } from "../graphql/types";
 import { motion } from "framer-motion";
 import StarRatingshow from "./StarRatingshow";
+import { removePrefix } from "../modules/Utils/ipfsUtil";
 
 interface ReviewCardProps {
   metaData: {
@@ -30,6 +31,10 @@ const background = {
 
 const color = {
   color: "#788AA3",
+};
+
+const color2 = {
+  color: "#11D9C5",
 };
 
 const border = {
@@ -81,33 +86,79 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center w-full max-w-5xl mx-auto"
+      className="w-full max-w-5xl"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
     >
       <div
-        className="w-full h-full p-10 bg-center bg-cover rounded-lg"
+        className="w-full h-full p-10 rounded-lg"
         style={background}
       >
-        <motion.div
-          className="flex flex-col h-full justify-between"
-          initial={{ y: -20 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
             <div>
-              {showDescription ? (
-                <div>
+                <div className="flex justify-start">
+                <div className="w-1/4">
+                    <img
+                      alt="alt"
+                      src={`${
+                        "https://cloudflare-ipfs.com/ipfs"
+                      }/${removePrefix(metaData?.logoHash)}`}
+                      className=""
+                      width="150"
+                      height="150"
+                    />
+                </div>
+                <div className="w-full px-4">
                   <motion.h3
                     className="text-2xl leading-12 font-bold mb-2 text-white"
                     initial={{ y: -20 }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.4 }}
                   >
-                    {metaData.title}
+                    <div className="flex">
+                      <div>{metaData.title}</div>
+                    </div>
                   </motion.h3>
-                  <div className="mt-5 text-white">
+
+                  <div className="flex justify-between">
+                    <div className="">
+                  <motion.div
+                    className="mt-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                    style={color2}
+                  >
+                    <button className="text-lg rounded-lg pr-1">
+                      {metaData.domainName} /
+                    </button>     
+                    <button className="text-lg rounded-lg pr-1">
+                      {metaData.category} /
+                    </button>
+                    <button className="text-lg rounded-lg pr-1">
+                      {metaData.verified} /
+                    </button>
+                  </motion.div>
+                  </div>
+                  <div className="mt-4 text-white">
+                  <button className="text-lg rounded-lg">
+                      Blockchain : {metaData.blockchain}
+                    </button>
+                    </div>
+              </div>
+                  
+
+                  <div className="text-white text-lg flex">
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      {metaData.headline}
+                    </motion.p>
+                  </div>
+
+                  <div className="mt-5 text-white text-lg flex">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -117,51 +168,8 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
                     </motion.p>
                   </div>
                 </div>
-              ) : (
-                <div>
-                  <motion.h3
-                    className="text-2xl leading-12 font-bold mb-2 text-white"
-                    initial={{ y: -20 }}
-                    animate={{ y: 0 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <div className="flex gap-6">
-                      <div>{metaData.domainName}</div>
-                      <div className="-mt-4">
-                      </div>
-                    </div>
-                  </motion.h3>
-
-                  <motion.div
-                    className="mt-4"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <button className="text-white text-lg rounded-lg pr-1">
-                      {metaData.blockchain} /
-                    </button>
-                    <button className="text-white text-lg rounded-lg pr-1">
-                      {metaData.category} /
-                    </button>
-                    <button className="text-white text-lg rounded-lg pr-1">
-                      {metaData.verified} /
-                    </button>
-                  </motion.div>
-
-                  <div className="mt-5 text-white text-lg">
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.4 }}
-                    >
-                      "{metaData.description}"
-                    </motion.p>
-                  </div>
                 </div>
-              )}
             </div>
-        </motion.div>
       </div>
     </motion.div>
   );
