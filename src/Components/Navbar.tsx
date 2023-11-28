@@ -73,6 +73,7 @@ export default function Header() {
     Cookies.remove('platform_wallet');
     Cookies.remove('platform_token');
     setValue(false);
+    window.location.href = '/';
   };
 
   const style = {
