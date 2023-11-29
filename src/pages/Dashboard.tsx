@@ -692,7 +692,7 @@ click the 'verify' button.
                         <button
                           style={button}
                           onClick={() => setbuttonset(true)}
-                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-1/3 sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg lg:w-1/3 md:w-1/3 w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
                           Add More Project
                         </button>

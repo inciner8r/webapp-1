@@ -92,11 +92,11 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
       transition={{ duration: 0.3 }}
     >
       <div
-        className="w-full h-full p-10 rounded-lg"
+        className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
         style={background}
       >
             <div>
-                <div className="flex justify-start">
+                <div className="lg:flex m:flex justify-start">
                 <div className="w-1/4">
                     <img
                       alt="alt"
@@ -108,7 +108,7 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
                       height="150"
                     />
                 </div>
-                <div className="w-full px-4">
+                <div className="w-full lg:px-4 md:px-4">
                   <motion.h3
                     className="text-2xl leading-12 font-bold mb-2 text-white"
                     initial={{ y: -20 }}
@@ -120,7 +120,7 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
                     </div>
                   </motion.h3>
 
-                  <div className="flex justify-between">
+                  <div className="lg:flex md:flex justify-between">
                     <div className="">
                   <motion.div
                     className="mt-4"

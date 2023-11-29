@@ -88,7 +88,7 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
       transition={{ duration: 0.3 }}
     >
       <div
-        className="w-full h-full p-10 rounded-lg"
+        className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
         style={background}
       >
                 <div className="w-full px-4">
@@ -103,7 +103,7 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                     </div>
                   </motion.h3>
 
-                  <div className="flex justify-between">
+                  <div className="lg:flex md:flex justify-between">
                     <div className="">
                   <motion.div
                     className="mt-4"
