@@ -24,9 +24,9 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate }) => {
         onClick={() => changePage('reviews')}
         className={`rounded-lg px-10 py-8 font-bold`}
         style={{
-            color: location.pathname.includes('view-my-reviews') ? 'white' : '#788AA3',
-            backgroundColor: location.pathname.includes('view-my-reviews') ? '#4B5995' : '',
-            borderBottom: location.pathname.includes('view-my-reviews') ? '2px solid white' : '',
+            color: location.pathname.includes('reviews') ? 'white' : '#788AA3',
+            backgroundColor: location.pathname.includes('reviews') ? '#4B5995' : '',
+            borderBottom: location.pathname.includes('reviews') ? '2px solid white' : '',
           }}
       >
         Reviews

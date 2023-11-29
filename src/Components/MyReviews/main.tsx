@@ -12,6 +12,7 @@ import StarRating from "../../Components/StarRating"
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { storeMetaData } from "../../modules/submit-review";
+import ButtonNavigation from '../Buttonnavigation';
 
 const MyReviews: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -158,6 +159,11 @@ const MyReviews: React.FC = () => {
     // }
   };
 
+  const handleNavigation = (page: string) => {
+    console.log(`Navigating to ${page} page from vpnPage...`);
+    // Additional navigation logic if needed
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -168,6 +174,11 @@ const MyReviews: React.FC = () => {
       <section className="pt-24 mb-10">
         <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+
+          <div className='-mt-10'>
+          <ButtonNavigation onNavigate={handleNavigation} />
+          </div>
+
             <section className="pb-10 rounded-xl" style={bg}>
               <div className="px-5 mx-auto max-w-2xl rounded-xl">
                 <div className="w-full mx-auto text-left py-20">
