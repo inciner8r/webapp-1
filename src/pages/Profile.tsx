@@ -214,49 +214,7 @@ const jsonData = JSON.stringify(formDataObject);
                   >
                     <div className="lg:flex md:flex justify-between">
 
-                      <div className="block lg:hidden md:hidden">
-                    <div className="flex items-center -mt-10 mb-10 justify-center">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
-            </div>
-          </div>
-          </div>
-
-                      <div className="mb-10 lg:w-2/3 md:w-2/3">
-                        <input
-                          type="text"
-                          id="name"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Your Name"
-                          value={formData.name}
-              onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-
-                      {/* {profileDetails?.profilePictureUrl ? (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <img
-                className="text-3xl text-gray-500 w-48 h-48 rounded-full"
-                alt=""
-                src={`https://cloudflare-ipfs.com/ipfs/${removePrefix(
-                  profileDetails?.profilePictureUrl
-                )}`}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" />
-            </div>
-          </div>
-        )} */}
-
-
-                  <div className="flex items-center justify-start -mt-24 ml-16 mb-4">
+                    <div className="flex items-center justify-start mb-4 -mt-40">
                     <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
                   {
                     formData.profilePictureUrl ? (
@@ -265,7 +223,7 @@ const jsonData = JSON.stringify(formDataObject);
                       src={`${
                         "https://cloudflare-ipfs.com/ipfs"
                       }/${removePrefix(formData.profilePictureUrl)}`}
-                      className=""
+                      className="rounded-full"
                       width="200"
                       height="200"
                     />
@@ -293,11 +251,30 @@ const jsonData = JSON.stringify(formDataObject);
                       </label>)}
                     </div>
                   </div>
+
+                  <div className="mb-10 lg:w-2/3 md:w-2/3 lg:border-l md:border-l lg:pl-6 md:pl-6">
+
+<div className="lg:flex md:flex justify-between gap-2">
+
+                      <div className="mb-10 w-full">
+                        <input
+                          type="text"
+                          id="name"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Your Name"
+                          value={formData.name}
+              onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+
+                  
                       
                     </div>
 
-                    <div className="lg:flex md:flex justify-between gap-2">
-                    <div className="mb-10 lg:w-1/2 md:w-1/2">
+                    {/* <div className="lg:flex md:flex justify-between gap-2"> */}
+                    <div className="mb-10">
                         <input
                           type="text"
                           id="discord"
@@ -312,7 +289,7 @@ const jsonData = JSON.stringify(formDataObject);
                   
                       </div>
 
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-10">
                         <input
                           type="text"
                           id="twitter"
@@ -326,9 +303,9 @@ const jsonData = JSON.stringify(formDataObject);
 
                   
                       </div>
-                      </div>
+                      {/* </div> */}
 
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-10">
                         <input
                           type="text"
                           id="country"
@@ -341,6 +318,10 @@ const jsonData = JSON.stringify(formDataObject);
                         />
 
                   
+                      </div>
+
+                      </div>
+
                       </div>
 
                     <div className="text-center pt-10">
@@ -418,7 +399,7 @@ const jsonData = JSON.stringify(formDataObject);
                       src={`${
                         "https://cloudflare-ipfs.com/ipfs"
                       }/${removePrefix(profileData?.profilePictureUrl)}`}
-                      className=""
+                      className="rounded-full"
                       width="200"
                       height="200"
                     />
