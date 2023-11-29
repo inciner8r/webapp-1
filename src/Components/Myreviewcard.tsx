@@ -130,7 +130,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                     transition={{ duration: 0.4 }}
                     // style={color}
                   >
-                    <div className="flex gap-6">
+                    <div className="lg:flex md:flex gap-6">
                       <div>{metaData.name}</div>
                       <div className="-mt-4">
                         {metaData.siteRating && (

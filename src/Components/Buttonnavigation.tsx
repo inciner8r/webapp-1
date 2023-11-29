@@ -18,7 +18,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="inline-flex items-center justify-center w-full gap-4 mb-10 text-lg">
+    <div className="inline-flex items-center justify-center w-full gap-4 mb-10 text-lg lg:flex-row md:flex-row flex-col lg:-mt-0 md:-mt-0 -mt-10">
       <Link
         to="/view-my-reviews"
         onClick={() => changePage('reviews')}
