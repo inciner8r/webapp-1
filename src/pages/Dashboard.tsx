@@ -9,6 +9,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
+import {
+  FaCopy,
+} from "react-icons/fa";
 import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
@@ -93,7 +96,7 @@ const Projects = () => {
   }
 
   const successtext= {
-    color: "#141a31"
+    color: "#11D9C5"
   }
 
   const errortext= {
@@ -577,24 +580,43 @@ console.log("jsonData",jsonData);
             </div>
             <div className="p-4 md:p-5 space-y-4">
                 <p className="text-md text-center" style={text}>
-                  Your domain has been registered successfully!
-                  Add below TXT in DNS and then click verify button. Click the given link for more info.
+                Your domain has been registered successfully! Copy the 
+text below and paste it in your DNS settings, then 
+click the 'verify' button.
                 </p>
 
-                <div className="text-lg text-center text-green-500">
-<a href="/#/verification-steps" target="_blank">Link</a>
-            </div>
-            </div>
-
-<div className="p-4 md:p-5 space-y-4">
+                {/* <div className="p-4 md:p-5 space-y-4">
                 <p className="text-lg text-center text-white">
                   {txtvalue}
                 </p>
+            </div> */}
+
+            <div
+                  className="flex cursor-pointer py-4 justify-center" style={successtext}
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      txtvalue? txtvalue : ''
+                    );
+                  }}
+                >
+                  <p className="text-xl ml-2 text-white">
+                    Text
+                  </p>
+                  <FaCopy style={{ marginTop: 6}} className="ml-2" />
             </div>
-            <p style={successtext} className="p-4">{successmsg}</p>
-            
-            {
-              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}. Try again in 3-5 mins if already added txt in dns.</p>)}
+
+                <div className="text-lg text-center text-red-500">
+<a href="/#/verification-steps" target="_blank">Proceed to instructions</a>
+            </div>
+            </div>
+
+              {
+                successmsg && (<p style={successtext} className="p-4">{successmsg}</p>)
+              }
+              {
+              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}.
+               Try again in 3-5 mins if already added txt in dns.</p>)
+              }
 
             <div className="flex items-center p-4 md:p-5 rounded-b">
                 <button 
