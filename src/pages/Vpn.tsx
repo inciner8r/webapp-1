@@ -176,7 +176,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/vpn/all', {
+        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/vpn/all/us-east-2', {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -287,8 +287,8 @@ setbuttonset(false);
                           required
                         >
                           <option value="">Select Region</option>
-                          <option value="Genuine">us01</option>
-                          <option value="Hate">sg</option>
+                          <option value="us-east-2">us-east-2</option>
+                          <option value="ap-southeast-1">ap-southeast-1</option>
                         </select>
                         {/* <input
                           style={border}
