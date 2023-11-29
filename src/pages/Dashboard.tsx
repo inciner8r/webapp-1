@@ -578,9 +578,14 @@ console.log("jsonData",jsonData);
             <div className="p-4 md:p-5 space-y-4">
                 <p className="text-md text-center" style={text}>
                   Your domain has been registered successfully!
-                  Add below TXT in DNS and then click verify button.
+                  Add below TXT in DNS and then click verify button. Click the given link for more info.
                 </p>
+
+                <div className="text-lg text-center text-green-500">
+<a href="/#/verification-steps" target="_blank">Link</a>
             </div>
+            </div>
+
 <div className="p-4 md:p-5 space-y-4">
                 <p className="text-lg text-center text-white">
                   {txtvalue}
