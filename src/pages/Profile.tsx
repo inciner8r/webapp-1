@@ -214,7 +214,7 @@ const jsonData = JSON.stringify(formDataObject);
                   >
                     <div className="lg:flex md:flex justify-between">
 
-                    <div className="flex items-center justify-start mb-4 -mt-40">
+                    <div className="flex items-center lg:justify-start md:justify-start justify-center mb-4 lg:-mt-40 md:-mt-40">
                     <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
                   {
                     formData.profilePictureUrl ? (
