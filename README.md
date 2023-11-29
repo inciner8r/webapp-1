@@ -66,3 +66,8 @@ This project was built using [React](https://react.dev/) and [TypeScript](https:
     <img src="https://avatars.githubusercontent.com/u/74105169" width="50px" style="border-radius:50%" />
     <a href="https://github.com/emily876">Devsi</a>
 </div>
+<br/>
+<div>
+    <img src="https://avatars.githubusercontent.com/u/51229945" width="50px" style="border-radius:50%" />
+    <a href="https://github.com/thisisommore">Om More</a>
+</div>
