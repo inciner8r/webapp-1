@@ -1,5 +1,5 @@
 import { NFTStorage } from 'nft.storage';
-import {getJwtTokenFromStore} from './authentication';
+// import {getJwtTokenFromStore} from './authentication';
 
 //const PUBLIC_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL;
 const PUBLIC_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL;
@@ -41,21 +41,21 @@ interface ReviewType {
 	voter: string;
 }
 
-export const createReview = async (data: ReviewType) => {
-	try {
-        const token = await getJwtTokenFromStore();
-		let response = await fetch(`https://testnet.gateway.netsepio.com/api/v1.0/delegateReviewCreation`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `${token}`
-			},
-			body: JSON.stringify(data)
-		});
+// export const createReview = async (data: ReviewType) => {
+// 	try {
+//         const token = await getJwtTokenFromStore();
+// 		let response = await fetch(`https://testnet.gateway.netsepio.com/api/v1.0/delegateReviewCreation`, {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				Authorization: `${token}`
+// 			},
+// 			body: JSON.stringify(data)
+// 		});
 
-		let result = await response.json();
-		return [result, null];
-	} catch (error) {
-		return [null, error];
-	}
-};
+// 		let result = await response.json();
+// 		return [result, null];
+// 	} catch (error) {
+// 		return [null, error];
+// 	}
+// };

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ReviewContainer from "../../Components/ReviewContainer";
-import { fetchMetadataFromIPFS } from "../../modules/fetch_metadata_from_ipfs";
-import { createIpfsUrl } from "../../modules/ipfs_url_creator";
-import { fetchMetadataURIByUser } from "../../modules/fetch_metadataURI_from_graphql";
+// import { fetchMetadataFromIPFS } from "../../modules/fetch_metadata_from_ipfs";
+// import { createIpfsUrl } from "../../modules/ipfs_url_creator";
+// import { fetchMetadataURIByUser } from "../../modules/fetch_metadataURI_from_graphql";
 import Loader from "../../Components/Loader";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+// import { RootState } from "../../store";
 import StarRating from "../../Components/StarRating"
-import SubmitReview from "../../Components/SubmitReview";
+// import SubmitReview from "../../Components/SubmitReview";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
-import { storeMetaData, createReview } from "../../modules/submit-review";
+import { storeMetaData } from "../../modules/submit-review";
 
 const MyReviews: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -28,7 +28,7 @@ const MyReviews: React.FC = () => {
   const wallet = Cookies.get("platform_wallet");
 
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [selectedRating, setSelectedRating] = useState<number>(0);
 
@@ -37,33 +37,33 @@ const MyReviews: React.FC = () => {
   };
 
   // State to check if the user is connected to Metamask:
-  const walletData = useSelector((state: RootState) => state.wallet.walletData);
+  // const walletData = useSelector((state: RootState) => state.wallet.walletData);
 
-  const walletAddress = walletData;
+  // const walletAddress = walletData;
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     setLoading(true);
 
-      if (walletAddress) {
-        const reviewCreateds = await fetchMetadataURIByUser(walletAddress);
-        if (reviewCreateds) {
-          const metaDataPromises = reviewCreateds.map((reviewCreated) =>
-            fetchMetadataFromIPFS(
-              createIpfsUrl(reviewCreated.metadataURI),
-              reviewCreated.tokenId
-            )
-          );
-          const allMetaData = await Promise.all(metaDataPromises);
-          setMetaDataArray(allMetaData);
-        }
-      }
+  //     if (walletAddress) {
+  //       const reviewCreateds = await fetchMetadataURIByUser(walletAddress);
+  //       if (reviewCreateds) {
+  //         const metaDataPromises = reviewCreateds.map((reviewCreated) =>
+  //           fetchMetadataFromIPFS(
+  //             createIpfsUrl(reviewCreated.metadataURI),
+  //             reviewCreated.tokenId
+  //           )
+  //         );
+  //         const allMetaData = await Promise.all(metaDataPromises);
+  //         setMetaDataArray(allMetaData);
+  //       }
+  //     }
 
-      setLoading(false);
-    }
+  //     setLoading(false);
+  //   }
 
-    fetchData();
-  }, [walletAddress]); // Change the dependency to walletAddress
+  //   fetchData();
+  // }, []); // Change the dependency to walletAddress
 
   const bg = {
     backgroundColor: "#222944",

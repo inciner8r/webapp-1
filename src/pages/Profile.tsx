@@ -1,8 +1,8 @@
-import { checkWalletAuth } from '../modules/connect_to_metamask';
-import { checkJwtToken } from '../modules/authentication';
-import { useAccount, useSigner } from 'wagmi';
-import { setJwtToken, setWalletData } from '../actions/walletActions';
-import store from '../store';
+// import { checkWalletAuth } from '../modules/connect_to_metamask';
+// import { checkJwtToken } from '../modules/authentication';
+// import { useAccount, useSigner } from 'wagmi';
+// import { setJwtToken, setWalletData } from '../actions/walletActions';
+// import store from '../store';
 import Loader from '../Components/Loader';
 import WalletNotFound from '../Components/MyReviews/walletNotFound';
 import { Link } from "react-router-dom";

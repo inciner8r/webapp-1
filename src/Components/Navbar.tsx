@@ -9,7 +9,7 @@ import {
 import netsepioLogo from '../assets/netsepio.png';
 import netsepio from '../assets/netsepio_logo_light.png';
 import netsepioname from '../assets/productname.png';
-import LogoutButton from './Logout';
+// import LogoutButton from './Logout';
 // import ConnectWalletButton from './ConnectWallet';
 import {useNavigate} from 'react-router-dom';
 import { Link } from 'react-router-dom';

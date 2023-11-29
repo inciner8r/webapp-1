@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { DeleteReview } from "./Delete_Review";
-import { ReviewCreated } from "../graphql/types";
+// import { DeleteReview } from "./Delete_Review";
+// import { ReviewCreated } from "../graphql/types";
 import { motion } from "framer-motion";
 import StarRatingshow from "./StarRatingshow";
 
@@ -17,7 +17,7 @@ interface ReviewCardProps {
     ID: number;
   } | null;
   MyReviews?: boolean;
-  review?: ReviewCreated;
+  // review?: ReviewCreated;
   onReviewDeleted?: () => void;
 }
 
