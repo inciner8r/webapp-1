@@ -676,7 +676,7 @@ click the 'verify' button.
             {loading ? (
             // <Loader />
             <div className="min-h-screen"></div>
-          ) : projectsData?.length == 0 ? (
+          ) : !projectsData || projectsData?.length == 0 ? (
             <motion.div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
             initial={{ opacity: 0 }}
@@ -702,6 +702,7 @@ Verification Needed</h2>
           )}
                      
 
+                     { projectsData && projectsData?.length > 0 && (
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
                           style={button}
@@ -711,6 +712,7 @@ Verification Needed</h2>
                           Add More Project
                         </button>
                       </div>
+                    )}
 
 
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>

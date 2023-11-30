@@ -205,7 +205,7 @@ const handlePrevPage = () => {
         {/* <SearchBar onSearch={handleSearch} /> */}
         {/* <FilterButton onFilterChange={handleFilterChange} /> */}
         <div className="inline-flex items-center justify-center w-full">
-        <button className="text-white border rounded-full py-2 px-6 mt-10">All reviews</button>
+        <div className="text-white border rounded-full py-2 px-6 mt-10">All reviews</div>
         </div>
         <div className="inline-flex items-center justify-center w-full my-10">
         <h1 className="text-white text-3xl font-bold">Your Path to Safe and Secure Browsing</h1>

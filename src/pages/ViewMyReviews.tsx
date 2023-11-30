@@ -229,7 +229,7 @@ const handleNavigation = (page: string) => {
 
         {loading ? (
             <Loader />
-          ) : reviews?.length == 0 ? (
+          ) : !reviews || reviews?.length == 0 ? (
             <motion.div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl"
             initial={{ opacity: 0 }}
@@ -253,6 +253,7 @@ const handleNavigation = (page: string) => {
             <MyReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>
           )}
 
+{ reviews && reviews?.length > 0 && (
           <div className="inline-flex items-center justify-center w-full mt-4">
             <button onClick={handlePrevPage} disabled={currentPage === 1} className='text-white'>
             <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
@@ -266,10 +267,13 @@ const handleNavigation = (page: string) => {
 </svg>
             </button>
           </div>
+)}
 
+          { reviews && reviews?.length > 0 && (
           <div className='text-center mt-10'>
             <button style={style2} onClick={myreviews} className='py-4 px-10 rounded-lg font-bold'>Add more reviews</button>
           </div>
+          )}
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">
