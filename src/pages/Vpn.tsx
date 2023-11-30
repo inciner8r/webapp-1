@@ -41,7 +41,7 @@ const Vpn = () => {
   const [msg, setMsg] = useState<string>("");
   const [successmsg, setsuccessMsg] = useState<string>("");
   const [errormsg, seterrorMsg] = useState<string>("");
-
+  const [region, setregion] = useState<string>("");
   const [verify,setverify] = useState<boolean>(false);
 
   const txtvalue = localStorage.getItem('txtvalue');
@@ -175,7 +175,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/vpn/all/us-east-2', {
+        const response = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/vpn/all/${region}`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -201,7 +201,7 @@ const jsonData = JSON.stringify(formDataObject);
     };
 
     fetchProjectsData();
-  }, [buttonset]);
+  }, [buttonset,region]);
 
 
   const gotovpn = () => {
@@ -211,6 +211,11 @@ setbuttonset(false);
   const handleNavigation = (page: string) => {
     console.log(`Navigating to ${page} page from vpnPage...`);
     // Additional navigation logic if needed
+  };
+
+  const handleRegionChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    // Update the selected region when the dropdown value changes
+    setregion(e.target.value);
   };
 
   return (
@@ -426,7 +431,8 @@ setbuttonset(false);
             <section className="pb-10 rounded-xl">
               
             {loading ? (
-            <Loader />
+            // <Loader />
+            <div className="min-h-screen"></div>
           ) : projectsData?.length == 0 ? (
             <motion.div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
@@ -451,8 +457,20 @@ Protection</h2>
           </motion.div>
           ) : (
             <div>
+              <select
+                          id="region"
+                          style={border}
+                          className="shadow border flex appearance-none rounded w-1/4 py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          value={region}
+                          onChange={handleRegionChange}
+                          required
+                        >
+                          <option value="">Select Region</option>
+                          <option value="us-east-2">us-east-2</option>
+                          <option value="ap-southeast-1">ap-southeast-1</option>
+                        </select>
               <div
-        className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
+        className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4"
         style={bg}
       >
                 <div className="w-full px-4 flex justify-between">
