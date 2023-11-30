@@ -103,7 +103,7 @@ const ViewMyReviews: React.FC = () => {
       setMetaDataArray(metaDataResults);
     };
   
-    if (reviews.length > 0) {
+    if (reviews?.length > 0) {
       setLoading(true);
       fetchMetaData().finally(() => setLoading(false));
     }
@@ -229,7 +229,7 @@ const handleNavigation = (page: string) => {
 
         {loading ? (
             <Loader />
-          ) : reviews.length == 0 ? (
+          ) : reviews?.length == 0 ? (
             <motion.div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl"
             initial={{ opacity: 0 }}
