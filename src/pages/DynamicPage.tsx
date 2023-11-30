@@ -2,9 +2,9 @@ import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../Components/SearchBar';
 import DomainReviewContainer from '../Components/Domainreviewcontainer';
-import { fetchMetadataURIAll, fetchMetadataURIBySiteURL, fetchMetadataURIBySiteSafety } from '../modules/fetch_metadataURI_from_graphql';
+// import { fetchMetadataURIAll, fetchMetadataURIBySiteURL, fetchMetadataURIBySiteSafety } from '../modules/fetch_metadataURI_from_graphql';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
-import { ReviewCreated } from '../graphql/types';
+// import { ReviewCreated } from '../graphql/types';
 import Loader from '../Components/Loader';
 import FilterButton from '../Components/reviewFilters';
 import { motion } from "framer-motion";
@@ -13,12 +13,25 @@ import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import StarRatingshow from "../Components/StarRatingshow";
+import { removePrefix } from "../modules/Utils/ipfsUtil";
+
+interface DomainData {
+  category: string;
+  title: string;
+  blockchain: string;
+  description: string;
+  headline: string;
+  logoHash: string;
+  creatorName:string;
+}
 
 const DynamicPage: React.FC = () => {
+  // const DynamicPage = () => {
   const { id } = useParams<{ id: string }>();
 
   const [reviews, setReviews] = useState<any[]>([]);
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
+  const [domaindata, setdomaindata] = useState<DomainData | null>(null);
   const [siteUrl, setsiteurl] = useState<string>("");
   const [siteRating, setsiterating] = useState<number>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -101,50 +114,83 @@ const DynamicPage: React.FC = () => {
     }
   }, [reviews]);  
 
-  const handleFilterChange = async (siteSafety: string) => {
-    let reviewResults;
-  
-    if (siteSafety === "all") {
-      reviewResults = await fetchMetadataURIAll();
-    } else {
-      reviewResults = await fetchMetadataURIBySiteSafety(siteSafety);
-    }
-  
-    if (reviewResults) {
-      setReviews(reviewResults);
-      const metaDataPromises = reviewResults.map(async (review) => {
-        if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
-          const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
-          const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
-          return metaData;
+
+  useEffect(() => {
+    const getdomaindata = async () => {
+      setLoading(true);
+      try {
+        const auth = Cookies.get("platform_token");
+
+        const response = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1&verified=true&domainName=${id}`, {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
+          },
+        });
+
+        if (response.status === 200) {
+            // Filter the data based on the domain ID
+            // const domainid = localStorage.getItem('domainId');
+            const payload: any[] = response.data.payload;
+    const filteredData = payload.filter(item => item?.domainName === id);
+    setdomaindata(filteredData.length > 0 ? filteredData[0] : null);
+          console.log("domain data", filteredData)
         }
-        return null;
-      });
-      const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
-      setMetaDataArray(metaDataResults);
-    } else {
-      setMetaDataArray([]);
-    }
-  };  
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getdomaindata();
+  }, []);
+
+  // const handleFilterChange = async (siteSafety: string) => {
+  //   let reviewResults;
   
-  const handleSearch = async (siteURL: string) => {
-    const reviewResults = await fetchMetadataURIBySiteURL(siteURL);
-    if (reviewResults) {
-      setReviews(reviewResults);
-      const metaDataPromises = reviewResults.map(async (review) => {
-        if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
-          const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
-          const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
-          return metaData;
-        }
-        return null;
-      });
-      const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
-      setMetaDataArray(metaDataResults);
-    } else {
-      setMetaDataArray([]);
-    }
-  };
+    // if (siteSafety === "all") {
+    //   reviewResults = await fetchMetadataURIAll();
+    // } else {
+    //   reviewResults = await fetchMetadataURIBySiteSafety(siteSafety);
+    // }
+  
+  //   if (reviewResults) {
+  //     setReviews(reviewResults);
+  //     const metaDataPromises = reviewResults.map(async (review) => {
+  //       if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
+  //         const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
+  //         const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
+  //         return metaData;
+  //       }
+  //       return null;
+  //     });
+  //     const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
+  //     setMetaDataArray(metaDataResults);
+  //   } else {
+  //     setMetaDataArray([]);
+  //   }
+  // };  
+  
+  // const handleSearch = async (siteURL: string) => {
+  //   const reviewResults = await fetchMetadataURIBySiteURL(siteURL);
+  //   if (reviewResults) {
+  //     setReviews(reviewResults);
+  //     const metaDataPromises = reviewResults.map(async (review) => {
+  //       if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
+  //         const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
+  //         const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
+  //         return metaData;
+  //       }
+  //       return null;
+  //     });
+  //     const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
+  //     setMetaDataArray(metaDataResults);
+  //   } else {
+  //     setMetaDataArray([]);
+  //   }
+  // };
 
   const style = {
     color: '#11D9C5',
@@ -156,6 +202,10 @@ const style2 = {
 
 const background = {
   backgroundColor: '#141a31'
+}
+
+const background2 = {
+  backgroundColor: '#222944'
 }
 
 const handleNextPage = () => {
@@ -181,10 +231,64 @@ const handlePrevPage = () => {
         className="mt-16"
       >
 
+{ domaindata && (
         <div className="mx-auto max-w-8xl px-16">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
-        <h1 className="text-white text-3xl font-bold">Reviews for {id?.replace(/^www\.|\.com$/g, '')}</h1>
+            <div className="flex">
+              <div className="w-1/4">
+          <img
+                      alt="alt"
+                      src={`${
+                        "https://cloudflare-ipfs.com/ipfs"
+                      }/${removePrefix(domaindata?.logoHash)}`}
+                      className=""
+                      width="200"
+                      height="200"
+                    />
+                    </div>
+                    <div className="w-3/4">
+        <h1 className="text-white text-3xl font-bold">{id?.replace(/^www\.|\.com$/g, '')}</h1>
         <div className="flex gap-6">
+        <div>
+        <p className='my-4' style={style}>{domaindata?.title}</p>
+        </div>
+          <div>
+        <a href={siteUrl} target="_blank"><p className='my-4' style={style}>{siteUrl}</p></a>
+        </div>
+        <div>
+        <p className='my-4' style={style}>{domaindata?.category}</p>
+        </div>
+        <div>
+        <p className='my-4' style={style}>{domaindata?.blockchain}</p>
+        </div>
+        
+        <div className="-mt-2">
+        {siteRating && (
+                          <div className="mt-4">
+                            <StarRatingshow
+                              totalStars={10}
+                              rating={siteRating}
+                            />
+                          </div>
+                        )}
+                        </div>
+          </div>
+          <div className='text-white'>Creator Name : {domaindata?.creatorName}</div>
+          <div style={background2} className='p-6 mt-10 rounded-xl'>
+          <div className='text-white'>Headline : {domaindata?.headline}</div>
+          <div className='text-white'>Description : {domaindata?.description}</div>
+          </div>
+          </div>
+          </div>
+        </div>
+        </div>
+        )}
+
+        <div className="mx-auto max-w-8xl px-16">
+        <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
+          <h1 className="text-white text-3xl font-bold mt-20">Reviews for {id?.replace(/^www\.|\.com$/g, '')}</h1>
+       { !domaindata && ( 
+          <div className="flex gap-8">
           <div>
         <a href={siteUrl} target="_blank"><p className='my-4' style={style}>{siteUrl}</p></a>
         </div>
@@ -198,9 +302,11 @@ const handlePrevPage = () => {
                           </div>
                         )}
                         </div>
-          </div>
+                        </div>
+)} 
         </div>
         </div>
+        
 
         {loading ? (
             <Loader />
@@ -245,6 +351,6 @@ const handlePrevPage = () => {
       </motion.div>
     </motion.div>
   );
-};
+}
 
 export default DynamicPage;

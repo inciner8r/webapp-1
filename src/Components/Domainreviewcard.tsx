@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { DeleteReview } from "./Delete_Review";
-import { ReviewCreated } from "../graphql/types";
+// import { DeleteReview } from "./Delete_Review";
+// import { ReviewCreated } from "../graphql/types";
 import { motion } from "framer-motion";
 import StarRatingshow from "./StarRatingshow";
 
@@ -25,7 +25,7 @@ interface ReviewCardProps {
     voter: string;
   } | null;
   MyReviews?: boolean;
-  review?: ReviewCreated;
+  // review?: ReviewCreated;
   onReviewDeleted?: () => void;
 }
 
@@ -190,7 +190,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
             </div>
           </Link>
 
-          <div>
+          {/* <div>
             {MyReviews && metaData.ipfsUrl ? (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -204,7 +204,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                 />
               </motion.div>
             ) : null}
-          </div>
+          </div> */}
 
           {/* <motion.button
           className="text-white font-semibold rounded-lg p-2 w-full text-center mt-5"

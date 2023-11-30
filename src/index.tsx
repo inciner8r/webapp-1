@@ -10,40 +10,40 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { ApolloProvider } from '@apollo/client';
-import { client } from './graphql/client';
-import { Provider } from 'react-redux';
-import store from './store';
+// import { client } from './graphql/client';
+// import { Provider } from 'react-redux';
+// import store from './store';
 import App from './App';
 
-const { chains, provider, webSocketProvider } = configureChains(
-  [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    ...(process.env.REACT_APP_ENABLE_TESTNETS === 'true' ? [goerli] : []),
-  ],
-  [publicProvider()]
-);
+// const { chains, provider, webSocketProvider } = configureChains(
+//   [
+//     mainnet,
+//     polygon,
+//     optimism,
+//     arbitrum,
+//     ...(process.env.REACT_APP_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+//   ],
+//   [publicProvider()]
+// );
 
-const { connectors } = getDefaultWallets({
-  appName: 'Netsepio',
-  chains,
-});
+// const { connectors } = getDefaultWallets({
+//   appName: 'Netsepio',
+//   chains,
+// });
 
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider,
-  webSocketProvider,
-});
+// const wagmiClient = createClient({
+//   autoConnect: true,
+//   connectors,
+//   provider,
+//   webSocketProvider,
+// });
 
 const rootElement = document.getElementById('root') as HTMLElement;
 
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <WagmiConfig client={wagmiClient}>
+    {/* <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider 
           modalSize="compact" 
           chains={chains}
@@ -56,11 +56,11 @@ root.render(
           })}
       >
         <ApolloProvider client={client}>
-          <Provider store={store}>
+          <Provider store={store}> */}
             <App />
-          </Provider>
+          {/* </Provider>
         </ApolloProvider>
       </RainbowKitProvider>
-    </WagmiConfig>
+    </WagmiConfig> */}
   </React.StrictMode>
 );

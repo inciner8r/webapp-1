@@ -1,8 +1,8 @@
-import { checkWalletAuth } from '../modules/connect_to_metamask';
-import { checkJwtToken } from '../modules/authentication';
-import { useAccount, useSigner } from 'wagmi';
-import { setJwtToken, setWalletData } from '../actions/walletActions';
-import store from '../store';
+// import { checkWalletAuth } from '../modules/connect_to_metamask';
+// import { checkJwtToken } from '../modules/authentication';
+// import { useAccount, useSigner } from 'wagmi';
+// import { setJwtToken, setWalletData } from '../actions/walletActions';
+// import store from '../store';
 import Loader from '../Components/Loader';
 import WalletNotFound from '../Components/MyReviews/walletNotFound';
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import { NFTStorage } from "nft.storage";
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
+const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
 
 export interface FlowIdResponse {
@@ -214,49 +214,7 @@ const jsonData = JSON.stringify(formDataObject);
                   >
                     <div className="lg:flex md:flex justify-between">
 
-                      <div className="block lg:hidden md:hidden">
-                    <div className="flex items-center -mt-10 mb-10 justify-center">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
-            </div>
-          </div>
-          </div>
-
-                      <div className="mb-10 lg:w-2/3 md:w-2/3">
-                        <input
-                          type="text"
-                          id="name"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Your Name"
-                          value={formData.name}
-              onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-
-                      {/* {profileDetails?.profilePictureUrl ? (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <img
-                className="text-3xl text-gray-500 w-48 h-48 rounded-full"
-                alt=""
-                src={`https://cloudflare-ipfs.com/ipfs/${removePrefix(
-                  profileDetails?.profilePictureUrl
-                )}`}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" />
-            </div>
-          </div>
-        )} */}
-
-
-                  <div className="flex items-center justify-start -mt-24 ml-16 mb-4">
+                    <div className="flex items-center lg:justify-start md:justify-start justify-center mb-4 lg:-mt-40 md:-mt-40">
                     <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
                   {
                     formData.profilePictureUrl ? (
@@ -265,7 +223,7 @@ const jsonData = JSON.stringify(formDataObject);
                       src={`${
                         "https://cloudflare-ipfs.com/ipfs"
                       }/${removePrefix(formData.profilePictureUrl)}`}
-                      className=""
+                      className="rounded-full"
                       width="200"
                       height="200"
                     />
@@ -293,11 +251,30 @@ const jsonData = JSON.stringify(formDataObject);
                       </label>)}
                     </div>
                   </div>
+
+                  <div className="mb-10 lg:w-2/3 md:w-2/3 lg:border-l md:border-l lg:pl-6 md:pl-6">
+
+<div className="lg:flex md:flex justify-between gap-2">
+
+                      <div className="mb-10 w-full">
+                        <input
+                          type="text"
+                          id="name"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Your Name"
+                          value={formData.name}
+              onChange={handleInputChange}
+                          // required
+                        />
+                      </div>
+
+                  
                       
                     </div>
 
-                    <div className="lg:flex md:flex justify-between gap-2">
-                    <div className="mb-10 lg:w-1/2 md:w-1/2">
+                    {/* <div className="lg:flex md:flex justify-between gap-2"> */}
+                    <div className="mb-10">
                         <input
                           type="text"
                           id="discord"
@@ -306,13 +283,13 @@ const jsonData = JSON.stringify(formDataObject);
                           placeholder="Discord"
                           value={formData.discord}
               onChange={handleInputChange}
-                          required
+                          // required
                         />
 
                   
                       </div>
 
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-10">
                         <input
                           type="text"
                           id="twitter"
@@ -321,14 +298,14 @@ const jsonData = JSON.stringify(formDataObject);
                           placeholder="Twitter"
                           value={formData.twitter}
               onChange={handleInputChange}
-                          required
+                          // required
                         />
 
                   
                       </div>
-                      </div>
+                      {/* </div> */}
 
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-10">
                         <input
                           type="text"
                           id="country"
@@ -337,10 +314,14 @@ const jsonData = JSON.stringify(formDataObject);
                           placeholder="Country"
                           value={formData.country}
               onChange={handleInputChange}
-                          required
+                          // required
                         />
 
                   
+                      </div>
+
+                      </div>
+
                       </div>
 
                     <div className="text-center pt-10">
@@ -418,7 +399,7 @@ const jsonData = JSON.stringify(formDataObject);
                       src={`${
                         "https://cloudflare-ipfs.com/ipfs"
                       }/${removePrefix(profileData?.profilePictureUrl)}`}
-                      className=""
+                      className="rounded-full"
                       width="200"
                       height="200"
                     />

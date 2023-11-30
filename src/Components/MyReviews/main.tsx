@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import ReviewContainer from "../../Components/ReviewContainer";
-import { fetchMetadataFromIPFS } from "../../modules/fetch_metadata_from_ipfs";
-import { createIpfsUrl } from "../../modules/ipfs_url_creator";
-import { fetchMetadataURIByUser } from "../../modules/fetch_metadataURI_from_graphql";
+// import { fetchMetadataFromIPFS } from "../../modules/fetch_metadata_from_ipfs";
+// import { createIpfsUrl } from "../../modules/ipfs_url_creator";
+// import { fetchMetadataURIByUser } from "../../modules/fetch_metadataURI_from_graphql";
 import Loader from "../../Components/Loader";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+// import { RootState } from "../../store";
 import StarRating from "../../Components/StarRating"
-import SubmitReview from "../../Components/SubmitReview";
+// import SubmitReview from "../../Components/SubmitReview";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
-import { storeMetaData, createReview } from "../../modules/submit-review";
+import { storeMetaData } from "../../modules/submit-review";
+import ButtonNavigation from '../Buttonnavigation';
 
 const MyReviews: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [blockchain, setblockchain] = useState<string>("");
   const [websiteUrl, setWebsiteUrl] = useState<string>("");
   // const [category] = useState<string>("website");
   const [siteTag, setSiteTag] = useState<string>("");
@@ -27,7 +29,7 @@ const MyReviews: React.FC = () => {
   const wallet = Cookies.get("platform_wallet");
 
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [selectedRating, setSelectedRating] = useState<number>(0);
 
@@ -36,33 +38,33 @@ const MyReviews: React.FC = () => {
   };
 
   // State to check if the user is connected to Metamask:
-  const walletData = useSelector((state: RootState) => state.wallet.walletData);
+  // const walletData = useSelector((state: RootState) => state.wallet.walletData);
 
-  const walletAddress = walletData;
+  // const walletAddress = walletData;
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     setLoading(true);
 
-      if (walletAddress) {
-        const reviewCreateds = await fetchMetadataURIByUser(walletAddress);
-        if (reviewCreateds) {
-          const metaDataPromises = reviewCreateds.map((reviewCreated) =>
-            fetchMetadataFromIPFS(
-              createIpfsUrl(reviewCreated.metadataURI),
-              reviewCreated.tokenId
-            )
-          );
-          const allMetaData = await Promise.all(metaDataPromises);
-          setMetaDataArray(allMetaData);
-        }
-      }
+  //     if (walletAddress) {
+  //       const reviewCreateds = await fetchMetadataURIByUser(walletAddress);
+  //       if (reviewCreateds) {
+  //         const metaDataPromises = reviewCreateds.map((reviewCreated) =>
+  //           fetchMetadataFromIPFS(
+  //             createIpfsUrl(reviewCreated.metadataURI),
+  //             reviewCreated.tokenId
+  //           )
+  //         );
+  //         const allMetaData = await Promise.all(metaDataPromises);
+  //         setMetaDataArray(allMetaData);
+  //       }
+  //     }
 
-      setLoading(false);
-    }
+  //     setLoading(false);
+  //   }
 
-    fetchData();
-  }, [walletAddress]); // Change the dependency to walletAddress
+  //   fetchData();
+  // }, []); // Change the dependency to walletAddress
 
   const bg = {
     backgroundColor: "#222944",
@@ -92,7 +94,8 @@ const MyReviews: React.FC = () => {
       siteType: siteType,
       siteTag: siteTag,
       siteSafety: siteSafety,
-      siteRating: selectedRating
+      siteRating: selectedRating,
+      blockchain: blockchain,
     };
     let [CID] = await storeMetaData(metaData);
     let metaDataUri = `ipfs://${CID}`.split(',')[0];
@@ -130,6 +133,7 @@ const MyReviews: React.FC = () => {
         console.log('Review data submitted successfully');
         setTitle("");
         setDescription("");
+        setblockchain("");
         setWebsiteUrl("");
         setSiteType("");
         setCategory("");
@@ -155,6 +159,11 @@ const MyReviews: React.FC = () => {
     // }
   };
 
+  const handleNavigation = (page: string) => {
+    console.log(`Navigating to ${page} page from vpnPage...`);
+    // Additional navigation logic if needed
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -165,6 +174,11 @@ const MyReviews: React.FC = () => {
       <section className="pt-24 mb-10">
         <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+
+          <div className='-mt-10'>
+          <ButtonNavigation onNavigate={handleNavigation} count={0}/>
+          </div>
+
             <section className="pb-10 rounded-xl" style={bg}>
               <div className="px-5 mx-auto max-w-2xl rounded-xl">
                 <div className="w-full mx-auto text-left py-20">
@@ -209,7 +223,7 @@ const MyReviews: React.FC = () => {
                           id="websiteUrl"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="URL"
+                          placeholder="URL (Enter http link)"
                           value={websiteUrl}
                           onChange={(e) => setWebsiteUrl(e.target.value)}
                           required
@@ -305,6 +319,7 @@ const MyReviews: React.FC = () => {
                           <option value="Explorers">Explorers</option>
                           <option value="Bridges">Bridges</option>
                           <option value="Social">Social</option>
+                          <option value="NFT">NFT</option>
                           <option value="Others">Others</option>
                         </select>
                         {/* <input
@@ -344,19 +359,31 @@ const MyReviews: React.FC = () => {
                     </div>
 
                     <div className="mb-10">
+                    <input
+                          type="text"
+                          id="blockchain"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Blockchain"
+                          value={blockchain}
+                          onChange={(e) => setblockchain(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="mb-10">
                       <textarea
                         style={border}
                         id="message"
                         rows={4}
                         className="block p-2.5 w-full text-sm text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Write your thoughts here..."
+                        placeholder="Additional feedback"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
                       ></textarea>
                     </div>
 
-                    <label className="text-white">Rate the website from 1 to 10</label>
+                    <label className="text-white">Your service rating</label>
       <StarRating totalStars={10} onRatingChange={handleRatingChange} />
 
                     <div className="text-center pt-10">

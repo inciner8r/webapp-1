@@ -9,7 +9,7 @@ import {
 import netsepioLogo from '../assets/netsepio.png';
 import netsepio from '../assets/netsepio_logo_light.png';
 import netsepioname from '../assets/productname.png';
-import LogoutButton from './Logout';
+// import LogoutButton from './Logout';
 // import ConnectWalletButton from './ConnectWallet';
 import {useNavigate} from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -73,6 +73,7 @@ export default function Header() {
     Cookies.remove('platform_wallet');
     Cookies.remove('platform_token');
     setValue(false);
+    window.location.href = '/';
   };
 
   const style = {
@@ -194,28 +195,6 @@ const logout = {
             Cookies.set("platform_wallet", account.address, { expires: 7 });
 
             setUserWallet(account.address);
-
-            const MORALIS_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6ImNhYjYxMDViLWVjMGQtNGI4Ny1hNThiLWI5ZDcwMjZkNzU4YyIsIm9yZ0lkIjoiMzYzNDM0IiwidXNlcklkIjoiMzczNTE1IiwidHlwZUlkIjoiMTc3ZGVlZGMtOTdhMi00YjA0LWEyZTYtZTIwMmYzODVkMjE0IiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE2OTkyMDQ5ODYsImV4cCI6NDg1NDk2NDk4Nn0.0B8k4sEUUYCLTBPjO9d86yb1Cln6wZMhPDuToCmtyAc";
-        
-            const options = {
-              method: 'GET',
-              headers: {
-                accept: 'application/json',
-                "X-API-Key": MORALIS_API_KEY,
-              },
-            };
-        
-            fetch(`https://mainnet-aptos-api.moralis.io/wallets/coins?limit=10&owner_addresses[0]=${account.address}`, options)
-              .then(response => response.json())
-              .then(response => {
-                console.log(response);
-                // Handle the API response data here
-              })
-              .catch(err => {
-                console.error(err);
-                // Handle any errors here
-              });
-
       } catch (error) {
         console.error(error);
       }
@@ -276,10 +255,9 @@ const logout = {
       )}
       </div>
 
-<div className="flex flex-row gap-2">
-        <div className="hidden lg:block">{navList}</div>
+      {loggedin && wallet && value ?(
 
-        {loggedin && wallet && value ?(
+<div className="flex flex-row gap-2">
 <button className="hidden lg:block" 
 onClick={() => { setHideFilter(!hidefilter);}}>
         <svg
@@ -296,8 +274,9 @@ onClick={() => { setHideFilter(!hidefilter);}}>
               />
             </svg>
             </button>
-        ): null}
             </div>
+        ): null}
+
 
             {
               hidefilter && (
@@ -306,18 +285,34 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                   <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 right-24 absolute">
                     
                   {loggedin && wallet && value ?(
-<>
+                      <>
+                      <div className="py-2">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/view-my-reviews" className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reviews</Link>
+                      </div>
+
+                    </div>
+
                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                       <li className="flex flex-row dark:hover:bg-gray-600 hover:bg-gray-100">
                         {/* <FaUserCircle className="text-lg mt-2 ml-2" /> */}
-                        <Link to="/profile" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</Link>
+                        <Link to="/profile" className="mx-auto block px-2 py-0 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</Link>
                       </li>
                     </ul>
 
                     <div className="py-2 ">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
-                        <Link to="/dashboard" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
+                        <Link to="/dashboard" className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Projects</Link>
+                      </div>
+
+                    </div>
+
+                    <div className="py-2 ">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/vpn" className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Vpn</Link>
                       </div>
 
                     </div>
@@ -326,9 +321,9 @@ onClick={() => { setHideFilter(!hidefilter);}}>
 
 
                     {loggedin && wallet && value ?(
-                    <div className="py-4 px-2 text-sm">
+                    <div className="py-2 px-2 text-sm">
                       <div className="flex flex-row">
-                      <button onClick={handleDeleteCookie} className="hover:text-red-400 text-gray-700" onMouseEnter={() => setHovered(true)}
+                      <button onClick={handleDeleteCookie} className="mx-auto hover:text-red-400 text-gray-700" onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}>Logout</button>
                       </div>
                     </div>
@@ -393,12 +388,14 @@ onClick={() => { setHideFilter(!hidefilter);}}>
       </div>
       <MobileNav open={openNav}>
         <div className="container mx-auto">
-          {navList}
+          {/* {navList} */}
           <div className="flex justify-between">
           {loggedin && wallet && value ?(
             <>
+          <Link to="/view-my-reviews" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Reviews</Link>
           <Link to="/profile" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Profile</Link>
-          <Link to="/dashboard" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Dashboard</Link>
+          <Link to="/dashboard" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Projects</Link>
+          <Link to="/vpn" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Vpn</Link>
           </>
           ):null }
           {loggedin && wallet && value ?(

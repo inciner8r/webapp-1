@@ -1,19 +1,25 @@
-import { checkWalletAuth } from '../modules/connect_to_metamask';
-import { checkJwtToken } from '../modules/authentication';
-import { useAccount, useSigner } from 'wagmi';
-import { setJwtToken, setWalletData } from '../actions/walletActions';
-import store from '../store';
+// import { checkWalletAuth } from '../modules/connect_to_metamask';
+// import { checkJwtToken } from '../modules/authentication';
+// import { useAccount, useSigner } from 'wagmi';
+// import { setJwtToken, setWalletData } from '../actions/walletActions';
+// import store from '../store';
 import Loader from '../Components/Loader';
 import WalletNotFound from '../Components/MyReviews/walletNotFound';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
+import {
+  FaCopy,
+} from "react-icons/fa";
 import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
+import MyProjectsContainer from '../Components/Myprojectscontainer';
+import ButtonNavigation from '../Components/Buttonnavigation';
 import { NFTStorage } from "nft.storage";
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
+import noproject from '../assets/noprojects.png';
+const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
 
 export interface FlowIdResponse {
@@ -35,13 +41,15 @@ interface FormData {
   coverImageHash:string;
   yourname:string;
   role:string;
+  blockchain:string;
 }
 
-const Profile = () => {
+const Projects = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [profileset, setprofileset] = useState<boolean>(true);
-  const [profileData, setProfileData] = useState<any>(null);
+  const [buttonset, setbuttonset] = useState<boolean>(false);
+  const [projectsData, setprojectsData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
   const [successmsg, setsuccessMsg] = useState<string>("");
   const [errormsg, seterrorMsg] = useState<string>("");
@@ -89,7 +97,7 @@ const Profile = () => {
   }
 
   const successtext= {
-    color: "#141a31"
+    color: "#11D9C5"
   }
 
   const errortext= {
@@ -109,7 +117,8 @@ const Profile = () => {
     profilePictureUrl: '',
     coverImageHash:'',
     yourname:'',
-    role:''
+    role:'',
+    blockchain:''
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -176,6 +185,7 @@ const Profile = () => {
       formDataObj.append('coverImageHash', formData.coverImageHash);
       formDataObj.append('adminName', formData.yourname);
       formDataObj.append('adminRole', formData.role);
+      formDataObj.append('blockchain', formData.blockchain);
 
       // Convert FormData to JavaScript Object
 const formDataObject: { [key: string]: string | File | null } = {};
@@ -218,12 +228,12 @@ const jsonData = JSON.stringify(formDataObject);
 
 
   useEffect(() => {
-    const fetchProfileData = async () => {
+    const fetchProjectsData = async () => {
       setLoading(true);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domainName?page=1', {
+        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1&onlyAdmin=true', {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -233,10 +243,10 @@ const jsonData = JSON.stringify(formDataObject);
 
         if (response.status === 200) {
             // Filter the data based on the domain ID
-            const domainid = localStorage.getItem('domainId');
+            const wallet = Cookies.get("platform_wallet");
             const payload: any[] = response.data.payload;
-    const filteredData = payload.filter(item => item.id === domainid);
-          setProfileData(filteredData[0]);
+    const filteredData = payload.filter(item => item.createdBy === wallet);
+    setprojectsData(payload);
           console.log(filteredData)
         }
       } catch (error) {
@@ -246,8 +256,8 @@ const jsonData = JSON.stringify(formDataObject);
       }
     };
 
-    fetchProfileData();
-  }, [profileset]);
+    fetchProjectsData();
+  }, [buttonset]);
 
 
 
@@ -299,6 +309,11 @@ console.log("jsonData",jsonData);
     }
   };
 
+  const handleNavigation = (page: string) => {
+    console.log(`Navigating to ${page} page from projectsPage...`);
+    // Additional navigation logic if needed
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -307,10 +322,14 @@ console.log("jsonData",jsonData);
       className="py-10"
     >
       <section className="pt-24 mb-10">
-        <div className="px-5 mx-auto max-w-7xl">
+        <div className="px-5 mx-auto max-w-8xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+
+<div className='-mt-10'>
+          <ButtonNavigation onNavigate={handleNavigation} count={projectsData? projectsData.length : 0}/>
+          </div>
            
-            {/* { !profileset && ( */}
+            { buttonset && (
             <section className="pb-10 rounded-xl" style={bg}>
               <div className="px-5 mx-auto max-w-2xl rounded-xl">
                 <div className="w-full mx-auto text-left py-20">
@@ -324,13 +343,6 @@ console.log("jsonData",jsonData);
                     onSubmit={handleSubmit}
                   >
                     <div className="lg:flex md:flex justify-between">
-
-                      {/* <div className="block lg:hidden md:hidden">
-                    <div className="flex items-center -mt-10 mb-10 justify-center">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-            </div>
-          </div>
-          </div> */}
 
           <div className="flex items-center lg:justify-start md:justify-start justify-center lg:-mt-80 md:-mt-80 lg:mb-10 md:mb-10 mb-10">
                     <div className="rounded-full h-48 w-48 ring-1 ring-black bg-gray-200">
@@ -426,6 +438,18 @@ console.log("jsonData",jsonData);
                         />
                       </div>
 
+                      <div>
+                        <input
+                          type="text"
+                          id="blockchain"
+                          style={border}
+                          className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder="Blockchain (optional)"
+                          value={formData.blockchain}
+              onChange={handleInputChange}
+                        />
+                      </div>
+
                       
 
                       <div className="mb-10">
@@ -434,31 +458,12 @@ console.log("jsonData",jsonData);
                           id="headline"
                           style={border}
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Headline"
+                          placeholder="Headline (optional)"
                           value={formData.headline}
               onChange={handleInputChange}
                           required
                         />
-
-                  
                       </div>
-
-                      {/* <div className="mb-10">
-                        <input
-                          type="text"
-                          id="description"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Description"
-                          value={formData.description}
-              onChange={handleInputChange}
-                          required
-                        />
-
-                  
-                      </div> */}
-
-
 
                       <div className="mb-10">
                       <textarea
@@ -485,8 +490,6 @@ console.log("jsonData",jsonData);
               onChange={handleInputChange}
                           required
                         />
-
-                  
                       </div>
 
                       <div className="mb-10 lg:w-1/2 md:w-1/2">
@@ -500,8 +503,6 @@ console.log("jsonData",jsonData);
               onChange={handleInputChange}
                           required
                         />
-
-                  
                       </div>
                       </div>
 
@@ -517,8 +518,6 @@ console.log("jsonData",jsonData);
                         "https://cloudflare-ipfs.com/ipfs"
                       }/${removePrefix(formData.coverImageHash)}`}
                       className="w-full h-full"
-                      // width="400"
-                      // height="200"
                     />
                   ) :(<label
                         htmlFor="uploadbg"
@@ -544,37 +543,8 @@ console.log("jsonData",jsonData);
                       </label>)}
                     </div>
                   </div>
-
-                      </div>
-
-                      {/* {profileDetails?.profilePictureUrl ? (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <img
-                className="text-3xl text-gray-500 w-48 h-48 rounded-full"
-                alt=""
-                src={`https://cloudflare-ipfs.com/ipfs/${removePrefix(
-                  profileDetails?.profilePictureUrl
-                )}`}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-start -mt-24 ml-16">
-            <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-              <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" />
-            </div>
-          </div>
-        )} */}
-
-
-                  
-                      
+                      </div>     
                     </div>
-
-                    
-
-                      
 
                     <div className="text-center pt-10">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
@@ -599,7 +569,7 @@ console.log("jsonData",jsonData);
                 Verify Your Registration
                 </h3>
                 <button 
-                    onClick={() => setverify(false)}
+                    onClick={() => setbuttonset(false)}
                     type="button" 
                     className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 >
@@ -611,20 +581,43 @@ console.log("jsonData",jsonData);
             </div>
             <div className="p-4 md:p-5 space-y-4">
                 <p className="text-md text-center" style={text}>
-                  Your domain has been registered successfully!
-                  Add below TXT in DNS and then click verify button.
+                Your domain has been registered successfully! Copy the 
+text below and paste it in your DNS settings, then 
+click the 'verify' button.
                 </p>
-            </div>
-<div className="p-4 md:p-5 space-y-4">
+
+                {/* <div className="p-4 md:p-5 space-y-4">
                 <p className="text-lg text-center text-white">
-                  {/* The TXT value is :  */}
                   {txtvalue}
                 </p>
+            </div> */}
+
+            <div
+                  className="flex cursor-pointer py-4 justify-center" style={successtext}
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      txtvalue? txtvalue : ''
+                    );
+                  }}
+                >
+                  <p className="text-xl ml-2 text-white">
+                    Text
+                  </p>
+                  <FaCopy style={{ marginTop: 6}} className="ml-2" />
             </div>
-            <p style={successtext} className="p-4">{successmsg}</p>
-            
-            {
-              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}. Try again in 3-5 mins if already added txt in dns.</p>)}
+
+                <div className="text-lg text-center text-red-500">
+<a href="/#/verification-steps" target="_blank">Proceed to instructions</a>
+            </div>
+            </div>
+
+              {
+                successmsg && (<p style={successtext} className="p-4">{successmsg}</p>)
+              }
+              {
+              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}.
+               Try again in 3-5 mins if already added txt in dns.</p>)
+              }
 
             <div className="flex items-center p-4 md:p-5 rounded-b">
                 <button 
@@ -642,7 +635,6 @@ console.log("jsonData",jsonData);
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
             <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
-              {/* <Loader/> */}
             </div>
           </div>
         </div>)}
@@ -660,7 +652,7 @@ console.log("jsonData",jsonData);
                 </div>
               </div>
             </section>
-            {/* )} */}
+         )}
 
 
 
@@ -673,83 +665,53 @@ console.log("jsonData",jsonData);
 
 
 
-{/* {
-  profileset && (
+{
+  !buttonset && (
     <>
     <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white">Basic Information</span>
+                    <span className="text-white lg:ml-20 md:ml-20 ml-10">My Projects</span>
                   </h1>
-            <section className="pb-10 rounded-xl" style={bg}>
-              <div className="px-5 mx-auto max-w-2xl rounded-xl">
-                <div className="w-full mx-auto text-left py-20">
-                  
-
-                  <form
-                    id="myForm"
-                    className="rounded pt-10"
-                   
-                  >
-                    <div className="lg:flex md:flex justify-between gap-2">
-
-                    <div className="lg:w-1/3 md:w-1/3">
-                    <div className="flex items-center mb-10 justify-center">
-                    {
-                    profileData?.logoHash ? (
-                    <img
-                      alt="alt"
-                      src={`${
-                        "https://cloudflare-ipfs.com/ipfs"
-                      }/${removePrefix(profileData?.logoHash)}`}
-                      className=""
-                      width="200"
-                      height="200"
-                    />
-                  ) :(
-                      <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
-                      </div>
-                  )}
-                    </div>
-                    </div>
-
-                    <div className="lg:w-2/3 md:w-2/3">
-                      
-                      <div className="lg:flex md:flex justify-between gap-2">
-                    <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.domainName}
-                      </div>
-
-                      <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.category}
-                      </div>
-                      </div>
-                      <div style={border} className="mb-10 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.title}
-                      </div>
-                      <div style={border} className="mb-10 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.headline}
-                      </div>
-                      <div style={border} className="mb-10 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.description}
-                      </div>
-                      </div>
-                    </div>
-
-                    
-
+            <section className="pb-10 rounded-xl">
+              
+            {loading ? (
+            // <Loader />
+            <div className="min-h-screen"></div>
+          ) : projectsData?.length == 0 ? (
+            <motion.div
+            className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            style={bg}
+          >
+             <div className='lg:flex md:flex lg:p-20 md:p-20 p-10'>
+              <div className='lg:w-1/3 md:w-1/3 w-full'>
+              <img src={noproject}/>
+              </div>
+              <div className='lg:w-2/3 md:w-2/3 w-full'>
+              <h2 className="text-4xl font-semibold text-white">Enhance Your Project's Integrity, 
+Verification Needed</h2>
+              <div className='mt-10'>
+                <button style={button} onClick={() => setbuttonset(true)} className='py-4 px-10 rounded-lg font-bold'>Verify project</button>
+              </div>
+              </div>
+            </div>
+          </motion.div>
+          ) : (
+            <MyProjectsContainer metaDataArray={projectsData} MyReviews={false}/>
+          )}
                      
 
-                    <div className="text-center pt-10">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
                           style={button}
-                          onClick={handleVerify}
-                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                          onClick={() => setbuttonset(true)}
+                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg lg:w-1/3 md:w-1/3 w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
-                          Verify Domain
+                          Add More Project
                         </button>
                       </div>
-                    </div>
-                  </form>
+
 
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
@@ -757,12 +719,10 @@ console.log("jsonData",jsonData);
             </div>
           </div>
         </div>)}
-                </div>
-              </div>
             </section>
     </>
   )
-} */}
+}
             
           </div>
         </div>
@@ -771,4 +731,4 @@ console.log("jsonData",jsonData);
   )
 }
 
-export default Profile
+export default Projects

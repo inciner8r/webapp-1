@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DeleteReview } from './Delete_Review';
-import { ReviewCreated } from '../graphql/types';
+// import { DeleteReview } from './Delete_Review';
+// import { ReviewCreated } from '../graphql/types';
 import { motion } from 'framer-motion';
-import StarRatingshow from "./StarRatingshow"
+import StarRatingshow from "./StarRatingshow";
+import eye from '../assets/carbon_view.png';
 
 interface ReviewCardProps {
   metaData: {
@@ -25,13 +26,14 @@ interface ReviewCardProps {
     voter: string;
   } | null;
   MyReviews?: boolean;
-  review?: ReviewCreated;
+  // review?: ReviewCreated;
   onReviewDeleted?: () => void;
 }
 
 const background = {
-  backgroundColor: '#222944',
-  border: '0.2px solid #00a68f',
+  // backgroundColor: '#222944',
+  // boxShadow: '0 0 5px rgba(0, 166, 143, 0.5)'
+  boxShadow: '10px 10px 10px 0px #000', 
 }
 
 const color = {
@@ -91,7 +93,7 @@ return (
     style={background}
     >
       <motion.div className="flex flex-col h-full justify-between" initial={{ y: -20 }} animate={{ y: 0 }} transition={{ duration: 0.4 }}>
-    <Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
+    {/* <Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}> */}
         <div>
           {showDescription ? (
             <div>
@@ -112,6 +114,11 @@ return (
             </div>
           ) : (
             <div>
+<div className="justify-end flex">
+<Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
+<img src={eye} alt="info" className=""/>
+</Link>
+</div>
 
 { metaData.siteRating && 
               (<div className="mt-4">
@@ -169,15 +176,15 @@ return (
           )}
         </div>
 
-        </Link>
+        {/* </Link> */}
 
-        <div>
+        {/* <div>
           {MyReviews && metaData.ipfsUrl ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
               <DeleteReview uri={metaData.ipfsUrl} id={metaData.id} onDelete={handleDelete} />
             </motion.div>
           ) : null}
-        </div>
+        </div> */}
 
         {/* <motion.button
           className="text-white font-semibold rounded-lg p-2 w-full text-center mt-5"

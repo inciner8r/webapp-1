@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../Components/SearchBar';
 import ReviewContainer from '../Components/ReviewContainer';
-import { fetchMetadataURIAll, fetchMetadataURIBySiteURL, fetchMetadataURIBySiteSafety } from '../modules/fetch_metadataURI_from_graphql';
+// import { fetchMetadataURIAll, fetchMetadataURIBySiteURL, fetchMetadataURIBySiteSafety } from '../modules/fetch_metadataURI_from_graphql';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
-import { ReviewCreated } from '../graphql/types';
+// import { ReviewCreated } from '../graphql/types';
 import Loader from '../Components/Loader';
 import FilterButton from '../Components/reviewFilters';
 import { motion } from "framer-motion";
@@ -106,50 +106,50 @@ const AllReviews: React.FC = () => {
     }
   }, [reviews]);  
 
-  const handleFilterChange = async (siteSafety: string) => {
-    let reviewResults;
+  // const handleFilterChange = async (siteSafety: string) => {
+  //   let reviewResults;
   
-    if (siteSafety === "all") {
-      reviewResults = await fetchMetadataURIAll();
-    } else {
-      reviewResults = await fetchMetadataURIBySiteSafety(siteSafety);
-    }
+  //   if (siteSafety === "all") {
+  //     reviewResults = await fetchMetadataURIAll();
+  //   } else {
+  //     reviewResults = await fetchMetadataURIBySiteSafety(siteSafety);
+  //   }
   
-    if (reviewResults) {
-      setReviews(reviewResults);
-      const metaDataPromises = reviewResults.map(async (review) => {
-        if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
-          const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
-          const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
-          return metaData;
-        }
-        return null;
-      });
-      const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
-      setMetaDataArray(metaDataResults);
-    } else {
-      setMetaDataArray([]);
-    }
-  };  
+  //   if (reviewResults) {
+  //     setReviews(reviewResults);
+  //     const metaDataPromises = reviewResults.map(async (review) => {
+  //       if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
+  //         const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
+  //         const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
+  //         return metaData;
+  //       }
+  //       return null;
+  //     });
+  //     const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
+  //     setMetaDataArray(metaDataResults);
+  //   } else {
+  //     setMetaDataArray([]);
+  //   }
+  // };  
   
-  const handleSearch = async (siteURL: string) => {
-    const reviewResults = await fetchMetadataURIBySiteURL(siteURL);
-    if (reviewResults) {
-      setReviews(reviewResults);
-      const metaDataPromises = reviewResults.map(async (review) => {
-        if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
-          const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
-          const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
-          return metaData;
-        }
-        return null;
-      });
-      const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
-      setMetaDataArray(metaDataResults);
-    } else {
-      setMetaDataArray([]);
-    }
-  };
+  // const handleSearch = async (siteURL: string) => {
+  //   const reviewResults = await fetchMetadataURIBySiteURL(siteURL);
+  //   if (reviewResults) {
+  //     setReviews(reviewResults);
+  //     const metaDataPromises = reviewResults.map(async (review) => {
+  //       if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
+  //         const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
+  //         const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
+  //         return metaData;
+  //       }
+  //       return null;
+  //     });
+  //     const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
+  //     setMetaDataArray(metaDataResults);
+  //   } else {
+  //     setMetaDataArray([]);
+  //   }
+  // };
 
   const style = {
     color: '#11D9C5',
