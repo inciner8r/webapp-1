@@ -265,7 +265,7 @@ const jsonData = JSON.stringify(formDataObject);
                           placeholder="Your Name"
                           value={formData.name}
               onChange={handleInputChange}
-                          required
+                          // required
                         />
                       </div>
 
@@ -283,7 +283,7 @@ const jsonData = JSON.stringify(formDataObject);
                           placeholder="Discord"
                           value={formData.discord}
               onChange={handleInputChange}
-                          required
+                          // required
                         />
 
                   
@@ -298,7 +298,7 @@ const jsonData = JSON.stringify(formDataObject);
                           placeholder="Twitter"
                           value={formData.twitter}
               onChange={handleInputChange}
-                          required
+                          // required
                         />
 
                   
@@ -314,7 +314,7 @@ const jsonData = JSON.stringify(formDataObject);
                           placeholder="Country"
                           value={formData.country}
               onChange={handleInputChange}
-                          required
+                          // required
                         />
 
                   
