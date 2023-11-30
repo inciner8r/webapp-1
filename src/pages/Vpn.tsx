@@ -15,6 +15,7 @@ import MyVpnContainer from '../Components/Myvpncontainer';
 import emoji from '../assets/EmojiMessage.png';
 import { NFTStorage } from "nft.storage";
 import ButtonNavigation from '../Components/Buttonnavigation';
+import novpn from '../assets/novpns.png';
 
 export interface FlowIdResponse {
   eula: string;
@@ -428,12 +429,25 @@ setbuttonset(false);
             <Loader />
           ) : projectsData?.length == 0 ? (
             <motion.div
-            className="w-full text-center py-10"
+            className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
+            style={bg}
           >
-            <h2 className="text-4xl font-semibold text-gray-700">No VPN Found</h2>
+             <div className='lg:flex md:flex lg:p-20 md:p-20 p-10'>
+              <div className='lg:w-1/3 md:w-1/3 w-full'>
+              <img src={novpn}/>
+              </div>
+              <div className='lg:w-2/3 md:w-2/3 w-full'>
+              <h2 className="text-4xl font-semibold text-white">Upgrade Your Safety, Combine 
+VPN and Firewall for Total 
+Protection</h2>
+              <div className='mt-10'>
+                <button style={button} onClick={() => setbuttonset(true)} className='py-4 px-10 rounded-lg font-bold'>Create your VPN</button>
+              </div>
+              </div>
+            </div>
           </motion.div>
           ) : (
             <MyVpnContainer metaDataArray={projectsData} MyReviews={false}/>

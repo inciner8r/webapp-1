@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
+import noreview from '../assets/noreviews.png';
 import ButtonNavigation from '../Components/Buttonnavigation';
 
 const ViewMyReviews: React.FC = () => {
@@ -161,6 +162,10 @@ const style2 = {
   backgroundColor: '#11D9C5',
 };
 
+const style3 = {
+  backgroundColor: '#222944',
+};
+
 const background = {
   backgroundColor: '#141a31'
 }
@@ -226,12 +231,23 @@ const handleNavigation = (page: string) => {
             <Loader />
           ) : reviews.length == 0 ? (
             <motion.div
-            className="w-full text-center py-10"
+            className="w-full max-w-5xl mx-auto py-10 rounded-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
+            style={style3}
           >
-            <h2 className="text-4xl font-semibold text-gray-700">No Reviews Found</h2>
+             <div className='lg:flex md:flex lg:p-20 md:p-20 p-10'>
+              <div className='lg:w-1/3 md:w-1/3 w-full'>
+              <img src={noreview}/>
+              </div>
+              <div className='lg:w-2/3 md:w-2/3 w-full'>
+              <h2 className="text-4xl font-semibold text-white">Ready to make a difference with your reviews?</h2>
+              <div className='mt-10'>
+                <button style={style2} onClick={myreviews} className='py-4 px-10 rounded-lg font-bold'>Submit Reviews</button>
+              </div>
+              </div>
+            </div>
           </motion.div>
           ) : (
             <MyReviewContainer metaDataArray={metaDataArray} MyReviews={false}/>

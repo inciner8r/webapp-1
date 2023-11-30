@@ -18,6 +18,7 @@ import { removePrefix } from "../modules/Utils/ipfsUtil";
 import MyProjectsContainer from '../Components/Myprojectscontainer';
 import ButtonNavigation from '../Components/Buttonnavigation';
 import { NFTStorage } from "nft.storage";
+import noproject from '../assets/noprojects.png';
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
 
@@ -676,12 +677,24 @@ click the 'verify' button.
             <Loader />
           ) : projectsData?.length == 0 ? (
             <motion.div
-            className="w-full text-center py-10"
+            className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
+            style={bg}
           >
-            <h2 className="text-4xl font-semibold text-gray-700">No Projects Found</h2>
+             <div className='lg:flex md:flex lg:p-20 md:p-20 p-10'>
+              <div className='lg:w-1/3 md:w-1/3 w-full'>
+              <img src={noproject}/>
+              </div>
+              <div className='lg:w-2/3 md:w-2/3 w-full'>
+              <h2 className="text-4xl font-semibold text-white">Enhance Your Project's Integrity, 
+Verification Needed</h2>
+              <div className='mt-10'>
+                <button style={button} onClick={() => setbuttonset(true)} className='py-4 px-10 rounded-lg font-bold'>Verify project</button>
+              </div>
+              </div>
+            </div>
           </motion.div>
           ) : (
             <MyProjectsContainer metaDataArray={projectsData} MyReviews={false}/>
