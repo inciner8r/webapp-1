@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 // import { ReviewCreated } from "../graphql/types";
 import { motion } from "framer-motion";
 import StarRatingshow from "./StarRatingshow";
+import eye from '../assets/carbon_view.png';
+import {
+  FaCopy,
+} from "react-icons/fa";
 
 interface ReviewCardProps {
   metaData: {
@@ -47,6 +51,7 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
   onReviewDeleted,
 }) => {
   const [showDescription, setShowDescription] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   if (!metaData) {
     return (
@@ -70,6 +75,10 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
     );
   }
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const handleClick = () => {
     setShowDescription(!showDescription);
   };
@@ -91,7 +100,7 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
         className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
         style={background}
       >
-                <div className="w-full px-4">
+                <div className="w-full px-4 flex justify-between">
                   <motion.h3
                     className="text-2xl leading-12 font-bold mb-2 text-white"
                     initial={{ y: -20 }}
@@ -99,23 +108,22 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                     transition={{ duration: 0.4 }}
                   >
                     <div className="flex">
-                      VPN Id:<div>{metaData.vpn_id}</div>
+                      <div>{metaData.vpn_id}</div>
                     </div>
                   </motion.h3>
 
                   <div className="lg:flex md:flex justify-between">
                     <div className="">
                   <motion.div
-                    className="mt-4"
+                    className=""
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
                   >
                     
                     <button className="text-lg rounded-lg pr-1 text-white">
-                        VPN Link : 
                        <a href={`https://${metaData.vpn_endpoint}`} target="_blank" style={color2}>
-                          {metaData.vpn_endpoint}</a>
+                       Link</a>
                     </button>    
   
                     {/* <button className="text-lg rounded-lg pr-1">
@@ -126,17 +134,16 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                     </button> */}
                   </motion.div>
                   </div>
-                  <div className="mt-4 text-white">
+                  {/* <div className="mt-4 text-white">
                   <button className="text-lg rounded-lg">
                       Status : {metaData.status}
                     </button>
-                    </div>
+                    </div> */}
               </div>
                   
               <button className="text-lg rounded-lg pr-1 text-white flex">
-                        Firewall Link : 
                        <a href={`https://${metaData.firewall_endpoint}`} target="_blank" style={color2}>
-                          {metaData.firewall_endpoint}</a>
+                          Link</a>
                     </button> 
 
                   <div className="text-white text-lg flex">
@@ -145,8 +152,23 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.4 }}
                     >
-                      Dashboard Password : {metaData.dashboard_password}
+                      <img src={eye} onClick={togglePasswordVisibility}/>
+
+                      {showPassword ? (
+
+                        <div className="flex cursor-pointer" onClick={() => {
+                          navigator.clipboard.writeText(
+                            metaData? metaData.dashboard_password : ''
+                          );
+                        }}>
+                          {metaData.dashboard_password}
+                          <FaCopy style={{ marginTop: 6}} className="ml-2" />
+                          </div>
+                      ) : (
+                        <span></span>
+                      )}
                     </motion.p>
+                    
                   </div>
                 </div>
                 </div>

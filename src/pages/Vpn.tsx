@@ -450,7 +450,57 @@ Protection</h2>
             </div>
           </motion.div>
           ) : (
+            <div>
+              <div
+        className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
+        style={bg}
+      >
+                <div className="w-full px-4 flex justify-between">
+                  <motion.h3
+                    className="text-lg leading-12 mb-2"
+                    initial={{ y: -20 }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <div className="flex" style={text}>
+                      VPN Id
+                    </div>
+                  </motion.h3>
+
+                  <div className="lg:flex md:flex justify-between">
+                    <div className="">
+                  <motion.div
+                    className=""
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    
+                    <button className="text-lg rounded-lg pr-1" style={text}>
+                    VPN endpoint
+                    </button>    
+                  </motion.div>
+                  </div>
+              </div>
+                  
+              <button className="text-lg rounded-lg pr-1 flex" style={text}>
+              Firewall endpoint 
+                  
+                    </button> 
+
+                  <div className="text-lg flex" style={text}>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      Password 
+                    </motion.p>
+                  </div>
+                </div>
+                </div>
             <MyVpnContainer metaDataArray={projectsData} MyReviews={false}/>
+            </div>
           )}
                      
 
