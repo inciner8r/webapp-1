@@ -13,6 +13,7 @@ import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import noreview from '../assets/noreviews.png';
 import ButtonNavigation from '../Components/Buttonnavigation';
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 const ViewMyReviews: React.FC = () => {
   const [reviews, setReviews] = useState<any[]>([]);
@@ -48,7 +49,7 @@ const ViewMyReviews: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=${page}&voter=${wallet}`,
+          `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page}&voter=${wallet}`,
           config
         );
 

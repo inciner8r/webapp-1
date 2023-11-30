@@ -14,6 +14,7 @@ import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import StarRatingshow from "../Components/StarRatingshow";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 interface DomainData {
   category: string;
@@ -59,7 +60,7 @@ const DynamicPage: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=${page}&domain=${id}`,
+          `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page}&domain=${id}`,
           config
         );
         console.log(reviewResults);
@@ -121,7 +122,7 @@ const DynamicPage: React.FC = () => {
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1&verified=true&domainName=${id}`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=1&verified=true&domainName=${id}`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",

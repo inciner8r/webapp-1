@@ -15,6 +15,7 @@ import { removePrefix } from "../modules/Utils/ipfsUtil";
 import { NFTStorage } from "nft.storage";
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 export interface FlowIdResponse {
   eula: string;
@@ -134,7 +135,7 @@ formDataObj.forEach((value, key) => {
 // Convert JavaScript Object to JSON string
 const jsonData = JSON.stringify(formDataObject);
 
-      const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/profile', {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/profile`, {
         method: 'PATCH',
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -167,7 +168,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/profile', {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/profile`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",

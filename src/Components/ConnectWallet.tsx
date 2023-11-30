@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import nacl from 'tweetnacl';
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 const ConnectWalletButton = () => {
 
@@ -30,7 +31,7 @@ const ConnectWalletButton = () => {
       const account = await wallet.account();
       console.log("account",account)
 
-      const { data } = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/flowid?walletAddress=${account.address}`);
+      const { data } = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/flowid?walletAddress=${account.address}`);
       console.log(data);
 
       const message = data.payload.eula;
@@ -51,7 +52,7 @@ const ConnectWalletButton = () => {
         "pubKey": publicKey,
       };
 
-      const authenticateApiUrl = 'https://testnet.gateway.netsepio.com/api/v1.0/authenticate';
+      const authenticateApiUrl = `${REACT_APP_GATEWAY_URL}api/v1.0/authenticate`;
 
       const config = {
         url: authenticateApiUrl,

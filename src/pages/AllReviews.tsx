@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 const AllReviews: React.FC = () => {
   const [reviews, setReviews] = useState<any[]>([]);
@@ -45,7 +46,7 @@ const AllReviews: React.FC = () => {
         };
 
         const reviewResults = await axios.get(
-          `https://testnet.gateway.netsepio.com/api/v1.0/getreviews?page=${page}`,
+          `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page}`,
           config
         );
 

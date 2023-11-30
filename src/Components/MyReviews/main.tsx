@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { storeMetaData } from "../../modules/submit-review";
 import ButtonNavigation from '../Buttonnavigation';
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 const MyReviews: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -118,7 +119,7 @@ const MyReviews: React.FC = () => {
     try {
       const auth = Cookies.get("platform_token");
       // Make the POST request
-      const response = await fetch(`https://testnet.gateway.netsepio.com/api/v1.0/delegateReviewCreation`, {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/delegateReviewCreation`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

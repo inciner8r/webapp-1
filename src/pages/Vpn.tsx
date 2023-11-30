@@ -16,6 +16,7 @@ import emoji from '../assets/EmojiMessage.png';
 import { NFTStorage } from "nft.storage";
 import ButtonNavigation from '../Components/Buttonnavigation';
 import novpn from '../assets/novpns.png';
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 export interface FlowIdResponse {
   eula: string;
@@ -138,7 +139,7 @@ formDataObj.forEach((value, key) => {
 // Convert JavaScript Object to JSON string
 const jsonData = JSON.stringify(formDataObject);
 
-      const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/vpn', {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn`, {
         method: 'POST',
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -175,7 +176,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/vpn/all/${region}`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn/all/${region}`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",

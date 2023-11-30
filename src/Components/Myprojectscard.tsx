@@ -7,6 +7,7 @@ import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { NFTStorage } from "nft.storage";
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 interface FormData {
   title: string;
@@ -138,7 +139,7 @@ formDataObj.forEach((value, key) => {
 // Convert JavaScript Object to JSON string
 const jsonData = JSON.stringify(formDataObject);
 
-      const response = await fetch('https://testnet.gateway.netsepio.com/api/v1.0/domain', {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/domain`, {
         method: 'PATCH',
         headers: {
           Accept: "application/json, text/plain, */*",
