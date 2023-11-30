@@ -15,8 +15,6 @@ import MyVpnContainer from '../Components/Myvpncontainer';
 import emoji from '../assets/EmojiMessage.png';
 import { NFTStorage } from "nft.storage";
 import ButtonNavigation from '../Components/Buttonnavigation';
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
-const client = new NFTStorage({ token: API_KEY });
 
 export interface FlowIdResponse {
   eula: string;

@@ -319,6 +319,7 @@ const MyReviews: React.FC = () => {
                           <option value="Explorers">Explorers</option>
                           <option value="Bridges">Bridges</option>
                           <option value="Social">Social</option>
+                          <option value="NFT">NFT</option>
                           <option value="Others">Others</option>
                         </select>
                         {/* <input

@@ -195,28 +195,6 @@ const logout = {
             Cookies.set("platform_wallet", account.address, { expires: 7 });
 
             setUserWallet(account.address);
-
-            const MORALIS_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6ImNhYjYxMDViLWVjMGQtNGI4Ny1hNThiLWI5ZDcwMjZkNzU4YyIsIm9yZ0lkIjoiMzYzNDM0IiwidXNlcklkIjoiMzczNTE1IiwidHlwZUlkIjoiMTc3ZGVlZGMtOTdhMi00YjA0LWEyZTYtZTIwMmYzODVkMjE0IiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE2OTkyMDQ5ODYsImV4cCI6NDg1NDk2NDk4Nn0.0B8k4sEUUYCLTBPjO9d86yb1Cln6wZMhPDuToCmtyAc";
-        
-            const options = {
-              method: 'GET',
-              headers: {
-                accept: 'application/json',
-                "X-API-Key": MORALIS_API_KEY,
-              },
-            };
-        
-            fetch(`https://mainnet-aptos-api.moralis.io/wallets/coins?limit=10&owner_addresses[0]=${account.address}`, options)
-              .then(response => response.json())
-              .then(response => {
-                console.log(response);
-                // Handle the API response data here
-              })
-              .catch(err => {
-                console.error(err);
-                // Handle any errors here
-              });
-
       } catch (error) {
         console.error(error);
       }
