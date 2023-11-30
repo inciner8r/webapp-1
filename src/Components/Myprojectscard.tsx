@@ -414,7 +414,7 @@ const jsonData = JSON.stringify(formDataObject);
                       )}
                       </div>
 
-                    <div className="w-1/2">
+                    <div className="w-1/2 ml-auto">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8 flex">
                       <button
                           onClick={()=>seteditmode(false)}
