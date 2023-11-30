@@ -674,7 +674,8 @@ click the 'verify' button.
             <section className="pb-10 rounded-xl">
               
             {loading ? (
-            <Loader />
+            // <Loader />
+            <div className="min-h-screen"></div>
           ) : projectsData?.length == 0 ? (
             <motion.div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
@@ -712,12 +713,12 @@ Verification Needed</h2>
                       </div>
 
 
-                  {/* {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
+                  {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
             <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
             </div>
           </div>
-        </div>)} */}
+        </div>)}
             </section>
     </>
   )

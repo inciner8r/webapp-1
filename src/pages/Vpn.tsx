@@ -467,7 +467,7 @@ Protection</h2>
                         >
                           <option value="">Select Region</option>
                           <option value="us-east-2">us-east-2</option>
-                          <option value="ap-southeast-1">ap-southeast-1</option>
+                          {/* <option value="ap-southeast-1">ap-southeast-1</option> */}
                         </select>
               <div
         className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4"
