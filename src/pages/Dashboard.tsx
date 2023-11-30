@@ -233,7 +233,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1', {
+        const response = await axios.get('https://testnet.gateway.netsepio.com/api/v1.0/domain?page=1&onlyAdmin=true', {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -246,7 +246,7 @@ const jsonData = JSON.stringify(formDataObject);
             const wallet = Cookies.get("platform_wallet");
             const payload: any[] = response.data.payload;
     const filteredData = payload.filter(item => item.createdBy === wallet);
-    setprojectsData(filteredData);
+    setprojectsData(payload);
           console.log(filteredData)
         }
       } catch (error) {
