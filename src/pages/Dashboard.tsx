@@ -322,7 +322,7 @@ console.log("jsonData",jsonData);
       className="py-10"
     >
       <section className="pt-24 mb-10">
-        <div className="px-5 mx-auto max-w-7xl">
+        <div className="px-5 mx-auto max-w-8xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
 
 <div className='-mt-10'>
@@ -669,7 +669,7 @@ click the 'verify' button.
   !buttonset && (
     <>
     <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white">My Projects</span>
+                    <span className="text-white lg:ml-20 md:ml-20 ml-10">My Projects</span>
                   </h1>
             <section className="pb-10 rounded-xl">
               

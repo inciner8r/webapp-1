@@ -17,7 +17,7 @@ interface ReviewCardProps {
     headline: string;
     logoHash: string;
     title: string;
-    verified: number;
+    verified: boolean;
     id: string;
   } | null;
   MyReviews?: boolean;
@@ -93,7 +93,7 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
     >
       <div
         className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
-        style={background}
+        
       >
             <div>
                 <div className="lg:flex m:flex justify-start">
@@ -110,16 +110,22 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
                 </div>
                 <div className="w-full lg:px-4 md:px-4">
                   <motion.h3
-                    className="text-2xl leading-12 font-bold mb-2 text-white"
+                    className="leading-12 mb-2 text-white"
                     initial={{ y: -20 }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <div className="flex">
-                      <div>{metaData.title}</div>
+                    <div className="lg:flex md:flex justify-between">
+                      <div className="text-4xl font-bold">{metaData.title}</div>
+                      <div className="mt-4 text-white">
+                  <button className="text-lg rounded-lg">
+                      Blockchain : {metaData.blockchain}
+                    </button>
+                    </div>
                     </div>
                   </motion.h3>
 
+<div style={background} className="p-4 rounded-xl">
                   <div className="lg:flex md:flex justify-between">
                     <div className="">
                   <motion.div
@@ -133,18 +139,15 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
                       {metaData.domainName} /
                     </button>     
                     <button className="text-lg rounded-lg pr-1">
-                      {metaData.category} /
-                    </button>
-                    <button className="text-lg rounded-lg pr-1">
-                      {metaData.verified} /
+                      {metaData.category}
                     </button>
                   </motion.div>
                   </div>
-                  <div className="mt-4 text-white">
+                  {/* <div className="mt-4 text-white">
                   <button className="text-lg rounded-lg">
                       Blockchain : {metaData.blockchain}
                     </button>
-                    </div>
+                    </div> */}
               </div>
                   
 
@@ -158,6 +161,10 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
                     </motion.p>
                   </div>
 
+                  <button className="text-lg rounded-lg flex text-white">
+                      Verified : {metaData.verified? "True" : "False"}
+                    </button>
+
                   <div className="mt-5 text-white text-lg flex">
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -166,6 +173,8 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
                     >
                       {metaData.description}
                     </motion.p>
+                  </div>
+
                   </div>
                 </div>
                 </div>
