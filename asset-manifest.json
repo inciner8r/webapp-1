@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.7bf59abd.css",
-    "main.js": "/static/js/main.d88224b4.js",
+    "main.js": "/static/js/main.a8391e8b.js",
     "static/media/netsepio_logo_light.png": "/static/media/netsepio_logo_light.862bbab9806be039f09b.png",
     "static/media/novpns.png": "/static/media/novpns.1bc172643e923bc5aba6.png",
     "static/media/noreviews.png": "/static/media/noreviews.c05f33b02624ef952032.png",
     "static/media/noprojects.png": "/static/media/noprojects.6f7a9317ce014dfeac3a.png",
     "index.html": "/index.html",
     "main.7bf59abd.css.map": "/static/css/main.7bf59abd.css.map",
-    "main.d88224b4.js.map": "/static/js/main.d88224b4.js.map"
+    "main.a8391e8b.js.map": "/static/js/main.a8391e8b.js.map"
   },
   "entrypoints": [
     "static/css/main.7bf59abd.css",
-    "static/js/main.d88224b4.js"
+    "static/js/main.a8391e8b.js"
   ]
 }
