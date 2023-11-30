@@ -4,6 +4,9 @@ import Cookies from "js-cookie";
 import StarRatingshow from "./StarRatingshow";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
+import { NFTStorage } from "nft.storage";
+const API_KEY = process.env.REACT_APP_STORAGE_API || '';
+const client = new NFTStorage({ token: API_KEY });
 
 interface FormData {
   title: string;
@@ -11,6 +14,7 @@ interface FormData {
   blockchain: string;
   headline: string;
   description: string;
+  logohash:string;
 }
 
 interface ReviewCardProps {
@@ -66,13 +70,15 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
   const [showDescription, setShowDescription] = useState(false);
   const [editmode, seteditmode] = useState(false);
   const [msg, setMsg] = useState<string>("");
+  const [isEditingImage, setIsEditingImage] = useState(true);
 
   const initialFormData: FormData = {
     title: metaData?.title || '',
     category: metaData?.category || '',
     blockchain: metaData?.blockchain || '',
     headline: metaData?.headline || '',
-    description: metaData?.description || ''
+    description: metaData?.description || '',
+    logohash: metaData?.logoHash || '',
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -84,6 +90,26 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
       [id]: value,
     }));
   };
+
+
+  async function uploadImage(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const blobDataImage = new Blob([e.target.files![0]]);
+      const metaHash = await client.storeBlob(blobDataImage);
+      setFormData({
+        ...formData,
+        logohash: `ipfs://${metaHash}`,
+      });
+      console.log("profilePictureUrl",metaHash)
+      setIsEditingImage(false);
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
 
   const handleSubmit = async (e: FormEvent, id: string) => {
@@ -101,6 +127,7 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
       formDataObj.append('description', formData.description);
       formDataObj.append('category', formData.category);
       formDataObj.append('blockchain', formData.blockchain);
+      formDataObj.append('logohash', formData.logohash);
 
       // Convert FormData to JavaScript Object
 const formDataObject: { [key: string]: string | File | null } = {};
@@ -128,9 +155,11 @@ const jsonData = JSON.stringify(formDataObject);
           blockchain: '',
           headline: '',
           description: '',
+          logohash:''
         });
         console.log("success")
         setMsg('success');
+        window.location.reload();
       } else {
         setMsg('error');
       }
@@ -346,10 +375,46 @@ const jsonData = JSON.stringify(formDataObject);
                       </div>
 
                       </div>
-
+        
+                    { !isEditingImage ? (
+                    <img
+                      alt="alt"
+                      src={`${
+                        "https://cloudflare-ipfs.com/ipfs"
+                      }/${removePrefix(formData.logohash)}`}
+                      className="rounded-full"
+                      width="200"
+                      height="200"
+                    />
+                  ) :(
+                    <>
+                    <label
+                        htmlFor="upload"
+                        className="flex flex-col items-center gap-2 cursor-pointer mt-20 pr-10"
+                      >
+                      <input id="upload" type="file" className="hidden" 
+                      onChange={uploadImage}
+                      accept="image/*"
+                      />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-10 w-10 fill-white stroke-indigo-500"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                      </label>
+                      </>
+                      )}
                       </div>
 
-                    <div className="w-1/2">
+                    <div className="w-1/2 ml-auto">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8 flex">
                       <button
                           onClick={()=>seteditmode(false)}
