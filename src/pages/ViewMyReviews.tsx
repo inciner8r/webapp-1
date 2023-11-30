@@ -213,7 +213,7 @@ const handleNavigation = (page: string) => {
         <button className="text-white border rounded-lg px-12 py-8">VPNs</button>
         </div> */}
 
-<ButtonNavigation onNavigate={handleNavigation} />
+<ButtonNavigation onNavigate={handleNavigation} count={metaDataArray? metaDataArray.length : 0}/>
 <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
           <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">

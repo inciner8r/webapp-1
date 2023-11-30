@@ -325,7 +325,7 @@ console.log("jsonData",jsonData);
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
 
 <div className='-mt-10'>
-          <ButtonNavigation onNavigate={handleNavigation} />
+          <ButtonNavigation onNavigate={handleNavigation} count={projectsData? projectsData.length : 0}/>
           </div>
            
             { buttonset && (

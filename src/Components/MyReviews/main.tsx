@@ -176,7 +176,7 @@ const MyReviews: React.FC = () => {
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
 
           <div className='-mt-10'>
-          <ButtonNavigation onNavigate={handleNavigation} />
+          <ButtonNavigation onNavigate={handleNavigation} count={0}/>
           </div>
 
             <section className="pb-10 rounded-xl" style={bg}>

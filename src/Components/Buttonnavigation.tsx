@@ -4,9 +4,10 @@ import { Link, useLocation } from 'react-router-dom';
 
 interface ButtonNavigationProps {
   onNavigate: (page: string) => void;
+  count: number;
 }
 
-const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate }) => {
+const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate, count }) => {
 //   const history = useHistory();
   const location = useLocation();
 
@@ -29,7 +30,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate }) => {
             borderBottom: location.pathname.includes('reviews') ? '2px solid white' : '',
           }}
       >
-        Reviews
+        {location.pathname.includes('reviews') ? `Reviews (${count})` : 'Reviews'}
       </Link>
       <Link
         to="/dashboard"
@@ -41,7 +42,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate }) => {
             borderBottom: location.pathname.includes('dashboard') ? '2px solid white' : '',
           }}
       >
-        Projects
+        {location.pathname.includes('dashboard') ? `Projects (${count})` : 'Projects'}
       </Link>
       <Link
         to="/vpn"
@@ -53,7 +54,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate }) => {
             borderBottom: location.pathname.includes('vpn') ? '2px solid white' : '',
           }}
       >
-        VPNs
+        {location.pathname.includes('vpn') ? `VPNs (${count})` : 'VPNs'}
       </Link>
     </div>
   );
