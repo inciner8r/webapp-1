@@ -42,19 +42,19 @@ const AllReviews: React.FC = () => {
           `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page}`,
           config
         );
-        console.log(reviewResults);
+        console.log("current",reviewResults);
         const reviewsData = await reviewResults.data.payload;
 
-        const reviewResultsnextpage = await axios.get(
-          `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page+1}`,
-          config
-        );
-        console.log(reviewResultsnextpage);
-        const nextReviewsData = await reviewResultsnextpage.data.payload;
+        // const reviewResultsnextpage = await axios.get(
+        //   `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page+1}`,
+        //   config
+        // );
+        // console.log("next",reviewResultsnextpage);
+        // const nextReviewsData = await reviewResultsnextpage.data.payload;
 
-        if (nextReviewsData.data.message === "No reviews found") {
-          setNextPageDisabled(true);
-        }
+        // if (nextReviewsData.data.message === "No reviews found") {
+        //   setNextPageDisabled(true);
+        // }
 
         if (reviewResults.data.message === "No reviews found") {
           console.log("No reviews found");
