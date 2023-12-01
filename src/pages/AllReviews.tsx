@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import SearchBar from '../Components/SearchBar';
 import ReviewContainer from '../Components/ReviewContainer';
-// import { fetchMetadataURIAll, fetchMetadataURIBySiteURL, fetchMetadataURIBySiteSafety } from '../modules/fetch_metadataURI_from_graphql';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
-// import { ReviewCreated } from '../graphql/types';
 import Loader from '../Components/Loader';
-import FilterButton from '../Components/reviewFilters';
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -20,6 +16,7 @@ const AllReviews: React.FC = () => {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isNextPageDisabled, setNextPageDisabled] = useState<boolean>(false);
 
   const connectWallet = async () => {
     navigate('/my-reviews');
@@ -28,10 +25,6 @@ const AllReviews: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     const fetchReviews = async (page: number) => {
-      // const reviewResults = await fetchMetadataURIAll();
-      // if (reviewResults) {
-      //   setReviews(reviewResults);
-      // }
 
       const auth = Cookies.get("platform_token");
 
@@ -49,24 +42,20 @@ const AllReviews: React.FC = () => {
           `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page}`,
           config
         );
-
-        // const reviewResults = await fetch(`https://testnet.gateway.netsepio.com/api/v1.0/getreviews`, 
-        
-        // { 
-        //   method: 'GET', 
-        //   headers: {
-        //   'Authorization': `Bearer ${auth}`,
-        //   'Content-Type': 'application/json', }
-        // });
-        
-        // if (reviewResults.ok) {
-        //   const reviewsData = await reviewResults.json();
-        //   setReviews(reviewsData);
-        // } else {
-        //   console.error('Failed to fetch reviews:', reviewResults.statusText);
-        // }
         console.log(reviewResults);
         const reviewsData = await reviewResults.data.payload;
+
+        const reviewResultsnextpage = await axios.get(
+          `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page+1}`,
+          config
+        );
+        console.log(reviewResultsnextpage);
+        const nextReviewsData = await reviewResultsnextpage.data.payload;
+
+        if (nextReviewsData.data.message === "No reviews found") {
+          setNextPageDisabled(true);
+        }
+
         if (reviewResults.data.message === "No reviews found") {
           console.log("No reviews found");
           setReviews([]);
@@ -106,51 +95,6 @@ const AllReviews: React.FC = () => {
       fetchMetaData().finally(() => setLoading(false));
     }
   }, [reviews]);  
-
-  // const handleFilterChange = async (siteSafety: string) => {
-  //   let reviewResults;
-  
-  //   if (siteSafety === "all") {
-  //     reviewResults = await fetchMetadataURIAll();
-  //   } else {
-  //     reviewResults = await fetchMetadataURIBySiteSafety(siteSafety);
-  //   }
-  
-  //   if (reviewResults) {
-  //     setReviews(reviewResults);
-  //     const metaDataPromises = reviewResults.map(async (review) => {
-  //       if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
-  //         const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
-  //         const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
-  //         return metaData;
-  //       }
-  //       return null;
-  //     });
-  //     const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
-  //     setMetaDataArray(metaDataResults);
-  //   } else {
-  //     setMetaDataArray([]);
-  //   }
-  // };  
-  
-  // const handleSearch = async (siteURL: string) => {
-  //   const reviewResults = await fetchMetadataURIBySiteURL(siteURL);
-  //   if (reviewResults) {
-  //     setReviews(reviewResults);
-  //     const metaDataPromises = reviewResults.map(async (review) => {
-  //       if (review.metadataURI && review.metadataURI.startsWith('ipfs://')) {
-  //         const ipfsUrl = `https://ipfs.io/ipfs/${review.metadataURI.split('ipfs://')[1]}`;
-  //         const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
-  //         return metaData;
-  //       }
-  //       return null;
-  //     });
-  //     const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
-  //     setMetaDataArray(metaDataResults);
-  //   } else {
-  //     setMetaDataArray([]);
-  //   }
-  // };
 
   const style = {
     color: '#11D9C5',
@@ -203,30 +147,34 @@ const handlePrevPage = () => {
         transition={{ delay: 1 }}
         className="mt-16"
       >
-        {/* <SearchBar onSearch={handleSearch} /> */}
-        {/* <FilterButton onFilterChange={handleFilterChange} /> */}
+
+        { metaDataArray && metaDataArray?.length > 0 && (
+          <>
         <div className="inline-flex items-center justify-center w-full">
         <div className="text-white border rounded-full py-2 px-6 mt-10">All reviews</div>
         </div>
         <div className="inline-flex items-center justify-center w-full my-10">
         <h1 className="text-white text-3xl font-bold">Your Path to Safe and Secure Browsing</h1>
         </div>
+        </>
+        )}
 
         {loading ? (
             <Loader />
           ) : reviews.length == 0 ? (
             <motion.div
-            className="w-full text-center py-10"
+            className="w-full text-center py-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-semibold text-gray-700">No Reviews Found</h2>
+            <h2 className="text-4xl font-semibold text-white">Upcoming Reviews</h2>
           </motion.div>
           ) : (
             <ReviewContainer metaDataArray={metaDataArray} reviews={reviews} MyReviews={false}/>
           )}
 
+{ metaDataArray && metaDataArray?.length > 0 && (
           <div className="inline-flex items-center justify-center w-full mt-4">
             <button onClick={handlePrevPage} disabled={currentPage === 1} className='text-white'>
             <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
@@ -234,12 +182,13 @@ const handlePrevPage = () => {
 </svg>
             </button>
             <span className="mx-2 text-gray-500">Page {currentPage}</span>
-            <button onClick={handleNextPage} className='text-white'>
+            <button onClick={handleNextPage} disabled={isNextPageDisabled} className='text-white'>
             <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
   <path d="M96,220a12,12,0,0,1-8.48535-20.48535L159.0293,128,87.51465,56.48535a12.0001,12.0001,0,0,1,16.9707-16.9707l80,80a12.00062,12.00062,0,0,1,0,16.9707l-80,80A11.96287,11.96287,0,0,1,96,220Z"/>
 </svg>
             </button>
           </div>
+)}
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">
