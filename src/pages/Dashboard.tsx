@@ -462,7 +462,7 @@ console.log("jsonData",jsonData);
                           placeholder="Headline (optional)"
                           value={formData.headline}
               onChange={handleInputChange}
-                          required
+                          // required
                         />
                       </div>
 

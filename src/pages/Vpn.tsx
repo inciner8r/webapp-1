@@ -15,7 +15,7 @@ import MyVpnContainer from '../Components/Myvpncontainer';
 import emoji from '../assets/EmojiMessage.png';
 import { NFTStorage } from "nft.storage";
 import ButtonNavigation from '../Components/Buttonnavigation';
-import novpn from '../assets/novpns.png';
+import novpn from '../assets/novpn2.png';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 export interface FlowIdResponse {
@@ -442,13 +442,13 @@ setbuttonset(false);
             transition={{ duration: 0.5 }}
             style={bg}
           >
-             <div className='lg:flex md:flex lg:p-20 md:p-20 p-10'>
-              <div className='lg:w-1/3 md:w-1/3 w-full'>
+             <div className='lg:flex md:flex lg:p-20 md:p-20 p-10 gap-10'>
+              <div className='lg:w-1/2 md:w-1/2 w-full'>
               <img src={novpn}/>
               </div>
-              <div className='lg:w-2/3 md:w-2/3 w-full'>
-              <h2 className="text-4xl font-semibold text-white">Upgrade Your Safety, Combine 
-VPN and Firewall for Total 
+              <div className='lg:w-1/2 md:w-1/2 w-full'>
+              <h2 className="text-3xl font-semibold text-white">Revamp Your Security, Sotreus 
+Unites VPN and Firewall for Total 
 Protection</h2>
               <div className='mt-10'>
                 <button style={button} onClick={() => setbuttonset(true)} className='py-4 px-10 rounded-lg font-bold'>Create your VPN</button>
@@ -468,7 +468,7 @@ Protection</h2>
                         >
                           <option value="">Select Region</option>
                           <option value="us-east-2">us-east-2</option>
-                          {/* <option value="ap-southeast-1">ap-southeast-1</option> */}
+                          <option value="ap-southeast-1">ap-southeast-1</option>
                         </select>
               <div
         className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4"
