@@ -24,7 +24,7 @@ const Footer = () => {
             <a href="/" className="text-2xl font-bold leading-12 text-white mt-1">NetSepio</a>
           </nav>
           <nav className="mb-4 flex flex-wrap justify-center gap-x-4 gap-y-2 md:justify-start md:gap-6">
-            <a href="https://chrome.google.com/webstore/detail/netsepio/bbkfclgnbddljhepbfpongcollhocghd" className="transition duration-100 text-white">Extension</a>
+            {/* <a href="https://chrome.google.com/webstore/detail/netsepio/bbkfclgnbddljhepbfpongcollhocghd" className="transition duration-100 text-white"></a> */}
             <a href="https://github.com/NetSepio" className="transition duration-100 text-white">Collaborate</a>
           </nav>
     
