@@ -234,19 +234,18 @@ const logout = {
         <div className='text-white font-bold text-center text-xl md:ml-30 hidden lg:inline-block '>
         {loggedin && wallet && value ? (
         <>
-        <button 
+        {/* <button 
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave} 
             data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" className="ms-3 mb-2 md:mb-0 text-white rounded-lg text-xl font-bold px-5 py-2.5 text-center">
           {wallet.slice(0, 4)}...{wallet.slice(-4)}
-        {/* </button> */}
         {isHovered ? (
         <div id="tooltip-bottom" role="tooltip" className="p-4 absolute z-10 inline-block text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
             {wallet}
             <div className="cursor-pointer w-1/4 rounded-lg mx-auto py-1 my-4" style={border} onClick={handleCopyClick}>copy</div>
         </div>
         ):''}
-        </button>
+        </button> */}
           {/* <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3> */}
         </>
       ) : (
@@ -259,6 +258,20 @@ const logout = {
       {loggedin && wallet && value ?(
 
 <div className="flex flex-row gap-2">
+<button 
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave} 
+            data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" className="ms-3 mb-2 md:mb-0 text-white rounded-lg text-xl font-bold px-5 py-2.5 text-center">
+          {wallet.slice(0, 4)}...{wallet.slice(-4)}
+        {/* </button> */}
+        {isHovered ? (
+        <div id="tooltip-bottom" role="tooltip" className="p-4 absolute z-10 inline-block text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700
+        left-1/2 transform -translate-x-1/4 max-w-xl">
+            {wallet}
+            <div className="cursor-pointer w-1/4 rounded-lg mx-auto py-1 my-4" style={border} onClick={handleCopyClick}>copy</div>
+        </div>
+        ):''}
+        </button>
 <button className="hidden lg:block" 
 onClick={() => { setHideFilter(!hidefilter);}}>
         <svg
@@ -283,7 +296,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
               hidefilter && (
                 <>
                   {/* Dropdown menu */}
-                  <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 right-24 absolute">
+                  <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 right-60 absolute">
                     
                   {loggedin && wallet && value ?(
                       <>
