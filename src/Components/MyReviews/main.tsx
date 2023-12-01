@@ -13,6 +13,8 @@ import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { storeMetaData } from "../../modules/submit-review";
 import ButtonNavigation from '../Buttonnavigation';
+import emoji from '../../assets/EmojiMessage.png';
+import { useNavigate } from 'react-router-dom';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 const MyReviews: React.FC = () => {
@@ -28,6 +30,7 @@ const MyReviews: React.FC = () => {
   const [msg, setmsg] = useState<string>("");
 
   const wallet = Cookies.get("platform_wallet");
+  const navigate = useNavigate();
 
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -70,6 +73,14 @@ const MyReviews: React.FC = () => {
   const bg = {
     backgroundColor: "#222944",
   };
+
+  const bgverify = {
+    backgroundColor: "#141a31",
+  }
+
+  const text= {
+    color: "#788AA3"
+  }
 
   const border = {
     backgroundColor: "#222944",
@@ -163,6 +174,10 @@ const MyReviews: React.FC = () => {
   const handleNavigation = (page: string) => {
     console.log(`Navigating to ${page} page from vpnPage...`);
     // Additional navigation logic if needed
+  };
+
+  const gotoreviews = async () => {
+    navigate('/view-my-reviews');
   };
 
   return (
@@ -410,8 +425,57 @@ const MyReviews: React.FC = () => {
         </div>)}
 {
    msg == "success" && (
-    <p className="text-green-500">Thankyou! Your review has been submitted successfully.</p>
-   )
+    <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+    <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
+        <div className="relative rounded-lg shadow bg-white">
+            <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
+                {/* <h3 className="text-2xl font-semibold">
+                Verify Your Registration
+                </h3> */}
+                <button 
+                    onClick={gotoreviews}
+                    type="button" 
+                    className="text-gray-900 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span className="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <img src={emoji} alt="info" className="mx-auto"/>
+
+            <div className="p-4 md:p-5 space-y-4">
+            <p className="text-3xl text-center font-bold">
+            Submitted!
+                </p>
+                <p className="text-md text-center" style={text}>
+                Thank you for making the online world safer and more transparent.
+                </p>
+            </div>
+{/* <div className="p-4 md:p-5 space-y-4">
+                <p className="text-lg text-center text-white">
+                  {txtvalue}
+                </p>
+            </div>
+            <p style={successtext} className="p-4">{successmsg}</p>
+            
+            {
+              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}. 
+              Try again in 3-5 mins if already added txt in dns.</p>)} */}
+
+            <div className="flex items-center p-4 md:p-5 rounded-b">
+                <button 
+                style={button}
+                onClick={gotoreviews}
+                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">My reviews</button>
+              </div>
+
+        </div>          
+    </div>
+</div>
+)
 }
 
 {

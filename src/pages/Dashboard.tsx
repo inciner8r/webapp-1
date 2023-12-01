@@ -19,6 +19,7 @@ import MyProjectsContainer from '../Components/Myprojectscontainer';
 import ButtonNavigation from '../Components/Buttonnavigation';
 import { NFTStorage } from "nft.storage";
 import noproject from '../assets/noprojects.png';
+import emoji from '../assets/EmojiMessage.png';
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
@@ -314,6 +315,10 @@ console.log("jsonData",jsonData);
     console.log(`Navigating to ${page} page from projectsPage...`);
     // Additional navigation logic if needed
   };
+
+  const gotoprojects = () => {
+    setbuttonset(false);
+      }
 
   return (
     <motion.div
@@ -612,9 +617,9 @@ click the 'verify' button.
             </div>
             </div>
 
-              {
+              {/* {
                 successmsg && (<p style={successtext} className="p-4">{successmsg}</p>)
-              }
+              } */}
               {
               errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}.
                Try again in 3-5 mins if already added txt in dns.</p>)
@@ -625,6 +630,61 @@ click the 'verify' button.
                 style={button}
                 onClick={handleVerify}
                 type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
+              </div>
+
+        </div>          
+    </div>
+</div>
+)
+}
+
+{
+                successmsg && (
+<div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+    <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
+        <div className="relative rounded-lg shadow bg-white">
+            <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
+                {/* <h3 className="text-2xl font-semibold">
+                Verify Your Registration
+                </h3> */}
+                <button 
+                    onClick={() => setbuttonset(false)}
+                    type="button" 
+                    className="text-gray-900 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span className="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <img src={emoji} alt="info" className="mx-auto"/>
+
+            <div className="p-4 md:p-5 space-y-4">
+            <p className="text-3xl text-center font-bold">
+            Successfully Verified 
+                </p>
+                <p className="text-md text-center" style={text}>
+                You are all set, Registration is successfully completed.
+                </p>
+            </div>
+{/* <div className="p-4 md:p-5 space-y-4">
+                <p className="text-lg text-center text-white">
+                  {txtvalue}
+                </p>
+            </div>
+            <p style={successtext} className="p-4">{successmsg}</p>
+            
+            {
+              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}. 
+              Try again in 3-5 mins if already added txt in dns.</p>)} */}
+
+            <div className="flex items-center p-4 md:p-5 rounded-b">
+                <button 
+                style={button}
+                onClick={gotoprojects}
+                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">My Projects</button>
               </div>
 
         </div>          

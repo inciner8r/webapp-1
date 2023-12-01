@@ -42,7 +42,7 @@ const Vpn = () => {
   const [msg, setMsg] = useState<string>("");
   const [successmsg, setsuccessMsg] = useState<string>("");
   const [errormsg, seterrorMsg] = useState<string>("");
-  const [region, setregion] = useState<string>("");
+  const [region, setregion] = useState<string>("us-east-2");
   const [verify,setverify] = useState<boolean>(false);
 
   const txtvalue = localStorage.getItem('txtvalue');
