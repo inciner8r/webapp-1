@@ -172,7 +172,8 @@ const background = {
 }
 
 const myreviews = async () => {
-  navigate('/my-reviews');
+  const count=metaDataArray?.length;
+  navigate('/my-reviews',{ state: { count } });
 };
 
 const handleNextPage = () => {

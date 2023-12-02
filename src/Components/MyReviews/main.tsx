@@ -15,6 +15,7 @@ import { storeMetaData } from "../../modules/submit-review";
 import ButtonNavigation from '../Buttonnavigation';
 import emoji from '../../assets/EmojiMessage.png';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 const MyReviews: React.FC = () => {
@@ -180,6 +181,9 @@ const MyReviews: React.FC = () => {
     navigate('/view-my-reviews');
   };
 
+  const location = useLocation();
+  const count = location.state?.count || 0;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -192,7 +196,7 @@ const MyReviews: React.FC = () => {
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
 
           <div className='-mt-10'>
-          <ButtonNavigation onNavigate={handleNavigation} count={0}/>
+          <ButtonNavigation onNavigate={handleNavigation} count={count}/>
           </div>
 
             <section className="pb-10 rounded-xl" style={bg}>
@@ -267,13 +271,13 @@ const MyReviews: React.FC = () => {
                           onChange={(e) => setSiteType(e.target.value)}
                           required
                         >
-                          <option value="">Select site type</option>
-                          <option value="Website">Website</option>
-                          <option value="Mobile App">Mobile App</option>
-                          <option value="Browser Extension">
+                          <option className="bg-white text-black" value="">Select site type</option>
+                          <option className="bg-white text-black" value="Website">Website</option>
+                          <option className="bg-white text-black" value="Mobile App">Mobile App</option>
+                          <option className="bg-white text-black" value="Browser Extension">
                             Browser Extension
                           </option>
-                          <option value="Software">Software</option>
+                          <option className="bg-white text-black" value="Software">Software</option>
                         </select>
                         {/* <input
                           className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
@@ -292,13 +296,13 @@ const MyReviews: React.FC = () => {
                           onChange={(e) => setSiteSafety(e.target.value)}
                           required
                         >
-                          <option value="">Select safety rating</option>
-                          <option value="Safe">Safe</option>
-                          <option value="Mostly Safe">Mostly Safe</option>
-                          <option value="Adware Issues">Adware Issues</option>
-                          <option value="Malware Threats">Malware Threats</option>
-                          <option value="Spyware Risks">Spyware Risks</option>
-                          <option value="Phishing concerns">Phishing concerns</option>
+                          <option className="bg-white text-black" value="">Select safety rating</option>
+                          <option className="bg-white text-black" value="Safe">Safe</option>
+                          <option className="bg-white text-black" value="Mostly Safe">Mostly Safe</option>
+                          <option className="bg-white text-black" value="Adware Issues">Adware Issues</option>
+                          <option className="bg-white text-black" value="Malware Threats">Malware Threats</option>
+                          <option className="bg-white text-black" value="Spyware Risks">Spyware Risks</option>
+                          <option className="bg-white text-black" value="Phishing concerns">Phishing concerns</option>
                         </select>
                         {/* <input
                           style={border}
@@ -321,22 +325,22 @@ const MyReviews: React.FC = () => {
                           onChange={(e) => setCategory(e.target.value)}
                           required
                         >
-                          <option value="">Select Category</option>
-                          <option value="DeFi">DeFi</option>
-                          <option value="NFT Tooling">NFT Tooling</option>
-                          <option value="Gaming">Gaming</option>
-                          <option value="Wallets">Wallets</option>
-                          <option value="Tooling">Tooling</option>
-                          <option value="Stablecoins">Stablecoins</option>
-                          <option value="Security">Security</option>
-                          <option value="Marketplaces">Marketplaces</option>
-                          <option value="Launchpads">Launchpads</option>
-                          <option value="Infra">Infra</option>
-                          <option value="Explorers">Explorers</option>
-                          <option value="Bridges">Bridges</option>
-                          <option value="Social">Social</option>
-                          <option value="NFT">NFT</option>
-                          <option value="Others">Others</option>
+                          <option className="bg-white text-black" value="">Select Category</option>
+                          <option className="bg-white text-black" value="DeFi">DeFi</option>
+                          <option className="bg-white text-black" value="NFT Tooling">NFT Tooling</option>
+                          <option className="bg-white text-black" value="Gaming">Gaming</option>
+                          <option className="bg-white text-black" value="Wallets">Wallets</option>
+                          <option className="bg-white text-black" value="Tooling">Tooling</option>
+                          <option className="bg-white text-black" value="Stablecoins">Stablecoins</option>
+                          <option className="bg-white text-black" value="Security">Security</option>
+                          <option className="bg-white text-black" value="Marketplaces">Marketplaces</option>
+                          <option className="bg-white text-black" value="Launchpads">Launchpads</option>
+                          <option className="bg-white text-black" value="Infra">Infra</option>
+                          <option className="bg-white text-black" value="Explorers">Explorers</option>
+                          <option className="bg-white text-black" value="Bridges">Bridges</option>
+                          <option className="bg-white text-black" value="Social">Social</option>
+                          <option className="bg-white text-black" value="NFT">NFT</option>
+                          <option className="bg-white text-black" value="Others">Others</option>
                         </select>
                         {/* <input
                           style={border}
@@ -356,12 +360,12 @@ const MyReviews: React.FC = () => {
                           onChange={(e) => setSiteTag(e.target.value)}
                           required
                         >
-                          <option value="">Select Site Tag</option>
-                          <option value="Genuine">Genuine</option>
-                          <option value="Hate">Hate</option>
-                          <option value="Scam">Scam</option>
-                          <option value="Fake">Fake</option>
-                          <option value="Stereotype">Stereotype</option>
+                          <option className="bg-white text-black" value="">Select Site Tag</option>
+                          <option className="bg-white text-black" value="Genuine">Genuine</option>
+                          <option className="bg-white text-black" value="Hate">Hate</option>
+                          <option className="bg-white text-black" value="Scam">Scam</option>
+                          <option className="bg-white text-black" value="Fake">Fake</option>
+                          <option className="bg-white text-black" value="Stereotype">Stereotype</option>
                         </select>
                         {/* <input
                           style={border}
@@ -399,7 +403,7 @@ const MyReviews: React.FC = () => {
                       ></textarea>
                     </div>
 
-                    <label className="text-white">Your service rating</label>
+                    <label className="text-white">Overall rating</label>
       <StarRating totalStars={10} onRatingChange={handleRatingChange} />
 
                     <div className="text-center pt-10">
