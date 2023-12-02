@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.dc9e5c0a.css",
-    "main.js": "/static/js/main.8ecb2da7.js",
+    "main.css": "/static/css/main.caf4ff3e.css",
+    "main.js": "/static/js/main.32428b4e.js",
     "static/media/novpn2.png": "/static/media/novpn2.669f180630f0966504f1.png",
     "static/media/netsepio_logo_light.png": "/static/media/netsepio_logo_light.862bbab9806be039f09b.png",
     "static/media/noreviews.png": "/static/media/noreviews.c05f33b02624ef952032.png",
     "static/media/noprojects.png": "/static/media/noprojects.6f7a9317ce014dfeac3a.png",
     "index.html": "/index.html",
-    "main.dc9e5c0a.css.map": "/static/css/main.dc9e5c0a.css.map",
-    "main.8ecb2da7.js.map": "/static/js/main.8ecb2da7.js.map"
+    "main.caf4ff3e.css.map": "/static/css/main.caf4ff3e.css.map",
+    "main.32428b4e.js.map": "/static/js/main.32428b4e.js.map"
   },
   "entrypoints": [
-    "static/css/main.dc9e5c0a.css",
-    "static/js/main.8ecb2da7.js"
+    "static/css/main.caf4ff3e.css",
+    "static/js/main.32428b4e.js"
   ]
 }
