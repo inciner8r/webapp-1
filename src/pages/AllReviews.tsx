@@ -75,6 +75,52 @@ const AllReviews: React.FC = () => {
   }, [currentPage]);
 
   useEffect(() => {
+    setLoading(true);
+    const fetchReviews = async (page: number) => {
+
+      const auth = Cookies.get("platform_token");
+
+      try {
+
+        const config = {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
+          },
+        };
+
+        // const reviewResults = await axios.get(
+        //   `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page}`,
+        //   config
+        // );
+        // console.log("current",reviewResults);
+        // const reviewsData = await reviewResults.data.payload;
+
+        const reviewResultsnextpage = await axios.get(
+          `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page+1}`,
+          config
+        );
+        console.log("next",reviewResultsnextpage);
+        const nextReviewsData = await reviewResultsnextpage.data.payload;
+
+        if (nextReviewsData.data.message === "No reviews found") {
+          setNextPageDisabled(true);
+        }
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+        setNextPageDisabled(true);
+      }
+    };
+
+    const fetchReviewsData = async () => {
+      await fetchReviews(currentPage);
+    };
+  
+    fetchReviewsData().finally(() => setLoading(false));
+  }, [currentPage]);
+
+  useEffect(() => {
     const fetchMetaData = async () => {
       const metaDataPromises = reviews.map(async (review) => {
         if (review.metaDataUri && review.metaDataUri.startsWith('ipfs://')) {
