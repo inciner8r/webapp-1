@@ -92,7 +92,7 @@ const ViewMyReviews: React.FC = () => {
     const fetchMetaData = async () => {
       const metaDataPromises = reviews.map(async (review) => {
         if (review.metaDataUri && review.metaDataUri.startsWith('ipfs://')) {
-          const ipfsUrl = `https://ipfs.io/ipfs/${review.metaDataUri.split('ipfs://')[1]}`;
+          const ipfsUrl = `https://nftstorage.link/ipfs/${review.metaDataUri.split('ipfs://')[1]}`;
           const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
           return metaData;
         }

@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
+import icon from '../assets/Group.png'
+import '../index.css';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 const AllReviews: React.FC = () => {
@@ -124,7 +126,7 @@ const AllReviews: React.FC = () => {
     const fetchMetaData = async () => {
       const metaDataPromises = reviews.map(async (review) => {
         if (review.metaDataUri && review.metaDataUri.startsWith('ipfs://')) {
-          const ipfsUrl = `https://ipfs.io/ipfs/${review.metaDataUri.split('ipfs://')[1]}`;
+          const ipfsUrl = `https://nftstorage.link/ipfs/${review.metaDataUri.split('ipfs://')[1]}`;
           const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
           return { transactionHash: review.transactionHash, metaData };
         }
@@ -152,6 +154,14 @@ const style2 = {
 
 const background = {
   backgroundColor: '#141a31'
+}
+
+const bgbutton = {
+  backgroundColor: 'rgba(255, 255, 255, 0.08)'
+}
+
+const bgbutton2 = {
+  backgroundColor: 'rgba(255, 255, 255, 0.1)'
 }
 
 
@@ -235,6 +245,58 @@ const handlePrevPage = () => {
             </button>
           </div>
 )}
+
+
+ {/* link to wiregaurd  */}
+        <section>
+            <div className="max-w-6xl mx-auto lg:rounded-3xl md:rounded-3xl rounded-none my-40 webappbg py-20">
+            <div className="flex lg:flex-row md:flex-row flex-col lg:p-20 md:p-10 p-4">
+            <div className="lg:w-2/3 md:w-2/3">
+              <h2 className="lg:text-5xl md:text-5xl font-bold text-4xl text-white lg:p-0 md:p-0 p-4 align">
+              Secure Your Connection,
+Download and Install the 
+WireGuard
+              </h2>
+            </div>
+            <div className="container flex flex-col justify-center px-4 py-8 mx-auto md:p-8 lg:w-1/3 md:w-1/3">
+              <div className="space-y-4 text-gray-300">
+                <a href="https://www.wireguard.com/install/" target="_blank">
+                <div className="rounded-lg p-2 bgcolor">
+                  <div className="flex ">
+                    <div style={bgbutton2} className="rounded-xl p-2">
+                      <img src={icon} className="h-6 w-6 object-center lg:mt-1 md:mt-4 mt-1"/>
+                    </div>
+                    <div className="pl-3 pt-3 py-4">
+                <p className="text-white font-bold">
+                Download Wiregaurd
+              </p>
+            </div>
+          </div>
+                </div>
+          </a>
+            {/* <div className="space-y-4 text-gray-300">
+              <a href="https://app.netsepio.com/" target="_blank">
+              <div style={bgbutton} className="rounded-lg p-2">
+                <div className="flex ">
+                <div style={bgbutton2} className="rounded-xl p-2">
+                  <img src="images/icon2.png" className="h-8 w-12 object-center mt-3"/>
+                </div>
+                <div className="pl-3">
+              <p className="text-white font-bold">
+                View Review 
+            </p>
+                <p className="lg:text-gray-300 md:text-gray-300 text-gray-500">Confidently explore insights with NetSepio's reviews.</p>
+              </div>
+            </div>
+              </div>
+        </a>
+              
+              </div> */}
+            </div>
+          </div>
+          </div>
+          </div>
+        </section>
 
 <div className="mb-60 mt-20">
         <div className="inline-flex items-center justify-center w-full my-10">
