@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import axios from 'axios';
 import emoji from '../assets/EmojiMessage.png';
+import profileimg from '../assets/female.png';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import { NFTStorage } from "nft.storage";
@@ -478,6 +479,13 @@ const jsonData = JSON.stringify(formDataObject);
                   ) :(
                       <div className="rounded-full h-48 w-48 ring-offset-2 ring-1 ring-black bg-gray-200">
                         {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
+                        <img
+                      alt="alt"
+                      src={profileimg}
+                      className="rounded-full"
+                      width="200"
+                      height="200"
+                    />
                       </div>
                   )}
                     </div>
@@ -485,11 +493,11 @@ const jsonData = JSON.stringify(formDataObject);
 
                     <div className="lg:w-2/3 md:w-2/3">
                       <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
-                      {profileData?.name}
+                      {profileData? profileData?.name : "Mia Anderson"}
                       </div>
 
                       <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
-                      {profileData?.country}
+                      {profileData? profileData?.country : "Canada"}
                       </div>
 
                     {/* <div className="lg:flex md:flex justify-between gap-2">
@@ -512,11 +520,11 @@ const jsonData = JSON.stringify(formDataObject);
 
                       <div className="lg:flex md:flex justify-between gap-2">
                     <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.discord}
+                    {profileData? profileData?.discord : "SparkleNinja#1234"}
                       </div>
 
                       <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData?.twitter}
+                    {profileData? profileData?.twitter : "@MiaAdventure21"}
                       </div>
                       </div>
 

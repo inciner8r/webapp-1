@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { DeleteReview } from "./Delete_Review";
-// import { ReviewCreated } from "../graphql/types";
 import { motion } from "framer-motion";
 import StarRatingshow from "./StarRatingshow";
+import Cookies from "js-cookie";
+import eye from '../assets/carbon_view.png';
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 interface ReviewCardProps {
   metaData: {
@@ -21,7 +22,6 @@ interface ReviewCardProps {
     id: string;
   } | null;
   MyReviews?: boolean;
-  // review?: ReviewCreated;
   onReviewDeleted?: () => void;
 }
 
@@ -47,6 +47,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
   onReviewDeleted,
 }) => {
   const [showDescription, setShowDescription] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   if (!metaData) {
     return (
@@ -70,13 +71,48 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
     );
   }
 
-  const handleClick = () => {
-    setShowDescription(!showDescription);
-  };
+  const deletereview = async () => {
+    setLoading(true);
 
-  const handleDelete = () => {
-    if (onReviewDeleted) {
-      onReviewDeleted(); // Call the callback function when a review is deleted
+    const auth = Cookies.get("platform_token");
+
+    // Extract the last part of the URL
+    const urlParts = metaData.ipfsUrl.split('/');
+    const lastPart = urlParts[urlParts.length - 1];
+
+    // Join with the prefix "ipfs://"
+    const ipfsUrl = `ipfs://${lastPart}`;
+
+    try {
+      const formDataObj = new FormData();
+      formDataObj.append('metaDataUri', ipfsUrl);
+
+      const formDataObject: { [key: string]: string | File | null } = {};
+      formDataObj.forEach((value, key) => {
+        formDataObject[key] = value;
+      });
+
+      const jsonData = JSON.stringify(formDataObject);
+
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/deleteReview`, {
+        method: 'DELETE',
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth}`,
+        },
+        body: jsonData,
+      });
+
+      if (response.status === 200) {
+        console.log("success")
+        window.location.reload();
+      } else {
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,7 +134,6 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
           animate={{ y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <Link to={`/reviews/${metaData.domainAddress}`}>
             <div>
               {showDescription ? (
                 <div>
@@ -128,8 +163,8 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                     initial={{ y: -20 }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.4 }}
-                    // style={color}
                   >
+                    <div className="lg:flex md:flex justify-between">
                     <div className="lg:flex md:flex gap-6">
                       <div>{metaData.name}</div>
                       <div className="-mt-4">
@@ -142,6 +177,13 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                           </div>
                         )}
                       </div>
+                    </div>
+                    <div className="flex gap-4 lg:mt-0 md:mt-0 mt-4">
+                    <Link to={`/reviews/${metaData.domainAddress}`}>
+                    <img src={eye} alt="info" className="w-6 h-6 mt-1"/>
+                    </Link>
+                    <button onClick={deletereview}>dlt</button>
+                    </div>
                     </div>
                   </motion.h3>
                   <motion.p
@@ -189,37 +231,15 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                 </div>
               )}
             </div>
-          </Link>
-
-          {/* <div>
-            {MyReviews && metaData.ipfsUrl ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4 }}
-              >
-                <DeleteReview
-                  uri={metaData.ipfsUrl}
-                  id={metaData.id}
-                  onDelete={handleDelete}
-                />
-              </motion.div>
-            ) : null}
-          </div> */}
-
-          {/* <motion.button
-          className="text-white font-semibold rounded-lg p-2 w-full text-center mt-5"
-          onClick={handleClick}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          style={border}
-        >
-          {showDescription ? 'Go Back' : 'Read More'}
-        </motion.button> */}
         </motion.div>
-        {/* </Link> */}
       </div>
+      {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
+            <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
+              {/* <Loader/> */}
+            </div>
+          </div>
+        </div>)}
     </motion.div>
   );
 };

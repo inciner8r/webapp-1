@@ -793,7 +793,7 @@ click the 'verify' button.
             {loading ? (
             // <Loader />
             <div className="min-h-screen"></div>
-          ) : !projectsData || projectsData?.length == 0 ? (
+          ) : ((!projectsData || projectsData?.length == 0) && (!Verifiedproj) )? (
             <motion.div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
             initial={{ opacity: 0 }}

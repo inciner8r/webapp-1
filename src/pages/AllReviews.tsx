@@ -189,7 +189,7 @@ const handlePrevPage = () => {
                     Discover <span style={style}>Verified Reviews</span><br/>Empower Your Online Security<br/>
                     </h1>
                     <p className="px-0 mb-8 text-lg text-gray-300 md:text-xl lg:px-24">
-                    Your go-to for reinforcing online security
+                    Connect wallet now to submit reviews on chain for FREE
                     </p>
                     <div className='mb-4 space-x-0 md:space-x-2 md:mb-8 inline-flex items-center justify-center w-full font-bold px-6 py-3 mb-2 text-lg text-black rounded-2xl sm:w-auto sm:mb-0 focus:ring focus:ring-green-300 focus:ring-opacity-80' style={style2}>
                       <button onClick={connectWallet}>Submit Reviews</button>
