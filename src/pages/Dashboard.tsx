@@ -52,12 +52,13 @@ const Projects = () => {
   const [profileset, setprofileset] = useState<boolean>(true);
   const [buttonset, setbuttonset] = useState<boolean>(false);
   const [projectsData, setprojectsData] = useState<any>(null);
+  const [verifiedprojectsData, setverifiedprojectsData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
   const [successmsg, setsuccessMsg] = useState<string>("");
   const [errormsg, seterrorMsg] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [verify,setverify] = useState<boolean>(false);
-
+  const [Verifiedproj, setVerifiedproj] = useState<boolean>(false);
   const txtvalue = localStorage.getItem('txtvalue');
 
   useEffect(() => {
@@ -249,7 +250,7 @@ const jsonData = JSON.stringify(formDataObject);
             const payload: any[] = response.data.payload;
     const filteredData = payload.filter(item => item.createdBy === wallet);
     setprojectsData(payload);
-          console.log(filteredData)
+          console.log("my projects", filteredData)
         }
       } catch (error) {
         console.error('Error fetching profile data:', error);
@@ -264,6 +265,42 @@ const jsonData = JSON.stringify(formDataObject);
   
     fetchprojData().finally(() => setLoading(false)); 
   }, [buttonset, currentPage]);
+
+
+  useEffect(() => {
+    const fetchProjectsData = async (page: number) => {
+      setLoading(true);
+      try {
+        const auth = Cookies.get("platform_token");
+
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=${page}&verified=true`, {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
+          },
+        });
+
+        if (response.status === 200) {
+            const wallet = Cookies.get("platform_wallet");
+            const payload: any[] = response.data.payload;
+    // const filteredData = payload.filter(item => item.createdBy === wallet);
+    setverifiedprojectsData(payload);
+          console.log("all proj",payload)
+        }
+      } catch (error) {
+        console.error('Error fetching all projects data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchprojData = async () => {
+      await fetchProjectsData(currentPage);
+    };
+  
+    fetchprojData().finally(() => setLoading(false)); 
+  }, [currentPage]);
 
 
 
@@ -344,7 +381,11 @@ console.log("jsonData",jsonData);
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
 
 <div className='-mt-10'>
-          <ButtonNavigation onNavigate={handleNavigation} count={projectsData? projectsData.length : 0}/>
+  { Verifiedproj ? (
+<ButtonNavigation onNavigate={handleNavigation} count={verifiedprojectsData? verifiedprojectsData.length : 0}/>
+  ): (
+<ButtonNavigation onNavigate={handleNavigation} count={projectsData? projectsData.length : 0}/>
+  )}
           </div>
            
             { buttonset && (
@@ -742,7 +783,10 @@ click the 'verify' button.
   !buttonset && (
     <>
     <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white lg:ml-20 md:ml-20 ml-10">My Projects</span>
+                    <button onClick={() => setVerifiedproj(false)} className={`text-white lg:ml-20 md:ml-20 ml-10
+                    ${Verifiedproj ? '' : 'border-b border-green-500'}`}>My Projects</button>
+                    <button onClick={() => setVerifiedproj(true)} className={`text-white lg:ml-20 md:ml-20 ml-10
+                    ${Verifiedproj ? 'border-b border-green-500' : ''}`}>All Verified Projects</button>
                   </h1>
             <section className="pb-10 rounded-xl">
               
@@ -771,7 +815,15 @@ Verification Needed</h2>
             </div>
           </motion.div>
           ) : (
-            <MyProjectsContainer metaDataArray={projectsData} MyReviews={false}/>
+            <>
+            {
+              Verifiedproj ? (
+                <MyProjectsContainer metaDataArray={verifiedprojectsData} MyReviews={false}/>
+              ) : (
+                <MyProjectsContainer metaDataArray={projectsData} MyReviews={false}/>
+              )
+            }
+            </>
           )}
 
 { projectsData && projectsData?.length > 0 && (
