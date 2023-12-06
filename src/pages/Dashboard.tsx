@@ -274,7 +274,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=${page}&verified=true`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=${page}&verified=false`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
