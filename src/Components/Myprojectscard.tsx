@@ -246,7 +246,9 @@ const jsonData = JSON.stringify(formDataObject);
                   </motion.h3>
 
               
-              { !editmode && (<div style={background} className="p-4 rounded-xl">
+              { !editmode && (
+                <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
+              <div style={background} className="p-4 rounded-xl">
                   <div className="lg:flex md:flex justify-between">
                     <div className="">
                   <motion.div
@@ -297,6 +299,7 @@ const jsonData = JSON.stringify(formDataObject);
                   </div>
 
                   </div>
+                  </Link>
                   )}
 
 

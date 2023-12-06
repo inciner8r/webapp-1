@@ -152,7 +152,13 @@ return (
                 transition={{ duration: 0.4 }}
                 style={color}
               >
-                <a href={metaData.siteUrl} target="_blank">{metaData.name}</a>
+                <Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
+                {/* <a href={metaData.siteUrl} target="_blank"> */}
+                  <div>
+                  {metaData.name}
+                  </div>
+                  {/* </a> */}
+                </Link>
                 
               </motion.h3>
               </div>
