@@ -172,6 +172,11 @@ const handleNextPage = () => {
 const handlePrevPage = () => {
   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
 };
+
+const containerStyle = {
+  backgroundImage: 'radial-gradient(circle, #222944, #141a31, #141a31)',
+  height: '100vh',
+};
   
 
   return (
@@ -182,7 +187,7 @@ const handlePrevPage = () => {
         className="py-10"
         style={background}
       >
-      <section className="pt-12">
+      <section className="pt-12" style={containerStyle}>
             <div className="py-20 mx-auto max-w-7xl">
                 <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
                     <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-6xl md:tracking-tight">

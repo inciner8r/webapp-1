@@ -29,7 +29,7 @@ const ReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, revi
   return (
     <>
       <motion.div
-        className="container mx-auto px-4 py-8"
+        className="container mx-auto lg:px-32 md:px-10 py-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -38,7 +38,7 @@ const ReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, revi
           renderNoReviewsFound()
         ) : (
           <motion.div
-            className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

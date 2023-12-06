@@ -115,9 +115,9 @@ return (
           ) : (
             <div>
 <div className="justify-end flex">
-<Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
+{/* <Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
 <img src={eye} alt="info" className=""/>
-</Link>
+</Link> */}
 </div>
 
 { metaData.siteRating && 
