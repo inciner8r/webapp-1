@@ -29,7 +29,7 @@ const ReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, revi
   return (
     <>
       <motion.div
-        className="container mx-auto lg:px-32 md:px-10 py-8"
+        className="container mx-auto lg:px-44 md:px-10 py-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}

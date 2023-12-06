@@ -115,9 +115,9 @@ return (
           ) : (
             <div>
 <div className="justify-end flex">
-{/* <Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
+<Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
 <img src={eye} alt="info" className=""/>
-</Link> */}
+</Link>
 </div>
 
 { metaData.siteRating && 
@@ -127,11 +127,11 @@ return (
 
 <div className="flex gap-2 mt-4">
 <motion.h3
-                className="text-lg leading-12 mb-2"
+                className="text-lg leading-12 mb-2 text-white"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.4 }}
-                style={color}
+                // style={color}
               >
                 {
                        reviews?.name ? (
