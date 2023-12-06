@@ -15,6 +15,7 @@ import {
 import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
+import AllProjectsContainer from '../Components/Allprojectscontainer';
 import MyProjectsContainer from '../Components/Myprojectscontainer';
 import ButtonNavigation from '../Components/Buttonnavigation';
 import { NFTStorage } from "nft.storage";
@@ -782,10 +783,10 @@ click the 'verify' button.
 {
   !buttonset && (
     <>
-    <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+    <h1 className="mb-8 text-start lg:text-4xl md:text-4xl text-xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight lg:flex md:flex">
                     <button onClick={() => setVerifiedproj(false)} className={`text-white lg:ml-20 md:ml-20 ml-10
                     ${Verifiedproj ? '' : 'border-b border-green-500'}`}>My Projects</button>
-                    <button onClick={() => setVerifiedproj(true)} className={`text-white lg:ml-20 md:ml-20 ml-10
+                    <button onClick={() => setVerifiedproj(true)} className={`text-white lg:ml-20 md:ml-20 ml-10 lg:mt-0 md:mt-0 mt-6
                     ${Verifiedproj ? 'border-b border-green-500' : ''}`}>All Verified Projects</button>
                   </h1>
             <section className="pb-10 rounded-xl">
@@ -818,7 +819,7 @@ Verification Needed</h2>
             <>
             {
               Verifiedproj ? (
-                <MyProjectsContainer metaDataArray={verifiedprojectsData} MyReviews={false}/>
+                <AllProjectsContainer metaDataArray={verifiedprojectsData} MyReviews={false}/>
               ) : (
                 <MyProjectsContainer metaDataArray={projectsData} MyReviews={false}/>
               )

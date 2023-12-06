@@ -5,6 +5,7 @@ import StarRatingshow from "./StarRatingshow";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { NFTStorage } from "nft.storage";
+import eye from '../assets/carbon_view.png';
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
@@ -247,7 +248,6 @@ const jsonData = JSON.stringify(formDataObject);
 
               
               { !editmode && (
-                <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
               <div style={background} className="p-4 rounded-xl">
                   <div className="lg:flex md:flex justify-between">
                     <div className="">
@@ -266,7 +266,10 @@ const jsonData = JSON.stringify(formDataObject);
                     </button>
                   </motion.div>
                   </div>
-                  <div className="mt-4 text-white">
+                  <div className="mt-4 text-white flex gap-4">
+                  <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
+                  <img src={eye} alt="info" className="w-5 h-5 mt-1"/>
+                  </Link>
                   <button className="text-lg rounded-lg" style={color2} onClick={()=>seteditmode(true)}>
                       Edit
                     </button>
@@ -299,7 +302,6 @@ const jsonData = JSON.stringify(formDataObject);
                   </div>
 
                   </div>
-                  </Link>
                   )}
 
 
