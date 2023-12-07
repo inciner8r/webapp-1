@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import StarRatingshow from "./StarRatingshow";
 import Cookies from "js-cookie";
-import eye from '../assets/carbon_view.png';
+import eye2 from '../assets/eye2.png';
+import dlt from '../assets/dlt.png';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 interface ReviewCardProps {
@@ -41,6 +42,22 @@ const backgroundbutton = {
   backgroundColor: "#11D9C5",
 };
 
+const bg = {
+  backgroundColor: "#222944",
+};
+
+const button = {
+  backgroundColor: "#11D9C5",
+};
+
+const text= {
+  color: "#788AA3"
+}
+
+const bgverify = {
+  backgroundColor: "#141a31",
+}
+
 const MyReviewCard: React.FC<ReviewCardProps> = ({
   metaData,
   MyReviews = false,
@@ -48,6 +65,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
 }) => {
   const [showDescription, setShowDescription] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [deleterev, setdeleterev] = useState<boolean>(false);
 
   if (!metaData) {
     return (
@@ -159,13 +177,13 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
               ) : (
                 <div>
                   <motion.h3
-                    className="text-2xl leading-12 font-bold mb-2 text-white"
+                    className="text-2xl leading-12 mb-2 text-white"
                     initial={{ y: -20 }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.4 }}
                   >
                     <div className="lg:flex md:flex justify-between">
-                    <div className="lg:flex md:flex gap-6">
+                    <div className="lg:flex md:flex gap-6 font-bold">
                       <div>{metaData.name}</div>
                       <div className="-mt-4">
                         {metaData.siteRating && (
@@ -178,11 +196,18 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                         )}
                       </div>
                     </div>
-                    <div className="flex gap-4 lg:mt-0 md:mt-0 mt-4">
+                    <div className="flex gap-4 lg:mt-0 md:mt-0 mt-4 text-xs">
                     <Link to={`/reviews/${metaData.domainAddress}`}>
-                    <img src={eye} alt="info" className="w-6 h-6 mt-1"/>
+                      <div className="border flex py-2 px-2 gap-1 text-black" style={backgroundbutton}>
+                    <img src={eye2} alt="info" className="w-4 h-4"/> View Review
+                    </div>
                     </Link>
-                    <button onClick={deletereview}>dlt</button>
+                    <button 
+                    // onClick={deletereview} 
+                    onClick={()=>setdeleterev(true)}
+                    style={border} className="border px-2 py-2 gap-1 flex">
+                    <img src={dlt} alt="info" className="w-4 h-4"/>
+                    Delete Review</button>
                     </div>
                     </div>
                   </motion.h3>
@@ -233,6 +258,39 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
             </div>
         </motion.div>
       </div>
+
+      {
+              deleterev && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+    <div className="relative lg:w-1/3 w-full max-w-2xl max-h-full">
+        <div className="relative rounded-lg shadow dark:bg-gray-700 p-16" style={bg}>
+            <div className="p-4 md:p-5 space-y-4">
+                <p className="text-4xl text-center text-white font-bold">
+                Are you sure?
+                </p>
+            </div>
+            <div className="p-4 md:p-5 space-y-4">
+                <p className="text-md text-center" style={text}>
+                Do you really want to delete this review?
+This process can not be undone.
+                </p>
+            </div>
+            <div className="flex items-center p-4 md:p-5 rounded-b gap-4">
+                <button 
+                style={border}
+                onClick={() => setdeleterev(false)}
+                type="button" className="w-full text-white font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+              <button 
+                style={button}
+                onClick={deletereview} 
+                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Delete</button>
+              </div>
+        </div>          
+    </div>
+</div>
+)
+}
+
+
       {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
             <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
