@@ -106,9 +106,9 @@ const AllReviews: React.FC = () => {
         console.log("next",reviewResultsnextpage);
         const nextReviewsData = await reviewResultsnextpage.data.payload;
 
-        if (nextReviewsData.data.message === "No reviews found") {
-          setNextPageDisabled(true);
-        }
+        // if (nextReviewsData.data.message === "No reviews found") {
+          // setNextPageDisabled(true);
+        // }
       } catch (error) {
         console.error('Error fetching reviews:', error);
         setNextPageDisabled(true);
