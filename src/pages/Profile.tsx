@@ -493,11 +493,11 @@ const jsonData = JSON.stringify(formDataObject);
 
                     <div className="lg:w-2/3 md:w-2/3">
                       <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
-                      {profileData? profileData?.name : "Mia Anderson"}
+                      {profileData?.name? profileData?.name : "Mia Anderson"}
                       </div>
 
                       <div style={border} className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline">
-                      {profileData? profileData?.country : "Canada"}
+                      {profileData?.country? profileData?.country : "Canada"}
                       </div>
 
                     {/* <div className="lg:flex md:flex justify-between gap-2">
@@ -520,11 +520,11 @@ const jsonData = JSON.stringify(formDataObject);
 
                       <div className="lg:flex md:flex justify-between gap-2">
                     <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData? profileData?.discord : "SparkleNinja#1234"}
+                    {profileData?.discord? profileData?.discord : "SparkleNinja#1234"}
                       </div>
 
                       <div style={border} className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight">
-                    {profileData? profileData?.twitter : "@MiaAdventure21"}
+                    {profileData?.twitter? profileData?.twitter : "@MiaAdventure21"}
                       </div>
                       </div>
 

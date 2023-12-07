@@ -5,7 +5,8 @@ import StarRatingshow from "./StarRatingshow";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { NFTStorage } from "nft.storage";
-import eye from '../assets/carbon_view.png';
+import eye2 from '../assets/eye2.png';
+import edit from '../assets/edit.png';
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
@@ -266,12 +267,15 @@ const jsonData = JSON.stringify(formDataObject);
                     </button>
                   </motion.div>
                   </div>
-                  <div className="mt-4 text-white flex gap-4">
+                  <div className="mt-4 text-white flex gap-2 text-xs">
                   <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
-                  <img src={eye} alt="info" className="w-5 h-5 mt-1"/>
+                  <div className="flex py-2 px-1 gap-1 text-black" style={backgroundbutton}>
+                  <img src={eye2} alt="info" className="w-4 h-4"/> View Review
+                    </div>
                   </Link>
-                  <button className="text-lg rounded-lg" style={color2} onClick={()=>seteditmode(true)}>
-                      Edit
+                  <button className="px-2 py-2 gap-1 flex" style={border} onClick={()=>seteditmode(true)}>
+                  <img src={edit} alt="info" className="w-4 h-4"/>
+                      Edit Project
                     </button>
                     </div>
               </div>

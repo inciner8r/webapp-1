@@ -25,7 +25,7 @@ const Footer = () => {
           </nav>
           <nav className="mb-4 flex flex-wrap justify-center gap-x-4 gap-y-2 md:justify-start md:gap-6">
             {/* <a href="https://chrome.google.com/webstore/detail/netsepio/bbkfclgnbddljhepbfpongcollhocghd" className="transition duration-100 text-white"></a> */}
-            <a href="https://github.com/NetSepio" className="transition duration-100 text-white">Collaborate</a>
+            <a href="https://github.com/NetSepio" target="_blank" className="transition duration-100 text-white">Collaborate</a>
           </nav>
     
           <div className="flex">

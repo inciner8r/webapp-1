@@ -362,10 +362,10 @@ const MyReviews: React.FC = () => {
                         >
                           <option className="bg-white text-black" value="">Select Site Tag</option>
                           <option className="bg-white text-black" value="Genuine">Genuine</option>
-                          <option className="bg-white text-black" value="Hate">Hate</option>
+                          <option className="bg-white text-black" value="Abandoned">Abandoned</option>
                           <option className="bg-white text-black" value="Scam">Scam</option>
                           <option className="bg-white text-black" value="Fake">Fake</option>
-                          <option className="bg-white text-black" value="Stereotype">Stereotype</option>
+                          <option className="bg-white text-black" value="Unsure">Unsure</option>
                         </select>
                         {/* <input
                           style={border}

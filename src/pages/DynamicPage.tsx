@@ -265,11 +265,12 @@ const handlePrevPage = () => {
         
         <div className="-mt-2">
         {siteRating && (
-                          <div className="mt-4">
+                          <div className="mt-4 flex gap-2">
                             <StarRatingshow
                               totalStars={10}
                               rating={siteRating}
                             />
+                            <div className="mt-1 text-white text-lg">{siteRating}/10</div>
                           </div>
                         )}
                         </div>
@@ -295,11 +296,12 @@ const handlePrevPage = () => {
         </div>
         <div className="-mt-2">
         {siteRating && (
-                          <div className="mt-4">
+                          <div className="mt-4 flex gap-2">
                             <StarRatingshow
                               totalStars={10}
                               rating={siteRating}
                             />
+                            <div className="mt-1 text-white text-lg">{siteRating}/10</div>
                           </div>
                         )}
                         </div>
