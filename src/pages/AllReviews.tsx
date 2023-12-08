@@ -109,6 +109,7 @@ const AllReviews: React.FC = () => {
         // if (nextReviewsData.data.message === "No reviews found") {
           // setNextPageDisabled(true);
         // }
+        setNextPageDisabled(false);
       } catch (error) {
         console.error('Error fetching reviews:', error);
         setNextPageDisabled(true);

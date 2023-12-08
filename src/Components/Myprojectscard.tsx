@@ -251,29 +251,27 @@ const jsonData = JSON.stringify(formDataObject);
               { !editmode && (
               <div style={background} className="p-4 rounded-xl">
                   <div className="lg:flex md:flex justify-between">
-                    <div className="">
                   <motion.div
-                    className="mt-4"
+                    className="mt-4 lg:flex md:flex"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
                     style={color2}
                   >
-                    <button className="text-lg rounded-lg pr-1">
+                    <div className="text-lg rounded-lg pr-1">
                       {metaData.domainName} /
-                    </button>     
-                    <button className="text-lg rounded-lg pr-1">
+                    </div>     
+                    <div className="text-lg rounded-lg pr-1">
                       {metaData.category}
-                    </button>
+                    </div>
                   </motion.div>
-                  </div>
                   <div className="mt-4 text-white flex gap-2 text-xs">
                   <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
                   <div className="flex py-2 px-1 gap-1 text-black" style={backgroundbutton}>
                   <img src={eye2} alt="info" className="w-4 h-4"/> View Review
                     </div>
                   </Link>
-                  <button className="px-2 py-2 gap-1 flex" style={border} onClick={()=>seteditmode(true)}>
+                  <button className="px-2 py-1 gap-1 flex pt-2" style={border} onClick={()=>seteditmode(true)}>
                   <img src={edit} alt="info" className="w-4 h-4"/>
                       Edit Project
                     </button>
@@ -291,9 +289,15 @@ const jsonData = JSON.stringify(formDataObject);
                     </motion.p>
                   </div>
 
-                  <button className="text-lg rounded-lg flex text-white">
+                  <div className="text-lg rounded-lg flex text-white">
                       Verified : {metaData.verified? "True" : "False"}
+
+                      {/* {!metaData.verified && (
+                      <button className="px-1 pt-1 flex text-xs ml-2" style={border} onClick={()=>seteditmode(true)}>
+                      Verify Project
                     </button>
+                    )} */}
+                    </div>
 
                   <div className="mt-5 text-white text-lg flex">
                     <motion.p

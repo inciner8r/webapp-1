@@ -274,7 +274,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=${page}&verified=false`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=${page}&verified=true`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -286,7 +286,7 @@ const jsonData = JSON.stringify(formDataObject);
             const wallet = Cookies.get("platform_wallet");
             const payload: any[] = response.data.payload;
     // const filteredData = payload.filter(item => item.createdBy === wallet);
-    setverifiedprojectsData(payload);
+    setverifiedprojectsData(payload.slice(2));
           console.log("all proj",payload)
         }
       } catch (error) {

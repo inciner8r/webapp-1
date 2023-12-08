@@ -198,14 +198,14 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                     </div>
                     <div className="flex gap-4 lg:mt-0 md:mt-0 mt-4 text-xs">
                     <Link to={`/reviews/${metaData.domainAddress}`}>
-                      <div className="border flex py-2 px-2 gap-1 text-black" style={backgroundbutton}>
+                      <div className="flex py-2 px-2 gap-1 text-black" style={backgroundbutton}>
                     <img src={eye2} alt="info" className="w-4 h-4"/> View Review
                     </div>
                     </Link>
                     <button 
                     // onClick={deletereview} 
                     onClick={()=>setdeleterev(true)}
-                    style={border} className="border px-2 py-2 gap-1 flex">
+                    style={border} className="px-2 py-1 gap-1 flex pt-2">
                     <img src={dlt} alt="info" className="w-4 h-4"/>
                     Delete Review</button>
                     </div>
