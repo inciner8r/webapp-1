@@ -474,7 +474,7 @@ service designed by NetSepio</h3>
               <div className="w-1/2">
                 <div className='border-b border-dashed mb-4 pb-2'>1. Create <span style={text}>your VPN on NetSepio</span></div>
                 <img src={vpn1} className='p-4'/>
-                <div className='border-b border-dashed my-4 pb-2'>2. <span style={text}>Click</span> <span style={text2}>Here</span> <span style={text}>to</span> Download <span style={text}>and</span> Install WireGuard</div>
+                <div className='border-b border-dashed my-4 pb-2'>2. <span style={text}>Click</span> <a href="https://www.wireguard.com/install/" target="_blank" style={text2}>Here</a> <span style={text}>to</span> Download <span style={text}>and</span> Install WireGuard</div>
                 <div className='mb-4 pb-2 text-sm p-4'>(a) <span style={text}>Download</span> config form <span style={text}>dashboard and import to</span> wireguard <span style={text}>and</span> activate</div>
                 <img src={vpn2} className='mb-4 p-4'/>
                 <img src={vpn3} className='p-4'/>
