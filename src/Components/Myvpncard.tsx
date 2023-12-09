@@ -97,12 +97,12 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
       transition={{ duration: 0.3 }}
     >
       <div
-        className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
+        className="w-full h-full lg:px-10 md:px-10 lg:py-4 md:py-4 p-4 rounded-lg"
         style={background}
       >
                 <div className="w-full px-4 flex justify-between">
                   <motion.h3
-                    className="text-2xl leading-12 font-bold mb-2 text-white"
+                    className="text-2xl leading-12 font-bold mb-2 text-white w-1/4"
                     initial={{ y: -20 }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.4 }}
@@ -112,48 +112,35 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                     </div>
                   </motion.h3>
 
-                  <div className="lg:flex md:flex justify-between">
-                    <div className="">
+                  <div className="lg:flex md:flex justify-between w-1/4">
                   <motion.div
                     className=""
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
-                  >
-                    
+                  > 
                     <button className="text-lg rounded-lg pr-1 text-white">
                        <a href={`https://${metaData.vpn_endpoint}`} target="_blank" style={color2}>
                        Link</a>
                     </button>    
-  
-                    {/* <button className="text-lg rounded-lg pr-1">
-                      {metaData.vpn_api_port} /
-                    </button>
-                    <button className="text-lg rounded-lg pr-1">
-                      {metaData.vpn_external_port} /
-                    </button> */}
                   </motion.div>
-                  </div>
-                  {/* <div className="mt-4 text-white">
-                  <button className="text-lg rounded-lg">
-                      Status : {metaData.status}
-                    </button>
-                    </div> */}
               </div>
                   
-              <button className="text-lg rounded-lg pr-1 text-white flex">
+              <button className="text-lg rounded-lg pr-1 text-white flex w-1/4">
                        <a href={`https://${metaData.firewall_endpoint}`} target="_blank" style={color2}>
                           Link</a>
                     </button> 
 
-                  <div className="text-white text-lg flex">
+                  <div className="text-white text-lg w-1/4">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.4 }}
+                      className="flex"
                     >
-                      <img src={eye} onClick={togglePasswordVisibility}/>
+                      <img src={eye} onClick={togglePasswordVisibility} className="h-5 w-5 mt-1"/>
 
+                      <div className="ml-4">
                       {showPassword ? (
 
                         <div className="flex cursor-pointer" onClick={() => {
@@ -167,6 +154,7 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                       ) : (
                         <span></span>
                       )}
+                      </div>
                     </motion.p>
                     
                   </div>

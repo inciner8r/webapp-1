@@ -14,6 +14,8 @@ const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 const AllReviews: React.FC = () => {
   const [reviews, setReviews] = useState<any[]>([]);
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
+  const [myreviews, setmyReviews] = useState<any[]>([]);
+  const [mymetaDataArray, setmyMetaDataArray] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -21,7 +23,8 @@ const AllReviews: React.FC = () => {
   const [isNextPageDisabled, setNextPageDisabled] = useState<boolean>(false);
 
   const connectWallet = async () => {
-    navigate('/my-reviews');
+    const count=mymetaDataArray?.length;
+    navigate('/my-reviews',{ state: { count } });
   };
   
   useEffect(() => {
@@ -178,6 +181,71 @@ const containerStyle = {
   backgroundImage: 'radial-gradient(circle, #222944, #141a31, #141a31)',
   height: '100vh',
 };
+
+
+useEffect(() => {
+  setLoading(true);
+  const fetchReviews = async (page: number) => {
+
+    const auth = Cookies.get("platform_token");
+    const wallet = Cookies.get("platform_wallet");
+
+    try {
+
+      const config = {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth}`,
+        },
+      };
+
+      const reviewResults = await axios.get(
+        `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page}&voter=${wallet}`,
+        config
+      );
+
+      console.log(reviewResults);
+      const reviewsData = await reviewResults.data.payload;
+      if (reviewResults.data.message === "No reviews found") {
+        console.log("No reviews found");
+        setmyReviews([]);
+      } else {
+        setmyReviews(reviewsData);
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };
+
+  const fetchReviewsData = async () => {
+    await fetchReviews(currentPage);
+  };
+
+  fetchReviewsData().finally(() => setLoading(false));
+}, [currentPage]);
+
+useEffect(() => {
+  const fetchMetaData = async () => {
+    const metaDataPromises = myreviews.map(async (review) => {
+      if (review.metaDataUri && review.metaDataUri.startsWith('ipfs://')) {
+        const ipfsUrl = `https://nftstorage.link/ipfs/${review.metaDataUri.split('ipfs://')[1]}`;
+        const metaData = await fetchMetadataFromIPFS(ipfsUrl, review.id);
+        return metaData;
+      }
+      return null;
+    });
+
+    const metaDataResults = (await Promise.all(metaDataPromises)).filter((result) => result !== null);
+    console.log("metaDataResults",metaDataResults);
+    setmyMetaDataArray(metaDataResults);
+  };
+
+  if (reviews?.length > 0) {
+    setLoading(true);
+    fetchMetaData().finally(() => setLoading(false));
+  }
+}, [reviews]);
   
 
   return (

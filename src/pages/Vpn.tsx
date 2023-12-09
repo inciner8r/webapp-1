@@ -16,6 +16,13 @@ import emoji from '../assets/EmojiMessage.png';
 import { NFTStorage } from "nft.storage";
 import ButtonNavigation from '../Components/Buttonnavigation';
 import novpn from '../assets/novpn2.png';
+import vpn1 from '../assets/vpn1.png';
+import vpn2 from '../assets/vpn2.png';
+import vpn3 from '../assets/vpn3.png';
+import vpn4 from '../assets/vpn4.png';
+import vpn5 from '../assets/vpn5.png';
+import vpn6 from '../assets/vpn6.png';
+import vpn7 from '../assets/vpn7.png';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 export interface FlowIdResponse {
@@ -87,6 +94,10 @@ const Vpn = () => {
 
   const text= {
     color: "#788AA3"
+  }
+
+  const text2= {
+    color: "#11D9C5"
   }
 
   const successtext= {
@@ -227,7 +238,7 @@ setbuttonset(false);
       className="py-10"
     >
       <section className="pt-24 mb-10">
-        <div className="px-5 mx-auto max-w-7xl">
+        <div className="px-5 mx-auto max-w-8xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
 
           <div className='-mt-10'>
@@ -426,9 +437,9 @@ setbuttonset(false);
 {
   !buttonset && (
     <>
-    <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+    { projectsData && projectsData?.length > 0 && (<h1 className="mb-8 ml-6 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
                     <span className="text-white">My VPNs</span>
-                  </h1>
+                  </h1>)}
             <section className="pb-10 rounded-xl">
               
             {loading ? (
@@ -436,28 +447,53 @@ setbuttonset(false);
             <div className="min-h-screen"></div>
           ) : !projectsData || projectsData?.length == 0 ? (
             <motion.div
-            className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
+            className="w-full max-w-7xl mx-auto py-10 rounded-xl text-start"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            style={bg}
+            // style={bg}
           >
-             <div className='lg:flex md:flex lg:p-20 md:p-20 p-10 gap-10'>
+             <div className='lg:flex md:flex lg:p-0 md:p-20 p-10 gap-10'>
               <div className='lg:w-1/2 md:w-1/2 w-full'>
               <img src={novpn}/>
               </div>
-              <div className='lg:w-1/2 md:w-1/2 w-full'>
+              <div className='lg:w-1/2 md:w-1/2 w-full lg:mt-10 md:mt-0 mt-10'>
               <h2 className="text-3xl font-semibold text-white">Revamp Your Security, Sotreus 
 Unites VPN and Firewall for Total 
 Protection</h2>
+<h3 className="text-gray-500 mt-4 lg:w-4/5 md:w-4/5">Sotreus is a dedicated WireGuard VPN and firewall 
+service designed by NetSepio</h3>
               <div className='mt-10'>
                 <button style={button} onClick={() => setbuttonset(true)} className='py-4 px-10 rounded-lg font-bold'>Create your VPN</button>
               </div>
               </div>
             </div>
+
+            <div className="text-white text-4xl py-20 font-bold mt-20">Easy Setup to Start Using Sotreus VPN</div>
+            <div style={bg} className="text-white text-xl lg:flex md:flex gap-10 p-10 rounded-lg">
+              <div className="w-1/2">
+                <div className='border-b border-dashed mb-4 pb-2'>1. Create <span style={text}>your VPN on NetSepio</span></div>
+                <img src={vpn1} className='p-4'/>
+                <div className='border-b border-dashed my-4 pb-2'>2. <span style={text}>Click</span> <span style={text2}>Here</span> <span style={text}>to</span> Download <span style={text}>and</span> Install WireGuard</div>
+                <div className='mb-4 pb-2 text-sm p-4'>(a) <span style={text}>Download</span> config form <span style={text}>dashboard and import to</span> wireguard <span style={text}>and</span> activate</div>
+                <img src={vpn2} className='mb-4 p-4'/>
+                <img src={vpn3} className='p-4'/>
+                <div className='my-4 pb-2 text-sm p-4'>(b) <span style={text}>Open</span> Pihole <span style={text}>&gt;</span> Domains <span style={text}>&gt;</span> Add Domain To Blacklist <span style={text}>&gt; it no longer opens 
+on your network</span></div>
+                <img src={vpn4} className='p-4'/>
+              </div>
+              <div className="w-1/2">
+              <div className='border-b border-dashed mb-4 pb-2'>3. <span style={text}>Set up</span> Sotreus <span style={text}>on</span> WireGuard</div>
+                <img src={vpn5} className='p-4'/>
+                <div className='border-b border-dashed my-4 pb-2'>4. <span style={text}>Create</span> Client <span style={text}>on Sotreus</span></div>
+                <img src={vpn6} className='p-4'/>
+                <div className='border-b border-dashed my-4 pb-2'>5. <span style={text}>Manage</span> Domain Blacklist <span style={text}>and </span> Whitelist <span style={text}>on Sotreus</span></div>
+                <img src={vpn7} className='p-4'/>
+              </div>
+            </div>
           </motion.div>
           ) : (
-            <div>
+            <div className='mx-6'>
               <select
                           id="region"
                           style={border}
@@ -476,7 +512,7 @@ Protection</h2>
       >
                 <div className="w-full px-4 flex justify-between">
                   <motion.h3
-                    className="text-lg leading-12 mb-2"
+                    className="text-lg leading-12 mb-2 w-1/4"
                     initial={{ y: -20 }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.4 }}
@@ -486,8 +522,7 @@ Protection</h2>
                     </div>
                   </motion.h3>
 
-                  <div className="lg:flex md:flex justify-between">
-                    <div className="">
+                  <div className="lg:flex md:flex justify-between w-1/4">
                   <motion.div
                     className=""
                     initial={{ opacity: 0 }}
@@ -495,19 +530,18 @@ Protection</h2>
                     transition={{ duration: 0.4 }}
                   >
                     
-                    <button className="text-lg rounded-lg pr-1" style={text}>
+                    <div className="text-lg rounded-lg pr-1" style={text}>
                     VPN endpoint
-                    </button>    
+                    </div>    
                   </motion.div>
-                  </div>
               </div>
                   
-              <button className="text-lg rounded-lg pr-1 flex" style={text}>
+              <div className="text-lg rounded-lg pr-1 flex w-1/4" style={text}>
               Firewall endpoint 
                   
-                    </button> 
+                    </div> 
 
-                  <div className="text-lg flex" style={text}>
+                  <div className="text-lg flex w-1/4" style={text}>
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
