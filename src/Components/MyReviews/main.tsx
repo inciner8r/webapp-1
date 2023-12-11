@@ -406,6 +406,15 @@ const MyReviews: React.FC = () => {
                     <label className="text-white">Overall rating</label>
       <StarRating totalStars={10} onRatingChange={handleRatingChange} />
 
+      {loading && (
+                    <div className="flex justify-center items-center">
+                    <div className="top-0 right-0 z-50 flex justify-center items-center p-10">
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-200"></div>
+                    </div>
+                    <div className="text-green-200 text-center text-lg font-bold">Signing transaction on chain…</div>
+                    </div>
+                  )}
+
                     <div className="text-center pt-10">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
@@ -420,13 +429,7 @@ const MyReviews: React.FC = () => {
                     </div>
                   </form>
 
-                  {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
-            <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
-              {/* <Loader/> */}
-            </div>
-          </div>
-        </div>)}
+                  
 {
    msg == "success" && (
     <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">

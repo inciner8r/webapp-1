@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReviewContainer from '../Components/ReviewContainer';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
-import Loader from '../Components/Loader';
+import Loader from '../Components/Loaderallreviews';
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';

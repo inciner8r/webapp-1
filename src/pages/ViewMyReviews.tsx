@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from '../Components/SearchBar';
 import MyReviewContainer from '../Components/Myreviewcontainer';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
-import Loader from '../Components/Loader';
+import Loader from '../Components/Loaderallreviews';
 import FilterButton from '../Components/reviewFilters';
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
