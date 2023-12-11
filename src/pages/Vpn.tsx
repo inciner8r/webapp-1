@@ -230,6 +230,17 @@ setbuttonset(false);
     setregion(e.target.value);
   };
 
+  const loggedin = Cookies.get("platform_token");
+  const wallet = Cookies.get("platform_wallet");
+
+  if (!loggedin && !wallet) {
+    return (
+      <div>
+        <WalletNotFound />
+      </div>
+    )
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

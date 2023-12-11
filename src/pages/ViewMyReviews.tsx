@@ -11,6 +11,7 @@ import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import noreview from '../assets/noreviews.png';
 import ButtonNavigation from '../Components/Buttonnavigation';
+import WalletNotFound from '../Components/MyReviews/walletNotFound';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 const ViewMyReviews: React.FC = () => {
@@ -119,6 +120,17 @@ const handlePrevPage = () => {
 const handleNavigation = (page: string) => {
   console.log(`Navigating to ${page} page from ReviewsPage...`);
 };
+
+const loggedin = Cookies.get("platform_token");
+  const wallet = Cookies.get("platform_wallet");
+
+  if (!loggedin && !wallet) {
+    return (
+      <div>
+        <WalletNotFound />
+      </div>
+    )
+  }
   
 
   return (

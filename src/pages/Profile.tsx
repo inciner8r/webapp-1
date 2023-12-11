@@ -213,6 +213,17 @@ const jsonData = JSON.stringify(formDataObject);
     setprofileset(true);
   };
 
+  const loggedin = Cookies.get("platform_token");
+  const wallet = Cookies.get("platform_wallet");
+
+  if (!loggedin && !wallet) {
+    return (
+      <div>
+        <WalletNotFound />
+      </div>
+    )
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
