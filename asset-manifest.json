@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.361f62b1.css",
-    "main.js": "/static/js/main.a891e529.js",
+    "main.css": "/static/css/main.c8bf36c9.css",
+    "main.js": "/static/js/main.e5b6dee7.js",
     "static/media/green_back.png": "/static/media/green_back.3ba6c9d2814e0158ed36.png",
     "static/media/novpn2.png": "/static/media/novpn2.669f180630f0966504f1.png",
     "static/media/vpn7.png": "/static/media/vpn7.44445189005f991c3f9a.png",
@@ -16,11 +16,11 @@
     "static/media/noreviews.png": "/static/media/noreviews.c05f33b02624ef952032.png",
     "static/media/noprojects.png": "/static/media/noprojects.6f7a9317ce014dfeac3a.png",
     "index.html": "/index.html",
-    "main.361f62b1.css.map": "/static/css/main.361f62b1.css.map",
-    "main.a891e529.js.map": "/static/js/main.a891e529.js.map"
+    "main.c8bf36c9.css.map": "/static/css/main.c8bf36c9.css.map",
+    "main.e5b6dee7.js.map": "/static/js/main.e5b6dee7.js.map"
   },
   "entrypoints": [
-    "static/css/main.361f62b1.css",
-    "static/js/main.a891e529.js"
+    "static/css/main.c8bf36c9.css",
+    "static/js/main.e5b6dee7.js"
   ]
 }
