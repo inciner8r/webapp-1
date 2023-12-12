@@ -6,6 +6,7 @@
 import Cookies from 'js-cookie';
 import Loader from '../Components/Loader';
 import WalletNotFound from '../Components/MyReviews/walletNotFound';
+import connectWallet from '../modules/connectwallet';
 import Main from '../Components/MyReviews/main';
 import { useEffect, useCallback } from 'react';
 export interface FlowIdResponse {
@@ -100,13 +101,29 @@ const MyReviews = () => {
   const loggedin = Cookies.get("platform_token");
   const wallet = Cookies.get("platform_wallet");
 
+  useEffect(() => {
+    const handleConnectWallet = async () => {
+      if (!loggedin && !wallet) {
+        try {
+          const isConnect = await connectWallet();
+          if (isConnect) {
+            window.location.reload();
+          }
+        } catch (error) {
+          console.error('Error connecting wallet:', error);
+        }
+      }
+    };
+    handleConnectWallet();
+  }, [loggedin, wallet]);
+
   if (!loggedin && !wallet) {
     return (
-      <div>
-        <WalletNotFound />
+      <div className='min-h-screen text-center text-white'>
+        <div style={{ marginTop: '30vh' }} className='text-2xl'>Wallet not connected, please authorize to view the content.</div>
       </div>
     )
-  }  
+  }
 
   return (
     <div>

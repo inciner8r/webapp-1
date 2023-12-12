@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
+import google from '../assets/googlecloud.png';
 import icon from '../assets/Group.png'
 import '../index.css';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
@@ -380,9 +381,15 @@ WireGuard
         <h1 className="text-white text-3xl font-bold">Backed by</h1>
         </div>
 
-        <div className="inline-flex items-center justify-center w-full">
-        <img src={aptos} className="w-26 h-10"/>
+        <div className="inline-flex items-center justify-center w-full gap-10">
+          <div className="flex">
+        <img src={aptos} className="w-26 h-12 -mt-1"/>
         <h1 className="text-white text-3xl">Aptos</h1>
+        </div>
+        <div className="flex">
+        <img src={google} className="w-26 h-8"/>
+        <h1 className="text-white text-3xl">Google Cloud</h1>
+        </div>
         </div>
         </div>
 

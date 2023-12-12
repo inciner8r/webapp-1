@@ -196,6 +196,7 @@ const logout = {
             Cookies.set("platform_wallet", account.address, { expires: 7 });
 
             setUserWallet(account.address);
+            window.location.reload();
       } catch (error) {
         console.error(error);
       }
