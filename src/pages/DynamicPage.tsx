@@ -5,7 +5,7 @@ import DomainReviewContainer from '../Components/Domainreviewcontainer';
 // import { fetchMetadataURIAll, fetchMetadataURIBySiteURL, fetchMetadataURIBySiteSafety } from '../modules/fetch_metadataURI_from_graphql';
 import { fetchMetadataFromIPFS } from '../modules/fetch_metadata_from_ipfs';
 // import { ReviewCreated } from '../graphql/types';
-import Loader from '../Components/Loader';
+import Loader from '../Components/Loaderallreviews';
 import FilterButton from '../Components/reviewFilters';
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';

@@ -7,6 +7,7 @@ import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { NFTStorage } from "nft.storage";
 import eye2 from '../assets/eye2.png';
 import edit from '../assets/edit.png';
+import dlt from '../assets/dlt.png';
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
@@ -64,6 +65,10 @@ const backgroundbutton = {
   backgroundColor: "#11D9C5",
 };
 
+const bgverify = {
+  backgroundColor: "#141a31",
+}
+
 const MyProjectsCard: React.FC<ReviewCardProps> = ({
   metaData,
   MyReviews = false,
@@ -72,6 +77,7 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [showDescription, setShowDescription] = useState(false);
   const [editmode, seteditmode] = useState(false);
+  const [delproj, setdelproj] = useState(false);
   const [msg, setMsg] = useState<string>("");
   const [isEditingImage, setIsEditingImage] = useState(true);
 
@@ -196,13 +202,30 @@ const jsonData = JSON.stringify(formDataObject);
     );
   }
 
-  const handleClick = () => {
-    setShowDescription(!showDescription);
-  };
+  const deleteproject = async (id: string) => {
+    setLoading(true);
 
-  const handleDelete = () => {
-    if (onReviewDeleted) {
-      onReviewDeleted(); // Call the callback function when a review is deleted
+    const auth = Cookies.get("platform_token");
+
+    try {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?domainId=${id}`, {
+        method: 'DELETE',
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth}`,
+        }
+      });
+
+      if (response.status === 200) {
+        console.log("success")
+        window.location.reload();
+      } else {
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -275,6 +298,10 @@ const jsonData = JSON.stringify(formDataObject);
                   <img src={edit} alt="info" className="w-4 h-4"/>
                       Edit Project
                     </button>
+                    <button className="px-2 py-1 gap-1 flex pt-2" style={border} onClick={()=>setdelproj(true)}>
+                  <img src={dlt} alt="info" className="w-4 h-4"/>
+                      Delete Project
+                    </button>
                     </div>
               </div>
                   
@@ -311,6 +338,37 @@ const jsonData = JSON.stringify(formDataObject);
 
                   </div>
                   )}
+
+{
+              delproj && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+    <div className="relative lg:w-1/3 w-full max-w-2xl max-h-full">
+        <div className="relative rounded-lg shadow dark:bg-gray-700 p-16" style={background}>
+            <div className="p-4 md:p-5 space-y-4">
+                <p className="text-4xl text-center text-white font-bold">
+                Are you sure?
+                </p>
+            </div>
+            <div className="p-4 md:p-5 space-y-4">
+                <p className="text-md text-center" style={color}>
+                Do you really want to delete this project?
+This process can not be undone.
+                </p>
+            </div>
+            <div className="flex items-center p-4 md:p-5 rounded-b gap-4">
+                <button 
+                style={border}
+                onClick={() => setdelproj(false)}
+                type="button" className="w-full text-white font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+              <button 
+                style={backgroundbutton}
+                onClick={() => deleteproject(metaData.id)} 
+                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Delete</button>
+              </div>
+        </div>          
+    </div>
+</div>
+)
+}
 
 
 
