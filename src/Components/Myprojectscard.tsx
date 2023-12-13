@@ -8,6 +8,10 @@ import { NFTStorage } from "nft.storage";
 import eye2 from '../assets/eye2.png';
 import edit from '../assets/edit.png';
 import dlt from '../assets/dlt.png';
+import {
+  FaCopy,
+} from "react-icons/fa";
+import emoji from '../assets/EmojiMessage.png';
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
@@ -34,6 +38,7 @@ interface ReviewCardProps {
     title: string;
     verified: boolean;
     id: string;
+    txtValue: string;
   } | null;
   MyReviews?: boolean;
   // review?: ReviewCreated;
@@ -69,6 +74,10 @@ const bgverify = {
   backgroundColor: "#141a31",
 }
 
+const errortext= {
+  color: "#EE4B2B"
+}
+
 const MyProjectsCard: React.FC<ReviewCardProps> = ({
   metaData,
   MyReviews = false,
@@ -77,8 +86,11 @@ const MyProjectsCard: React.FC<ReviewCardProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [showDescription, setShowDescription] = useState(false);
   const [editmode, seteditmode] = useState(false);
+  const [verifymode, setverifymode] = useState(false);
   const [delproj, setdelproj] = useState(false);
   const [msg, setMsg] = useState<string>("");
+  const [successmsg, setsuccessMsg] = useState<string>("");
+  const [errormsg, seterrorMsg] = useState<string>("");
   const [isEditingImage, setIsEditingImage] = useState(true);
 
   const initialFormData: FormData = {
@@ -202,6 +214,52 @@ const jsonData = JSON.stringify(formDataObject);
     );
   }
 
+  const handleVerify = async (e: FormEvent) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const auth = Cookies.get("platform_token");
+    const domainid: string | null = localStorage.getItem('domainId');
+
+    try {
+      const formDataObj = new FormData();
+    
+// Convert FormData to JavaScript Object
+const formDataObject: { domainId: string } = {
+    domainId: domainid as string
+  };
+
+// Convert JavaScript Object to JSON string
+const jsonData = JSON.stringify(formDataObject);
+
+console.log("jsonData",jsonData);
+
+  const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/domain/verify`, {
+        method: 'PATCH',
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth}`,
+        },
+        body: jsonData,
+      });
+      const responseData = await response.json();
+      console.log("response", responseData);
+      if (response.status === 200) {
+        // const responseData = await response.json();
+        setsuccessMsg(responseData.message);
+        // console.log("domain data",responseData);
+      } else {
+        seterrorMsg(responseData.error);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMsg('error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const deleteproject = async (id: string) => {
     setLoading(true);
 
@@ -228,6 +286,10 @@ const jsonData = JSON.stringify(formDataObject);
       setLoading(false);
     }
   };
+
+  const gotoprojects = () => {
+    window.location.reload()
+      }
 
   return (
     <motion.div
@@ -275,11 +337,11 @@ const jsonData = JSON.stringify(formDataObject);
               <div style={background} className="p-4 rounded-xl">
                   <div className="lg:flex md:flex justify-between">
                   <motion.div
-                    className="mt-4 lg:flex md:flex"
+                    className="mt-4 lg:flex md:flex text-white"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
-                    style={color2}
+                    // style={color2}
                   >
                     <div className="text-lg rounded-lg pr-1">
                       {metaData.domainName} /
@@ -316,14 +378,14 @@ const jsonData = JSON.stringify(formDataObject);
                     </motion.p>
                   </div>
 
-                  <div className="text-lg rounded-lg flex text-white">
+                  <div className="text-md rounded-lg flex text-white">
                       Verified : {metaData.verified? "True" : "False"}
 
-                      {/* {!metaData.verified && (
-                      <button className="px-1 pt-1 flex text-xs ml-2" style={border} onClick={()=>seteditmode(true)}>
-                      Verify Project
+                      {!metaData.verified && (
+                      <button className="px-4 pt-1 flex text-sm ml-2" style={color2} onClick={()=>setverifymode(true)}>
+                      Verify Now
                     </button>
-                    )} */}
+                    )}
                     </div>
 
                   <div className="mt-5 text-white text-lg flex">
@@ -370,6 +432,110 @@ This process can not be undone.
 )
 }
 
+
+{
+              verifymode && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+    <div className="relative p-4 lg:w-1/3 w-full max-w-2xl max-h-full">
+        <div className="relative rounded-lg shadow dark:bg-gray-700" style={background}>
+            <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
+                <h3 className="text-2xl font-semibold text-white">
+                Verify Your Registration
+                </h3>
+                <button 
+                    onClick={() => setverifymode(false)}
+                    type="button" 
+                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span className="sr-only">Close modal</span>
+                </button>
+            </div>
+            <div className="p-4 md:p-5 space-y-4">
+                <p className="text-md text-center" style={color}>
+                Copy the 
+text below and paste it in your DNS settings, then 
+click the 'verify' button.
+                </p>
+
+            <div
+                  className="flex cursor-pointer py-4 justify-center" style={color2}
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      metaData?.txtValue? metaData?.txtValue : ''
+                    );
+                  }}
+                >
+                  <p className="text-xl ml-2 text-white">
+                    Text
+                  </p>
+                  <FaCopy style={{ marginTop: 6}} className="ml-2" />
+            </div>
+
+                <div className="text-lg text-center text-red-500">
+<a href="/#/verification-steps" target="_blank">Proceed to instructions</a>
+            </div>
+            </div>
+              
+              {
+              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}.
+               Try again in 3-5 mins if already added txt in dns.</p>)
+              }
+
+            <div className="flex items-center p-4 md:p-5 rounded-b">
+                <button 
+                style={backgroundbutton}
+                onClick={handleVerify}
+                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
+              </div>
+
+        </div>          
+    </div>
+</div>
+)
+}
+
+
+{
+                successmsg && (
+<div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+    <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
+        <div className="relative rounded-lg shadow bg-white">
+            <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
+                {/* <button 
+                    onClick={() => setbuttonset(false)}
+                    type="button" 
+                    className="text-gray-900 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span className="sr-only">Close modal</span>
+                </button> */}
+            </div>
+
+            <img src={emoji} alt="info" className="mx-auto"/>
+
+            <div className="p-4 md:p-5 space-y-4">
+            <p className="text-3xl text-center font-bold">
+            Successfully Verified 
+                </p>
+                <p className="text-md text-center" style={color}>
+                You are all set, Verification is successfully completed.
+                </p>
+            </div>
+            <div className="flex items-center p-4 md:p-5 rounded-b">
+                <button 
+                style={backgroundbutton}
+                onClick={gotoprojects}
+                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">My Projects</button>
+              </div>
+        </div>          
+    </div>
+</div>
+)
+}
 
 
                 { editmode && (
