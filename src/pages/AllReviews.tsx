@@ -8,7 +8,8 @@ import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import google from '../assets/googlecloud.png';
-import icon from '../assets/Group.png'
+import icon from '../assets/Group.png';
+import landing from '../assets/landing.png';
 import '../index.css';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
@@ -275,6 +276,21 @@ useEffect(() => {
                 </div>
             </div>
       </section>
+
+      <section className="mb-40">
+            <div className="py-0 mx-auto max-w-7xl">
+                <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+                    <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
+                    Turn Reviews into Valuable NFTs
+                    </h1>
+                    <p className="pb-20 text-lg text-gray-300 md:text-xl lg:px-24">
+                    Boost Trust with NFT Reviews and Verified Project Ownership
+                    </p>
+                    <img src={landing}/>
+                </div>
+            </div>
+      </section>
+
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import React from "react";
-import eye from '../assets/carbon_view.png';
+import eye2 from '../assets/eye2.png';
 
 
 interface ReviewCardProps {
@@ -17,6 +17,7 @@ interface ReviewCardProps {
     logoHash: string;
     title: string;
     verified: boolean;
+    creatorName: string;
     id: string;
   } | null;
   MyReviews?: boolean;
@@ -34,6 +35,10 @@ const color = {
 
 const color2 = {
   color: "#11D9C5",
+};
+
+const backgroundbutton = {
+  backgroundColor: "#11D9C5",
 };
 
 const AllProjectsCard: React.FC<ReviewCardProps> = ({
@@ -98,10 +103,13 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
                   >
                     <div className="lg:flex md:flex justify-between">
                       <div className="text-4xl font-bold">{metaData.title}</div>
-                      <div className="mt-4 text-white">
-                  <button className="text-lg rounded-lg">
+                      <div className="mt-4 text-white flex flex-col">
+                      <div className="text-md rounded-lg">
+                      Creator Name : {metaData.creatorName}
+                    </div>
+                  <div className="text-md rounded-lg">
                       Blockchain : {metaData.blockchain}
-                    </button>
+                    </div>
                     </div>
                     </div>
                   </motion.h3>
@@ -112,23 +120,25 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
                   <div className="lg:flex md:flex justify-between">
                     <div className="">
                   <motion.div
-                    className=""
+                    className="flex"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
                     style={color2}
                   >
-                    <button className="text-lg rounded-lg pr-1">
+                    <div className="text-lg rounded-lg pr-1">
                       {metaData.domainName} /
-                    </button>     
-                    <button className="text-lg rounded-lg pr-1">
+                    </div>     
+                    <div className="text-lg rounded-lg pr-1">
                       {metaData.category}
-                    </button>
+                    </div>
                   </motion.div>
                   </div>
-                  <div className="mt-4 text-white flex gap-4">
+                  <div className="text-white flex gap-2 text-xs">
                   <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
-                  <img src={eye} alt="info" className="w-5 h-5 mt-1"/>
+                  <div className="flex py-2 px-2 gap-1 text-black" style={backgroundbutton}>
+                  <img src={eye2} alt="info" className="w-4 h-4"/> View Reviews
+                    </div>
                   </Link>
                     </div>
               </div>

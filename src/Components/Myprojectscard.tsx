@@ -349,6 +349,9 @@ console.log("jsonData",jsonData);
                     <div className="text-lg rounded-lg pr-1">
                       {metaData.category}
                     </div>
+                    <button className="px-2 pt-1 gap-1 flex" onClick={()=>seteditmode(true)}>
+                  <img src={edit} alt="info" className="w-4 h-4"/>
+                    </button>
                   </motion.div>
                   <div className="mt-4 text-white flex gap-2 text-xs">
                   <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
@@ -356,10 +359,10 @@ console.log("jsonData",jsonData);
                   <img src={eye2} alt="info" className="w-4 h-4"/> View Review
                     </div>
                   </Link>
-                  <button className="px-2 py-1 gap-1 flex pt-2" style={border} onClick={()=>seteditmode(true)}>
+                  {/* <button className="px-2 py-1 gap-1 flex pt-2" style={border} onClick={()=>seteditmode(true)}>
                   <img src={edit} alt="info" className="w-4 h-4"/>
                       Edit Project
-                    </button>
+                    </button> */}
                     <button className="px-2 py-1 gap-1 flex pt-2" style={border} onClick={()=>setdelproj(true)}>
                   <img src={dlt} alt="info" className="w-4 h-4"/>
                       Delete Project
