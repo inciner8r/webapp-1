@@ -14,7 +14,7 @@ import {
 import emoji from '../assets/EmojiMessage.png';
 const API_KEY = process.env.REACT_APP_STORAGE_API || '';
 const client = new NFTStorage({ token: API_KEY });
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
 
 interface FormData {
   title: string;

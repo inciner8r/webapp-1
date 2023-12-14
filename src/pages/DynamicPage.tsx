@@ -14,7 +14,7 @@ import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import StarRatingshow from "../Components/StarRatingshow";
 import { removePrefix } from "../modules/Utils/ipfsUtil";
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
 
 interface DomainData {
   category: string;

@@ -11,7 +11,7 @@ import google from '../assets/googlecloud.png';
 import icon from '../assets/Group.png';
 import landing from '../assets/landing.png';
 import '../index.css';
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
 
 const AllReviews: React.FC = () => {
   const [reviews, setReviews] = useState<any[]>([]);

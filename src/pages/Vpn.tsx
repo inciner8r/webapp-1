@@ -24,7 +24,7 @@ import vpn4 from '../assets/vpn4.png';
 import vpn5 from '../assets/vpn5.png';
 import vpn6 from '../assets/vpn6.png';
 import vpn7 from '../assets/vpn7.png';
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
 
 export interface FlowIdResponse {
   eula: string;

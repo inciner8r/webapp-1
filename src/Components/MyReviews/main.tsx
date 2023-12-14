@@ -16,7 +16,7 @@ import ButtonNavigation from '../Buttonnavigation';
 import emoji from '../../assets/EmojiMessage.png';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
 
 const MyReviews: React.FC = () => {
   const [title, setTitle] = useState<string>("");

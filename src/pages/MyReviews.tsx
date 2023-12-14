@@ -33,7 +33,7 @@ const MyReviews = () => {
     }
     const walletAddress = walletData;
     //const gateway = process.env.REACT_APP_DEV_GATEWAY_URL;
-    const gateway = process.env.REACT_APP_GATEWAY_URL;
+    const gateway = process.env.REACT_APP_DEV_GATEWAY_URL;
     const response = await fetch(`${gateway}/flowid?walletAddress=${walletAddress}`);
     const json = await response.json();
     if (response.status !== 200) {

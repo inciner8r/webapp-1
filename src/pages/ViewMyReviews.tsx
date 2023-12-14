@@ -12,7 +12,7 @@ import aptos from '../assets/Protocolicon.png';
 import noreview from '../assets/noreviews.png';
 import ButtonNavigation from '../Components/Buttonnavigation';
 import WalletNotFound from '../Components/MyReviews/walletNotFound';
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
 
 const ViewMyReviews: React.FC = () => {
   const [reviews, setReviews] = useState<any[]>([]);

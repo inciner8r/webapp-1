@@ -5,7 +5,7 @@ import StarRatingshow from "./StarRatingshow";
 import Cookies from "js-cookie";
 import eye2 from '../assets/eye2.png';
 import dlt from '../assets/dlt.png';
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
 
 interface ReviewCardProps {
   metaData: {
