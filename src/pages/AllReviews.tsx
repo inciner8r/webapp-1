@@ -283,7 +283,7 @@ useEffect(() => {
                     <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
                     Turn Reviews into Valuable NFTs
                     </h1>
-                    <p className="pb-20 text-lg text-gray-300 md:text-xl lg:px-24">
+                    <p className="pb-20 text-lg text-gray-300 md:text-lg lg:px-24">
                     Boost Trust with NFT Reviews and Verified Project Ownership
                     </p>
                     <img src={landing}/>
@@ -300,9 +300,9 @@ useEffect(() => {
 
         { metaDataArray && metaDataArray?.length > 0 && (
           <>
-        <div className="inline-flex items-center justify-center w-full">
+        {/* <div className="inline-flex items-center justify-center w-full">
         <div className="text-white border rounded-full py-2 px-6 mt-10">All reviews</div>
-        </div>
+        </div> */}
         <div className="inline-flex items-center justify-center w-full my-10">
         <h1 className="text-white text-3xl font-bold">Your Path to Safe and Secure Browsing</h1>
         </div>

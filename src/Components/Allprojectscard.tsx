@@ -144,7 +144,7 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
               </div>
                   
 
-                  <div className="text-white text-lg flex">
+                  <div className="text-white text-lg flex -ml-1 mt-2">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -156,7 +156,7 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
                     </motion.p>
                   </div>
 
-                  <div className="text-white text-lg flex">
+                  <div className="text-white text-lg flex mt-2">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
