@@ -287,7 +287,7 @@ const jsonData = JSON.stringify(formDataObject);
             const wallet = Cookies.get("platform_wallet");
             const payload: any[] = response.data.payload;
     // const filteredData = payload.filter(item => item.createdBy === wallet);
-    setverifiedprojectsData(payload.slice(1));
+    setverifiedprojectsData(payload);
           console.log("all proj",payload)
         }
       } catch (error) {
@@ -670,7 +670,7 @@ console.log("jsonData",jsonData);
             <div className="p-4 md:p-5 space-y-4">
                 <p className="text-md text-center" style={text}>
                 Your domain has been registered successfully! Copy the 
-text below and paste it in your DNS settings, then 
+TXT below and paste it in your DNS settings, then 
 click the 'verify' button.
                 </p>
 
@@ -702,10 +702,6 @@ click the 'verify' button.
               {/* {
                 successmsg && (<p style={successtext} className="p-4">{successmsg}</p>)
               } */}
-              {
-              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}.
-               Try again in 3-5 mins if already added txt in dns.</p>)
-              }
 
             <div className="flex items-center p-4 md:p-5 rounded-b">
                 <button 
@@ -713,7 +709,10 @@ click the 'verify' button.
                 onClick={handleVerify}
                 type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
               </div>
-
+              {
+              errormsg && !successmsg && (<p style={errortext} className="p-4 text-center">{errormsg}.
+               Try again in 3-5 mins if already added txt in dns.</p>)
+              }
         </div>          
     </div>
 </div>

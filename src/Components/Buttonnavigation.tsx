@@ -30,7 +30,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate, count }
             borderBottom: location.pathname.includes('reviews') ? '2px solid white' : '',
           }}
       >
-        {location.pathname.includes('reviews') ? `Reviews (${count})` : 'Reviews'}
+        {location.pathname.includes('reviews') && count>0 ? `Reviews (${count})` : 'Reviews'}
       </Link>
       <Link
         to="/dashboard"
@@ -42,7 +42,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate, count }
             borderBottom: location.pathname.includes('dashboard') ? '2px solid white' : '',
           }}
       >
-        {location.pathname.includes('dashboard') ? `Projects (${count})` : 'Projects'}
+        {location.pathname.includes('dashboard') && count>0 ? `Projects (${count})` : 'Projects'}
       </Link>
       <Link
         to="/vpn"
@@ -54,7 +54,7 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate, count }
             borderBottom: location.pathname.includes('vpn') ? '2px solid white' : '',
           }}
       >
-        {location.pathname.includes('vpn') ? `VPNs (${count})` : 'VPNs'}
+        {location.pathname.includes('vpn') && count>0 ? `VPNs (${count})` : 'VPNs'}
       </Link>
     </div>
   );

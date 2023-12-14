@@ -465,7 +465,7 @@ This process can not be undone.
             <div className="p-4 md:p-5 space-y-4">
                 <p className="text-md text-center" style={color}>
                 Copy the 
-text below and paste it in your DNS settings, then 
+TXT below and paste it in your DNS settings, then 
 click the 'verify' button.
                 </p>
 
@@ -487,11 +487,6 @@ click the 'verify' button.
 <a href="/#/verification-steps" target="_blank">Proceed to instructions</a>
             </div>
             </div>
-              
-              {
-              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}.
-               Try again in 3-5 mins if already added txt in dns.</p>)
-              }
 
             <div className="flex items-center p-4 md:p-5 rounded-b">
                 <button 
@@ -499,7 +494,10 @@ click the 'verify' button.
                 onClick={handleVerify}
                 type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
               </div>
-
+              {
+              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}.
+               Try again in 3-5 mins if already added txt in dns.</p>)
+              }
         </div>          
     </div>
 </div>
