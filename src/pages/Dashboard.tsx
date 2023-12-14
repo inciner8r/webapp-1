@@ -287,7 +287,7 @@ const jsonData = JSON.stringify(formDataObject);
             const wallet = Cookies.get("platform_wallet");
             const payload: any[] = response.data.payload;
     // const filteredData = payload.filter(item => item.createdBy === wallet);
-    setverifiedprojectsData(payload.slice(0, -1));
+    setverifiedprojectsData(payload.slice(1));
           console.log("all proj",payload)
         }
       } catch (error) {
