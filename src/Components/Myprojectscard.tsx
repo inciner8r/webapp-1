@@ -292,8 +292,11 @@ console.log("jsonData",jsonData);
       }
 
   return (
-    <motion.div
-      className="w-full max-w-5xl"
+    <>    
+              { !editmode && (
+                <>
+                <motion.div
+      className="w-full max-w-7xl mx-auto"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
@@ -331,9 +334,7 @@ console.log("jsonData",jsonData);
                     </div>
                     </div>
                   </motion.h3>
-
-              
-              { !editmode && (
+                  
               <div style={background} className="p-4 rounded-xl">
                   <div className="lg:flex md:flex justify-between">
                   <motion.div
@@ -356,7 +357,7 @@ console.log("jsonData",jsonData);
                   <div className="mt-4 text-white flex gap-2 text-xs">
                   <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
                   <div className="flex py-2 px-1 gap-1 text-black" style={backgroundbutton}>
-                  <img src={eye2} alt="info" className="w-4 h-4"/> View Review
+                  <img src={eye2} alt="info" className="w-4 h-4"/> View Project
                     </div>
                   </Link>
                   {/* <button className="px-2 py-1 gap-1 flex pt-2" style={border} onClick={()=>seteditmode(true)}>
@@ -402,6 +403,12 @@ console.log("jsonData",jsonData);
                   </div>
 
                   </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </motion.div>
+                  </>
                   )}
 
 {
@@ -542,7 +549,111 @@ click the 'verify' button.
 
 
                 { editmode && (
-                  <div style={background} className="p-4 rounded-xl">
+                  <motion.div
+                  className="w-full max-w-7xl mx-auto"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div
+                    className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
+                    
+                  >
+                        <div>
+                            <div className="lg:flex m:flex justify-start">
+                            <div className="w-1/4">
+                               { isEditingImage && (
+                                <img
+                                  alt="alt"
+                                  src={`${
+                                    "https://cloudflare-ipfs.com/ipfs"
+                                  }/${removePrefix(metaData?.logoHash)}`}
+                                  className=""
+                                  width="150"
+                                  height="150"
+                                />
+                               )}
+                                
+                                { !isEditingImage ? (
+                                  <>
+                    <img
+                      alt="alt"
+                      src={`${
+                        "https://cloudflare-ipfs.com/ipfs"
+                      }/${removePrefix(formData.logohash)}`}
+                      className="rounded-full"
+                      width="200"
+                      height="200"
+                    />
+                    <label
+                        htmlFor="upload"
+                        className="flex flex-row items-center ml-10 cursor-pointer mt-4"
+                      >
+                      <input id="upload" type="file" className="hidden" 
+                      onChange={uploadImage}
+                      accept="image/*"
+                      />
+                        <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-5 w-5 fill-white stroke-green-700"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                  />
+                                </svg>
+                        <div className="text-white">Replace</div>
+                      </label>
+                      </>
+                  ) :(
+                    <>
+                    <label
+                        htmlFor="upload"
+                        className="flex flex-row items-center ml-10 cursor-pointer mt-4"
+                      >
+                      <input id="upload" type="file" className="hidden" 
+                      onChange={uploadImage}
+                      accept="image/*"
+                      />
+                        <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-5 w-5 fill-white stroke-green-700"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                  />
+                                </svg>
+                        <div className="text-white">Replace</div>
+                      </label>
+                      </>
+                      )}
+                            </div>
+                            <div className="w-full lg:px-4 md:px-4">
+                              <motion.h3
+                                className="leading-12 mb-2 text-white"
+                                initial={{ y: -20 }}
+                                animate={{ y: 0 }}
+                                transition={{ duration: 0.4 }}
+                              >
+                                <div className="lg:flex md:flex justify-between">
+                                  <div className="text-4xl font-bold">{metaData.title}</div>
+                                  <div className="mt-4 text-white">
+                              <button className="text-lg rounded-lg">
+                                  Blockchain : {metaData.blockchain}
+                                </button>
+                                </div>
+                                </div>
+                              </motion.h3>
+                  <div style={background} className="rounded-xl">
 
               <form
                     id="myForm"
@@ -550,7 +661,7 @@ click the 'verify' button.
                     onSubmit={(event) => handleSubmit(event, metaData.id)}
                   >
                     <div className="lg:flex md:flex justify-between">
-                  <div className="mb-10 px-10">
+                  <div className="mb-6 px-10">
 
                   <div className="lg:flex md:flex justify-between gap-2">
 
@@ -617,7 +728,7 @@ click the 'verify' button.
 
                       </div>
         
-                    { !isEditingImage ? (
+                    {/* { !isEditingImage ? (
                     <img
                       alt="alt"
                       src={`${
@@ -652,10 +763,10 @@ click the 'verify' button.
                         </svg>
                       </label>
                       </>
-                      )}
+                      )} */}
                       </div>
 
-                    <div className="w-1/2 ml-auto">
+                    <div className="w-1/2 ml-auto pr-10 pb-2">
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8 flex">
                       <button
                           onClick={()=>seteditmode(false)}
@@ -697,15 +808,15 @@ click the 'verify' button.
                   
                   
                   </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </motion.div>
                 )}
 
 
-
-                </div>
-                </div>
-            </div>
-      </div>
-    </motion.div>
+    </>
   );
 };
 

@@ -137,7 +137,7 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
                   <div className="text-white flex gap-2 text-xs">
                   <Link to={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
                   <div className="flex py-2 px-2 gap-1 text-black" style={backgroundbutton}>
-                  <img src={eye2} alt="info" className="w-4 h-4"/> View Reviews
+                  <img src={eye2} alt="info" className="w-4 h-4"/> View Project
                     </div>
                   </Link>
                     </div>
