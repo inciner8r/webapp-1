@@ -138,7 +138,7 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                       transition={{ duration: 0.4 }}
                       className="flex"
                     >
-                      <img src={eye} onClick={togglePasswordVisibility} className="h-5 w-5 mt-1"/>
+                      <img src={eye} onClick={togglePasswordVisibility} className="h-5 w-5 mt-1 cursor-pointer"/>
 
                       <div className="ml-4">
                       {showPassword ? (
@@ -149,7 +149,7 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                           );
                         }}>
                           {metaData.dashboard_password}
-                          <FaCopy style={{ marginTop: 6}} className="ml-2" />
+                          <FaCopy style={color2} className="ml-2 mt-1"/>
                           </div>
                       ) : (
                         <span></span>

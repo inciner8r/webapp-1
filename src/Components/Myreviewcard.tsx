@@ -31,7 +31,7 @@ const background = {
 };
 
 const color = {
-  color: "#788AA3",
+  color: "#11D9C5",
 };
 
 const border = {
@@ -218,7 +218,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <a href={metaData.siteUrl}>
+                    <a href={metaData.siteUrl} target="_blank">
                       {/* {metaData.domainAddress} */}
                       {metaData.siteUrl}
                     </a>

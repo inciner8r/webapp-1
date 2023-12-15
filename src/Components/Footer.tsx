@@ -11,7 +11,7 @@ const background = {
 
 const border = {
   borderTop: '1px solid #11D9C5',
-  color: '#11D9C5',
+  color: 'white',
 }
 
 const Footer = () => {

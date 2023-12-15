@@ -6,8 +6,9 @@ import { removePrefix } from "../modules/Utils/ipfsUtil";
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import { NFTStorage } from "nft.storage";
 import eye2 from '../assets/eye2.png';
-import edit from '../assets/edit.png';
+import edit from '../assets/editpen.png';
 import dlt from '../assets/dlt.png';
+import replace from '../assets/replace.png';
 import {
   FaCopy,
 } from "react-icons/fa";
@@ -585,52 +586,28 @@ click the 'verify' button.
                     />
                     <label
                         htmlFor="upload"
-                        className="flex flex-row items-center ml-10 cursor-pointer mt-4"
+                        className="flex flex-row items-center ml-12 cursor-pointer mt-4"
                       >
                       <input id="upload" type="file" className="hidden" 
                       onChange={uploadImage}
                       accept="image/*"
                       />
-                        <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-5 w-5 fill-white stroke-green-700"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                  />
-                                </svg>
-                        <div className="text-white">Replace</div>
+                        <img src={replace} alt="" className="w-4 h-4"/>
+                        <div className="text-white ml-1" style={color2}>Replace</div>
                       </label>
                       </>
                   ) :(
                     <>
                     <label
                         htmlFor="upload"
-                        className="flex flex-row items-center ml-10 cursor-pointer mt-4"
+                        className="flex flex-row items-center ml-8 cursor-pointer mt-4"
                       >
                       <input id="upload" type="file" className="hidden" 
                       onChange={uploadImage}
                       accept="image/*"
                       />
-                        <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-5 w-5 fill-white stroke-green-700"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                  />
-                                </svg>
-                        <div className="text-white">Replace</div>
+                        <img src={replace} alt="" className="w-4 h-4"/>
+                        <div className="text-white ml-1" style={color2}>Replace</div>
                       </label>
                       </>
                       )}

@@ -378,7 +378,7 @@ const MyReviews: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="mb-10">
+                    <div className="mb-6">
                     <input
                           type="text"
                           id="blockchain"
@@ -390,21 +390,21 @@ const MyReviews: React.FC = () => {
                         />
                     </div>
 
-                    <div className="mb-10">
+                    <label className="text-white ml-2">Overall rating</label>
+                    <StarRating totalStars={10} onRatingChange={handleRatingChange} />
+
+                    <div className="mt-4">
                       <textarea
                         style={border}
                         id="message"
                         rows={4}
-                        className="block p-2.5 w-full text-sm text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="block p-2.5 w-full text-md text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Additional feedback"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
                       ></textarea>
                     </div>
-
-                    <label className="text-white">Overall rating</label>
-      <StarRating totalStars={10} onRatingChange={handleRatingChange} />
 
       {loading && (
                     <div className="flex justify-center items-center">

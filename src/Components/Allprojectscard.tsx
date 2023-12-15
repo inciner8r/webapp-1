@@ -103,7 +103,7 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
                   >
                     <div className="lg:flex md:flex justify-between">
                       <div className="text-4xl font-bold">{metaData.title}</div>
-                      <div className="mt-4 text-white flex flex-col">
+                      <div className="mt-4 flex flex-col text-end" style={color}>
                       <div className="text-md rounded-lg">
                       Creator Name : {metaData.creatorName}
                     </div>
@@ -124,7 +124,7 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
-                    style={color2}
+                    style={color}
                   >
                     <div className="text-lg rounded-lg pr-1">
                       {metaData.domainName} /
@@ -144,26 +144,34 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
               </div>
                   
 
-                  <div className="text-white text-lg flex -ml-1 mt-2">
+                  <div className="text-lg text-white text-start flex mt-2">
+                  <div style={color} className="w-1/5">
+                  Headline :  
+                  </div>
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.4 }}
+                      className="w-4/5"
                     >
                       {/* Average Rating:  */}
-                      Headline : 
+                      
                       {metaData.headline}
                     </motion.p>
                   </div>
 
-                  <div className="text-white text-lg flex mt-2">
+                  <div className="text-lg text-white text-start flex mt-2">
+                  <div style={color} className="w-1/5">
+                  Description : 
+                  </div>
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.4 }}
+                      className="w-4/5"
                     >
                       {/* Total reviews:  */}
-                      Description : 
+                      
                       {metaData.description}
                     </motion.p>
                   </div>
