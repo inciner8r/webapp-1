@@ -113,6 +113,32 @@ const Projects = () => {
     backgroundColor: "#141a31",
   }
 
+  function extractDomain(domain: string): string {
+    // Remove protocol (http://, https://)
+    domain = domain.replace(/^(https?:\/\/)?/i, '');
+  
+    // Remove www. at the beginning
+    domain = domain.replace(/^www\./i, '');
+  
+    // Remove paths, query strings, and fragments
+    domain = domain.replace(/\/.*$/, '');
+    domain = domain.replace(/\?.*$/, '');
+    domain = domain.replace(/#.*$/, '');
+  
+    // Split the domain into parts
+    const parts = domain.split('.');
+  
+    // If the domain has at least two parts (e.g., sharks.io), use the last two parts
+    if (parts.length >= 2) {
+      domain = `${parts[parts.length - 2]}.${parts[parts.length - 1]}`;
+    }
+
+    // Remove .com or .com/ from the end
+    domain = domain.replace(/\.com\/?$/i, '');
+  
+    return domain;
+  }
+
   const initialFormData: FormData = {
     domainName: '',
     title: '',
@@ -181,7 +207,7 @@ const Projects = () => {
 
     try {
       const formDataObj = new FormData();
-      formDataObj.append('domainName', formData.domainName);
+      formDataObj.append('domainName', extractDomain(formData.domainName));
       formDataObj.append('title', formData.title);
       formDataObj.append('category', formData.category);
       formDataObj.append('headline', formData.headline);
