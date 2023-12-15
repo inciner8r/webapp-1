@@ -72,7 +72,25 @@ const DynamicPage: React.FC = () => {
           setReviews(reviewsData);
         }
       } catch (error) {
-        console.error('Error fetching reviews:', error);
+        try {
+          const config = {
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${auth}`,
+            },
+          };
+          const reviewResults = await axios.get(
+            `${REACT_APP_GATEWAY_URL}api/v1.0/getreviews?page=${page}&domain=www.${id}`,
+            config
+          );
+          console.log(reviewResults);
+          const reviewsData = await reviewResults.data.payload;
+          setReviews(reviewsData);
+        }
+        catch(error){
+          console.error("no reviews found");
+        }
       }
     };
 

@@ -95,7 +95,7 @@ const MyReviews: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    const domainAddress = new URL(`${websiteUrl}`).hostname;
+    const domainAddress = new URL(`${websiteUrl}`).hostname.replace(/^www\./, '');
     let metaData = {
       name: title,
       description: description,

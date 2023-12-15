@@ -115,7 +115,7 @@ return (
           ) : (
             <div>
 <div className="justify-end flex">
-<Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
+<Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '').replace(/^www\./, '')}`}>
 <img src={eye} alt="info" className=""/>
 </Link>
 </div>
@@ -152,7 +152,7 @@ return (
                 transition={{ duration: 0.4 }}
                 style={color}
               >
-                <Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '')}`}>
+                <Link to={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '').replace(/^www\./, '')}`}>
                 {/* <a href={metaData.siteUrl} target="_blank"> */}
                   <div>
                   {metaData.name}
