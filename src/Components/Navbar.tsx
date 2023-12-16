@@ -5,12 +5,10 @@ import {
   Typography,
   IconButton,
 } from "@material-tailwind/react";
-
 import netsepioLogo from '../assets/netsepio.png';
 import netsepio from '../assets/netsepio_logo_light.png';
 import netsepioname from '../assets/productname.png';
-// import LogoutButton from './Logout';
-// import ConnectWalletButton from './ConnectWallet';
+import cil_smile from '../assets/cil_smile.png';
 import {useNavigate} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -44,7 +42,6 @@ export default function Header() {
     if (typeof wallet === 'string') {
       navigator.clipboard.writeText(wallet);
       setIsHovered(false);
-      // alert('Address copied to clipboard!');
     }
   };
  
@@ -70,7 +67,6 @@ export default function Header() {
   };
  
   const handleDeleteCookie = () => {
-    // Replace 'your_cookie_name' with the actual name of the cookie you want to delete
     Cookies.remove('platform_wallet');
     Cookies.remove('platform_token');
     setValue(false);
@@ -109,32 +105,7 @@ const logout = {
           </>
         )}
           <button onClick={myreviews} className="z-10 font-bold leading-12 text-black p-2 rounded-lg" style={style2}>Submit Reviews</button>
-
       </Typography>
-      {/*
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-bold text-lg"
-      >
-        <Link to="/" className='bg-black z-10 font-bold text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400'>
-          All Reviews
-        </Link>
-      </Typography>
-      */}
-      {/* <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-semibold text-lg"
-      >
-        {loggedin && wallet && value ?(
-          <button onClick={handleDeleteCookie} className="hover:text-red-400" style={logout} onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}>Logout</button>
-        ): null}
-      </Typography> */}
-      
     </ul>
   );
 
@@ -167,8 +138,6 @@ const logout = {
         nonce
       });
       console.log("sign", signature, "full message", fullMessage);
-
-
 
       const authenticationData = {
         "flowId": nonce,
@@ -229,42 +198,14 @@ const logout = {
             </div>
           </div>
         </Typography>
-        
-        {/* <div className="hidden lg:inline-block p-1 md:ml-5"><ConnectWalletButton/></div> */}
 
-        <div className='text-white font-bold text-center text-xl md:ml-30 hidden lg:inline-block '>
-        {loggedin && wallet && value ? (
-        <>
-        {/* <button 
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave} 
-            data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" className="ms-3 mb-2 md:mb-0 text-white rounded-lg text-xl font-bold px-5 py-2.5 text-center">
-          {wallet.slice(0, 4)}...{wallet.slice(-4)}
-        {isHovered ? (
-        <div id="tooltip-bottom" role="tooltip" className="p-4 absolute z-10 inline-block text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700">
-            {wallet}
-            <div className="cursor-pointer w-1/4 rounded-lg mx-auto py-1 my-4" style={border} onClick={handleCopyClick}>copy</div>
-        </div>
-        ):''}
-        </button> */}
-          {/* <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3> */}
-        </>
-      ) : (
+        <div className="flex flex-row gap-2">
+        {loggedin && wallet && value ?(
         <button 
-        className="text-black p-2 rounded-lg" style={style2}
-        onClick={connectWallet}> Connect Wallet</button>
-      )}
-      </div>
-
-      {loggedin && wallet && value ?(
-
-<div className="flex flex-row gap-2">
-<button 
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave} 
-            data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" className="ms-3 mb-2 md:mb-0 text-white rounded-lg text-xl font-bold px-5 py-2.5 text-center">
+            data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" className="lg:block hidden ms-3 mb-2 md:mb-0 text-white rounded-lg text-xl font-bold px-5 py-2.5 text-center">
           {wallet.slice(0, 4)}...{wallet.slice(-4)}
-        {/* </button> */}
         {isHovered ? (
         <div id="tooltip-bottom" role="tooltip" className="p-4 absolute z-10 inline-block text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700
         left-1/2 transform -translate-x-1/4 max-w-xl">
@@ -273,24 +214,23 @@ const logout = {
         </div>
         ):''}
         </button>
-<button className="hidden lg:block" 
-onClick={() => { setHideFilter(!hidefilter);}}>
-        <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+        ): null}
+
+{loggedin && wallet && value ? (
+        <>
+        </>
+      ) : (
+        <button 
+        className="text-black p-2 rounded-lg lg:block hidden" style={style2}
+        onClick={connectWallet}> Connect Wallet</button>
+      )}
+
+          <button className="hidden lg:block" 
+          onClick={() => { setHideFilter(!hidefilter);}}>
+                  <img src={cil_smile}/>
             </button>
             </div>
-        ): null}
+        
 
 
             {
@@ -298,15 +238,13 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                 <>
                   {/* Dropdown menu */}
                   <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 lg:right-60 md:right-20 absolute">
-                    
-                  {loggedin && wallet && value ?(
+        
                       <>
                       <div className="py-2">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
                         <Link to="/view-my-reviews" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reviews</Link>
                       </div>
-
                     </div>
 
                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
@@ -321,7 +259,6 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
                         <Link to="/dashboard" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Projects</Link>
                       </div>
-
                     </div>
 
                     <div className="py-2 ">
@@ -329,11 +266,8 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
                         <Link to="/vpn" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Vpn</Link>
                       </div>
-
                     </div>
                     </>
-                  ): null}
-
 
                     {loggedin && wallet && value ?(
                     <div className="py-2 px-2 text-sm">
@@ -343,25 +277,15 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                       </div>
                     </div>
                      ): null}
-       
-                    {/* <div className="py-2 ">
-                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
-                        <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" />
-                        <Link href="/marketplace" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Marketplaces</Link>
-                      </div>
-
-                    </div>
-                    <div className="py-2">
-                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
-                        <FaCog className="text-lg mt-2 ml-2 dark:text-white dark:text-black" />
-                        <Link href="/logout" className="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</Link>
-                      </div>
-                    </div> */}
                   </div>
-{/* ): null} */}
                 </>
               )
             }
+
+              <button className="lg:hidden block" 
+                 onClick={() => { setHideFilter(!hidefilter);}}>
+                  <img src={cil_smile}/>
+            </button>
 
         <IconButton
           variant="text"
@@ -405,36 +329,35 @@ onClick={() => { setHideFilter(!hidefilter);}}>
         <div className="container mx-auto">
           {/* {navList} */}
           <div className="flex justify-between">
-          {loggedin && wallet && value ?(
+          {/* {loggedin && wallet && value ?(
             <>
           <Link to="/view-my-reviews" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Reviews</Link>
           <Link to="/profile" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Profile</Link>
           <Link to="/dashboard" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Projects</Link>
           <Link to="/vpn" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Vpn</Link>
           </>
-          ):null }
-          {loggedin && wallet && value ?(
+          ):null } */}
+          {/* {loggedin && wallet && value ?(
                     <div className="">
                       <div className="">
                       <button onClick={handleDeleteCookie} className="hover:text-red-400 text-white p-2 rounded-lg" style={border} onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}>Logout</button>
                       </div>
                     </div>
-                     ): null}
+                     ): null} */}
           </div>
           <div className="mx-auto">
-            {/* <ConnectWalletButton/> */}
-            <div className='text-white font-bold text-center text-xl md:ml-30'>
-        {loggedin && wallet && value ? (
-        <>
-          <h3 className="mt-6">{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
-        </>
-      ) : (
-        <button 
-        className="bg-green-500 text-black p-2 rounded-lg" style={style2}
-        onClick={connectWallet}> Connect Wallet</button>
-      )}
-      </div>
+            <div className='text-white text-center text-md md:ml-30 flex gap-2 mt-4'>
+              {loggedin && wallet && value ? (
+              <>
+                <h3 className="mt-6">{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
+              </>
+            ) : (
+              <button 
+              className="bg-green-500 text-black p-2 rounded-lg" style={style2}
+              onClick={connectWallet}> Connect Wallet</button>
+            )}
+            </div>
           </div>
         </div>
       </MobileNav>
