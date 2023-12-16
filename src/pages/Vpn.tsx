@@ -15,7 +15,8 @@ import MyVpnContainer from '../Components/Myvpncontainer';
 import emoji from '../assets/EmojiMessage.png';
 import { NFTStorage } from "nft.storage";
 import ButtonNavigation from '../Components/Buttonnavigation';
-import connectWallet from '../modules/connectwallet';
+// import connectWallet from '../modules/Connectwallet';
+import WalletConnector from '../Components/Walletconnector';
 import novpn from '../assets/novpn2.png';
 import vpn1 from '../assets/vpn1.png';
 import vpn2 from '../assets/vpn2.png';
@@ -234,26 +235,11 @@ setbuttonset(false);
   const loggedin = Cookies.get("platform_token");
   const wallet = Cookies.get("platform_wallet");
 
-  useEffect(() => {
-    const handleConnectWallet = async () => {
-      if (!loggedin && !wallet) {
-        try {
-          const isConnect = await connectWallet();
-          if (isConnect) {
-            window.location.reload();
-          }
-        } catch (error) {
-          console.error('Error connecting wallet:', error);
-        }
-      }
-    };
-    handleConnectWallet();
-  }, [loggedin, wallet]);
-
   if (!loggedin && !wallet) {
     return (
       <div className='min-h-screen text-center text-white'>
         <div style={{ marginTop: '30vh' }} className='text-2xl'>Wallet not connected, please authorize to view the content.</div>
+        <WalletConnector/>
       </div>
     )
   }
