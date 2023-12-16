@@ -14,8 +14,7 @@ import {
 } from "react-icons/fa";
 import axios from 'axios';
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
-// import connectWallet from '../modules/Connectwallet';
-import WalletConnector from '../Components/Walletconnector';
+import connectWallet from '../modules/connectwallet';
 import { removePrefix } from "../modules/Utils/ipfsUtil";
 import AllProjectsContainer from '../Components/Allprojectscontainer';
 import MyProjectsContainer from '../Components/Myprojectscontainer';
@@ -401,11 +400,26 @@ console.log("jsonData",jsonData);
   const loggedin = Cookies.get("platform_token");
   const wallet = Cookies.get("platform_wallet");
 
+  useEffect(() => {
+    const handleConnectWallet = async () => {
+      if (!loggedin && !wallet) {
+        try {
+          const isConnect = await connectWallet();
+          if (isConnect) {
+            window.location.reload();
+          }
+        } catch (error) {
+          console.error('Error connecting wallet:', error);
+        }
+      }
+    };
+    handleConnectWallet();
+  }, [loggedin, wallet]);
+
   if (!loggedin && !wallet) {
     return (
       <div className='min-h-screen text-center text-white'>
         <div style={{ marginTop: '30vh' }} className='text-2xl'>Wallet not connected, please authorize to view the content.</div>
-        <WalletConnector/>
       </div>
     )
   }
