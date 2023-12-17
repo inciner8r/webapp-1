@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import Vpn from './pages/Vpn';
 import VerificationSteps from './pages/Verificationsteps';
+import OAuthLogin from './Components/google_auth';
 
 const App: React.FC = () => {
 
@@ -30,6 +31,7 @@ const App: React.FC = () => {
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/vpn" element={<Vpn/>} />
           <Route path="/verification-steps" element={<VerificationSteps/>} />
+          <Route path="/google_auth" Component={OAuthLogin} />
         </Routes>
         <Footer />
       </div>
