@@ -42,6 +42,16 @@ const MyReviews: React.FC = () => {
     setSelectedRating(rating);
   };
 
+    // Get the URL fragment
+    const currentUrl = window.location.href;
+    const params = new URLSearchParams(currentUrl.split('?')[1]);
+    const siteUrl = params.get('siteUrl');
+    console.log("siteUrl",siteUrl);
+
+    useEffect(() => {
+      setWebsiteUrl(siteUrl?siteUrl:"");
+    }, [siteUrl]);
+
   // State to check if the user is connected to Metamask:
   // const walletData = useSelector((state: RootState) => state.wallet.walletData);
 

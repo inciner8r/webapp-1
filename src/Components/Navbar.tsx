@@ -181,7 +181,7 @@ const logout = {
   }
  
   return (
-    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4" style={background}>
+    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4" placeholder="" style={background}>
       <div className="container mx-auto flex items-center justify-between">
         <Typography
           as="a"
@@ -289,6 +289,7 @@ const logout = {
 
         <IconButton
           variant="text"
+          placeholder=""
           className="mr-2 mb-5 h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
           ripple={false}
           onClick={() => setOpenNav(!openNav)}
