@@ -237,46 +237,60 @@ const logout = {
               hidefilter && (
                 <>
                   {/* Dropdown menu */}
-                  <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 lg:right-60 md:right-20 absolute">
-        
-                      <>
-                      <div className="py-2">
-                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
-                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
-                        <Link to="/view-my-reviews" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reviews</Link>
-                      </div>
-                    </div>
-
-                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                  <div id="dropdown" className="z-10 bg-white w-36 rounded-lg shadow dark:bg-gray-800 top-24 lg:right-60 md:right-20 absolute">
+<div className="divide-y divide-gray-500">
+                    <ul className="py-2 text-sm text-black dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                       <li className="flex flex-row dark:hover:bg-gray-600 hover:bg-gray-100">
                         {/* <FaUserCircle className="text-lg mt-2 ml-2" /> */}
                         <Link to="/profile" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</Link>
                       </li>
                     </ul>
 
-                    <div className="py-2 ">
+                    <div className="py-2">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
-                        <Link to="/dashboard" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Projects</Link>
+                        <Link to="/view-my-reviews" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reviews</Link>
                       </div>
                     </div>
 
-                    <div className="py-2 ">
+                    <div className="py-2 divide-y-0">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
-                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
-                        <Link to="/vpn" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Vpn</Link>
+                        <div className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Projects</div>
                       </div>
                     </div>
-                    </>
+
+                    <div className="py-2 divide-y-0">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/dashboard" onClick={()=>setHideFilter(false)} className="block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Projects</Link>
+                      </div>
+                    </div>
+                    </div>
+
+                    <div className="divide-y divide-gray-500">
+                    <div className="py-2">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/verifiedproj" onClick={()=>setHideFilter(false)} className="block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Verified Projects</Link>
+                      </div>
+                    </div>
+
+                    <div className="py-2">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/vpn" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Vpn</Link>
+                      </div>
+                    </div>
 
                     {loggedin && wallet && value ?(
                     <div className="py-2 px-2 text-sm">
                       <div className="flex flex-row">
-                      <button onClick={handleDeleteCookie} className="mx-auto hover:text-red-400 text-gray-700" onMouseEnter={() => setHovered(true)}
+                      <button onClick={handleDeleteCookie} className="mx-auto hover:text-red-400 text-black" onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}>Logout</button>
                       </div>
                     </div>
                      ): null}
+                    </div>
                   </div>
                 </>
               )

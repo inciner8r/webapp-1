@@ -8,6 +8,7 @@ import Footer from './Components/Footer';
 import DynamicPage from './pages/DynamicPage';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import VerifiedProj from './pages/VerifiedProj';
 import Vpn from './pages/Vpn';
 import VerificationSteps from './pages/Verificationsteps';
 
@@ -28,6 +29,7 @@ const App: React.FC = () => {
           <Route path="/reviews/:id" Component={DynamicPage} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/verifiedproj" element={<VerifiedProj/>} />
           <Route path="/vpn" element={<Vpn/>} />
           <Route path="/verification-steps" element={<VerificationSteps/>} />
         </Routes>

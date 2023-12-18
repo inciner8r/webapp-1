@@ -48,7 +48,7 @@ interface FormData {
   blockchain:string;
 }
 
-const Projects = () => {
+const VerifiedProj = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [profileset, setprofileset] = useState<boolean>(true);
@@ -436,11 +436,7 @@ console.log("jsonData",jsonData);
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
 
 <div className='-mt-10'>
-  { Verifiedproj ? (
 <ButtonNavigation onNavigate={handleNavigation} count={verifiedprojectsData? verifiedprojectsData.length : 0}/>
-  ): (
-<ButtonNavigation onNavigate={handleNavigation} count={projectsData? projectsData.length : 0}/>
-  )}
           </div>
            
             { buttonset && (
@@ -837,16 +833,17 @@ click the 'verify' button.
   !buttonset && (
     <>
     <h1 className="mb-8 text-start lg:text-4xl md:text-4xl text-xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight lg:flex md:flex">
-                    <button onClick={() => setVerifiedproj(false)} className={`text-white lg:ml-20 md:ml-20 ml-10`}>My Projects</button>
-                    {/* <button onClick={() => setVerifiedproj(true)} className={`text-white lg:ml-20 md:ml-20 ml-10 lg:mt-0 md:mt-0 mt-6
-                    ${Verifiedproj ? 'border-b border-green-500' : ''}`}>All Verified Projects</button> */}
+                    {/* <button onClick={() => setVerifiedproj(false)} className={`text-white lg:ml-20 md:ml-20 ml-10
+                    ${Verifiedproj ? '' : 'border-b border-green-500'}`}>My Projects</button> */}
+                    <button onClick={() => setVerifiedproj(true)} className={`text-white lg:ml-20 md:ml-20 ml-10 lg:mt-0 md:mt-0 mt-6
+                    ${Verifiedproj ? 'border-b border-green-500' : ''}`}>All Verified Projects</button>
                   </h1>
             <section className="pb-10 rounded-xl">
               
             {loading ? (
             // <Loader />
             <div className="min-h-screen"></div>
-          ) : ((!projectsData || projectsData?.length == 0) && (!Verifiedproj) )? (
+          ) : ((!projectsData || projectsData?.length == 0))? (
             <motion.div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
             initial={{ opacity: 0 }}
@@ -869,13 +866,7 @@ Verification Needed</h2>
           </motion.div>
           ) : (
             <>
-            {
-              Verifiedproj ? (
                 <AllProjectsContainer metaDataArray={verifiedprojectsData} MyReviews={false}/>
-              ) : (
-                <MyProjectsContainer metaDataArray={projectsData} MyReviews={false}/>
-              )
-            }
             </>
           )}
 
@@ -894,19 +885,6 @@ Verification Needed</h2>
             </button>
           </div>
 )}
-                     
-
-                     { projectsData && projectsData?.length > 0 && (
-                      <div className="mb-4 space-x-0 md:space-x-2 md:mb-8 mt-10">
-                        <button
-                          style={button}
-                          onClick={() => setbuttonset(true)}
-                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg lg:w-1/3 md:w-1/3 w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
-                        >
-                          Add More Project
-                        </button>
-                      </div>
-                    )}
 
 
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
@@ -927,4 +905,4 @@ Verification Needed</h2>
   )
 }
 
-export default Projects
+export default VerifiedProj

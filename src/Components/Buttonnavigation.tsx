@@ -32,7 +32,9 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate, count }
       >
         {location.pathname.includes('reviews') && count>0 ? `Reviews (${count})` : 'Reviews'}
       </Link>
-      <Link
+
+      { (location.pathname.includes('dashboard') || !location.pathname.includes('verifiedproj')) && (
+        <Link
         to="/dashboard"
         onClick={() => changePage('projects')}
         className={`rounded-lg px-10 py-8 font-bold`}
@@ -44,6 +46,25 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate, count }
       >
         {location.pathname.includes('dashboard') && count>0 ? `Projects (${count})` : 'Projects'}
       </Link>
+      )
+      }
+      
+      { location.pathname.includes('verifiedproj') && (
+        <Link
+        to="/verifiedproj"
+        onClick={() => changePage('projects')}
+        className={`rounded-lg px-10 py-8 font-bold`}
+        style={{
+            color: location.pathname.includes('verifiedproj') ? 'white' : '#788AA3',
+            backgroundColor: location.pathname.includes('verifiedproj') ? '#4B5995' : '',
+            borderBottom: location.pathname.includes('verifiedproj') ? '2px solid white' : '',
+          }}
+      >
+        {location.pathname.includes('verifiedproj') && count>0 ? `Projects (${count})` : 'Projects'}
+      </Link>
+      )
+      }
+      
       <Link
         to="/vpn"
         onClick={() => changePage('vpns')}
