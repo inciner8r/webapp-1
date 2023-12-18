@@ -5,7 +5,7 @@ import {
   Typography,
   IconButton,
 } from "@material-tailwind/react";
-
+import { useWallet, WalletName, WalletReadyState} from "@aptos-labs/wallet-adapter-react";
 import netsepioLogo from '../assets/netsepio.png';
 import netsepio from '../assets/netsepio_logo_light.png';
 import netsepioname from '../assets/productname.png';
@@ -16,21 +16,74 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import nacl from 'tweetnacl';
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
  
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
 
   const loggedin = Cookies.get("platform_token");
-  const wallet = Cookies.get("platform_wallet");
+  const mywallet = Cookies.get("platform_wallet");
 
   const [profileId, setProfileId] = useState<string | null>(null);
   const [userWallet, setUserWallet] = useState<string | null>(null);
   const [aptBalance, setAptBalance] = useState<string | null>(null);
   const [value, setValue] = useState<boolean | null>(true);
   const [hidefilter, setHideFilter] = useState(false);
-
   const [isHovered, setIsHovered] = useState(false);
+  const [walletSelectorModalOpen, setWalletSelectorModalOpen] = useState(false);
+
+  const {
+    connect,
+    account,
+    network,
+    connected,
+    disconnect,
+    wallet,
+    wallets,
+    signAndSubmitTransaction,
+    signTransaction,
+    signMessage,
+  } = useWallet();
+
+  // Log the useWallet object to the console
+  console.log("useWallet:", {
+    connect,
+    disconnect,
+    account,
+    network,
+    connected,
+    wallet,
+    wallets,
+    signAndSubmitTransaction,
+    signTransaction,
+    signMessage,
+  });
+
+  const onWalletButtonClick = () => {
+    if (connected) {
+      disconnect();
+    } else {
+      setWalletSelectorModalOpen(true);
+    }
+  };
+
+  const [isConnected, setIsConnected] = useState(false);
+
+  useEffect(() => {
+    if (isConnected) {
+      connectWallet();
+    }
+  }, [isConnected]);
+
+  const onWalletSelected = async(wallet: WalletName) => {
+      try {
+      await connect(wallet);
+      setIsConnected(true);
+      setWalletSelectorModalOpen(false);
+    } catch (error) {
+      console.error("Error during wallet connection:", error);
+    }
+  };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -41,8 +94,8 @@ export default function Header() {
   };
 
   const handleCopyClick = () => {
-    if (typeof wallet === 'string') {
-      navigator.clipboard.writeText(wallet);
+    if (typeof mywallet === 'string') {
+      navigator.clipboard.writeText(mywallet);
       setIsHovered(false);
       // alert('Address copied to clipboard!');
     }
@@ -71,6 +124,9 @@ export default function Header() {
  
   const handleDeleteCookie = () => {
     // Replace 'your_cookie_name' with the actual name of the cookie you want to delete
+    if (connected) {
+        disconnect();
+    }
     Cookies.remove('platform_wallet');
     Cookies.remove('platform_token');
     setValue(false);
@@ -103,7 +159,7 @@ const logout = {
         color="blue-gray"
         className="p-1 text-md"
       >
-        { loggedin && wallet && value && (
+        { loggedin && mywallet && value && (
           <>
          <button onClick={seemyreviews} className="z-10 font-bold leading-12 text-white p-2 rounded-lg mr-2" style={border}>My Reviews</button>
           </>
@@ -148,13 +204,16 @@ const logout = {
 
   const connectWallet = async () => {
     setValue(true);
-    const wallet = getAptosWallet();
+    // const wallet = getAptosWallet();
     try {
-      const response = await wallet.connect();
+      // const response = await wallet.connect();
 
-      const account = await wallet.account();
-      console.log("account",account)
+      // const account = await wallet.account();
+      // console.log("account",account)
 
+      // connect(wallet);
+
+      if(account?.address){
       const { data } = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/flowid?walletAddress=${account.address}`);
       console.log(data);
 
@@ -162,7 +221,7 @@ const logout = {
       const nonce = data.payload.flowId;
       const publicKey = account.publicKey;
 
-      const { signature, fullMessage } = await wallet.signMessage({
+      const { signature, fullMessage } = await signMessage({
         message,
         nonce
       });
@@ -193,14 +252,16 @@ const logout = {
         const token = await response?.data?.payload?.token;
             // localStorage.setItem("platform_token", token);
             Cookies.set("platform_token", token, { expires: 7 });
+            if (account?.address) {
             Cookies.set("platform_wallet", account.address, { expires: 7 });
+            }
 
-            setUserWallet(account.address);
+            // setUserWallet(account?.address);
             window.location.reload();
       } catch (error) {
         console.error(error);
       }
-
+    }
     } catch (err) {
       console.log(err);
     }
@@ -212,7 +273,7 @@ const logout = {
   }
  
   return (
-    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4" style={background}>
+    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4" placeholder="" style={background}>
       <div className="container mx-auto flex items-center justify-between">
         <Typography
           as="a"
@@ -233,7 +294,7 @@ const logout = {
         {/* <div className="hidden lg:inline-block p-1 md:ml-5"><ConnectWalletButton/></div> */}
 
         <div className='text-white font-bold text-center text-xl md:ml-30 hidden lg:inline-block '>
-        {loggedin && wallet && value ? (
+        {loggedin && mywallet && value ? (
         <>
         {/* <button 
             onMouseEnter={handleMouseEnter}
@@ -250,25 +311,92 @@ const logout = {
           {/* <h3>{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3> */}
         </>
       ) : (
-        <button 
-        className="text-black p-2 rounded-lg" style={style2}
-        onClick={connectWallet}> Connect Wallet</button>
+        <>
+        <button className="text-black p-2 rounded-lg" style={style2} onClick={() => onWalletButtonClick()}>
+        {connected ? `${account?.address.slice(0, 4)}...${account?.address.slice(-4)}` : "Connect Wallet"}
+        </button>
+        </>
       )}
       </div>
 
-      {loggedin && wallet && value ?(
+{
+  walletSelectorModalOpen && (
+<div className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+    <div className="relative p-4 lg:w-1/3 w-full max-w-2xl max-h-full">
+        <div className="relative rounded-lg shadow dark:bg-gray-700 bg-white">
+            <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
+                <h3 className="text-2xl font-semibold text-black">
+                Connect Wallet
+                </h3>
+                <button 
+                    onClick={() => setWalletSelectorModalOpen(false)}
+                    type="button" 
+                    className="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span className="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            {!connected && (
+          <div className="p-2">
+            {wallets.map((wallet) => {
+              return (
+                <div
+                  key={wallet.name}
+                  onClick={
+                    wallet.readyState === WalletReadyState.Installed || wallet.readyState === WalletReadyState.Loadable
+                      ? () => onWalletSelected(wallet.name)
+                      : () => window.open(wallet.url)
+                  }
+                >
+                  <div className="flex justify-between text-black m-4 p-4 bg-gray-300 rounded-lg">
+                    <div className="flex">
+                      <img
+                        src={wallet.icon}
+                        width={28}
+                        style={{ marginRight: 10 }}
+                      />
+                      <div className="mt-1">
+                        {wallet.name}
+                      </div>
+                    </div>
+                    {wallet.readyState === WalletReadyState.Installed || wallet.readyState === WalletReadyState.Loadable ? (
+                      <button className="px-2 py-1 rounded-md" style={style2}>
+                        <div className="">
+                          Connect
+                        </div>
+                      </button>
+                    ) : (
+                      <div className="">Install</div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+            )}
+        </div>          
+    </div>
+</div>
+  )
+}
+
+      {loggedin && mywallet && value ?(
 
 <div className="flex flex-row gap-2">
 <button 
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave} 
             data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button" className="ms-3 mb-2 md:mb-0 text-white rounded-lg text-xl font-bold px-5 py-2.5 text-center">
-          {wallet.slice(0, 4)}...{wallet.slice(-4)}
+          {mywallet.slice(0, 4)}...{mywallet.slice(-4)}
         {/* </button> */}
         {isHovered ? (
         <div id="tooltip-bottom" role="tooltip" className="p-4 absolute z-10 inline-block text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700
         left-1/2 transform -translate-x-1/4 max-w-xl">
-            {wallet}
+            {mywallet}
             <div className="cursor-pointer w-1/4 rounded-lg mx-auto py-1 my-4" style={border} onClick={handleCopyClick}>copy</div>
         </div>
         ):''}
@@ -299,7 +427,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                   {/* Dropdown menu */}
                   <div id="dropdown" className="z-10 bg-white w-36 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 top-24 lg:right-60 md:right-20 absolute">
                     
-                  {loggedin && wallet && value ?(
+                  {loggedin && mywallet && value ?(
                       <>
                       <div className="py-2">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
@@ -335,7 +463,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
                   ): null}
 
 
-                    {loggedin && wallet && value ?(
+                    {loggedin && mywallet && value ?(
                     <div className="py-2 px-2 text-sm">
                       <div className="flex flex-row">
                       <button onClick={handleDeleteCookie} className="mx-auto hover:text-red-400 text-gray-700" onMouseEnter={() => setHovered(true)}
@@ -364,6 +492,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
             }
 
         <IconButton
+        placeholder=""
           variant="text"
           className="mr-2 mb-5 h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
           ripple={false}
@@ -405,7 +534,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
         <div className="container mx-auto">
           {/* {navList} */}
           <div className="flex justify-between">
-          {loggedin && wallet && value ?(
+          {loggedin && mywallet && value ?(
             <>
           <Link to="/view-my-reviews" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Reviews</Link>
           <Link to="/profile" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Profile</Link>
@@ -413,7 +542,7 @@ onClick={() => { setHideFilter(!hidefilter);}}>
           <Link to="/vpn" className="block px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg" style={border}>Vpn</Link>
           </>
           ):null }
-          {loggedin && wallet && value ?(
+          {loggedin && mywallet && value ?(
                     <div className="">
                       <div className="">
                       <button onClick={handleDeleteCookie} className="hover:text-red-400 text-white p-2 rounded-lg" style={border} onMouseEnter={() => setHovered(true)}
@@ -425,14 +554,15 @@ onClick={() => { setHideFilter(!hidefilter);}}>
           <div className="mx-auto">
             {/* <ConnectWalletButton/> */}
             <div className='text-white font-bold text-center text-xl md:ml-30'>
-        {loggedin && wallet && value ? (
+        {loggedin && mywallet && value ? (
         <>
-          <h3 className="mt-6">{wallet.slice(0, 4)}...{wallet.slice(-4)}</h3>
+          <h3 className="mt-6">{mywallet.slice(0, 4)}...{mywallet.slice(-4)}</h3>
         </>
       ) : (
         <button 
         className="bg-green-500 text-black p-2 rounded-lg" style={style2}
-        onClick={connectWallet}> Connect Wallet</button>
+        // onClick={connectWallet}
+        > Connect Wallet</button>
       )}
       </div>
           </div>

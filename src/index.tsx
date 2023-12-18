@@ -10,6 +10,8 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { ApolloProvider } from '@apollo/client';
+import { PetraWallet } from "petra-plugin-wallet-adapter";
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 // import { client } from './graphql/client';
 // import { Provider } from 'react-redux';
 // import store from './store';
@@ -38,6 +40,8 @@ import App from './App';
 //   webSocketProvider,
 // });
 
+const wallets = [new PetraWallet()];
+
 const rootElement = document.getElementById('root') as HTMLElement;
 
 const root = ReactDOM.createRoot(rootElement);
@@ -57,7 +61,9 @@ root.render(
       >
         <ApolloProvider client={client}>
           <Provider store={store}> */}
+          <AptosWalletAdapterProvider plugins={wallets} autoConnect={true}>
             <App />
+            </AptosWalletAdapterProvider>
           {/* </Provider>
         </ApolloProvider>
       </RainbowKitProvider>
