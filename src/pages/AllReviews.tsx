@@ -248,6 +248,58 @@ useEffect(() => {
     fetchMetaData().finally(() => setLoading(false));
   }
 }, [reviews]);
+
+const CLIENT_ID = '699954671747-bqj0rvn0q2296skerds6indulobrv1fv.apps.googleusercontent.com'; // Replace with your actual Google Client ID
+const REDIRECT_URI = 'http://localhost:3000/oauth-callback'; // Replace with your actual redirect URI
+
+const parseAuthorizationCode = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+
+  if (code) {
+    localStorage.setItem("code",code)
+    exchangeCodeForToken(code);
+    console.log("code", code)
+  }
+};
+
+const exchangeCodeForToken = async (code: string) => {
+  const tokenEndpoint = 'https://www.googleapis.com/oauth2/v4/token';
+
+  const tokenRequestBody = {
+    code,
+    client_id: CLIENT_ID,
+    client_secret: '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',
+    redirect_uri: REDIRECT_URI,
+    grant_type: 'authorization_code',
+  };
+
+  try {
+    const response = await fetch(tokenEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(tokenRequestBody).toString(),
+    });
+
+    const tokenData = await response.json();
+    handleTokenData(tokenData);
+    console.log("token", tokenData);
+  } catch (error) {
+    console.error('Token exchange error:', error);
+  }
+};
+
+const handleTokenData = (tokenData: any) => {
+  // setLoggedIn(true);
+  window.history.replaceState({}, document.title, window.location.pathname);
+};
+
+
+useEffect(() => {
+  parseAuthorizationCode();
+}, []);
   
 
   return (

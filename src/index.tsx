@@ -10,6 +10,7 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { ApolloProvider } from '@apollo/client';
+import {GoogleOAuthProvider} from '@react-oauth/google';
 // import { client } from './graphql/client';
 // import { Provider } from 'react-redux';
 // import store from './store';
@@ -57,7 +58,9 @@ root.render(
       >
         <ApolloProvider client={client}>
           <Provider store={store}> */}
-            <App />
+          <GoogleOAuthProvider clientId="699954671747-bqj0rvn0q2296skerds6indulobrv1fv.apps.googleusercontent.com">
+            <App/>
+          </GoogleOAuthProvider>;
           {/* </Provider>
         </ApolloProvider>
       </RainbowKitProvider>
