@@ -230,7 +230,7 @@ const Report = () => {
 
     console.log("data to send in report", jsonData);
 
-      const response = await fetch(`https://testnet.gateway.netsepio.com/api/v1.0/report/`, {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/report/`, {
         method: 'POST',
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -264,7 +264,7 @@ const Report = () => {
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/report/`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/report/`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",

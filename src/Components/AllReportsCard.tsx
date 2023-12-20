@@ -126,7 +126,7 @@ const AllReportsCard: React.FC<ReviewCardProps> = ({
   const handlevote = async (type: string) => {
     setLoading(true);
 
-    const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ";
+    const auth = Cookies.get("platform_token");
 
     try {
       const formDataObj = new FormData();
@@ -142,7 +142,7 @@ const AllReportsCard: React.FC<ReviewCardProps> = ({
     // Convert JavaScript Object to JSON string
     const jsonData = JSON.stringify(formDataObject);
 
-      const response = await fetch(`https://testnet.gateway.netsepio.com/api/v1.0/report/vote`, {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/report/vote`, {
         method: 'POST',
         headers: {
           Accept: "application/json, text/plain, */*",

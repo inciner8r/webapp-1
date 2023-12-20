@@ -212,7 +212,7 @@ const AllReport = () => {
 
     setLoading(true);
 
-    const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ"
+    const auth = Cookies.get("platform_token");
     const tagsArray = formData.tags.split(',').map(tags => tags.trim());
     console.log("tagsArray",tagsArray);
 
@@ -238,7 +238,7 @@ const AllReport = () => {
 
     console.log("data to send in report", jsonData);
 
-      const response = await fetch(`https://testnet.gateway.netsepio.com/api/v1.0/report/`, {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/report/`, {
         method: 'POST',
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -270,9 +270,9 @@ const AllReport = () => {
     const fetchProjectsData = async (page: number) => {
       setLoading(true);
       try {
-        const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ"
+        const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`https://testnet.gateway.netsepio.com/api/v1.0/report/`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/report/`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
