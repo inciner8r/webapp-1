@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import StarRatingshow from "./StarRatingshow";
 import eye from '../assets/carbon_view.png';
+import asnft from '../assets/asnft.png';
 
 interface ReviewCardProps {
   metaData: {
@@ -24,6 +25,7 @@ interface ReviewCardProps {
   reviews: {
     name: string;
     voter: string;
+    transactionHash: string;
   } | null;
   MyReviews?: boolean;
   // review?: ReviewCreated;
@@ -178,7 +180,12 @@ return (
                   "{metaData.description}"
                 </motion.p>
               </div>
+
+              <Link to={`https://explorer.aptoslabs.com/txn/${reviews?.transactionHash}/?network=testnet`} target="_blank">
+              <button className="mt-10 text-white flex gap-2 py-2 px-4 text-sm rounded-md" style={{backgroundColor:'#11D9C580'}}><img src={asnft} className="w-5 h-5"/>Review as NFT</button>
+              </Link>
             </div>
+            
           )}
         </div>
 

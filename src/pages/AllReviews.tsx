@@ -9,7 +9,10 @@ import axios from "axios";
 import aptos from '../assets/Protocolicon.png';
 import google from '../assets/googlecloud.png';
 import icon from '../assets/Group.png';
-import landing from '../assets/landing.png';
+import landing1 from '../assets/landing1.png';
+import landing2 from '../assets/landing2.png';
+import landing3 from '../assets/landing3.png';
+import landing4 from '../assets/landing4.png';
 import '../index.css';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
@@ -248,6 +251,59 @@ useEffect(() => {
     fetchMetaData().finally(() => setLoading(false));
   }
 }, [reviews]);
+
+
+const CLIENT_ID = process.env.CLIENT_ID!
+const REDIRECT_URI = process.env.REDIRECT_URI!
+
+const parseAuthorizationCode = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+
+  if (code) {
+    localStorage.setItem("code",code)
+    exchangeCodeForToken(code);
+    console.log("code", code)
+  }
+};
+
+const exchangeCodeForToken = async (code: string) => {
+  const tokenEndpoint = 'https://www.googleapis.com/oauth2/v4/token';
+
+  const tokenRequestBody = {
+    code,
+    client_id: CLIENT_ID,
+    client_secret: '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',
+    redirect_uri: REDIRECT_URI,
+    grant_type: 'authorization_code',
+  };
+
+  try {
+    const response = await fetch(tokenEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(tokenRequestBody).toString(),
+    });
+
+    const tokenData = await response.json();
+    handleTokenData(tokenData);
+    console.log("token", tokenData);
+  } catch (error) {
+    console.error('Token exchange error:', error);
+  }
+};
+
+const handleTokenData = (tokenData: any) => {
+  // setLoggedIn(true);
+  window.history.replaceState({}, document.title, window.location.pathname);
+};
+
+
+useEffect(() => {
+  parseAuthorizationCode();
+}, []);
   
 
   return (
@@ -279,14 +335,36 @@ useEffect(() => {
 
       <section className="mb-40">
             <div className="py-0 mx-auto max-w-7xl">
-                <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
-                    <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
-                    Turn Reviews into Valuable NFTs
-                    </h1>
-                    <p className="pb-20 text-lg text-gray-300 md:text-lg lg:px-24">
-                    Boost Trust with NFT Reviews and Verified Project Ownership
-                    </p>
-                    <img src={landing}/>
+                <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
+                      <div className="flex">
+                      <div className='w-1/2 my-auto'>
+                          <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
+                          Review as NFT
+                        </h1>
+                        <p className="pb-20 text-lg text-gray-300 md:text-lg">
+                        Review stored as NFT on Aptos chain free, no gas fees included
+                        </p>
+                      </div>
+                      <div className="flex relative w-1/2">
+                        <img src={landing1} className="flex-1" />
+                        <img src={landing2} className="absolute lg:right-[-80px] lg:bottom-[-80px] lg:block hidden" />
+                      </div>
+
+                      </div>
+                      <div className="flex mt-20">
+                      <div className="flex relative w-1/2">
+                        <img src={landing3} className="flex-1" />
+                        <img src={landing4} className="absolute lg:right-[-80px] lg:bottom-[-80px] lg:block hidden" />
+                      </div>
+                      <div className='w-1/2 my-auto'>
+                          <h1 className="text-right mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
+                          Project owner verification
+                        </h1>
+                        <p className="text-right pb-20 text-lg text-gray-300 md:text-lg">
+                        Vouch and Verify for your project and promote more visibility.
+                        </p>
+                      </div>
+                      </div>
                 </div>
             </div>
       </section>

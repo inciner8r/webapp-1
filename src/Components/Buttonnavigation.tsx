@@ -64,6 +64,38 @@ const ButtonNavigation: React.FC<ButtonNavigationProps> = ({ onNavigate, count }
       </Link>
       )
       }
+
+{ (location.pathname.includes('report') || !location.pathname.includes('voting')) && (
+      <Link
+        to="/report"
+        onClick={() => changePage('reports')}
+        className={`rounded-lg px-10 py-8 font-bold`}
+        style={{
+            color: location.pathname.includes('report') ? 'white' : '#788AA3',
+            backgroundColor: location.pathname.includes('report') ? '#4B5995' : '',
+            borderBottom: location.pathname.includes('report') ? '2px solid white' : '',
+          }}
+      >
+        {location.pathname.includes('report') && count>0 ? `Reports (${count})` : 'Reports'}
+      </Link>
+
+)}
+
+{ location.pathname.includes('voting') && (
+      <Link
+        to="/voting"
+        onClick={() => changePage('voting')}
+        className={`rounded-lg px-10 py-8 font-bold`}
+        style={{
+            color: location.pathname.includes('voting') ? 'white' : '#788AA3',
+            backgroundColor: location.pathname.includes('voting') ? '#4B5995' : '',
+            borderBottom: location.pathname.includes('voting') ? '2px solid white' : '',
+          }}
+      >
+        {location.pathname.includes('voting') && count>0 ? `Reports` : 'Reports'}
+      </Link>
+
+)}
       
       <Link
         to="/vpn"

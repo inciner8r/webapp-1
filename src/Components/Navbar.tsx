@@ -27,6 +27,8 @@ export default function Header() {
   const [aptBalance, setAptBalance] = useState<string | null>(null);
   const [value, setValue] = useState<boolean | null>(true);
   const [hidefilter, setHideFilter] = useState(false);
+  const [hideprojects, setHideProjects] = useState(false);
+  const [hidereports, setHideReports] = useState(false);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -160,9 +162,11 @@ const logout = {
         const response = await axios(config);
         console.log("auth data", response.data);
         const token = await response?.data?.payload?.token;
+        const userId = await response?.data?.payload?.userId;
             // localStorage.setItem("platform_token", token);
             Cookies.set("platform_token", token, { expires: 7 });
             Cookies.set("platform_wallet", account.address, { expires: 7 });
+            Cookies.set("platform_userid", userId, { expires: 7 });
 
             setUserWallet(account.address);
             window.location.reload();
@@ -239,43 +243,75 @@ const logout = {
                   {/* Dropdown menu */}
                   <div id="dropdown" className="z-10 bg-white w-36 rounded-lg shadow dark:bg-gray-800 top-24 lg:right-60 md:right-20 absolute">
 <div className="divide-y divide-gray-500">
-                    <ul className="py-2 text-sm text-black dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <ul className="py-1 text-sm text-black dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                       <li className="flex flex-row dark:hover:bg-gray-600 hover:bg-gray-100">
                         {/* <FaUserCircle className="text-lg mt-2 ml-2" /> */}
                         <Link to="/profile" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</Link>
                       </li>
                     </ul>
 
-                    <div className="py-2">
+                    <div className="py-1">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
                         <Link to="/view-my-reviews" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reviews</Link>
                       </div>
                     </div>
 
-                    <div className="py-2 divide-y-0">
+                    <div className="py-1 divide-y-0">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
-                        <div className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Projects</div>
-                      </div>
-                    </div>
-
-                    <div className="py-2 divide-y-0">
-                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
-                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
-                        <Link to="/dashboard" onClick={()=>setHideFilter(false)} className="block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Projects</Link>
+                        <button onClick={()=>{setHideProjects(!hideprojects)}} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Projects</button>
                       </div>
                     </div>
                     </div>
 
-                    <div className="divide-y divide-gray-500">
-                    <div className="py-2">
+                    {
+                       hideprojects && (
+                        <div>
+                    <div className="py-1 divide-y-0">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
-                        <Link to="/verifiedproj" onClick={()=>setHideFilter(false)} className="block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Verified Projects</Link>
+                        <Link to="/dashboard" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Projects</Link>
                       </div>
                     </div>
 
-                    <div className="py-2">
+                    <div className="py-1">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/verifiedproj" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Verified Projects</Link>
+                      </div>
+                    </div>
+                    </div>
+                       )
+                    }
+
+                    <div className="py-1 divide-y-0 border-gray-500 border-t">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        <button onClick={()=>{setHideReports(!hidereports)}} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reports</button>
+                      </div>
+                    </div>
+
+                    {
+                      hidereports && (
+                        <div>
+                    <div className="py-1">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/report" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Reports</Link>
+                      </div>
+                    </div>
+                    
+                    <div className="py-1">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
+                        <Link to="/allreports" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">All Reports</Link>
+                      </div>
+                    </div>
+                        </div>
+                      )
+                    }
+                    
+                    <div className="divide-y divide-gray-500 border-gray-500 border-t">
+                    <div className="py-1">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         {/* <BsHeart className="text-lg mt-2 ml-2 dark:text-white dark:text-black" /> */}
                         <Link to="/vpn" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Vpn</Link>
@@ -283,7 +319,7 @@ const logout = {
                     </div>
 
                     {loggedin && wallet && value ?(
-                    <div className="py-2 px-2 text-sm">
+                    <div className="py-1 px-2 text-sm">
                       <div className="flex flex-row">
                       <button onClick={handleDeleteCookie} className="mx-auto hover:text-red-400 text-black" onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}>Logout</button>

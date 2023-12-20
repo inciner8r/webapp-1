@@ -11,6 +11,10 @@ import Dashboard from './pages/Dashboard';
 import VerifiedProj from './pages/VerifiedProj';
 import Vpn from './pages/Vpn';
 import VerificationSteps from './pages/Verificationsteps';
+import Auth from './Components/GoogleAuth';
+import Report from './pages/Report';
+import Voting from './pages/Voting';
+import Allreports from './pages/Allreports';
 
 const App: React.FC = () => {
 
@@ -31,7 +35,11 @@ const App: React.FC = () => {
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/verifiedproj" element={<VerifiedProj/>} />
           <Route path="/vpn" element={<Vpn/>} />
+          <Route path="/report" element={<Report/>} />
+          <Route path="/voting/:id" element={<Voting/>} />
+          <Route path="/allreports" element={<Allreports/>} />
           <Route path="/verification-steps" element={<VerificationSteps/>} />
+          <Route path="/googleauth" Component={Auth} />
         </Routes>
         <Footer />
       </div>
