@@ -139,7 +139,6 @@ const Vpn = () => {
     try {
       const formDataObj = new FormData();
       formDataObj.append('name', formData.name);
-      formDataObj.append('region', formData.region);
       // formDataObj.append('domain', formData.domain);
 
       // Convert FormData to JavaScript Object
@@ -151,7 +150,7 @@ formDataObj.forEach((value, key) => {
 // Convert JavaScript Object to JSON string
 const jsonData = JSON.stringify(formDataObject);
 
-      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn`, {
+      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${formData.region}`, {
         method: 'POST',
         headers: {
           Accept: "application/json, text/plain, */*",
@@ -188,7 +187,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn/all/${region}`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${region}`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -559,13 +558,13 @@ on your network</span></div>
                   >
                     
                     <div className="text-lg rounded-lg pr-1" style={text}>
-                    VPN endpoint
+                    VPN Name
                     </div>    
                   </motion.div>
               </div>
                   
               <div className="text-lg rounded-lg pr-1 flex w-1/4" style={text}>
-              Firewall endpoint 
+              Download Config 
                   
                     </div> 
 
@@ -575,7 +574,7 @@ on your network</span></div>
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.4 }}
                     >
-                      Password 
+                      Show QR Code 
                     </motion.p>
                   </div>
                 </div>
