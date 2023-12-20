@@ -5,20 +5,22 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import StarRatingshow from "./StarRatingshow";
 import eye from '../assets/carbon_view.png';
+import { saveAs } from "file-saver";
 import {
-  FaCopy,
+  FaDownload,
+  FaQrcode,
 } from "react-icons/fa";
+import axios from "axios";
+import Cookies from "js-cookie";
+import QrCode from "./qrCode";
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 interface ReviewCardProps {
   metaData: {
-    vpn_id: string;
-    vpn_endpoint: string;
-    firewall_endpoint: string;
-    vpn_api_port: number;
-    vpn_external_port: number;
-    dashboard_password: string;
-    status: string;
-    ID: number;
+    UUID: string;
+    name: string;
+    region: string;
+    walletAddress: number;
   } | null;
   MyReviews?: boolean;
   // review?: ReviewCreated;
@@ -43,6 +45,24 @@ const border = {
 
 const backgroundbutton = {
   backgroundColor: "#11D9C5",
+};
+
+const handleDownload = async (clientId: string, name: string, region: string) => {
+  try {
+    const auth = Cookies.get("platform_token");
+
+    const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/config/${region}/${clientId}`, {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth}`,
+      },
+    });
+    console.log(response)
+    const config = response.data;
+    const blob = new Blob([config], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, `${name}.conf`);
+  } catch (error) {}
 };
 
 const MyVpnCard: React.FC<ReviewCardProps> = ({
@@ -101,16 +121,16 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
         style={background}
       >
                 <div className="w-full px-4 flex justify-between">
-                  <motion.h3
-                    className="text-2xl leading-12 font-bold mb-2 text-white w-1/4"
+                  <motion.div
+                    className="text-l leading-12 font-bold mb-2 text-white w-1/4"
                     initial={{ y: -20 }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.4 }}
                   >
                     <div className="flex">
-                      <div>{metaData.vpn_id}</div>
+                      <div>{metaData.UUID}</div>
                     </div>
-                  </motion.h3>
+                  </motion.div>
 
                   <div className="lg:flex md:flex justify-between w-1/4">
                   <motion.div
@@ -120,42 +140,30 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                     transition={{ duration: 0.4 }}
                   > 
                     <button className="text-lg rounded-lg pr-1 text-white">
-                       <a href={`https://${metaData.vpn_endpoint}`} target="_blank" style={color2}>
-                       Link</a>
+                       <a target="_blank" style={color2}>
+                       {metaData.name}</a>
                     </button>    
                   </motion.div>
               </div>
                   
-              <button className="text-lg rounded-lg pr-1 text-white flex w-1/4">
-                       <a href={`https://${metaData.firewall_endpoint}`} target="_blank" style={color2}>
-                          Link</a>
+              <button className="text-lg rounded-lg pr-1 text-white flex w-1/4 btn bg-blue-gray-700" onClick={()=>handleDownload(metaData.UUID, metaData.name, metaData.region)}>
+                       <div className="flex cursor-pointer">
+                       Config
+                       <FaDownload style={color2} className="ml-2 mt-1"/>
+                       </div>
                     </button> 
 
-                  <div className="text-white text-lg w-1/4">
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.4 }}
-                      className="flex"
-                    >
-                      <img src={eye} onClick={togglePasswordVisibility} className="h-5 w-5 mt-1 cursor-pointer"/>
-
+                  <div className="text-white text-lg w-1/4 btn bg-blue-gray-700">
                       <div className="ml-4">
-                      {showPassword ? (
 
                         <div className="flex cursor-pointer" onClick={() => {
-                          navigator.clipboard.writeText(
-                            metaData? metaData.dashboard_password : ''
-                          );
+
                         }}>
-                          {metaData.dashboard_password}
-                          <FaCopy style={color2} className="ml-2 mt-1"/>
+                           <QrCode clientId={metaData.UUID} name={metaData.name} region={metaData.region} />
+                          <FaQrcode style={color2} className="ml-2 mt-1"/>
                           </div>
-                      ) : (
                         <span></span>
-                      )}
                       </div>
-                    </motion.p>
                     
                   </div>
                 </div>
