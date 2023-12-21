@@ -24,6 +24,7 @@ import vpn4 from '../assets/vpn4.png';
 import vpn5 from '../assets/vpn5.png';
 import vpn6 from '../assets/vpn6.png';
 import vpn7 from '../assets/vpn7.png';
+import VpnContainerDedicated from '../Components/VpnContainerDedicated';
 const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 export interface FlowIdResponse {
@@ -38,6 +39,7 @@ export interface WalletData {
 interface FormData {
   name: string;
   region: string;
+  type: string;
   // domain: string;
 }
 
@@ -47,11 +49,13 @@ const Vpn = () => {
   const [profileset, setprofileset] = useState<boolean>(true);
   const [buttonset, setbuttonset] = useState<boolean>(false);
   const [projectsData, setprojectsData] = useState<any>(null);
+  const [dedicatedVpnData, setdedicatedVpnData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
   const [successmsg, setsuccessMsg] = useState<string>("");
   const [errormsg, seterrorMsg] = useState<string>("");
   const [region, setregion] = useState<string>("us-east-2");
   const [verify,setverify] = useState<boolean>(false);
+  const [endpoint, setEndpoint] = useState<string>("")
 
   const txtvalue = localStorage.getItem('txtvalue');
 
@@ -116,10 +120,12 @@ const Vpn = () => {
   const initialFormData: FormData = {
     name: '',
     region: '',
+    type: ''
     // domain: '',
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
+
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -142,35 +148,61 @@ const Vpn = () => {
       // formDataObj.append('domain', formData.domain);
 
       // Convert FormData to JavaScript Object
-const formDataObject: { [key: string]: string | File | null } = {};
-formDataObj.forEach((value, key) => {
-  formDataObject[key] = value;
-});
-
-// Convert JavaScript Object to JSON string
-const jsonData = JSON.stringify(formDataObject);
-
-      const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${formData.region}`, {
-        method: 'POST',
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth}`,
-        },
-        body: jsonData,
+      const formDataObject: { [key: string]: string | File | null } = {};
+      formDataObj.forEach((value, key) => {
+        formDataObject[key] = value;
       });
 
-      if (response.status === 200) {
-        const responseData = await response.json();
-        setFormData(initialFormData);
-        // setMsg('success');
-        console.log("vpn data",responseData);
-        // localStorage.setItem('domainId', responseData.payload.domainId);
-        // localStorage.setItem('txtvalue',responseData.payload.txtValue);
-        setverify(true);
-      } else {
-        setMsg('error');
+      // Convert JavaScript Object to JSON string
+      const jsonData = JSON.stringify(formDataObject);
+      console.log(formData.type)
+      if (formData.type === "dedicated") {
+        const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/vpn`, {
+          method: 'POST',
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
+          },
+          body: jsonData,
+        });
+  
+        if (response.status === 200) {
+          const responseData = await response.json();
+          setFormData(initialFormData);
+          // setMsg('success');
+          console.log("vpn data",responseData);
+          // localStorage.setItem('domainId', responseData.payload.domainId);
+          // localStorage.setItem('txtvalue',responseData.payload.txtValue);
+          setverify(true);
+        } else {
+          setMsg('error');
+        }
+
+      } else if (formData.type === "decentralized"){
+        const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${formData.region}`, {
+          method: 'POST',
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
+          },
+          body: jsonData,
+        });
+  
+        if (response.status === 200) {
+          const responseData = await response.json();
+          setFormData(initialFormData);
+          // setMsg('success');
+          console.log("vpn data",responseData);
+          // localStorage.setItem('domainId', responseData.payload.domainId);
+          // localStorage.setItem('txtvalue',responseData.payload.txtValue);
+          setverify(true);
+        } else {
+          setMsg('error');
+        }
       }
+
     } catch (error) {
       console.error('Error:', error);
       setMsg('error');
@@ -212,7 +244,39 @@ const jsonData = JSON.stringify(formDataObject);
       }
     };
 
+    const fetchVpnDedicated = async () => {
+      setLoading(true);
+      try {
+        const auth = Cookies.get("platform_token");
+
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn/all/${region}`, {
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
+          },
+        });
+
+        console.log("vpn response", response)
+
+        if (response.status === 200) {
+            // Filter the data based on the domain ID
+            const wallet = Cookies.get("platform_wallet");
+            const payload: any[] = response.data.payload;
+    const filteredData = payload.filter(item => item?.walletAddress === wallet);
+    setdedicatedVpnData(filteredData);
+          console.log(filteredData)
+        }
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+
     fetchProjectsData();
+    fetchVpnDedicated();
   }, [buttonset,region]);
 
 
@@ -332,6 +396,29 @@ setbuttonset(false);
                           <option value="">Select Region</option>
                           <option value="us-east-2">us-east-2</option>
                           <option value="ap-southeast-1">ap-southeast-1</option>
+                        </select>
+                        {/* <input
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          id="wallet"
+                          type="text"
+                          placeholder="tag"
+                          value={siteTag} onChange={(e) => setSiteTag(e.target.value)} required
+                        /> */}
+                      </div>
+
+                      <div className="mb-10">
+                        <select
+                          id="type"
+                          style={border}
+                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                          value={formData.type}
+                          onChange={handleInputChange}
+                          required
+                        >
+                          <option value="">Select VPN type</option>
+                          <option value="dedicated">Dedicated</option>
+                          <option value="decentralized">Decentralized</option>
                         </select>
                         {/* <input
                           style={border}
@@ -533,10 +620,9 @@ on your network</span></div>
                           <option value="us-east-2">us-east-2</option>
                           <option value="ap-southeast-1">ap-southeast-1</option>
                         </select>
-              <div
-        className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4"
-        style={bg}
-      >
+                  <div className="VpnHead  mb-8 ml-6 text-2xl font-bold text-white">Decentralized VPNs</div>
+              <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4" style={bg}>
+        
                 <div className="w-full px-4 flex justify-between">
                   <motion.h3
                     className="text-lg leading-12 mb-2 w-1/4"
@@ -562,9 +648,57 @@ on your network</span></div>
                     </div>    
                   </motion.div>
               </div>
-                  
+              
+                      
               <div className="text-lg rounded-lg pr-1 flex w-1/4" style={text}>
               Download Config 
+                  
+                    </div> 
+
+                  <div className="text-lg flex w-1/4" style={text}>
+                    <motion.p
+                      initial={{ opacity: 0 }}text-white
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      Show QR Code 
+                    </motion.p>
+                  </div>
+                </div>
+                </div>
+                
+            <MyVpnContainer metaDataArray={projectsData} MyReviews={false}/>
+          <div className="VpnHead mb-8 ml-6 text-2xl font-bold text-white">Dedicated VPNs</div>
+          <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4" style={bg}>
+                <div className="w-full px-4 flex justify-between">
+                  <motion.h3
+                    className="text-lg leading-12 mb-2 w-1/4"
+                    initial={{ y: -20 }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <div className="flex" style={text}>
+                      VPN Id
+                    </div>
+                  </motion.h3>
+
+                  <div className="lg:flex md:flex justify-between w-1/4">
+                  <motion.div
+                    className=""
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    
+                    <div className="text-lg rounded-lg pr-1" style={text}>
+                    VPN endpoint
+                    </div>    
+                  </motion.div>
+              </div>
+              
+                      
+              <div className="text-lg rounded-lg pr-1 flex w-1/4" style={text}>
+              Firewall endpoint 
                   
                     </div> 
 
@@ -574,12 +708,15 @@ on your network</span></div>
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.4 }}
                     >
-                      Show QR Code 
+                      Password
                     </motion.p>
                   </div>
                 </div>
                 </div>
-            <MyVpnContainer metaDataArray={projectsData} MyReviews={false}/>
+
+                <VpnContainerDedicated metaDataArray={dedicatedVpnData} MyReviews={false}/>
+
+
             </div>
           )}
                      
