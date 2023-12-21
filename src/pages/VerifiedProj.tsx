@@ -843,7 +843,7 @@ click the 'verify' button.
             {loading ? (
             // <Loader />
             <div className="min-h-screen"></div>
-          ) : ((!projectsData || projectsData?.length == 0))? (
+          ) : ((!verifiedprojectsData || verifiedprojectsData?.length == 0))? (
             <motion.div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
             initial={{ opacity: 0 }}
@@ -870,7 +870,7 @@ Verification Needed</h2>
             </>
           )}
 
-{ projectsData && projectsData?.length > 0 && (
+{ verifiedprojectsData && verifiedprojectsData?.length > 0 && (
           <div className="inline-flex items-center justify-center w-full mt-4">
             <button onClick={handlePrevPage} disabled={currentPage === 1} className='text-white'>
             <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">

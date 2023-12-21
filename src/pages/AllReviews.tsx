@@ -253,8 +253,8 @@ useEffect(() => {
 }, [reviews]);
 
 
-const CLIENT_ID = process.env.CLIENT_ID!
-const REDIRECT_URI = process.env.REDIRECT_URI!
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID!
+const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI!
 
 const parseAuthorizationCode = () => {
   const urlParams = new URLSearchParams(window.location.search);
