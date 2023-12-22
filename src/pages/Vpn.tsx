@@ -25,7 +25,7 @@ import vpn5 from '../assets/vpn5.png';
 import vpn6 from '../assets/vpn6.png';
 import vpn7 from '../assets/vpn7.png';
 import VpnContainerDedicated from '../Components/VpnContainerDedicated';
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
 
 export interface FlowIdResponse {
   eula: string;
@@ -140,12 +140,12 @@ const Vpn = () => {
 
     setLoading(true);
 
-    const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ"
+    const auth = Cookies.get("platform_token");
 
     try {
       const formDataObj = new FormData();
       formDataObj.append('name', formData.name);
-      // formDataObj.append('domain', formData.domain);
+      formDataObj.append('region', formData.region);
 
       // Convert FormData to JavaScript Object
       const formDataObject: { [key: string]: string | File | null } = {};
@@ -157,7 +157,7 @@ const Vpn = () => {
       const jsonData = JSON.stringify(formDataObject);
       console.log(formData.type)
       if (formData.type === "dedicated") {
-        const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/vpn`, {
+        const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn`, {
           method: 'POST',
           headers: {
             Accept: "application/json, text/plain, */*",
@@ -217,7 +217,7 @@ const Vpn = () => {
     const fetchProjectsData = async () => {
       setLoading(true);
       try {
-        const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ"
+        const auth = Cookies.get("platform_token");
 
         const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${region}`, {
           headers: {
@@ -247,7 +247,7 @@ const Vpn = () => {
     const fetchVpnDedicated = async () => {
       setLoading(true);
       try {
-        const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ"
+        const auth = Cookies.get("platform_token");
 
         const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn/all/${region}`, {
           headers: {
@@ -620,7 +620,7 @@ on your network</span></div>
                           <option value="us-east-2">us-east-2</option>
                           <option value="ap-southeast-1">ap-southeast-1</option>
                         </select>
-                  <div className="VpnHead  mb-8 ml-6 text-2xl font-bold text-white">Decentralized VPNs</div>
+                  <div className="VpnHead  mb-8 ml-6 text-2xl font-bold text-white">Decentralized VPN</div>
               <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4" style={bg}>
         
                 <div className="w-full px-4 flex justify-between">
@@ -668,7 +668,7 @@ on your network</span></div>
                 </div>
                 
             <MyVpnContainer metaDataArray={projectsData} MyReviews={false}/>
-          <div className="VpnHead mb-8 ml-6 text-2xl font-bold text-white">Dedicated VPNs</div>
+          <div className="VpnHead mb-8 ml-6 text-2xl font-bold text-white">Dedicated VPN</div>
           <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4" style={bg}>
                 <div className="w-full px-4 flex justify-between">
                   <motion.h3
@@ -720,7 +720,6 @@ on your network</span></div>
             </div>
           )}
                      
-                     { (projectsData && projectsData?.length > 0) || (dedicatedVpnData && dedicatedVpnData?.length > 0) && (
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
                           style={button}
@@ -730,7 +729,6 @@ on your network</span></div>
                           Add More VPNs
                         </button>
                       </div>
-                     )}
 
 
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
