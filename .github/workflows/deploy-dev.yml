@@ -2,9 +2,9 @@ name: "Build and Push to GHCR"
 
 on:
   push:
-    branches: 
+    branches:
       - dev
-      - main  # Add main branch here
+      - main # Add main branch here
 
 jobs:
   build_push:
@@ -57,8 +57,26 @@ jobs:
             docker pull ghcr.io/netsepio/webapp:dev
             docker run --name="webapp" --rm --env-file=.env -p 4000:80 --net=bridge -d ghcr.io/netsepio/webapp:dev
 
-  deploy_gh_pages:
+  build:
     needs: build_push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React app
+        run: npm run build
+
+  deploy_gh_pages:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
