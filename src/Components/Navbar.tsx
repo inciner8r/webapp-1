@@ -225,7 +225,7 @@ const logout = {
         </>
       ) : (
         <button 
-        className="text-black p-2 rounded-lg lg:block hidden" style={style2}
+        className="text-black p-2 rounded-lg lg:block hidden mr-2" style={style2}
         onClick={connectWallet}> Connect Wallet</button>
       )}
 

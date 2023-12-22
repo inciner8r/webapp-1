@@ -173,6 +173,10 @@ const bgbutton2 = {
   backgroundColor: 'rgba(255, 255, 255, 0.1)'
 }
 
+const graystyle = {
+  color: '#788AA3'
+}
+
 
 const handleNextPage = () => {
   setCurrentPage((prevPage) => prevPage + 1);
@@ -288,10 +292,44 @@ const exchangeCodeForToken = async (code: string) => {
     });
 
     const tokenData = await response.json();
+
+    // Assuming id_token is present in tokenData
+    const idToken = tokenData.id_token;
+
+    // Use idToken in another API call
+    await getgoogledata(idToken);
+
     handleTokenData(tokenData);
     console.log("token", tokenData);
   } catch (error) {
     console.error('Token exchange error:', error);
+  }
+};
+
+const getgoogledata = async (idToken: string) => {
+
+  const auth = Cookies.get("platform_token");
+
+  const obj = {"idToken":idToken}
+  const jsonData = JSON.stringify(obj);
+
+  try {
+    const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/account/auth-google`, {
+      method: 'POST',
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth}`,
+      },
+      body: jsonData,
+    });
+
+    const responseData = await response.json();
+    Cookies.set("platform_token", responseData.payload.token, { expires: 7 });
+    Cookies.set("platform_userid", responseData.payload.userId, { expires: 7 });
+    console.log('Another API call response:', responseData);
+  } catch (error) {
+    console.error('Another API call error:', error);
   }
 };
 
@@ -323,10 +361,10 @@ useEffect(() => {
                     <p className="px-0 text-lg text-gray-300 md:text-2xl lg:px-24">
                     Connect wallet now to submit reviews on chain for <span style={style}>FREE</span>
                     </p>
-                    <p className="px-0 mb-8 text-lg text-gray-300 md:text-xl lg:px-24">
+                    <p className="px-0 mb-8 text-lg md:text-md lg:px-24" style={graystyle}>
                     (Wallet address is required to receive “Reviews NFT” minted)
                     </p>
-                    <div className='mb-4 space-x-0 md:space-x-2 md:mb-8 inline-flex items-center justify-center w-full font-bold px-6 py-3 mb-2 text-lg text-black rounded-2xl sm:w-auto sm:mb-0 focus:ring focus:ring-green-300 focus:ring-opacity-80' style={style2}>
+                    <div className='mb-4 space-x-0 md:space-x-2 md:mb-8 inline-flex items-center justify-center w-full font-semibold px-6 py-3 mb-2 text-lg text-black rounded-lg sm:w-auto sm:mb-0 focus:ring focus:ring-green-300 focus:ring-opacity-80' style={style2}>
                       <button onClick={connectWallet}>Submit Reviews</button>
                     </div>
                 </div>
@@ -336,8 +374,8 @@ useEffect(() => {
       <section className="mb-40">
             <div className="py-0 mx-auto max-w-7xl">
                 <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12">
-                      <div className="flex">
-                      <div className='w-1/2 my-auto'>
+                      <div className="lg:flex md:flex">
+                      <div className='lg:w-1/2 md:w-1/2 my-auto'>
                           <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
                           Review as NFT
                         </h1>
@@ -345,18 +383,18 @@ useEffect(() => {
                         Review stored as NFT on Aptos chain free, no gas fees included
                         </p>
                       </div>
-                      <div className="flex relative w-1/2">
+                      <div className="flex relative lg:w-1/2 md:w-1/2">
                         <img src={landing1} className="flex-1" />
-                        <img src={landing2} className="absolute lg:right-[-80px] lg:bottom-[-80px] lg:block hidden" />
+                        <img src={landing2} className="absolute lg:right-[-80px] lg:bottom-[-120px] lg:block hidden w-1/2" />
                       </div>
 
                       </div>
-                      <div className="flex mt-20">
-                      <div className="flex relative w-1/2">
+                      <div className="lg:flex md:flex mt-20">
+                      <div className="flex relative lg:w-1/2 md:w-1/2">
                         <img src={landing3} className="flex-1" />
-                        <img src={landing4} className="absolute lg:right-[-80px] lg:bottom-[-80px] lg:block hidden" />
+                        <img src={landing4} className="absolute lg:right-[-160px] lg:bottom-[-80px] lg:block hidden w-2/3" />
                       </div>
-                      <div className='w-1/2 my-auto'>
+                      <div className='lg:w-1/2 md:w-1/2 my-auto'>
                           <h1 className="text-right mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
                           Project owner verification
                         </h1>
@@ -475,12 +513,12 @@ WireGuard
         <h1 className="text-white text-3xl font-bold">Backed by</h1>
         </div>
 
-        <div className="inline-flex items-center justify-center w-full gap-10">
-          <div className="flex">
+        <div className="lg:inline-flex md:inline-flex items-center justify-center w-full gap-10">
+          <div className="flex gap-1 justify-between center">
         <img src={aptos} className="w-26 h-12 -mt-1"/>
         <h1 className="text-white text-3xl">Aptos</h1>
         </div>
-        <div className="flex">
+        <div className="flex gap-1 justify-between center">
         <img src={google} className="w-26 h-8"/>
         <h1 className="text-white text-3xl">Google Cloud</h1>
         </div>

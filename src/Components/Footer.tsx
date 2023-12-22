@@ -18,7 +18,7 @@ const Footer = () => {
   return (
     <div className="pt-10 pt-3 sm:pt-3 lg:pt-3" style={background}>
       <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">
-        <div className="flex flex-row items-center pt-6 justify-between max-w-screen-xl mx-auto">
+        <div className="lg:flex md:flex items-center pt-6 justify-between max-w-screen-xl mx-auto">
           <nav className="mb-4 flex flex-wrap justify-center md:justify-start">
           <img src={netsepio} alt="netsepio logo" className="h-10 w-10"/>
             <a href="/" className="text-2xl font-bold leading-12 text-white mt-1">NetSepio</a>
@@ -28,7 +28,7 @@ const Footer = () => {
             <a href="https://github.com/NetSepio" target="_blank" className="transition duration-100 text-white">Collaborate</a>
           </nav>
     
-          <div className="flex">
+          <div className="flex justify-between center">
 
           <a href="https://discordapp.com/invite/5uaFhNpRF6" target="_blank" className="transition duration-100 hover:text-green-400 active:text-green-600" style={style}>
               <svg width="45" height="40" viewBox="0 0 54 47" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

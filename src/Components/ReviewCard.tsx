@@ -180,37 +180,14 @@ return (
                   "{metaData.description}"
                 </motion.p>
               </div>
-
-              <Link to={`https://explorer.aptoslabs.com/txn/${reviews?.transactionHash}/?network=testnet`} target="_blank">
-              <button className="mt-10 text-white flex gap-2 py-2 px-4 text-sm rounded-md" style={{backgroundColor:'#11D9C580'}}><img src={asnft} className="w-5 h-5"/>Review as NFT</button>
-              </Link>
-            </div>
-            
+            </div>  
           )}
         </div>
+        <Link to={`https://explorer.aptoslabs.com/txn/${reviews?.transactionHash}/?network=testnet`} target="_blank">
+              <button className="mt-10 text-white flex gap-1 py-2 px-2 text-xs rounded-md" style={{backgroundColor:'#11D9C580'}}><img src={asnft} className="w-4 h-4"/>Review as NFT</button>
+        </Link>
 
-        {/* </Link> */}
-
-        {/* <div>
-          {MyReviews && metaData.ipfsUrl ? (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-              <DeleteReview uri={metaData.ipfsUrl} id={metaData.id} onDelete={handleDelete} />
-            </motion.div>
-          ) : null}
-        </div> */}
-
-        {/* <motion.button
-          className="text-white font-semibold rounded-lg p-2 w-full text-center mt-5"
-          onClick={handleClick}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          style={border}
-        >
-          {showDescription ? 'Go Back' : 'Read More'}
-        </motion.button> */}
       </motion.div>
-       {/* </Link> */}
     </div>
    
   </motion.div>

@@ -25,7 +25,7 @@ import vpn5 from '../assets/vpn5.png';
 import vpn6 from '../assets/vpn6.png';
 import vpn7 from '../assets/vpn7.png';
 import VpnContainerDedicated from '../Components/VpnContainerDedicated';
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = process.env.REACT_APP_DEV_GATEWAY_URL
 
 export interface FlowIdResponse {
   eula: string;
@@ -140,7 +140,7 @@ const Vpn = () => {
 
     setLoading(true);
 
-    const auth = Cookies.get("platform_token");
+    const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ"
 
     try {
       const formDataObj = new FormData();
@@ -217,7 +217,7 @@ const Vpn = () => {
     const fetchProjectsData = async () => {
       setLoading(true);
       try {
-        const auth = Cookies.get("platform_token");
+        const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ"
 
         const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${region}`, {
           headers: {
@@ -235,7 +235,7 @@ const Vpn = () => {
             const payload: any[] = response.data.payload;
     const filteredData = payload.filter(item => item?.walletAddress === wallet);
     setprojectsData(filteredData);
-          console.log(filteredData)
+          console.log("decentralized",filteredData)
         }
       } catch (error) {
         console.error('Error fetching profile data:', error);
@@ -247,7 +247,7 @@ const Vpn = () => {
     const fetchVpnDedicated = async () => {
       setLoading(true);
       try {
-        const auth = Cookies.get("platform_token");
+        const auth = "v4.public.eyJ3YWxsZXRBZGRyZXNzIjoiMHhiODBlOTc1MTM3OTFlMzBlY2Y5NTRkNGM2MjAzOTFjYTVlMWY5ZmQzMzQyOGU3MmU2ZTFlMGQwNzU2MDI0ZjE4IiwidXNlcklkIjoiMTRkZWY3NzctMzZhNC00YWZkLTk0ZDktMzRmNDI0ZGRiZDY3Iiwic2lnbmVkQnkiOiJOZXRTZXBpbyIsImV4cCI6IjIwMjYtMDktMTRUMTI6NDc6MjIuMzYzNzA0MTQ3WiJ9lTt42R_Uk8rorAGwZUW5E12HjF8R6-sCspAPScwogi7lzfdew5VvvH58jBLSH9F4C8AN5_9IAqTpY9J1TPLWDQ"
 
         const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn/all/${region}`, {
           headers: {
@@ -265,7 +265,7 @@ const Vpn = () => {
             const payload: any[] = response.data.payload;
     const filteredData = payload.filter(item => item?.walletAddress === wallet);
     setdedicatedVpnData(filteredData);
-          console.log(filteredData)
+          console.log("dedicated", filteredData)
         }
       } catch (error) {
         console.error('Error fetching profile data:', error);
@@ -559,7 +559,7 @@ setbuttonset(false);
             {loading ? (
             // <Loader />
             <div className="min-h-screen"></div>
-          ) : !projectsData || projectsData?.length == 0 ? (
+          ) : (!projectsData || projectsData?.length == 0) && (!dedicatedVpnData || dedicatedVpnData?.length == 0) ? (
             <motion.div
             className="w-full max-w-7xl mx-auto py-10 rounded-xl text-start"
             initial={{ opacity: 0 }}
@@ -720,7 +720,7 @@ on your network</span></div>
             </div>
           )}
                      
-                     { projectsData && projectsData?.length > 0 && (
+                     { (projectsData && projectsData?.length > 0) || (dedicatedVpnData && dedicatedVpnData?.length > 0) && (
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                         <button
                           style={button}

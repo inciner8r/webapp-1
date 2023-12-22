@@ -144,7 +144,7 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
               </div>
                   
 
-                  <div className="text-lg text-white text-start flex mt-2">
+                  <div className="text-md text-white text-start flex mt-2">
                   <div style={color} className="w-1/5">
                   Headline :  
                   </div>
@@ -160,7 +160,7 @@ const AllProjectsCard: React.FC<ReviewCardProps> = ({
                     </motion.p>
                   </div>
 
-                  <div className="text-lg text-white text-start flex mt-2">
+                  <div className="text-md text-white text-start flex mt-2">
                   <div style={color} className="w-1/5">
                   Description : 
                   </div>

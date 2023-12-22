@@ -393,7 +393,7 @@ console.log("jsonData",jsonData);
                     )}
                     </div>
 
-                  <div className="mt-5 text-white text-lg flex">
+                  <div className="mt-5 text-white text-md flex text-left">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}

@@ -21,7 +21,7 @@ const VpnContainerDedicated: React.FC<MyReviewContainerProps> = ({ metaDataArray
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <h2 className="text-4xl font-semibold text-gray-700">No Reviews Found</h2>
+      <h2 className="text-4xl font-semibold text-gray-700">No Dedicated VPNs</h2>
     </motion.div>
   );
 
