@@ -283,7 +283,7 @@ const jsonData = JSON.stringify(formDataObject);
     };
   
     fetchprojData().finally(() => setLoading(false)); 
-  }, [buttonset, currentPage]);
+  }, [buttonset, currentPage, pagestatus]);
 
 
   useEffect(() => {
@@ -682,7 +682,7 @@ console.log("jsonData",jsonData);
                 Verify Your Registration
                 </h3>
                 <button 
-                    onClick={() => setbuttonset(false)}
+                    onClick={() => setpagestatus("my")}
                     type="button" 
                     className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 >
