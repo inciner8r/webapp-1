@@ -2,7 +2,6 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import netsepio from "../../../public/netsepio_logo_light.png";
 import netsepioname from "../../../public/productname.png";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from 'axios';
 import Image from 'next/image';
@@ -11,7 +10,7 @@ import MyReviews from "../myreviews/ViewMyReviews";
 // import Projects from "./Dashboard";
 // import Reports from "./Report";
 // import Vpns from "./Vpn";
-// import Profile from "./Profile";
+import Profile from "../profile/Profile";
 const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/"
 
 const NewDashboard = () => {
@@ -200,10 +199,10 @@ const NewDashboard = () => {
               }
               {
                  page === "vpns" && (<Vpns/>)
-              }
+              } */}
               {
                  page === "profile" && (<Profile/>)
-              } */}
+              }
             </div>
         </div>
       </div>
