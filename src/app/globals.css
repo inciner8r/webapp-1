@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #141a31
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: black
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(178, 255, 174);
+}
+
+.webappbg {
+  background: none;
+}
+
+.align {
+  text-align: center;
+}
+
+.bgcolor {
+  background: linear-gradient(0.25turn, #11D9C5, #053933);
+}
+
+@media screen and (min-width: 768px) {
+  .webappbg {
+    background-image: url('/green_back.png'); 
+    background-size: cover;
+  }
+  .bgcolor {
+    background: linear-gradient(0.25turn, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.39));
+  }
+  .align {
+    text-align: left;
+  }
+}
