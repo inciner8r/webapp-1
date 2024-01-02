@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import eye2 from '../public/eye2.png';
 import dlt from '../public/dlt.png';
 import Image from 'next/image'
-const REACT_APP_GATEWAY_URL = process.env.REACT_APP_GATEWAY_URL
+const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/"
 
 interface ReviewCardProps {
   metaData: {

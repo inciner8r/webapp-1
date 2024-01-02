@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import axios from 'axios';
 import Image from 'next/image';
 import { removePrefix } from "../../../modules/Utils/ipfsUtil";
-import MyReviews from "../reviews/ViewMyReviews";
+import MyReviews from "../myreviews/ViewMyReviews";
 // import Projects from "./Dashboard";
 // import Reports from "./Report";
 // import Vpns from "./Vpn";
