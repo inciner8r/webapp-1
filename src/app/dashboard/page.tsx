@@ -7,7 +7,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import { removePrefix } from "../../../modules/Utils/ipfsUtil";
 import MyReviews from "../myreviews/ViewMyReviews";
-// import Projects from "./Dashboard";
+import Projects from "../projects/Projects";
 // import Reports from "./Report";
 import Vpns from "../vpn/Vpn";
 import Profile from "../profile/Profile";
@@ -191,10 +191,10 @@ const NewDashboard = () => {
               {
                  page === "reviews" && (<MyReviews/>)
               }
-              {/* {
+              {
                  page === "projects" && (<Projects/>)
               }
-              {
+              {/* {
                  page === "reports" && (<Reports/>)
               } */}
               {
