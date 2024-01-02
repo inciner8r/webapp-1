@@ -9,7 +9,7 @@ import { removePrefix } from "../../../modules/Utils/ipfsUtil";
 import MyReviews from "../myreviews/ViewMyReviews";
 // import Projects from "./Dashboard";
 // import Reports from "./Report";
-// import Vpns from "./Vpn";
+import Vpns from "../vpn/Vpn";
 import Profile from "../profile/Profile";
 const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/"
 
@@ -196,10 +196,10 @@ const NewDashboard = () => {
               }
               {
                  page === "reports" && (<Reports/>)
-              }
+              } */}
               {
                  page === "vpns" && (<Vpns/>)
-              } */}
+              }
               {
                  page === "profile" && (<Profile/>)
               }
