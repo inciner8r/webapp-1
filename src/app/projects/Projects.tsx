@@ -51,7 +51,7 @@ const Projects = () => {
   const [errormsg, seterrorMsg] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [verify,setverify] = useState<boolean>(false);
-  const [Verifiedproj, setVerifiedproj] = useState<boolean>(false);
+  const [pagestatus, setpagestatus] = useState<string>("my");
   const txtvalue = localStorage.getItem('txtvalue');
 
   useEffect(() => {
@@ -424,15 +424,25 @@ console.log("jsonData",jsonData);
         <div className="px-5 mx-auto max-w-8xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
 
-{/* <div className='-mt-10'>
-  { Verifiedproj ? (
-<ButtonNavigation onNavigate={handleNavigation} count={verifiedprojectsData? verifiedprojectsData.length : 0}/>
-  ): (
-<ButtonNavigation onNavigate={handleNavigation} count={projectsData? projectsData.length : 0}/>
-  )}
-          </div> */}
+          <div className="flex p-6 text-white ml-14">
+                    <button className="p-4 px-10" 
+                    style={{
+                      backgroundColor: pagestatus === 'submit' ? '#4B5995' : '#222944',
+                    }}
+                     onClick={()=>setpagestatus("submit")}>Submit Project</button>
+                    <button className="p-4 px-10" 
+                    style={{
+                      backgroundColor: pagestatus === 'my' ? '#4B5995' : '#222944',
+                    }}
+                     onClick={()=>setpagestatus("my")}>My Projects</button>
+                    <button className="p-4 px-10" 
+                    style={{
+                      backgroundColor: pagestatus === 'all' ? '#4B5995' : '#222944',
+                    }}
+                     onClick={()=>setpagestatus("all")}>All Verified Projects</button>
+                  </div>
            
-            { buttonset && (
+            { pagestatus=='submit' && (
             <section className="pb-10 rounded-xl max-w-4xl mx-auto" style={bg}>
               <div className="px-5 mx-auto max-w-3xl rounded-xl">
                 <div className="w-full mx-auto text-left py-20">
@@ -710,7 +720,7 @@ click the 'verify' button.
             </div>
 
                 <div className="text-lg text-center text-red-500">
-<a href="/#/verification-steps" target="_blank">Proceed to instructions</a>
+<a href="/verificationsteps" target="_blank">Proceed to instructions</a>
             </div>
             </div>
 
@@ -818,19 +828,21 @@ click the 'verify' button.
 
 
 {
-  !buttonset && (
+  pagestatus!='submit' && (
     <>
     <h1 className="mb-8 text-start lg:text-4xl md:text-4xl text-xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight lg:flex md:flex">
-                    <button onClick={() => setVerifiedproj(false)} className={`text-white lg:ml-20 md:ml-20 ml-10`}>My Projects</button>
-                    {/* <button onClick={() => setVerifiedproj(true)} className={`text-white lg:ml-20 md:ml-20 ml-10 lg:mt-0 md:mt-0 mt-6
-                    ${Verifiedproj ? 'border-b border-green-500' : ''}`}>All Verified Projects</button> */}
+                    {/* <button onClick={() => setVerifiedproj(false)} className={`text-white lg:ml-20 md:ml-20 ml-10`}>My Projects</button>
+                    <button onClick={() => setVerifiedproj(true)} className={`text-white lg:ml-20 md:ml-20 ml-10 lg:mt-0 md:mt-0 mt-6
+                    ${Verifiedproj ? '' : ''}`}>All Verified Projects</button> */}
+                    
+                    
                   </h1>
             <section className="pb-10 rounded-xl">
               
             {loading ? (
             // <Loader />
             <div className="min-h-screen"></div>
-          ) : ((!projectsData || projectsData?.length == 0) && (!Verifiedproj) )? (
+          ) : ((!projectsData || projectsData?.length == 0) && (pagestatus == 'my') )? (
             <div
             className="w-full max-w-5xl mx-auto py-10 rounded-xl text-start"
             
@@ -852,7 +864,7 @@ Verification Needed</h2>
           ) : (
             <>
             {
-              Verifiedproj ? (
+              pagestatus === 'all' ? (
                 <AllProjectsContainer metaDataArray={verifiedprojectsData} MyReviews={false}/>
               ) : (
                 <MyProjectsContainer metaDataArray={projectsData}/>
@@ -882,7 +894,7 @@ Verification Needed</h2>
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8 mt-10">
                         <button
                           style={button}
-                          onClick={() => setbuttonset(true)}
+                          onClick={() => setpagestatus("submit")}
                           className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg lg:w-1/3 md:w-1/3 w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
                         >
                           Add More Project

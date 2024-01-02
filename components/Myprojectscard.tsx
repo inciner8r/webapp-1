@@ -471,7 +471,7 @@ click the 'verify' button.
             </div>
 
                 <div className="text-lg text-center text-red-500">
-<a href="/#/verification-steps" target="_blank">Proceed to instructions</a>
+<a href="/verificationsteps" target="_blank">Proceed to instructions</a>
             </div>
             </div>
 
