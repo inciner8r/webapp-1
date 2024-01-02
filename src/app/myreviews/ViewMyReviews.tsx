@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import MyReviewContainer from '../../../components/Myreviewcontainer';
 import { fetchMetadataFromIPFS } from '../../../modules/fetch_metadata_from_ipfs';
 import Loader from '../../../components/Loaderallreviews';
-import { useNavigate } from 'react-router-dom';
+import Main from '../../../components/MyReviews/main';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../../../public/Protocolicon.png';
@@ -16,6 +16,7 @@ const ViewMyReviews: React.FC = () => {
   const [reviews, setReviews] = useState<any[]>([]);
   const [metaDataArray, setMetaDataArray] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [pagestatus, setpagestatus] = useState<string>("my");
   
   const navigate1 = (path: string) => {
     window.location.href = path;
@@ -150,6 +151,22 @@ const loggedin = Cookies.get("platform_token");
       >
 
 {/* <ButtonNavigation onNavigate={handleNavigation} count={metaDataArray? metaDataArray.length : 0}/> */}
+<div className="flex p-6 text-white ml-14">
+                    <button className="p-4 px-10" 
+                    style={{
+                      backgroundColor: pagestatus === 'submit' ? '#4B5995' : '#222944',
+                    }}
+                     onClick={()=>setpagestatus("submit")}>Submit Reviews</button>
+                    <button className="p-4 px-10" 
+                    style={{
+                      backgroundColor: pagestatus === 'my' ? '#4B5995' : '#222944',
+                    }}
+                     onClick={()=>setpagestatus("my")}>My Reviews</button>
+                  </div>
+
+{
+   pagestatus=='my' && (
+<>
 <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
           <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
@@ -203,16 +220,15 @@ const loggedin = Cookies.get("platform_token");
           </div>
           )}
 
-{/* <div className="mb-60 mt-20">
-        <div className="inline-flex items-center justify-center w-full my-10">
-        <h1 className="text-white text-3xl font-bold">Backed by</h1>
-        </div>
+</>
+          )
+        }
 
-        <div className="inline-flex items-center justify-center w-full">
-        <img src={aptos} className="w-26 h-10"/>
-        <h1 className="text-white text-3xl">Aptos</h1>
-        </div>
-        </div> */}
+{
+   pagestatus == 'submit' && (
+<Main/>
+   )
+}
 
       </div>
     </div>
