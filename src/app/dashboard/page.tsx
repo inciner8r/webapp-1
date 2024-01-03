@@ -12,6 +12,7 @@ import Projects from "../projects/Projects";
 // import Reports from "./Report";
 import Vpns from "../vpn/Vpn";
 import Profile from "../profile/Profile";
+import connectWallet from "../../../modules/connectwallet";
 const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/"
 
 const NewDashboard = () => {
@@ -75,6 +76,7 @@ const NewDashboard = () => {
   const handleDeleteCookie = () => {
     Cookies.remove('platform_wallet');
     Cookies.remove('platform_token');
+    Cookies.remove('google_token');
     window.location.href = '/';
   };
 
@@ -160,6 +162,15 @@ const NewDashboard = () => {
 <path d="M15.7133 18.684C16.1365 18.5882 16.3903 18.1482 16.2027 17.757C15.6969 16.7019 14.8656 15.7748 13.7881 15.076C12.4622 14.2161 10.8376 13.75 9.16634 13.75C7.49508 13.75 5.87051 14.2161 4.54461 15.076C3.46712 15.7748 2.63579 16.7019 2.12997 17.757C1.94241 18.1482 2.19622 18.5882 2.61938 18.684C6.92945 19.6601 11.4032 19.6601 15.7133 18.684Z" fill="currentColor"/>
 </svg>
                 <div className="text-md">Profile</div>
+              </div>
+              </button>
+
+              <button onClick={connectWallet} style={{position: 'absolute',bottom: 0}}>
+              <div className="flex flex-row items-center gap-2" style={{ color: page === 'vpns' ? '#11D9C5' : 'white' }}>
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16.8608 5.26217L12.083 3.21454C11.3912 2.91807 10.6082 2.91807 9.9164 3.21454L5.13858 5.26217C4.80154 5.40662 4.58301 5.73803 4.58301 6.10472V10.9199C4.58301 12.6961 5.44082 14.363 6.8862 15.3954L9.93407 17.5725C10.5715 18.0278 11.4278 18.0278 12.0653 17.5725L15.1132 15.3954C16.5585 14.363 17.4163 12.6961 17.4163 10.9199V6.10472C17.4163 5.73803 17.1978 5.40662 16.8608 5.26217ZM14.5305 8.87518C14.8756 8.44392 14.8056 7.81463 14.3744 7.46962C13.9431 7.12461 13.3138 7.19453 12.9688 7.62579L10.0001 11.3367L8.95678 10.2934C8.56626 9.90286 7.93309 9.90286 7.54257 10.2934C7.15204 10.6839 7.15204 11.3171 7.54257 11.7076L8.98089 13.1459C9.61306 13.7781 10.6544 13.7204 11.2129 13.0223L14.5305 8.87518Z" fill="currentColor"/>
+</svg>
+                <div className="text-md">Settings</div>
               </div>
               </button>
 

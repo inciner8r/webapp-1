@@ -34,6 +34,8 @@ const Profile = () => {
   const [profileset, setprofileset] = useState<boolean>(true);
   const [profileData, setProfileData] = useState<any>(null);
   const [msg, setMsg] = useState<string>("");
+  const [auth, setauth] = useState<boolean>(false);
+  const [loggedin, setloggedin] = useState<boolean>(false);
 
   const navigate = (path: string) => {
     window.location.href = path;
@@ -185,34 +187,49 @@ const Profile = () => {
     setprofileset(true);
   };
 
-  const loggedin = Cookies.get("platform_token");
-  const wallet = Cookies.get("platform_wallet");
+  // const loggedin = Cookies.get("platform_token");
+  // const wallet = Cookies.get("platform_wallet");
+
+  // useEffect(() => {
+  //   const handleConnectWallet = async () => {
+  //     if (!loggedin && !wallet) {
+  //       try {
+  //         const isConnect = await connectWallet();
+  //         if (isConnect) {
+  //           window.location.reload();
+  //         }
+  //       } catch (error) {
+  //         console.error("Error connecting wallet:", error);
+  //       }
+  //     }
+  //   };
+  //   handleConnectWallet();
+  // }, [loggedin, wallet]);
+
+  // if (!loggedin && !wallet) {
+  //   return (
+  //     <div className="min-h-screen text-center text-white">
+  //       <div style={{ marginTop: "30vh" }} className="text-2xl">
+  //         Wallet not connected, please authorize to view the content.
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   useEffect(() => {
-    const handleConnectWallet = async () => {
-      if (!loggedin && !wallet) {
-        try {
-          const isConnect = await connectWallet();
-          if (isConnect) {
-            window.location.reload();
-          }
-        } catch (error) {
-          console.error("Error connecting wallet:", error);
+      const handleConnectWallet = async () => {
+        const loggedin = Cookies.get("platform_token");
+        const auth = Cookies.get("google_token");
+        if (loggedin) {
+          setloggedin(true);
         }
-      }
-    };
-    handleConnectWallet();
-  }, [loggedin, wallet]);
-
-  if (!loggedin && !wallet) {
-    return (
-      <div className="min-h-screen text-center text-white">
-        <div style={{ marginTop: "30vh" }} className="text-2xl">
-          Wallet not connected, please authorize to view the content.
-        </div>
-      </div>
-    );
-  }
+        if (auth) {
+          setauth(true);
+        }
+      };
+      handleConnectWallet();
+    }, [loggedin, auth]);
+  
 
   return (
     <div
@@ -475,6 +492,50 @@ const Profile = () => {
 
             {profileset && (
               <>
+              {
+                auth && !loggedin && (
+                  <>
+                  <div className="flex -mt-6">
+                      <div className="rounded-full px-2 text-center font-bold mb-2" style={{backgroundColor:'#11D9C5'}}>1</div>
+                    <div style={{color: '#11D9C5'}}>--------------------</div>
+                    <div className="rounded-full px-2 text-center font-bold mb-2" style={{backgroundColor:'#788AA3'}}>2</div>
+              </div>
+              <div className="flex text-left w-1/3 mb-2">
+                    <div className="w-1/2">
+                      <div className="text-white">Sign up with google</div>
+                    </div>
+                  <div className="pl-10">
+                    <div style={{color: '#788AA3'}}>Connect Wallet</div>
+                    <div style={{color: '#11D9C5'}} className="text-xs"><button onClick={async () => {
+  await connectWallet();
+  setloggedin(true);
+}}>(Complete Step 2 to get access to write reviews
+“Click Here”)</button></div>
+                  </div>
+              </div>
+              </>
+                )
+              }
+
+              {
+                auth && loggedin && (
+<>
+                  <div className="flex -mt-6">
+                      <div className="rounded-full px-2 text-center font-bold mb-2" style={{backgroundColor:'#11D9C5'}}>1</div>
+                    <div style={{color: '#11D9C5'}}>--------------------</div>
+                    <div className="rounded-full px-2 text-center font-bold mb-2" style={{backgroundColor:'#11D9C5'}}>2</div>
+              </div>
+              <div className="flex text-left w-1/3 mb-2">
+                    <div className="w-1/4">
+                      <div className="text-white">Sign up with google</div>
+                    </div>
+                  <div className="pl-10">
+                    <div className="text-white">Connect Wallet</div>
+                  </div>
+              </div>
+              </>
+                )
+              }
                 <section className="pb-10 rounded-xl" style={bg}>
                   <h1 className="pt-8 pl-8 text-start text-4xl font-semibold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
                     <span className="text-white">Basic information</span>

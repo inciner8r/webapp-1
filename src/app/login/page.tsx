@@ -91,7 +91,7 @@ const Login = () => {
           });
       
           const responseData = await response.json();
-          Cookies.set("platform_token", responseData.payload.token, { expires: 7 });
+          Cookies.set("google_token", responseData.payload.token, { expires: 7 });
           Cookies.set("platform_userid", responseData.payload.userId, { expires: 7 });
           console.log('Another API call response:', responseData);
         } catch (error) {
