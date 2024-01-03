@@ -5,6 +5,7 @@ import netsepioname from "../../../public/productname.png";
 import Cookies from "js-cookie";
 import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
 import { removePrefix } from "../../../modules/Utils/ipfsUtil";
 import MyReviews from "../myreviews/ViewMyReviews";
 import Projects from "../projects/Projects";
@@ -167,6 +168,7 @@ const NewDashboard = () => {
         </div>
         <div className="w-5/6">
             <div className="justify-end text-white flex mr-14 mt-4">
+              <button className="flex" onClick={()=>setpage("profile")}>
                 <div>
                 {
                     profileData?.profilePictureUrl && (
@@ -182,6 +184,7 @@ const NewDashboard = () => {
                     )}
                   </div>
                 <div className="mr-10 pt-1" style={{color:'#788AA3'}}>{profileData?.name}</div>
+                </button>
                 <div className="pt-1" style={{color:'#FF85C2'}}><button onClick={handleDeleteCookie}>Log Out</button></div>
             </div>
             <div>

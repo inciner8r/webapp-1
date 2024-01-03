@@ -520,7 +520,7 @@ const Profile = () => {
                               >
                                 {profileData?.name
                                   ? profileData?.name
-                                  : "Mia Anderson"}
+                                  : "Name"}
                               </div>
 
                               <div
@@ -529,7 +529,7 @@ const Profile = () => {
                               >
                                 {profileData?.country
                                   ? profileData?.country
-                                  : "Canada"}
+                                  : "Country"}
                               </div>
                             </div>
 
@@ -540,7 +540,7 @@ const Profile = () => {
                               >
                                 {profileData?.discord
                                   ? profileData?.discord
-                                  : "SparkleNinja#1234"}
+                                  : "Discord"}
                               </div>
 
                               <div
@@ -549,7 +549,7 @@ const Profile = () => {
                               >
                                 {profileData?.twitter
                                   ? profileData?.twitter
-                                  : "@MiaAdventure21"}
+                                  : "Twitter"}
                               </div>
                             </div>
                           </div>

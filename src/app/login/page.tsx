@@ -1,12 +1,13 @@
 "use client"
-import loginbg from "../../../public/bglogin.png";
 import google from "../../../public/google.png";
+import googletop from "../../../public/googletop.png";
 import wallet from "../../../public/wallet.png";
 import tick from "../../../public/Subtract.png";
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 
 const CLIENT_ID = "699954671747-bqj0rvn0q2296skerds6indulobrv1fv.apps.googleusercontent.com"
 const REDIRECT_URI = "http://localhost:3000/login"
@@ -15,7 +16,7 @@ const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/"
 
 const Login = () => {
 
-    const [success, setsuccess] = useState<boolean>(false);
+    const [page, setpage] = useState<string>("google");
 
     const handleLoginClick = () => {
         const state = Math.random().toString(36).substring(7);
@@ -59,7 +60,7 @@ const Login = () => {
           // Assuming id_token is present in tokenData
           const idToken = tokenData.id_token;
       
-          setsuccess(true);
+          setpage("wallet");
 
           // Use idToken in another API call
           await getgoogledata(idToken);
@@ -111,14 +112,84 @@ const Login = () => {
     backgroundColor: "#2229447A",
   };
 
+
+  const getAptosWallet = () => {
+    if ('aptos' in window) {
+      return (window as any).aptos;
+    } else {
+      window.open('https://petra.app/', '_blank');
+    }
+  }
+
+  const connectWallet = async () => {
+    const wallet = getAptosWallet();
+    try {
+      const response = await wallet.connect();
+
+      const account = await wallet.account();
+      console.log("account",account)
+
+      const { data } = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/flowid?walletAddress=${account.address}`);
+      console.log(data);
+
+      const message = data.payload.eula;
+      const nonce = data.payload.flowId;
+      const publicKey = account.publicKey;
+
+      const { signature, fullMessage } = await wallet.signMessage({
+        message,
+        nonce
+      });
+      console.log("sign", signature, "full message", fullMessage);
+
+      const authenticationData = {
+        "flowId": nonce,
+        "signature": `0x${signature}`,
+        "pubKey": publicKey,
+      };
+
+      const authenticateApiUrl = `${REACT_APP_GATEWAY_URL}api/v1.0/authenticate`;
+
+      const config = {
+        url: authenticateApiUrl,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: authenticationData,
+      };
+
+      try {
+        const response = await axios(config);
+        console.log("auth data", response.data);
+        const token = await response?.data?.payload?.token;
+        const userId = await response?.data?.payload?.userId;
+            // localStorage.setItem("platform_token", token);
+            Cookies.set("platform_token", token, { expires: 7 });
+            Cookies.set("platform_wallet", account.address, { expires: 7 });
+            Cookies.set("platform_userid", userId, { expires: 7 });
+
+            // setUserWallet(account.address);
+            // window.location.reload();
+            setpage("googlewalletboth");
+      } catch (error) {
+        console.error(error);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div
-      className="pb-40 -mb-4 -mx-3"
+      className="pb-40 -mb-4"
       style={{
-        backgroundImage: `url(${loginbg})`,
+        backgroundImage: `url(/bglogin.png)`,
         backgroundPosition: "50% 100%",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        minHeight: "100vh"
       }}
     >
       <div
@@ -126,60 +197,124 @@ const Login = () => {
         
       >
         <div className="w-full mx-auto md:w-11/12 xl:w-9/12 pt-40 rounded-xl" style={loginbox}>
-          { !success && (
+
+          { page == 'google' && (
             <>
-            <h1 className="mb-6 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
-            <span className="color: white">Welcome to Netsepio</span>
+
+            <Image src={googletop} alt="" className="mx-auto"/>
+
+            <h1 className="mb-2 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
+            <span className="color: white">1. Sign In</span>
           </h1>
           <div className="pb-14">
             <div className="text-gray-300">
-              Join the Netsepio Community, Where Safety Meets Convenience
+            Use your Google Account
             </div>
           </div>
 
-          <div className="pb-10">
+          <div className="pb-40">
             <button className="text-black bg-white p-2 rounded-lg w-1/2" onClick={handleLoginClick}>
                 <div className="flex gap-2 justify-center">
                 <div> <Image src={google} alt=""/></div>  
-                <div>Sign up with Google</div>
+                <div>Sign in and next</div>
                 </div>
             </button>
           </div>
 
-          <div className="pb-40">
+          {/* <div className="pb-40">
             <button className="text-black bg-white p-2 rounded-lg w-1/2">
             <div className="flex gap-2 justify-center">
                 <div> <Image src={wallet} alt=""/></div>  
                 <div>Connect Wallet</div>
                 </div>
             </button>
+          </div> */}
+          </>
+)}
+
+{ page == 'wallet' && (
+            <>
+            <h1 className="mb-6 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
+            <span className="color: white">2. Connect Wallet</span>
+          </h1>
+          <div className="pb-14">
+            <div className="text-gray-300">
+            Connect your wallet with petra
+            </div>
+          </div>
+
+          <div className="pb-4">
+            <button className="text-black bg-white p-2 rounded-lg w-1/2" onClick={connectWallet}>
+                <div className="flex gap-2 justify-center">
+                <div> <Image src={wallet} alt=""/></div>  
+                <div>Connect with petra</div>
+                </div>
+            </button>
+          </div>
+
+          <div className="pb-40">
+            {/* <Link href="/dashboard"> */}
+            <button className="text-white border p-2 rounded-lg w-1/2" onClick={()=>{setpage("onlygoogle")}}>
+            <div className="flex gap-2 justify-center">
+                {/* <div> <Image src={wallet} alt=""/></div>   */}
+                <div>Skip</div>
+                </div>
+            </button>
+             {/* </Link> */}
           </div>
           </>
 )}
 
-{ success && (
+{ page == 'onlygoogle' && (
             <>
             <Image src={tick} className="mx-auto mb-8" alt=""/>
             <h1 className="mb-6 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
-            <span className="color: white">Successfully logged in!</span>
+            <span className="color: white">Successful Google logged in!</span>
           </h1>
-          <div className="pb-14">
+          {/* <div className="pb-14">
             <div className="text-gray-300">
             Create Your Profile for the Next Step, <br/>Submitting Reviews
             </div>
-          </div>
+          </div> */}
 
           <div className="pb-32">
-            <Link href="/profile">
+            <Link href="/dashboard">
             <button className="text-black bg-white p-2 rounded-lg w-1/2">
             <div className="flex gap-2 justify-center"> 
-                <div>Create your Profile</div>
+                <div>Go to Dashboard</div>
                 </div>
             </button>
             </Link>
           </div>
           </>
 )}
+
+
+{ page == 'googlewalletboth' && (
+            <>
+            <Image src={tick} className="mx-auto mb-8" alt=""/>
+            <h1 className="mb-6 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
+            <span className="color: white">Successful logged in!</span>
+          </h1>
+          {/* <div className="pb-14">
+            <div className="text-gray-300">
+            Create Your Profile for the Next Step, <br/>Submitting Reviews
+            </div>
+          </div> */}
+
+          <div className="pb-32">
+            <Link href="/dashboard">
+            <button className="text-black bg-white p-2 rounded-lg w-1/2">
+            <div className="flex gap-2 justify-center"> 
+                <div>Go to Dashboard</div>
+                </div>
+            </button>
+            </Link>
+          </div>
+          </>
+)}
+
+
         </div>
       </div>
     </div>
