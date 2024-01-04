@@ -16,7 +16,7 @@ const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/"
 
 const Login = () => {
 
-    const [page, setpage] = useState<string>("google");
+    const [page, setpage] = useState<string>("wallet");
 
     const handleLoginClick = () => {
         const state = Math.random().toString(36).substring(7);
@@ -60,7 +60,7 @@ const Login = () => {
           // Assuming id_token is present in tokenData
           const idToken = tokenData.id_token;
       
-          setpage("wallet");
+          setpage("googlewalletboth");
 
           // Use idToken in another API call
           await getgoogledata(idToken);
@@ -171,7 +171,7 @@ const Login = () => {
 
             // setUserWallet(account.address);
             // window.location.reload();
-            setpage("googlewalletboth");
+            setpage("google");
       } catch (error) {
         console.error(error);
       }
@@ -212,11 +212,19 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="pb-40">
+          <div className="pb-4">
             <button className="text-black bg-white p-2 rounded-lg w-1/2" onClick={handleLoginClick}>
                 <div className="flex gap-2 justify-center">
                 <div> <Image src={google} alt=""/></div>  
-                <div>Sign in and next</div>
+                <div>Sign up with Google</div>
+                </div>
+            </button>
+          </div>
+
+          <div className="pb-40">
+            <button className="text-white border p-2 rounded-lg w-1/2" onClick={()=>{setpage("onlywallet")}}>
+            <div className="flex gap-2 justify-center">
+                <div>Skip</div>
                 </div>
             </button>
           </div>
@@ -243,7 +251,7 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="pb-4">
+          <div className="pb-40">
             <button className="text-black bg-white p-2 rounded-lg w-1/2" onClick={connectWallet}>
                 <div className="flex gap-2 justify-center">
                 <div> <Image src={wallet} alt=""/></div>  
@@ -252,24 +260,14 @@ const Login = () => {
             </button>
           </div>
 
-          <div className="pb-40">
-            {/* <Link href="/dashboard"> */}
-            <button className="text-white border p-2 rounded-lg w-1/2" onClick={()=>{setpage("onlygoogle")}}>
-            <div className="flex gap-2 justify-center">
-                {/* <div> <Image src={wallet} alt=""/></div>   */}
-                <div>Skip</div>
-                </div>
-            </button>
-             {/* </Link> */}
-          </div>
           </>
 )}
 
-{ page == 'onlygoogle' && (
+{ page == 'onlywallet' && (
             <>
             <Image src={tick} className="mx-auto mb-8" alt=""/>
             <h1 className="mb-6 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
-            <span className="color: white">Successful Google logged in!</span>
+            <span className="color: white">Successful Wallet logged in!</span>
           </h1>
           {/* <div className="pb-14">
             <div className="text-gray-300">
