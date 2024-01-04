@@ -25,7 +25,7 @@ const VpnContainerDedicated: React.FC<MyReviewContainerProps> = ({ metaDataArray
   return (
     <>
       <div
-        className="container mx-auto py-8"
+        className="container mx-auto py-2"
         
       >
         {metaDataArray?.length === 0 ? (

@@ -212,7 +212,7 @@ const Vpn = () => {
           },
         });
 
-        console.log("vpn response", response)
+        console.log("vpn decentralized", response)
 
         if (response.status === 200) {
             // Filter the data based on the domain ID
@@ -242,7 +242,7 @@ const Vpn = () => {
           },
         });
 
-        console.log("vpn response", response)
+        console.log("vpn dedicated", response)
 
         if (response.status === 200) {
             // Filter the data based on the domain ID
@@ -309,11 +309,11 @@ setbuttonset(false);
   return (
     <div
     
-      className="py-10"
+      className="py-0"
     >
-      <section className="pt-24 mb-10">
-        <div className="px-5 mx-auto max-w-8xl">
-          <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+      <section className="">
+        <div className="px-10 mx-auto">
+          <div className="w-full mx-auto text-left md:text-center">
 
           
            
@@ -475,7 +475,7 @@ setbuttonset(false);
 {
   !buttonset && (
     <>
-    { projectsData && projectsData?.length > 0 && (<h1 className="mb-8 ml-6 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+    { projectsData && projectsData?.length > 0 && (<h1 className="mb-8 ml-6 text-start text-2xl font-bold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
                     <span className="text-white">My VPNs</span>
                   </h1>)}
             <section className="pb-10 rounded-xl">
@@ -529,7 +529,7 @@ on your network</span></div>
           </div>
           ) : (
             <div className='mx-6'>
-              <h1 className='text-4xl font-bold text-white text-left mb-10'>My VPNs</h1>
+              {/* <h1 className='text-4xl font-bold text-white text-left mb-10'>My VPNs</h1> */}
               <div className='flex gap-4'>
               <select
                           id="region"
@@ -544,13 +544,13 @@ on your network</span></div>
                           <option value="ap-southeast-1">ap-southeast-1</option>
                         </select>
 
-                  <div className="flex text-white">
-                    <button className="p-4 px-10 rounded-l-md" 
+                  <div className="flex text-white text-xs">
+                    <button className="p-4 px-3 rounded-l-lg" 
                     style={{
                       backgroundColor: vpntype === 'decentralized' ? '#4B5995' : '#222944',
                     }}
                      onClick={()=>setvpntype("decentralized")}>Decentralized</button>
-                    <button className="p-4 px-14 rounded-r-md" 
+                    <button className="p-4 px-6 rounded-r-lg" 
                     style={{
                       backgroundColor: vpntype === 'dedicated' ? '#4B5995' : '#222944',
                     }}
@@ -560,7 +560,7 @@ on your network</span></div>
 
                 { vpntype === "decentralized" && (
                   <>
-              <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-10" style={bg}>
+              <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4" style={bg}>
         
                 <div className="w-full px-4 flex justify-between">
                   <h3
@@ -605,7 +605,7 @@ on your network</span></div>
 
           { vpntype === "dedicated" && (
           <>
-          <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-10" style={bg}>
+          <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4" style={bg}>
                 <div className="w-full px-4 flex justify-between">
                   <h3
                     className="text-lg leading-12 mb-2 w-1/4"
