@@ -418,24 +418,26 @@ console.log("jsonData",jsonData);
   return (
     <div
       
-      className="py-10"
+      className="py-0"
     >
-      <section className="pt-24 mb-10">
-        <div className="px-5 mx-auto max-w-8xl">
-          <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+      <section className="mb-0">
+        <div className="px-5 mx-auto">
+          <div className="w-full mx-auto text-left md:text-center">
 
-          <div className="flex p-6 text-white ml-14">
-                    <button className="p-4 px-10" 
+          <div className="flex text-white ml-10 text-2xl font-bold">Projects</div>
+
+          <div className="flex p-6 text-white ml-4 text-xs">
+                    <button className="p-4 px-3 rounded-l-lg" 
                     style={{
                       backgroundColor: pagestatus === 'submit' ? '#4B5995' : '#222944',
                     }}
                      onClick={()=>setpagestatus("submit")}>Submit Project</button>
-                    <button className="p-4 px-10" 
+                    <button className="p-4 px-3" 
                     style={{
                       backgroundColor: pagestatus === 'my' ? '#4B5995' : '#222944',
                     }}
                      onClick={()=>setpagestatus("my")}>My Projects</button>
-                    <button className="p-4 px-10" 
+                    <button className="p-4 px-3 rounded-r-lg" 
                     style={{
                       backgroundColor: pagestatus === 'all' ? '#4B5995' : '#222944',
                     }}
@@ -443,12 +445,14 @@ console.log("jsonData",jsonData);
                   </div>
            
             { pagestatus=='submit' && (
-            <section className="pb-10 rounded-xl max-w-4xl mx-auto" style={bg}>
-              <div className="px-5 mx-auto max-w-3xl rounded-xl">
-                <div className="w-full mx-auto text-left py-20">
-                  <h1 className="mb-8 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+            <section className="pb-0 rounded-xl mx-10 mx-auto" style={{ overflowY: 'auto', maxHeight: '550px', backgroundColor: '#222944'}}>
+              <h1 className="pl-10 pt-10 text-2xl text-left font-bold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
                     <span className="text-white">Verify your project</span>
                   </h1>
+              <div className="px-5 mx-auto max-w-4xl rounded-xl">
+              
+                <div className="w-full mx-auto text-left pb-10">
+                  
 
                   <form
                     id="myForm"
@@ -830,14 +834,7 @@ click the 'verify' button.
 {
   pagestatus!='submit' && (
     <>
-    <h1 className="mb-8 text-start lg:text-4xl md:text-4xl text-xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight lg:flex md:flex">
-                    {/* <button onClick={() => setVerifiedproj(false)} className={`text-white lg:ml-20 md:ml-20 ml-10`}>My Projects</button>
-                    <button onClick={() => setVerifiedproj(true)} className={`text-white lg:ml-20 md:ml-20 ml-10 lg:mt-0 md:mt-0 mt-6
-                    ${Verifiedproj ? '' : ''}`}>All Verified Projects</button> */}
-                    
-                    
-                  </h1>
-            <section className="pb-10 rounded-xl">
+            <section className="pb-0 rounded-xl">
               
             {loading ? (
             // <Loader />
@@ -890,7 +887,7 @@ Verification Needed</h2>
 )}
                      
 
-                     { projectsData && projectsData?.length > 0 && (
+                     {/* { projectsData && projectsData?.length > 0 && (
                       <div className="mb-4 space-x-0 md:space-x-2 md:mb-8 mt-10">
                         <button
                           style={button}
@@ -900,7 +897,7 @@ Verification Needed</h2>
                           Add More Project
                         </button>
                       </div>
-                    )}
+                    )} */}
 
 
                   {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
