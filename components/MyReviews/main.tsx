@@ -187,22 +187,23 @@ const MyReviews: React.FC = () => {
 
   return (
     <div
-      className="py-10"
+      className=""
     >
-      <section className="pt-24 mb-10">
-        <div className="px-5 mx-auto max-w-7xl">
-          <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+      <section className="mb-0">
+        <div className="mx-auto px-10">
+          <div className="w-full mx-auto text-left md:text-center">
 
           {/* <div className='-mt-10'>
           <ButtonNavigation onNavigate={handleNavigation} count={count}/>
           </div> */}
 
-            <section className="pb-10 rounded-xl" style={bg}>
-              <div className="px-5 mx-auto max-w-2xl rounded-xl">
-                <div className="w-full mx-auto text-left py-20">
-                  <h1 className="mb-8 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+            <section className="pb-0 rounded-xl" style={{ overflowY: 'auto', maxHeight: '550px', backgroundColor: '#222944'}}>
+            <h1 className="pt-10 pl-10 text-left text-2xl font-bold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
                     <span className="text-white">Share Your Insights</span>
                   </h1>
+              <div className="px-5 mx-auto max-w-3xl rounded-xl" >
+                <div className="w-full mx-auto text-left ">
+                  
 
                   <form
                     id="myForm"
@@ -213,7 +214,7 @@ const MyReviews: React.FC = () => {
                     }}
                   >
                     <div className="lg:flex md:flex justify-between gap-2">
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-6 lg:w-1/2 md:w-1/2">
                         <input
                           type="text"
                           id="title"
@@ -235,7 +236,7 @@ const MyReviews: React.FC = () => {
                           required
                         /> */}
                       </div>
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-6 lg:w-1/2 md:w-1/2">
                         <input
                           type="url"
                           id="websiteUrl"
@@ -260,7 +261,7 @@ const MyReviews: React.FC = () => {
                     </div>
 
                     <div className="lg:flex md:flex justify-between gap-2">
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-6 lg:w-1/2 md:w-1/2">
                         <select
                           id="siteType"
                           style={border}
@@ -285,7 +286,7 @@ const MyReviews: React.FC = () => {
                           value={siteType} onChange={(e) => setSiteType(e.target.value)} required
                         /> */}
                       </div>
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-6 lg:w-1/2 md:w-1/2">
                         <select
                           id="siteType"
                           style={border}
@@ -314,7 +315,7 @@ const MyReviews: React.FC = () => {
                     </div>
 
                     <div className="lg:flex md:flex justify-between gap-2">
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-6 lg:w-1/2 md:w-1/2">
                         <select
                           id="category"
                           style={border}
@@ -349,7 +350,7 @@ const MyReviews: React.FC = () => {
                           value={siteCat} onChange={(e) => setSiteCat(e.target.value)} required
                         /> */}
                       </div>
-                      <div className="mb-10 lg:w-1/2 md:w-1/2">
+                      <div className="mb-6 lg:w-1/2 md:w-1/2">
                         <select
                           id="siteTag"
                           style={border}
@@ -376,7 +377,7 @@ const MyReviews: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="mb-6">
+                    <div className="mb-6 w-1/2">
                     <input
                           type="text"
                           id="blockchain"

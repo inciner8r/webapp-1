@@ -24,7 +24,7 @@ const MyReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray}) =
   return (
     <>
       <div
-        className="container mx-auto px-4 py-8"
+        className="container mx-auto px-4" style={{ overflowY: 'auto', maxHeight: '500px' }}
       >
         {metaDataArray?.length === 0 ? (
           renderNoReviewsFound()

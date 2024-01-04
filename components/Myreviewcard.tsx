@@ -132,7 +132,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-full max-w-5xl mx-auto"
+      className="flex flex-col items-center justify-center w-full px-6 mx-auto"
     >
       <div
         className="w-full h-full p-10 bg-center bg-cover rounded-lg"

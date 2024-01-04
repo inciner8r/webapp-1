@@ -143,21 +143,23 @@ const loggedin = Cookies.get("platform_token");
 
   return (
     <div
-        className="py-10"
+        className=""
         style={background}
       >
       <div
-        className="mt-16"
+        className=""
       >
 
+        <div className="flex text-white ml-10 text-2xl font-bold">Reviews</div>
+
 {/* <ButtonNavigation onNavigate={handleNavigation} count={metaDataArray? metaDataArray.length : 0}/> */}
-<div className="flex p-6 text-white ml-14">
-                    <button className="p-4 px-10" 
+<div className="flex p-6 text-white ml-4 text-xs">
+                    <button className="p-4 px-3 rounded-l-lg" 
                     style={{
                       backgroundColor: pagestatus === 'submit' ? '#4B5995' : '#222944',
                     }}
                      onClick={()=>setpagestatus("submit")}>Submit Reviews</button>
-                    <button className="p-4 px-10" 
+                    <button className="p-4 px-6 rounded-r-lg" 
                     style={{
                       backgroundColor: pagestatus === 'my' ? '#4B5995' : '#222944',
                     }}
@@ -167,13 +169,13 @@ const loggedin = Cookies.get("platform_token");
 {
    pagestatus=='my' && (
 <>
-<div className="px-5 mx-auto max-w-7xl">
+{/* <div className="px-5 mx-auto max-w-7xl">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
           <h1 className="mb-8 text-start text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
                     <span className="text-white">My Reviews</span>
                   </h1>
                   </div>
-                  </div>
+                  </div> */}
 
         {loading ? (
             <Loader />
@@ -214,11 +216,11 @@ const loggedin = Cookies.get("platform_token");
           </div>
 )}
 
-          { reviews && reviews?.length > 0 && (
+          {/* { reviews && reviews?.length > 0 && (
           <div className='text-center mt-10 mb-20'>
             <button style={style2} onClick={myreviews} className='py-4 px-10 rounded-lg font-bold'>Add more reviews</button>
           </div>
-          )}
+          )} */}
 
 </>
           )
