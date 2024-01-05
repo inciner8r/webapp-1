@@ -229,9 +229,14 @@ const logout = {
         <>
         </>
       ) : (
+        // <button 
+        // className="text-black p-2 rounded-lg lg:block hidden mr-2" style={style2}
+        // onClick={connectWallet}> Connect Wallet</button>
+        <Link href="/login">
         <button 
-        className="text-black p-2 rounded-lg lg:block hidden mr-2" style={style2}
-        onClick={connectWallet}> Connect Wallet</button>
+        className="text-black p-2 rounded-lg lg:block hidden mr-2 font-semibold" style={style2}
+        >Login Now</button>
+        </Link>
       )}
 
           <button className="hidden lg:block" 
@@ -246,7 +251,7 @@ const logout = {
               hidefilter && (
                 <>
                   <div className="z-10 bg-white w-36 rounded-lg shadow absolute" style={{backgroundColor:'white', right:150, top:50, width:'100px'}}>
-                  <div className="divide-y divide-gray-500">
+                  {/* <div className="divide-y divide-gray-500">
                     <ul className="py-1 text-sm text-black dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                       <li className="flex flex-row dark:hover:bg-gray-600 hover:bg-gray-100">
                         <Link href="/profile" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</Link>
@@ -264,9 +269,9 @@ const logout = {
                         <button onClick={()=>{setHideProjects(!hideprojects)}} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Projects</button>
                       </div>
                     </div>
-                    </div>
+                    </div> */}
 
-                    {
+                    {/* {
                        hideprojects && (
                         <div>
                     <div className="py-1 divide-y-0">
@@ -282,9 +287,9 @@ const logout = {
                     </div>
                     </div>
                        )
-                    }
+                    } */}
 
-                    <div className="py-1 divide-y-0 border-gray-500 border-t">
+                    {/* <div className="py-1 divide-y-0 border-gray-500 border-t">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         <button onClick={()=>{setHideReports(!hidereports)}} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reports</button>
                       </div>
@@ -306,23 +311,35 @@ const logout = {
                     </div>
                         </div>
                       )
-                    }
+                    } */}
                     
-                    <div className="divide-y divide-gray-500 border-gray-500 border-t">
+                    {/* <div className="divide-y divide-gray-500 border-gray-500 border-t">
                     <div className="py-1">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
                         <Link href="/vpn" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Vpn</Link>
                       </div>
-                    </div>
+                    </div> */}
 
+                  <div className="divide-y divide-gray-500 border-gray-500 border-t">
                     <div className="py-1">
                       <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
-                        <Link href="/login" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-0 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</Link>
+                        { loggedin && wallet && (
+                        <Link href="/dashboard" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-2 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
+                        )}
+                        { !loggedin && !wallet && (
+                        <Link href="/login" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-2 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</Link>
+                        )}
                       </div>
                     </div>
 
+                    {/* <div className="py-1">
+                      <div className="dark:hover:bg-gray-600 hover:bg-gray-100 flex flex-row">
+                        <Link href="/login" onClick={()=>setHideFilter(false)} className="mx-auto block px-2 py-2 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</Link>
+                      </div>
+                    </div> */}
+
                     {loggedin && wallet && value ?(
-                    <div className="py-1 px-2 text-sm">
+                    <div className="py-2 px-2 text-sm">
                       <div className="flex flex-row">
                       <button onClick={handleDeleteCookie} className="mx-auto hover:text-red-400 text-black" onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}>Logout</button>

@@ -203,14 +203,14 @@ const Login = () => {
 
             <Image src={googletop} alt="" className="mx-auto"/>
 
-            <h1 className="mb-2 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
-            <span className="color: white">1. Sign In</span>
+            <h1 className="mb-2 pb-14 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
+            <span className="color: white">2. Sign up with Google</span>
           </h1>
-          <div className="pb-14">
+          {/* <div className="pb-14">
             <div className="text-gray-300">
             Use your Google Account
             </div>
-          </div>
+          </div> */}
 
           <div className="pb-4">
             <button className="text-black bg-white p-2 rounded-lg w-1/2" onClick={handleLoginClick}>
@@ -243,7 +243,7 @@ const Login = () => {
 { page == 'wallet' && (
             <>
             <h1 className="mb-6 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-4xl md:tracking-tight">
-            <span className="color: white">2. Connect Wallet</span>
+            <span className="color: white">1. Connect Wallet</span>
           </h1>
           <div className="pb-14">
             <div className="text-gray-300">

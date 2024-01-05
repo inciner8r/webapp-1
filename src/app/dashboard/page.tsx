@@ -97,7 +97,7 @@ const NewDashboard = () => {
                 onClick={navMain}
                 className="text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-200 to-green-400 text-3xl"
               >
-                <Image src={netsepioname} className="w-22 h-6" alt=""/>
+                <Image src={netsepioname} className="w-24 h-6" alt=""/>
               </button>
             </div>
 

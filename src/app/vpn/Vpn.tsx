@@ -46,6 +46,7 @@ const Vpn = () => {
   const [verify, setverify] = useState<boolean>(false);
   const [endpoint, setEndpoint] = useState<string>("");
   const [vpntype, setvpntype] = useState<string>("decentralized");
+  const [subscription, setSubscription] = useState<string>("desc")
 
   const txtvalue = localStorage.getItem("txtvalue");
 
@@ -318,6 +319,51 @@ const Vpn = () => {
       <section className="">
         <div className="px-10 mx-auto">
           <div className="w-full mx-auto text-left md:text-center">
+            {
+              subscription === "desc" && (
+                <div>
+                  <div className="text-white font-bold text-3xl mt-0">
+                    111 NFT VPN Subscription
+                  </div>
+                  <div className="text-gray-300 text-2xl w-1/3 mx-auto mt-6">3 months of Erebrus, Each Erebrus 
+subscription comes with 2 clients</div>
+          <div className='text-center mt-8 mb-8'>
+            <button className='py-3 px-14 rounded-lg font-bold' style={{backgroundColor:'#11D9C5'}}>Mint Now</button>
+          </div>
+          <div className="text-gray-400 text-xl w-1/3 mx-auto">Pricing starts at 1.11 APT only, Get your 
+subscription at an unbeatable price.</div>
+<div>
+<button onClick={()=>{setSubscription("compare")}} style={{color:'#11D9C5'}} className="mt-6">Comparison of VPNs. Learn more </button>
+</div>
+<div>
+<button onClick={()=>{setSubscription("compare")}} style={{color:'#11D9C5'}} className="mt-4">About erebrus VPN </button>
+</div>
+
+<div className="m-4 text-white px-10 py-14 text-xl rounded-2xl" style={{backgroundColor:'#222944'}}>
+  <div className="flex gap-4">
+<div className="w-1/3">
+<Image src="/sub1.png" alt="" width="100" height="100" className="mx-auto"/>
+<div>Trade the NFT 
+on marketplace</div>
+</div>
+<div className="w-1/3">
+<Image src="/sub2.png" alt="" width="100" height="100" className="mx-auto"/>
+<div>Access to NetSepio webapp,
+browser extension </div>
+</div>
+<div className="w-1/3">
+<Image src="/sub3.png" alt="" width="100" height="100" className="mx-auto"/>
+<div>Exclusive 111 only NFT</div>
+</div>
+  </div>
+</div>
+                  </div>
+              )
+            }
+
+{
+              subscription === "done" && (
+                <>
           <h1 className="mb-8 ml-6 text-start text-2xl font-bold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
               <span className="text-white">My VPNs</span>
             </h1>
@@ -815,6 +861,8 @@ const Vpn = () => {
                 </section>
               </>
             )}
+            </>
+              )}
           </div>
         </div>
       </section>
