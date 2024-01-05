@@ -1,21 +1,21 @@
-"use client"
+"use client";
 import Cookies from "js-cookie";
-import axios from 'axios';
-import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
-import MyVpnContainer from '../../../components/Myvpncontainer';
-import emoji from '../../../public/EmojiMessage.png';
-import connectWallet from '../../../modules/connectwallet';
-import novpn from '../../../public/novpn2.png';
-import vpn1 from '../../../public/vpn1.png';
-import vpn2 from '../../../public/vpn2.png';
-import vpn3 from '../../../public/vpn3.png';
-import vpn4 from '../../../public/vpn4.png';
-import vpn5 from '../../../public/vpn5.png';
-import vpn6 from '../../../public/vpn6.png';
-import vpn7 from '../../../public/vpn7.png';
+import axios from "axios";
+import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
+import MyVpnContainer from "../../../components/Myvpncontainer";
+import emoji from "../../../public/EmojiMessage.png";
+import connectWallet from "../../../modules/connectwallet";
+import novpn from "../../../public/novpn2.png";
+import vpn1 from "../../../public/vpn1.png";
+import vpn2 from "../../../public/vpn2.png";
+import vpn3 from "../../../public/vpn3.png";
+import vpn4 from "../../../public/vpn4.png";
+import vpn5 from "../../../public/vpn5.png";
+import vpn6 from "../../../public/vpn6.png";
+import vpn7 from "../../../public/vpn7.png";
 import Image from "next/image";
-import VpnContainerDedicated from '../../../components/VpnContainerDedicated';
-const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/"
+import VpnContainerDedicated from "../../../components/VpnContainerDedicated";
+const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/";
 
 export interface FlowIdResponse {
   eula: string;
@@ -34,7 +34,6 @@ interface FormData {
 }
 
 const Vpn = () => {
-
   const [loading, setLoading] = useState<boolean>(false);
   const [profileset, setprofileset] = useState<boolean>(true);
   const [buttonset, setbuttonset] = useState<boolean>(false);
@@ -44,22 +43,20 @@ const Vpn = () => {
   const [successmsg, setsuccessMsg] = useState<string>("");
   const [errormsg, seterrorMsg] = useState<string>("");
   const [region, setregion] = useState<string>("us-east-2");
-  const [verify,setverify] = useState<boolean>(false);
-  const [endpoint, setEndpoint] = useState<string>("")
-  const [vpntype, setvpntype] = useState<string>("decentralized")
+  const [verify, setverify] = useState<boolean>(false);
+  const [endpoint, setEndpoint] = useState<string>("");
+  const [vpntype, setvpntype] = useState<string>("decentralized");
 
-  const txtvalue = localStorage.getItem('txtvalue');
+  const txtvalue = localStorage.getItem("txtvalue");
 
   useEffect(() => {
     setLoading(true);
 
     const timeoutId = setTimeout(() => {
-      const storedSubmissionProfile = localStorage.getItem('submissionProfile');
-      if (storedSubmissionProfile === 'true') {
+      const storedSubmissionProfile = localStorage.getItem("submissionProfile");
+      if (storedSubmissionProfile === "true") {
         setprofileset(true);
-      }
-      else
-      {
+      } else {
         setprofileset(false);
       }
       setLoading(false);
@@ -68,7 +65,7 @@ const Vpn = () => {
     return () => {
       clearTimeout(timeoutId);
       setLoading(false);
-    }
+    };
   }, [msg]);
 
   const bg2 = {
@@ -76,11 +73,11 @@ const Vpn = () => {
   };
 
   const bg = {
-    backgroundColor: "#788AA333",
+    backgroundColor: "#30385F",
   };
 
   const border = {
-    backgroundColor: "#222944",
+    backgroundColor: "#30385F",
     border: "1px solid #788AA3",
   };
 
@@ -88,37 +85,38 @@ const Vpn = () => {
     backgroundColor: "#11D9C5",
   };
 
-  const text= {
-    color: "#788AA3"
-  }
+  const text = {
+    color: "#788AA3",
+  };
 
-  const text2= {
-    color: "#11D9C5"
-  }
+  const text2 = {
+    color: "#11D9C5",
+  };
 
-  const successtext= {
-    color: "#141a31"
-  }
+  const successtext = {
+    color: "#141a31",
+  };
 
-  const errortext= {
-    color: "#EE4B2B"
-  }
+  const errortext = {
+    color: "#EE4B2B",
+  };
 
   const bgverify = {
     backgroundColor: "#141a31",
-  }
+  };
 
   const initialFormData: FormData = {
-    name: '',
-    region: '',
-    type: ''
+    name: "",
+    region: "",
+    type: "",
     // domain: '',
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { id, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -135,8 +133,8 @@ const Vpn = () => {
 
     try {
       const formDataObj = new FormData();
-      formDataObj.append('name', formData.name);
-      formDataObj.append('region', formData.region);
+      formDataObj.append("name", formData.name);
+      formDataObj.append("region", formData.region);
 
       // Convert FormData to JavaScript Object
       const formDataObject: { [key: string]: string | File | null } = {};
@@ -146,10 +144,10 @@ const Vpn = () => {
 
       // Convert JavaScript Object to JSON string
       const jsonData = JSON.stringify(formDataObject);
-      console.log(formData.type)
+      console.log(formData.type);
       if (formData.type === "dedicated") {
         const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn`, {
-          method: 'POST',
+          method: "POST",
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -157,46 +155,45 @@ const Vpn = () => {
           },
           body: jsonData,
         });
-  
-        if (response.status === 200) {
-          const responseData = await response.json();
-          setFormData(initialFormData);
-          console.log("vpn data",responseData);
-          setverify(true);
-        } else {
-          setMsg('error');
-        }
 
-      } else if (formData.type === "decentralized"){
-        const response = await fetch(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${formData.region}`, {
-          method: 'POST',
-          headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth}`,
-          },
-          body: jsonData,
-        });
-  
         if (response.status === 200) {
           const responseData = await response.json();
           setFormData(initialFormData);
-          console.log("vpn data",responseData);
+          console.log("vpn data", responseData);
           setverify(true);
         } else {
-          setMsg('error');
+          setMsg("error");
+        }
+      } else if (formData.type === "decentralized") {
+        const response = await fetch(
+          `${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${formData.region}`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${auth}`,
+            },
+            body: jsonData,
+          }
+        );
+
+        if (response.status === 200) {
+          const responseData = await response.json();
+          setFormData(initialFormData);
+          console.log("vpn data", responseData);
+          setverify(true);
+        } else {
+          setMsg("error");
         }
       }
-
     } catch (error) {
-      console.error('Error:', error);
-      setMsg('error');
+      console.error("Error:", error);
+      setMsg("error");
     } finally {
       setLoading(false);
     }
   };
-
-
 
   useEffect(() => {
     const fetchProjectsData = async () => {
@@ -204,26 +201,31 @@ const Vpn = () => {
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${region}`, {
-          headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth}`,
-          },
-        });
+        const response = await axios.get(
+          `${REACT_APP_GATEWAY_URL}api/v1.0/erebrus/client/${region}`,
+          {
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${auth}`,
+            },
+          }
+        );
 
-        console.log("vpn decentralized", response)
+        console.log("vpn decentralized", response);
 
         if (response.status === 200) {
-            // Filter the data based on the domain ID
-            const wallet = Cookies.get("platform_wallet");
-            const payload: any[] = response.data.payload;
-    const filteredData = payload.filter(item => item?.walletAddress === wallet);
-    setprojectsData(filteredData);
-          console.log("decentralized",filteredData)
+          // Filter the data based on the domain ID
+          const wallet = Cookies.get("platform_wallet");
+          const payload: any[] = response.data.payload;
+          const filteredData = payload.filter(
+            (item) => item?.walletAddress === wallet
+          );
+          setprojectsData(filteredData);
+          console.log("decentralized", filteredData);
         }
       } catch (error) {
-        console.error('Error fetching profile data:', error);
+        console.error("Error fetching profile data:", error);
       } finally {
         setLoading(false);
       }
@@ -234,40 +236,43 @@ const Vpn = () => {
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/vpn/all/${region}`, {
-          headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth}`,
-          },
-        });
+        const response = await axios.get(
+          `${REACT_APP_GATEWAY_URL}api/v1.0/vpn/all/${region}`,
+          {
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${auth}`,
+            },
+          }
+        );
 
-        console.log("vpn dedicated", response)
+        console.log("vpn dedicated", response);
 
         if (response.status === 200) {
-            // Filter the data based on the domain ID
-            const wallet = Cookies.get("platform_wallet");
-            const payload: any[] = response.data.payload;
-    const filteredData = payload.filter(item => item?.walletAddress === wallet);
-    setdedicatedVpnData(filteredData);
-          console.log("dedicated", filteredData)
+          // Filter the data based on the domain ID
+          const wallet = Cookies.get("platform_wallet");
+          const payload: any[] = response.data.payload;
+          const filteredData = payload.filter(
+            (item) => item?.walletAddress === wallet
+          );
+          setdedicatedVpnData(filteredData);
+          console.log("dedicated", filteredData);
         }
       } catch (error) {
-        console.error('Error fetching profile data:', error);
+        console.error("Error fetching profile data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-
     fetchProjectsData();
     fetchVpnDedicated();
-  }, [buttonset,region]);
-
+  }, [buttonset, region]);
 
   const gotovpn = () => {
-setbuttonset(false);
-  }
+    setbuttonset(false);
+  };
 
   const handleNavigation = (page: string) => {
     console.log(`Navigating to ${page} page from vpnPage...`);
@@ -291,7 +296,7 @@ setbuttonset(false);
             window.location.reload();
           }
         } catch (error) {
-          console.error('Error connecting wallet:', error);
+          console.error("Error connecting wallet:", error);
         }
       }
     };
@@ -300,238 +305,338 @@ setbuttonset(false);
 
   if (!loggedin && !wallet) {
     return (
-      <div className='min-h-screen text-center text-white'>
-        <div style={{ marginTop: '30vh' }} className='text-2xl'>Wallet not connected, please authorize to view the content.</div>
+      <div className="min-h-screen text-center text-white">
+        <div style={{ marginTop: "30vh" }} className="text-2xl">
+          Wallet not connected, please authorize to view the content.
+        </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div
-    
-      className="py-0"
-    >
+    <div className="py-0">
       <section className="">
         <div className="px-10 mx-auto">
           <div className="w-full mx-auto text-left md:text-center">
-
-          
-           
-            { buttonset && (
-            <section className="pb-10 rounded-xl" style={bg}>
-              <div className="px-5 mx-auto max-w-2xl rounded-xl">
-                <div className="w-full mx-auto text-left py-20">
-                  <h1 className="mb-8 text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-                    <span className="text-white text-center">Create Your VPN</span>
-                  </h1>
-
-                  <form
-                    id="myForm"
-                    className="rounded pt-10"
-                    onSubmit={handleSubmit}
-                  >
-
-                      <div className="mb-10">
-
-                    <div className="mb-10">
-                        <input
-                          type="text"
-                          id="name"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder="Name"
-                          value={formData.name}
-              onChange={handleInputChange}
-                          required
-                        />
-
-                  
-                      </div>
-
-            
-
-                      <div className="mb-10">
-                        <select
-                          id="region"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          value={formData.region}
-                          onChange={handleInputChange}
-                          required
-                        >
-                          <option value="">Select Region</option>
-                          <option value="us-east-2">us-east-2</option>
-                          <option value="ap-southeast-1">ap-southeast-1</option>
-                        </select>
-                       
-                      </div>
-
-                      <div className="mb-10">
-                        <select
-                          id="type"
-                          style={border}
-                          className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                          value={formData.type}
-                          onChange={handleInputChange}
-                          required
-                        >
-                          <option value="">Select VPN type</option>
-                          <option value="dedicated">Dedicated</option>
-                          <option value="decentralized">Decentralized</option>
-                        </select>
-                        
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-10">
-                      <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
-                        <button
-                          style={button}
-                          type="submit"
-                          value="submit"
-                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
-                        >
-                          Create
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-
-                  {
-              verify && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
-    <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
-        <div className="relative rounded-lg shadow dark:bg-gray-700" style={bg2}>
-            <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
-                
-                <button 
-                    onClick={() => setbuttonset(false)}
-                    type="button" 
-                    className="text-gray-900 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                </button>
+          <h1 className="mb-8 ml-6 text-start text-2xl font-bold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
+              <span className="text-white">My VPNs</span>
+            </h1>
+            {buttonset && (
+              <>
+              <div className="flex text-white text-xs mb-4">
+              <button
+                className="p-4 px-3 rounded-l-lg"
+                style={{
+                  backgroundColor:
+                  buttonset
+                      ? "#4B5995"
+                      : "#222944",
+                }}
+                onClick={() => setvpntype("decentralized")}
+              >
+                Create VPNs
+              </button>
+              <button
+                className="p-4 px-6 rounded-r-lg"
+                style={{
+                  backgroundColor:
+                  !buttonset ? "#4B5995" : "#222944",
+                }}
+                onClick={() => setbuttonset(false)}
+              >
+                My VPNs
+              </button>
             </div>
+              <section className="rounded-xl" style={bg}>
+                <div className="px-5 mx-auto max-w-3xl rounded-xl">
+                  <div className="w-full mx-auto text-left py-14">
+                    <h1 className="text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+                      <span className="text-white text-center">
+                        Create Your VPN
+                      </span>
+                    </h1>
 
-            <Image src={emoji} alt="info" className="mx-auto"/>
+                    <form
+                      id="myForm"
+                      className="rounded pt-10"
+                      onSubmit={handleSubmit}
+                    >
+                      <div className="mb-10">
+                        <div className="mb-10">
+                          <input
+                            type="text"
+                            id="name"
+                            style={border}
+                            className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="Name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
 
-            <div className="p-4 md:p-5 space-y-4">
-            <p className="text-3xl text-center font-bold">
-                Done!
-                </p>
-                <p className="text-md text-center" style={text}>
-                VPN deployment successful.
-                </p>
-            </div>
+                        <div className="mb-10">
+                          <select
+                            id="region"
+                            style={border}
+                            className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                            value={formData.region}
+                            onChange={handleInputChange}
+                            required
+                          >
+                            <option className="bg-white text-black" value="">Select Region</option>
+                            <option className="bg-white text-black" value="us-east-2">us-east-2</option>
+                            <option className="bg-white text-black" value="ap-southeast-1">
+                              ap-southeast-1
+                            </option>
+                          </select>
+                        </div>
 
-            <div className="flex items-center p-4 md:p-5 rounded-b">
-                <button 
-                style={button}
-                onClick={gotovpn}
-                type="button" className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">My VPNs</button>
-              </div>
+                        <div className="mb-10">
+                          <select
+                            id="type"
+                            style={border}
+                            className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                            value={formData.type}
+                            onChange={handleInputChange}
+                            required
+                          >
+                            <option className="bg-white text-black" value="">Select VPN type</option>
+                            <option className="bg-white text-black" value="dedicated">Dedicated</option>
+                            <option className="bg-white text-black" value="decentralized">Decentralized</option>
+                          </select>
+                        </div>
+                      </div>
 
-        </div>          
-    </div>
-</div>
-)
-}
+                      <div className="text-center pt-10">
+                        <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
+                          <button
+                            style={button}
+                            type="submit"
+                            value="submit"
+                            className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                          >
+                            Create
+                          </button>
+                        </div>
+                      </div>
+                    </form>
 
-                  {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
-            <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
-            </div>
-          </div>
-        </div>)}
-            {
-              msg == "success" && (
-                <p className="text-green-500">Successful</p>
-              )
-            }
+                    {verify && (
+                      <div
+                        style={bgverify}
+                        className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full"
+                        id="popupmodal"
+                      >
+                        <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
+                          <div
+                            className="relative rounded-lg shadow dark:bg-gray-700"
+                            style={bg2}
+                          >
+                            <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
+                              <button
+                                onClick={() => setbuttonset(false)}
+                                type="button"
+                                className="text-gray-900 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                <svg
+                                  className="w-3 h-3"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 14 14"
+                                >
+                                  <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                                  />
+                                </svg>
+                                <span className="sr-only">Close modal</span>
+                              </button>
+                            </div>
 
-            {
-              msg == "error" && (
-                <p className="text-red-500">Failed to create VPN. Enter unique name.</p>
-              )
-            }
+                            <Image src={emoji} alt="info" className="mx-auto" />
+
+                            <div className="p-4 md:p-5 space-y-4">
+                              <p className="text-3xl text-center font-bold">
+                                Done!
+                              </p>
+                              <p className="text-md text-center" style={text}>
+                                VPN deployment successful.
+                              </p>
+                            </div>
+
+                            <div className="flex items-center p-4 md:p-5 rounded-b">
+                              <button
+                                style={button}
+                                onClick={gotovpn}
+                                type="button"
+                                className="w-full text-black font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                              >
+                                My VPNs
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {loading && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 700,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            zIndex: 9999,
+                          }}
+                        >
+                          <div
+                            style={{
+                              border: "8px solid #f3f3f3",
+                              borderTop: "8px solid #3498db",
+                              borderRadius: "50%",
+                              width: "50px",
+                              height: "50px",
+                              animation: "spin 1s linear infinite",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    )}
+                    {msg == "success" && (
+                      <p className="text-green-500">Successful</p>
+                    )}
+
+                    {msg == "error" && (
+                      <p className="text-red-500">
+                        Failed to create VPN. Enter unique name.
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </section>
-         )}
+              </section>
 
+              </>
+            )}
 
-
-
-
-
-
-
-
-
-
-
-{
-  !buttonset && (
-    <>
-    { projectsData && projectsData?.length > 0 && (<h1 className="mb-8 ml-6 text-start text-2xl font-bold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
+            {!buttonset && (
+              <>
+                {/* {projectsData && projectsData?.length > 0 && (
+                  <h1 className="mb-8 ml-6 text-start text-2xl font-bold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
                     <span className="text-white">My VPNs</span>
-                  </h1>)}
-            <section className="pb-10 rounded-xl">
-              
-            {loading ? (
-            // <Loader />
-            <div className="min-h-screen"></div>
-          ) : (!projectsData || projectsData?.length == 0) && (!dedicatedVpnData || dedicatedVpnData?.length == 0) ? (
-            <div
-            className="w-full max-w-7xl mx-auto py-10 rounded-xl text-start"
-            
-          >
-             <div className='lg:flex md:flex lg:p-0 md:p-20 p-10 gap-10'>
-              <div className='lg:w-1/2 md:w-1/2 w-full'>
-              <Image src={novpn} alt=""/>
-              </div>
-              <div className='lg:w-1/2 md:w-1/2 w-full lg:mt-10 md:mt-0 mt-10'>
-              <h2 className="text-3xl font-semibold text-white">Revamp Your Security, Sotreus 
-Unites VPN and Firewall for Total 
-Protection</h2>
-<h3 className="text-gray-500 mt-4 lg:w-4/5 md:w-4/5">Sotreus is a dedicated WireGuard VPN and firewall 
-service designed by NetSepio</h3>
-              <div className='mt-10'>
-                <button style={button} onClick={() => setbuttonset(true)} className='py-4 px-10 rounded-lg font-bold'>Create your VPN</button>
-              </div>
-              </div>
-            </div>
+                  </h1>
+                )} */}
+                <section className="pb-10 rounded-xl">
+                  {loading ? (
+                    // <Loader />
+                    <div className="min-h-screen"></div>
+                  ) : (!projectsData || projectsData?.length == 0) &&
+                    (!dedicatedVpnData || dedicatedVpnData?.length == 0) ? (
+                    <div className="w-full max-w-7xl mx-auto py-10 rounded-xl text-start">
+                      <div className="lg:flex md:flex lg:p-0 md:p-20 p-10 gap-10">
+                        <div className="lg:w-1/2 md:w-1/2 w-full">
+                          <Image src={novpn} alt="" />
+                        </div>
+                        <div className="lg:w-1/2 md:w-1/2 w-full lg:mt-10 md:mt-0 mt-10">
+                          <h2 className="text-3xl font-semibold text-white">
+                            Revamp Your Security, Sotreus Unites VPN and
+                            Firewall for Total Protection
+                          </h2>
+                          <h3 className="text-gray-500 mt-4 lg:w-4/5 md:w-4/5">
+                            Sotreus is a dedicated WireGuard VPN and firewall
+                            service designed by NetSepio
+                          </h3>
+                          <div className="mt-10">
+                            <button
+                              style={button}
+                              onClick={() => setbuttonset(true)}
+                              className="py-4 px-10 rounded-lg font-bold"
+                            >
+                              Create your VPN
+                            </button>
+                          </div>
+                        </div>
+                      </div>
 
-            <div className="text-white text-4xl py-20 font-bold mt-20">Easy Setup to Start Using Sotreus VPN</div>
-            <div style={bg} className="text-white text-xl lg:flex md:flex gap-10 p-10 rounded-lg">
-              <div className="w-1/2">
-                <div className='border-b border-dashed mb-4 pb-2'>1. Create <span style={text}>your VPN on NetSepio</span></div>
-                <Image src={vpn1} className='p-4' alt=""/>
-                <div className='border-b border-dashed my-4 pb-2'>2. <span style={text}>Click</span> <a href="https://www.wireguard.com/install/" target="_blank" style={text2}>Here</a> <span style={text}>to</span> Download <span style={text}>and</span> Install WireGuard</div>
-                <div className='mb-4 pb-2 text-sm p-4'>(a) <span style={text}>Download</span> config form <span style={text}>dashboard and import to</span> wireguard <span style={text}>and</span> activate</div>
-                <Image src={vpn2} className='mb-4 p-4' alt=""/>
-                <Image src={vpn3} className='p-4' alt=""/>
-                <div className='my-4 pb-2 text-sm p-4'>(b) <span style={text}>Open</span> Pihole <span style={text}>&gt;</span> Domains <span style={text}>&gt;</span> Add Domain To Blacklist <span style={text}>&gt; it no longer opens 
-on your network</span></div>
-                <Image src={vpn4} className='p-4' alt=""/>
-              </div>
-              <div className="w-1/2">
-              <div className='border-b border-dashed mb-4 pb-2'>3. <span style={text}>Set up</span> Sotreus <span style={text}>on</span> WireGuard</div>
-                <Image src={vpn5} className='p-4' alt=""/>
-                <div className='border-b border-dashed my-4 pb-2'>4. <span style={text}>Create</span> Client <span style={text}>on Sotreus</span></div>
-                <Image src={vpn6} className='p-4' alt=""/>
-                <div className='border-b border-dashed my-4 pb-2'>5. <span style={text}>Manage</span> Domain Blacklist <span style={text}>and </span> Whitelist <span style={text}>on Sotreus</span></div>
-                <Image src={vpn7} className='p-4' alt=""/>
-              </div>
-            </div>
-          </div>
-          ) : (
-            <div className='mx-6'>
-              {/* <h1 className='text-4xl font-bold text-white text-left mb-10'>My VPNs</h1> */}
-              <div className='flex gap-4'>
-              <select
+                      <div className="text-white text-4xl py-20 font-bold mt-20">
+                        Easy Setup to Start Using Sotreus VPN
+                      </div>
+                      <div
+                        style={bg}
+                        className="text-white text-xl lg:flex md:flex gap-10 p-10 rounded-lg"
+                      >
+                        <div className="w-1/2">
+                          <div className="border-b border-dashed mb-4 pb-2">
+                            1. Create{" "}
+                            <span style={text}>your VPN on NetSepio</span>
+                          </div>
+                          <Image src={vpn1} className="p-4" alt="" />
+                          <div className="border-b border-dashed my-4 pb-2">
+                            2. <span style={text}>Click</span>{" "}
+                            <a
+                              href="https://www.wireguard.com/install/"
+                              target="_blank"
+                              style={text2}
+                            >
+                              Here
+                            </a>{" "}
+                            <span style={text}>to</span> Download{" "}
+                            <span style={text}>and</span> Install WireGuard
+                          </div>
+                          <div className="mb-4 pb-2 text-sm p-4">
+                            (a) <span style={text}>Download</span> config form{" "}
+                            <span style={text}>dashboard and import to</span>{" "}
+                            wireguard <span style={text}>and</span> activate
+                          </div>
+                          <Image src={vpn2} className="mb-4 p-4" alt="" />
+                          <Image src={vpn3} className="p-4" alt="" />
+                          <div className="my-4 pb-2 text-sm p-4">
+                            (b) <span style={text}>Open</span> Pihole{" "}
+                            <span style={text}>&gt;</span> Domains{" "}
+                            <span style={text}>&gt;</span> Add Domain To
+                            Blacklist{" "}
+                            <span style={text}>
+                              &gt; it no longer opens on your network
+                            </span>
+                          </div>
+                          <Image src={vpn4} className="p-4" alt="" />
+                        </div>
+                        <div className="w-1/2">
+                          <div className="border-b border-dashed mb-4 pb-2">
+                            3. <span style={text}>Set up</span> Sotreus{" "}
+                            <span style={text}>on</span> WireGuard
+                          </div>
+                          <Image src={vpn5} className="p-4" alt="" />
+                          <div className="border-b border-dashed my-4 pb-2">
+                            4. <span style={text}>Create</span> Client{" "}
+                            <span style={text}>on Sotreus</span>
+                          </div>
+                          <Image src={vpn6} className="p-4" alt="" />
+                          <div className="border-b border-dashed my-4 pb-2">
+                            5. <span style={text}>Manage</span> Domain Blacklist{" "}
+                            <span style={text}>and </span> Whitelist{" "}
+                            <span style={text}>on Sotreus</span>
+                          </div>
+                          <Image src={vpn7} className="p-4" alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mx-6">
+                      <div className="flex gap-4">
+                        <select
                           id="region"
                           style={border}
                           className="shadow border flex appearance-none rounded lg:w-1/5 md:w-1/3 py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
@@ -539,153 +644,182 @@ on your network</span></div>
                           onChange={handleRegionChange}
                           required
                         >
-                          <option value="">Select Region</option>
-                          <option value="us-east-2">us-east-2</option>
-                          <option value="ap-southeast-1">ap-southeast-1</option>
+                          <option className="bg-white text-black" value="">Select Region</option>
+                          <option className="bg-white text-black" value="us-east-2">us-east-2</option>
+                          <option className="bg-white text-black" value="ap-southeast-1">ap-southeast-1</option>
                         </select>
 
-                  <div className="flex text-white text-xs">
-                    <button className="p-4 px-3 rounded-l-lg" 
-                    style={{
-                      backgroundColor: vpntype === 'decentralized' ? '#4B5995' : '#222944',
-                    }}
-                     onClick={()=>setvpntype("decentralized")}>Decentralized</button>
-                    <button className="p-4 px-6 rounded-r-lg" 
-                    style={{
-                      backgroundColor: vpntype === 'dedicated' ? '#4B5995' : '#222944',
-                    }}
-                     onClick={()=>setvpntype("dedicated")}>Dedicated</button>
-                  </div>
-                  </div>
+                        <div className="flex text-white text-xs">
+                          <button
+                            className="p-4 px-3 rounded-l-lg"
+                            style={{
+                              backgroundColor:
+                                vpntype === "decentralized"
+                                  ? "#4B5995"
+                                  : "#222944",
+                            }}
+                            onClick={() => setvpntype("decentralized")}
+                          >
+                            Decentralized
+                          </button>
+                          <button
+                            className="p-4 px-6 rounded-r-lg"
+                            style={{
+                              backgroundColor:
+                                vpntype === "dedicated" ? "#4B5995" : "#222944",
+                            }}
+                            onClick={() => setvpntype("dedicated")}
+                          >
+                            Dedicated
+                          </button>
+                        </div>
 
-                { vpntype === "decentralized" && (
-                  <>
-              <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4" style={bg}>
-        
-                <div className="w-full px-4 flex justify-between">
-                  <h3
-                    className="text-lg leading-12 mb-2 w-1/4"
-                   
-                  >
-                    <div className="flex" style={text}>
-                      VPN Id
-                    </div>
-                  </h3>
-
-                  <div className="lg:flex md:flex justify-between w-1/4">
-                  <div
-                    
-                  >
-                    
-                    <div className="text-lg rounded-lg pr-1" style={text}>
-                    VPN Name
-                    </div>    
-                  </div>
-              </div>
-              
-                      
-              <div className="text-lg rounded-lg pr-1 flex w-1/4" style={text}>
-              Download Config 
-                  
-                    </div> 
-
-                  <div className="text-lg flex w-1/4" style={text}>
-                    <p
-                      
-                    >
-                      QR Code 
-                    </p>
-                  </div>
-                </div>
-                </div>
-                
-            <MyVpnContainer metaDataArray={projectsData} MyReviews={false}/>
-            </>
-            )}
-
-          { vpntype === "dedicated" && (
-          <>
-          <div className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4" style={bg}>
-                <div className="w-full px-4 flex justify-between">
-                  <h3
-                    className="text-lg leading-12 mb-2 w-1/4"
-                   
-                  >
-                    <div className="flex" style={text}>
-                      VPN Id
-                    </div>
-                  </h3>
-
-                  <div className="lg:flex md:flex justify-between w-1/4">
-                  <div
-                   
-                  >
-                    
-                    <div className="text-lg rounded-lg pr-1" style={text}>
-                    VPN endpoint
-                    </div>    
-                  </div>
-              </div>
-              
-                      
-              <div className="text-lg rounded-lg pr-1 flex w-1/4" style={text}>
-              Firewall endpoint 
-                  
-                    </div> 
-
-                  <div className="text-lg flex w-1/4" style={text}>
-                    <p
-                      
-                    >
-                      Password
-                    </p>
-                  </div>
-
-                  <div className="text-lg flex w-1/8" style={text}>
-                    <p
-                      
-                    >
-                      Delete
-                    </p>
-                  </div>
-
-                </div>
-                </div>
-
-                <VpnContainerDedicated metaDataArray={dedicatedVpnData} MyReviews={false}/>
-                </>
-                )}
-
-            </div>
-          )}
-                     
-                      <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
+                        <div className="ml-auto text-white">
                         <button
-                          style={button}
+                          style={{border: "1px solid #11D9C5"}}
                           onClick={() => setbuttonset(true)}
-                          className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg lg:w-1/3 md:w-1/3 w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                          className="px-4 py-3 mb-2 text-xs font-semibold rounded-lg w-full sm:mb-0"
                         >
                           Add More VPNs
                         </button>
                       </div>
 
+                      </div>
 
-                  {loading && (<div style={{ position: 'absolute', top: 700, left: 0, width: '100%', height: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
-            <div style={{ border: '8px solid #f3f3f3', borderTop: '8px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }}>
-            </div>
-          </div>
-        </div>)}
-            </section>
-    </>
-  )
-}
-            
+                      
+                      {vpntype === "decentralized" && (
+                        <>
+                          <div
+                            className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4"
+                            style={bg}
+                          >
+                            <div className="w-full px-4 flex justify-between">
+                              <h3 className="text-lg leading-12 mb-2 w-1/4">
+                                <div className="flex" style={text}>
+                                  VPN Id
+                                </div>
+                              </h3>
+
+                              <div className="lg:flex md:flex justify-between w-1/4">
+                                <div>
+                                  <div
+                                    className="text-lg rounded-lg pr-1"
+                                    style={text}
+                                  >
+                                    VPN Name
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                className="text-lg rounded-lg pr-1 flex w-1/4"
+                                style={text}
+                              >
+                                Download Config
+                              </div>
+
+                              <div className="text-lg flex w-1/4" style={text}>
+                                <p>QR Code</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <MyVpnContainer
+                            metaDataArray={projectsData}
+                            MyReviews={false}
+                          />
+                        </>
+                      )}
+
+                      {vpntype === "dedicated" && (
+                        <>
+                          <div
+                            className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4"
+                            style={bg}
+                          >
+                            <div className="w-full px-4 flex justify-between">
+                              <h3 className="text-lg leading-12 mb-2 w-1/4">
+                                <div className="flex" style={text}>
+                                  VPN Id
+                                </div>
+                              </h3>
+
+                              <div className="lg:flex md:flex justify-between w-1/4">
+                                <div>
+                                  <div
+                                    className="text-lg rounded-lg pr-1"
+                                    style={text}
+                                  >
+                                    VPN endpoint
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                className="text-lg rounded-lg pr-1 flex w-1/4"
+                                style={text}
+                              >
+                                Firewall endpoint
+                              </div>
+
+                              <div className="text-lg flex w-1/4" style={text}>
+                                <p>Password</p>
+                              </div>
+
+                              <div className="text-lg flex w-1/8" style={text}>
+                                <p>Delete</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <VpnContainerDedicated
+                            metaDataArray={dedicatedVpnData}
+                            MyReviews={false}
+                          />
+                        </>
+                      )}
+                    </div>
+                  )}
+
+                  {loading && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 700,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          zIndex: 9999,
+                        }}
+                      >
+                        <div
+                          style={{
+                            border: "8px solid #f3f3f3",
+                            borderTop: "8px solid #3498db",
+                            borderRadius: "50%",
+                            width: "50px",
+                            height: "50px",
+                            animation: "spin 1s linear infinite",
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  )}
+                </section>
+              </>
+            )}
           </div>
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default Vpn
+export default Vpn;

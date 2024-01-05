@@ -7,6 +7,7 @@ import Main from '../../../components/MyReviews/main';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import aptos from '../../../public/Protocolicon.png';
+import connectWallet from '../../../modules/connectwallet';
 import noreview from '../../../public/noreviews.png';
 import Image from 'next/image'
 import WalletNotFound from '../../../components/MyReviews/walletNotFound';
@@ -24,9 +25,9 @@ const ViewMyReviews: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const connectWallet = async () => {
-    navigate1('/my-reviews');
-  };
+  // const connectWallet = async () => {
+  //   navigate1('/my-reviews');
+  // };
   
   useEffect(() => {
     setLoading(true);
@@ -130,12 +131,37 @@ const handleNavigation = (page: string) => {
 };
 
 const loggedin = Cookies.get("platform_token");
-  const wallet = Cookies.get("platform_wallet");
+const wallet = Cookies.get("platform_wallet");
+const google = Cookies.get("google_token");
+
+  useEffect(() => {
+    const handleConnectWallet = async () => {
+      if (!loggedin && !wallet) {
+        try {
+          const isConnect = await connectWallet();
+          if (isConnect) {
+            window.location.reload();
+          }
+        } catch (error) {
+          console.error('Error connecting wallet:', error);
+        }
+      }
+    };
+    handleConnectWallet();
+  }, [loggedin, wallet]);
 
   if (!loggedin && !wallet) {
     return (
       <div>
         <WalletNotFound />
+      </div>
+    )
+  }
+
+  if ((loggedin && wallet) && !google) {
+    return (
+      <div className='min-h-screen text-center text-white'>
+        <div style={{ marginTop: '30vh' }} className='text-2xl'>Google Login Pending</div>
       </div>
     )
   }
