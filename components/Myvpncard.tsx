@@ -108,8 +108,8 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
       
     >
       <div
-        className="w-full h-full lg:px-10 md:px-10 lg:py-4 md:py-4 p-4 rounded-lg"
-        style={background}
+        className="w-full h-full lg:px-10 md:px-10 lg:py-4 md:py-4 p-4 border-t border-gray-500"
+        style={{backgroundColor:'#30385F'}}
       >
                 <div className="w-full px-4 flex justify-between">
                   <div
@@ -155,12 +155,12 @@ const MyVpnCard: React.FC<ReviewCardProps> = ({
                 </div>
                 </div>
                 {
-              qr && ( <div className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+              qr && ( <div style={{backgroundColor:'#222944E5'}} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
     <div className="relative lg:w-1/3 w-full max-w-2xl max-h-full">
-        <div className="relative rounded-lg shadow dark:bg-gray-700 p-16" style={background}>
+        <div className="relative rounded-lg shadow dark:bg-gray-700 p-16" style={{backgroundColor:'#445088'}}>
             <div className="p-4 md:p-5 flex">
-                <p className="text-2xl text-center text-white font-bold">
-                Scan the following Qr Code!
+                <p className="text-2xl text-center text-white">
+                Scan QR Code
                 </p>
                 <button 
                     onClick={() => setqr(false)}

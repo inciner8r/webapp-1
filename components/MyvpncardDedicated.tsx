@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import eye from '../public/carbon_view.png';
+import dlt from '../public/dlt.png';
 import {
   FaCopy,
 } from "react-icons/fa";
@@ -123,15 +124,15 @@ const MyVpnCardDedicated: React.FC<ReviewCardProps> = ({
       
     >
       <div
-        className="w-full h-full lg:px-10 md:px-10 lg:py-4 md:py-4 p-4 rounded-lg"
-        style={background}
+        className="w-full h-full lg:px-10 md:px-10 lg:py-4 md:py-4 p-4 border-t border-gray-500"
+        style={{backgroundColor:'#30385F'}}
       >
                 <div className="w-full px-4 flex justify-between">
                   <h3
                     className="text-2xl leading-12 font-bold mb-2 text-white w-1/4"
                     
                   >
-                    <div className="flex">
+                    <div className="flex text-lg">
                       <div>{metaData.vpn_id}</div>
                     </div>
                   </h3>
@@ -152,7 +153,7 @@ const MyVpnCardDedicated: React.FC<ReviewCardProps> = ({
                           Link</a>
                     </button> 
 
-                  <div className="text-white text-lg w-1/4 pl-10">
+                  <div className="text-white text-lg w-1/4">
                     <p
                      
                       className="flex-col"
@@ -183,7 +184,7 @@ const MyVpnCardDedicated: React.FC<ReviewCardProps> = ({
                     
                   > 
                     <button className="text-lg rounded-lg pr-1 text-white" onClick={() => deletevpn(metaData.vpn_id)}>  
-                       Delete
+                    <Image src={dlt} alt="info" className="w-4 h-4"/>
                     </button>    
                   </div>
               </div>

@@ -46,7 +46,7 @@ const Vpn = () => {
   const [verify, setverify] = useState<boolean>(false);
   const [endpoint, setEndpoint] = useState<string>("");
   const [vpntype, setvpntype] = useState<string>("decentralized");
-  const [subscription, setSubscription] = useState<string>("desc");
+  const [subscription, setSubscription] = useState<string>("done");
   const [about, setabout] = useState<boolean>(false);
 
   const txtvalue = localStorage.getItem("txtvalue");
@@ -601,11 +601,12 @@ operations</div>
                 </h1>
                 {buttonset && (
                   <>
-                    <div className="flex text-white text-xs mb-4">
+                    <div className="flex text-xs mb-4">
                       <button
                         className="p-4 px-3 rounded-l-lg"
                         style={{
-                          backgroundColor: buttonset ? "#4B5995" : "#222944",
+                          backgroundColor: buttonset ? "#11D9C5" : "#222944",
+                          color: buttonset ? "black" : "white",
                         }}
                         onClick={() => setvpntype("decentralized")}
                       >
@@ -614,7 +615,8 @@ operations</div>
                       <button
                         className="p-4 px-6 rounded-r-lg"
                         style={{
-                          backgroundColor: !buttonset ? "#4B5995" : "#222944",
+                          backgroundColor: !buttonset ? "#11D9C5" : "#222944",
+                          color: !buttonset ? "black" : "white",
                         }}
                         onClick={() => setbuttonset(false)}
                       >
@@ -623,7 +625,7 @@ operations</div>
                     </div>
                     <section className="rounded-xl" style={bg}>
                       <div className="px-5 mx-auto max-w-3xl rounded-xl">
-                        <div className="w-full mx-auto text-left py-14">
+                        <div className="w-full mx-auto text-left py-24">
                           <h1 className="text-4xl font-bold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
                             <span className="text-white text-center">
                               Create Your VPN
@@ -636,7 +638,9 @@ operations</div>
                             onSubmit={handleSubmit}
                           >
                             <div className="mb-10">
-                              <div className="mb-10">
+
+                              <div className="flex gap-4">
+                              <div className="mb-4 w-1/2">
                                 <input
                                   type="text"
                                   id="name"
@@ -649,7 +653,7 @@ operations</div>
                                 />
                               </div>
 
-                              <div className="mb-10">
+                              <div className="mb-4 w-1/2">
                                 <select
                                   id="region"
                                   style={border}
@@ -678,8 +682,10 @@ operations</div>
                                   </option>
                                 </select>
                               </div>
+                              </div>
 
-                              <div className="mb-10">
+                              <div className="flex-col gap-4 mr-4">
+                              <div className="mb-6 w-1/2">
                                 <select
                                   id="type"
                                   style={border}
@@ -708,9 +714,8 @@ operations</div>
                                   </option>
                                 </select>
                               </div>
-                            </div>
-
-                            <div className="text-center pt-10">
+                            
+                              <div className="text-center w-1/2 mt-10">
                               <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                                 <button
                                   style={button}
@@ -721,6 +726,10 @@ operations</div>
                                   Create
                                 </button>
                               </div>
+                            </div>
+                            </div>
+
+                            
                             </div>
                           </form>
 
@@ -974,14 +983,17 @@ operations</div>
                               </option>
                             </select>
 
-                            <div className="flex text-white text-xs">
+                            <div className="flex text-xs">
                               <button
                                 className="p-4 px-3 rounded-l-lg"
                                 style={{
                                   backgroundColor:
                                     vpntype === "decentralized"
-                                      ? "#4B5995"
+                                      ? "#11D9C5"
                                       : "#222944",
+                                    color: vpntype === "decentralized"
+                                  ? "black"
+                                  : "white",
                                 }}
                                 onClick={() => setvpntype("decentralized")}
                               >
@@ -992,8 +1004,11 @@ operations</div>
                                 style={{
                                   backgroundColor:
                                     vpntype === "dedicated"
-                                      ? "#4B5995"
+                                      ? "#11D9C5"
                                       : "#222944",
+                                  color: vpntype === "dedicated"
+                                  ? "black"
+                                  : "white",
                                 }}
                                 onClick={() => setvpntype("dedicated")}
                               >
@@ -1015,10 +1030,10 @@ operations</div>
                           {vpntype === "decentralized" && (
                             <>
                               <div
-                                className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4"
+                                className="w-full h-full rounded-xl mt-4 pb-2"
                                 style={bg}
                               >
-                                <div className="w-full px-4 flex justify-between">
+                                <div className="w-full px-4 flex justify-between lg:px-10 md:px-10 p-4">
                                   <h3 className="text-lg leading-12 mb-2 w-1/4">
                                     <div className="flex" style={text}>
                                       VPN Id
@@ -1050,22 +1065,23 @@ operations</div>
                                     <p>QR Code</p>
                                   </div>
                                 </div>
-                              </div>
-
-                              <MyVpnContainer
+                                <MyVpnContainer
                                 metaDataArray={projectsData}
                                 MyReviews={false}
                               />
+                              </div>
+
+                              
                             </>
                           )}
 
                           {vpntype === "dedicated" && (
                             <>
                               <div
-                                className="w-full h-full lg:px-10 md:px-10 p-4 rounded-lg mt-4"
+                                className="w-full h-full rounded-xl pb-2"
                                 style={bg}
                               >
-                                <div className="w-full px-4 flex justify-between">
+                                <div className="w-full px-4 flex justify-between lg:px-10 md:px-10 p-4 mt-4">
                                   <h3 className="text-lg leading-12 mb-2 w-1/4">
                                     <div className="flex" style={text}>
                                       VPN Id
@@ -1104,12 +1120,13 @@ operations</div>
                                     <p>Delete</p>
                                   </div>
                                 </div>
-                              </div>
-
-                              <VpnContainerDedicated
+                                <VpnContainerDedicated
                                 metaDataArray={dedicatedVpnData}
                                 MyReviews={false}
                               />
+                              </div>
+
+                              
                             </>
                           )}
                         </div>

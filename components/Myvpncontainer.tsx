@@ -25,7 +25,7 @@ const MyVpnContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, MyRev
   return (
     <>
       <div
-        className="container mx-auto py-2"
+        className="container mx-auto"
         
       >
         {metaDataArray?.length === 0 ? (
@@ -35,7 +35,7 @@ const MyVpnContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, MyRev
             
           >
             {metaDataArray?.map((metaData, index) => (
-              <div key={index} className="py-2 flex">
+              <div key={index} className="flex">
                 <MyVpnCard
                   metaData={metaData}
                   MyReviews={MyReviews}
