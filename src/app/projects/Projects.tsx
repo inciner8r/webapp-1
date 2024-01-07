@@ -433,18 +433,18 @@ console.log("jsonData",jsonData);
                       color: pagestatus === 'submit' ? 'black' : 'white',
                     }}
                      onClick={()=>setpagestatus("submit")}>Submit Project</button>
-                    <button className="p-4 px-3" 
+                    <button className="p-4 px-5" 
                     style={{
                       backgroundColor: pagestatus === 'my' ? '#11D9C5' : '#222944',
                       color: pagestatus === 'my' ? 'black' : 'white',
                     }}
                      onClick={()=>setpagestatus("my")}>My Projects</button>
-                    <button className="p-4 px-3 rounded-r-lg" 
+                    <button className="p-4 px-5 rounded-r-lg" 
                     style={{
                       backgroundColor: pagestatus === 'all' ? '#11D9C5' : '#222944',
                       color: pagestatus === 'all' ? 'black' : 'white',
                     }}
-                     onClick={()=>setpagestatus("all")}>All Verified Projects</button>
+                     onClick={()=>setpagestatus("all")}>All Projects</button>
                   </div>
            
             { pagestatus=='submit' && (

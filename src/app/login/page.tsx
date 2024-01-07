@@ -85,7 +85,7 @@ const Login = () => {
             headers: {
               Accept: "application/json, text/plain, */*",
               "Content-Type": "application/json",
-              Authorization: `Bearer ${auth}`,
+              // Authorization: `Bearer ${auth}`,
             },
             body: jsonData,
           });
