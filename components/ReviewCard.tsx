@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import StarRatingshow from "./StarRatingshow";
+import StarRatingshow from './StarRatingshow';
 import eye from '../public/carbon_view.png';
 import asnft from '../public/asnft.png';
 
@@ -103,7 +103,7 @@ return (
             <div>
 <div className="justify-end flex">
 <Link href={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '').replace(/^www\./, '')}`}>
-<Image src={eye} alt="info" className=""/>
+<Image src={eye} alt="info"/>
 </Link>
 </div>
 
@@ -146,7 +146,7 @@ return (
 
 <div className="mt-5 text-white">
                 <p>
-                  "{metaData.description}"
+                  &quot;{metaData.description}&quot;
                 </p>
               </div>
             </div>  

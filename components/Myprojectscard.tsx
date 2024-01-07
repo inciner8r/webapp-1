@@ -453,7 +453,7 @@ This process can not be undone.
                 <p className="text-md text-center" style={color}>
                 Copy the 
 TXT below and paste it in your DNS settings, then 
-click the 'verify' button.
+click the verify button.
                 </p>
 
             <div

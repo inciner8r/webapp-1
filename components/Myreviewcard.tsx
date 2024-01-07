@@ -214,7 +214,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                   <div className="text-md w-1/4 mt-4" style={{color:'#98A8BE'}}>
                     <p
                     >
-                      "{metaData?.description}"
+                     &quot;{metaData?.description}&quot;
                     </p>
                   </div>
 

@@ -276,11 +276,6 @@ const Vpn = () => {
     setbuttonset(false);
   };
 
-  const handleNavigation = (page: string) => {
-    console.log(`Navigating to ${page} page from vpnPage...`);
-    // Additional navigation logic if needed
-  };
-
   const handleRegionChange = (e: ChangeEvent<HTMLSelectElement>) => {
     // Update the selected region when the dropdown value changes
     setregion(e.target.value);
@@ -424,7 +419,7 @@ const Vpn = () => {
                       <p className="text-md">
                         Erebrus is a shared decentralized VPN Service based on
                         the WireGuard VPN Protocol. It is designed to enhance
-                        users' privacy, anonymity, and security when using
+                        users privacy, anonymity, and security when using
                         Public VPNs.
                       </p>
                       <p className="text-md mt-6">
@@ -534,7 +529,7 @@ operations</div>
                     </div>
                     <div className="border-t border-gray-500 px-2 py-10">
                       - No logs policy, ensuring user data is not stored or
-                      tracked<br></br>- `Pay in crypto` so users personal
+                      tracked<br></br>- Pay in crypto so users personal
                       identifiable info like credit cards, emails is not
                       collected
                     </div>
@@ -568,7 +563,7 @@ operations</div>
                     <div className="border-t border-gray-500 px-2 py-1">
                       - No logs policy, ensuring user data is not stored or
                       tracked
-                      <br></br>- `Pay in crypto` so users personal identifiable
+                      <br></br>- Pay in crypto so users personal identifiable
                       info like credit cards, emails is not collected
                       <br></br>- Greater control over online activities and data
                       reduces the chances of compromise.

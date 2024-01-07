@@ -161,7 +161,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                     <p
                      
                     >
-                      "{metaData.description}"
+                      &quot;{metaData.description}&quot;
                     </p>
                   </div>
                 </div>

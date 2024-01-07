@@ -42,7 +42,7 @@ export const QrCode: React.FC<QrCodeProps> = ({ clientId, name, region }) => {
       <div className="modal ">
         <div className="modal-box relative w-full bg-gray-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-80">
           <p className="text-sm text-white font-medium">
-            You will get the client's config qrcode here..
+            You will get the clients config qrcode here..
           </p>
           <div className="py-10 flex justify-center">
             {qrCodeData && <QRCodeSVG value={qrCodeData} size={300} />}

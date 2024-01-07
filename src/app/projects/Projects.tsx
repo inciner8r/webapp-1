@@ -292,7 +292,7 @@ const jsonData = JSON.stringify(formDataObject);
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=${page}&verified=true`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=${page}`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -473,7 +473,7 @@ console.log("jsonData",jsonData);
                     <img
                       alt="alt"
                       src={`${
-                        "https://cloudflare-ipfs.com/ipfs"
+                        'https://cloudflare-ipfs.com/ipfs'
                       }/${removePrefix(formData.profilePictureUrl)}`}
                       className="rounded-full"
                       width="200"
@@ -635,7 +635,7 @@ console.log("jsonData",jsonData);
                     <img
                       alt="alt"
                       src={`${
-                        "https://cloudflare-ipfs.com/ipfs"
+                        'https://cloudflare-ipfs.com/ipfs'
                       }/${removePrefix(formData.coverImageHash)}`}
                       className="w-full h-full"
                     />
@@ -703,7 +703,7 @@ console.log("jsonData",jsonData);
                 <p className="text-md text-center" style={text}>
                 Your domain has been registered successfully! Copy the 
 TXT below and paste it in your DNS settings, then 
-click the 'verify' button.
+click the verify button.
                 </p>
 
                 {/* <div className="p-4 md:p-5 space-y-4">
@@ -853,7 +853,7 @@ click the 'verify' button.
               <Image src={noproject} alt=""/>
               </div>
               <div className='lg:w-2/3 md:w-2/3 w-full'>
-              <h2 className="text-4xl font-semibold text-white">Enhance Your Project's Integrity, 
+              <h2 className="text-4xl font-semibold text-white">Enhance Your Projects Integrity, 
 Verification Needed</h2>
               <div className='mt-10'>
                 <button style={button} onClick={() => setpagestatus("submit")} className='py-4 px-10 rounded-lg font-bold'>Verify your project</button>
