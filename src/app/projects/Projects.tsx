@@ -853,7 +853,7 @@ click the 'verify' button.
               <h2 className="text-4xl font-semibold text-white">Enhance Your Project's Integrity, 
 Verification Needed</h2>
               <div className='mt-10'>
-                <button style={button} onClick={() => setbuttonset(true)} className='py-4 px-10 rounded-lg font-bold'>Verify your project</button>
+                <button style={button} onClick={() => setpagestatus("submit")} className='py-4 px-10 rounded-lg font-bold'>Verify your project</button>
               </div>
               </div>
             </div>

@@ -135,12 +135,12 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
       className="flex flex-col items-center justify-center w-full px-6 mx-auto"
     >
       <div
-        className="w-full h-full p-10 bg-center bg-cover rounded-lg"
+        className="w-full h-full bg-center bg-cover p-4"
         // shadow-xl shadow-green-400/30 shadow-md
-        style={background}
+        style={{backgroundColor:'#30385F'}}
       >
         <div
-          className="flex flex-col h-full justify-between"
+          className="flex flex-col h-full justify-between border-t border-gray-500"
         >
             <div>
               {showDescription ? (
@@ -159,72 +159,78 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                   </div>
                 </div>
               ) : (
-                <div>
+                <div className="flex">
                   <h3
-                    className="text-2xl leading-12 mb-2 text-white"
+                    className="text-xl leading-12 mb-2 text-white mt-4 w-1/4"
                   >
-                    <div className="lg:flex md:flex justify-between">
+                    <div className="">
                     <div className="lg:flex md:flex gap-6 font-bold">
-                      <div>{metaData?.name}</div>
-                      <div className="-mt-4">
+                    <Link href={`/reviews/${metaData?.domainAddress}`}>
+                      <button>{metaData?.name}</button>
+                    </Link>
+
+                    </div>
+
+                  
+                    <div
+                    className="flex" style={{color:'#98A8BE'}}
+                  >
+                    <div className="text-sm rounded-lg pr-1">
+                      {metaData?.siteType}/
+                    </div>
+                    <div className="text-sm rounded-lg pr-1">
+                      {metaData?.category}/
+                    </div>
+                    <div className="text-sm rounded-lg pr-1">
+                      {metaData?.siteSafety}/
+                    </div>
+                    <div className="text-sm rounded-lg pr-1">
+                      {metaData?.siteTag}/
+                    </div>
                         {metaData?.siteRating && (
-                          <div className="mt-4">
-                            <StarRatingshow
-                              totalStars={10}
-                              rating={metaData?.siteRating}
-                            />
+                          <div className="text-sm">
+                            ({metaData?.siteRating}/10)
                           </div>
                         )}
-                      </div>
-                    </div>
-                    <div className="flex gap-4 lg:mt-0 md:mt-0 mt-4 text-xs">
-                    <Link href={`/reviews/${metaData?.domainAddress}`}>
-                      <div className="flex py-2 px-2 gap-1 text-black" style={backgroundbutton}>
-                    <Image src={eye2} alt="info" className="w-4 h-4"/> View Review
-                    </div>
-                    </Link>
-                    <button 
-                    // onClick={deletereview} 
-                    onClick={()=>setdeleterev(true)}
-                    style={border} className="px-2 py-1 gap-1 flex pt-2">
-                    <Image src={dlt} alt="info" className="w-4 h-4"/>
-                    Delete Review</button>
-                    </div>
+                  </div>
+
+                    
                     </div>
                   </h3>
+
+                  
+
+                  <div className="w-1/4 mt-4">
                   <p
                     className="mt-4 rounded-lg"
                     style={color}
                   >
                     <a href={metaData?.siteUrl} target="_blank">
-                      {/* {metaData.domainAddress} */}
                       {metaData?.siteUrl}
                     </a>
                   </p>
-
-                  <div
-                    className="mt-4"
-                  >
-                    <button className="text-white text-lg rounded-lg pr-1">
-                      {metaData?.siteType} /
-                    </button>
-                    <button className="text-white text-lg rounded-lg pr-1">
-                      {metaData?.category} /
-                    </button>
-                    <button className="text-white text-lg rounded-lg pr-1">
-                      {metaData?.siteSafety} /
-                    </button>
-                    <button className="text-white text-lg rounded-lg pr-1">
-                      {metaData?.siteTag}
-                    </button>
                   </div>
 
-                  <div className="mt-5 text-white text-lg">
+                  <div className="text-md w-1/4 mt-4" style={{color:'#98A8BE'}}>
                     <p
                     >
                       "{metaData?.description}"
                     </p>
                   </div>
+
+                  <div className="flex gap-4 lg:mt-0 md:mt-0 mt-4 text-xs w-1/4">
+                    {/* <Link href={`/reviews/${metaData?.domainAddress}`}>
+                      <div className="flex py-2 px-2 gap-1 text-black" style={backgroundbutton}>
+                    <Image src={eye2} alt="info" className="w-4 h-4"/> View Review
+                    </div>
+                    </Link> */}
+                    <button 
+                    onClick={()=>setdeleterev(true)}
+                    className="px-2 py-1 gap-1 flex pt-2 ml-auto mt-4">
+                    <Image src={dlt} alt="info" className="w-4 h-4"/>
+                    </button>
+                    </div>
+
                 </div>
               )}
             </div>
@@ -232,15 +238,15 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
       </div>
 
       {
-              deleterev && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+              deleterev && ( <div style={{backgroundColor:'#222944E5'}} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
     <div className="relative lg:w-1/3 w-full max-w-2xl max-h-full">
-        <div className="relative rounded-lg shadow dark:bg-gray-700 p-16" style={bg}>
-            <div className="p-4 md:p-5 space-y-4">
+        <div className="relative rounded-lg shadow dark:bg-gray-700 p-16 md:p-20" style={{backgroundColor:'#37406D'}}>
+            <div className="p-4">
                 <p className="text-4xl text-center text-white font-bold">
                 Are you sure?
                 </p>
             </div>
-            <div className="p-4 md:p-5 space-y-4">
+            <div className="p-4 md:p-5 mx-auto space-y-4">
                 <p className="text-md text-center" style={text}>
                 Do you really want to delete this review?
 This process can not be undone.
@@ -248,9 +254,9 @@ This process can not be undone.
             </div>
             <div className="flex items-center p-4 md:p-5 rounded-b gap-4">
                 <button 
-                style={border}
+                style={{border: '1px solid #FF85C2', color:'#FF85C2'}}
                 onClick={() => setdeleterev(false)}
-                type="button" className="w-full text-white font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+                type="button" className="w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
               <button 
                 style={button}
                 onClick={deletereview} 

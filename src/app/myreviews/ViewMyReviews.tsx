@@ -217,7 +217,7 @@ const google = Cookies.get("google_token");
               <div className='lg:w-2/3 md:w-2/3 w-full'>
               <h2 className="text-4xl font-semibold text-white">Ready to make a difference with your reviews?</h2>
               <div className='mt-10'>
-                <button style={style2} onClick={myreviews} className='py-4 px-10 rounded-lg font-bold'>Submit Reviews</button>
+                <button style={style2} onClick={()=>{setpagestatus("submit")}} className='py-4 px-10 rounded-lg font-bold'>Submit Reviews</button>
               </div>
               </div>
             </div>

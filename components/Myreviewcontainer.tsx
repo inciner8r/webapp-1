@@ -29,13 +29,20 @@ const MyReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray}) =
         {metaDataArray?.length === 0 ? (
           renderNoReviewsFound()
         ) : (
-          <div
+          <div style={{backgroundColor: '#30385F'}} className=' rounded-2xl mx-6'
           >
+            <div className="flex uppercase px-10 text-sm pt-8" style={{color:'#98A8BE'}}>
+            <div className="w-1/4">Website name</div>
+            <div className="w-1/4">URL</div>
+            <div className="w-1/4">Feedback</div>
+            <div className="w-1/4">
+              <div className="text-right">Delete</div>
+            </div>
+            </div>
             {metaDataArray?.map((metaData, index) => (
-              <div key={index} className="py-2 flex">
+              <div key={index} className="flex">
                 <MyReviewCard
                   metaData={metaData}
-                  // MyReviews={MyReviews}
                   onReviewDeleted={handleReviewDeleted}
                 />
               </div>

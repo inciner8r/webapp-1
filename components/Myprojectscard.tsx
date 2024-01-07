@@ -399,9 +399,9 @@ console.log("jsonData",jsonData);
                   )}
 
 {
-              delproj && ( <div style={bgverify} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+              delproj && ( <div style={{backgroundColor:'#222944E5'}} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
     <div className="relative lg:w-1/3 w-full max-w-2xl max-h-full">
-        <div className="relative rounded-lg shadow dark:bg-gray-700 p-16" style={background}>
+        <div className="relative rounded-lg shadow dark:bg-gray-700 p-16 md:p-20" style={{backgroundColor:'#37406D'}}>
             <div className="p-4 md:p-5 space-y-4">
                 <p className="text-4xl text-center text-white font-bold">
                 Are you sure?
@@ -415,9 +415,9 @@ This process can not be undone.
             </div>
             <div className="flex items-center p-4 md:p-5 rounded-b gap-4">
                 <button 
-                style={border}
+                style={{border: '1px solid #FF85C2', color:'#FF85C2'}}
                 onClick={() => setdelproj(false)}
-                type="button" className="w-full text-white font-bold focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+                type="button" className="w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
               <button 
                 style={backgroundbutton}
                 onClick={() => deleteproject(metaData.id)} 
