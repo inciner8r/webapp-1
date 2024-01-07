@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import aptos from '../../../../public/Protocolicon.png';
 import StarRatingshow from "../../../../components/StarRatingshow";
 import { removePrefix } from "../../../../modules/Utils/ipfsUtil";
+import Link from 'next/link';
 const REACT_APP_GATEWAY_URL = "https://gateway.netsepio.com/"
 
 interface DomainData {
@@ -252,6 +253,10 @@ const handlePrevPage = () => {
                         </div>
           </div>
           <div className='text-white'>Creator Name : {domaindata?.creatorName}</div>
+          <Link href={`/dashboard?siteUrl=${siteUrl}`}>
+          <button className='bg-white mr-10'>Submit Review</button>
+          </Link>
+        <button className='bg-white'>Claim Project</button>
           <div style={background2} className='p-6 mt-10 rounded-xl'>
           <div className='text-white'>Headline : {domaindata?.headline}</div>
           <div className='text-white'>Description : {domaindata?.description}</div>

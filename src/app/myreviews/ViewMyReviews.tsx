@@ -179,15 +179,17 @@ const google = Cookies.get("google_token");
         <div className="flex text-white ml-10 text-2xl font-bold">Reviews</div>
 
 {/* <ButtonNavigation onNavigate={handleNavigation} count={metaDataArray? metaDataArray.length : 0}/> */}
-<div className="flex p-6 text-white ml-4 text-xs">
+<div className="flex p-6 ml-4 text-xs">
                     <button className="p-4 px-3 rounded-l-lg" 
                     style={{
-                      backgroundColor: pagestatus === 'submit' ? '#4B5995' : '#222944',
+                      backgroundColor: pagestatus === 'submit' ? '#11D9C5' : '#222944',
+                      color: pagestatus === 'submit' ? 'black' : 'white',
                     }}
                      onClick={()=>setpagestatus("submit")}>Submit Reviews</button>
                     <button className="p-4 px-6 rounded-r-lg" 
                     style={{
-                      backgroundColor: pagestatus === 'my' ? '#4B5995' : '#222944',
+                      backgroundColor: pagestatus === 'my' ? '#11D9C5' : '#222944',
+                      color: pagestatus === 'my' ? 'black' : 'white',
                     }}
                      onClick={()=>setpagestatus("my")}>My Reviews</button>
                   </div>

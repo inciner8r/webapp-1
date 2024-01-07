@@ -426,20 +426,23 @@ console.log("jsonData",jsonData);
 
           <div className="flex text-white ml-10 text-2xl font-bold">Projects</div>
 
-          <div className="flex p-6 text-white ml-4 text-xs">
+          <div className="flex p-6 ml-4 text-xs">
                     <button className="p-4 px-3 rounded-l-lg" 
                     style={{
-                      backgroundColor: pagestatus === 'submit' ? '#4B5995' : '#222944',
+                      backgroundColor: pagestatus === 'submit' ? '#11D9C5' : '#222944',
+                      color: pagestatus === 'submit' ? 'black' : 'white',
                     }}
                      onClick={()=>setpagestatus("submit")}>Submit Project</button>
                     <button className="p-4 px-3" 
                     style={{
-                      backgroundColor: pagestatus === 'my' ? '#4B5995' : '#222944',
+                      backgroundColor: pagestatus === 'my' ? '#11D9C5' : '#222944',
+                      color: pagestatus === 'my' ? 'black' : 'white',
                     }}
                      onClick={()=>setpagestatus("my")}>My Projects</button>
                     <button className="p-4 px-3 rounded-r-lg" 
                     style={{
-                      backgroundColor: pagestatus === 'all' ? '#4B5995' : '#222944',
+                      backgroundColor: pagestatus === 'all' ? '#11D9C5' : '#222944',
+                      color: pagestatus === 'all' ? 'black' : 'white',
                     }}
                      onClick={()=>setpagestatus("all")}>All Verified Projects</button>
                   </div>

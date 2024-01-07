@@ -468,7 +468,7 @@ const Vpn = () => {
             )}
 
             {subscription === "compare" && (
-              <>
+              <div style={{ overflowY: 'auto', maxHeight: '680px'}}>
                 <div className="text-white font-bold text-2xl text-left mb-4">
                   Comparison of VPNs
                 </div>
@@ -590,7 +590,8 @@ operations</div>
                     </div>
                   </div>
                 </div>
-              </>
+                <button onClick={()=>{setSubscription("desc")}} className="ml-auto flex text-white py-2 px-16 mb-4 rounded-lg" style={{border: '1px solid #11D9C5'}}>Back</button>
+              </div>
             )}
 
             {subscription === "done" && (
