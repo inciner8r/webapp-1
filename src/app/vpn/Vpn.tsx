@@ -665,16 +665,31 @@ operations</div>
                                   </option>
                                   <option
                                     className="bg-white text-black"
-                                    value="us-east-2"
+                                    value="us"
                                   >
-                                    us-east-2
+                                    US
                                   </option>
                                   <option
                                     className="bg-white text-black"
-                                    value="ap-southeast-1"
+                                    value="sg"
                                   >
-                                    ap-southeast-1
-                                  </option>
+                                    Singapore
+                                  </option> 
+                                  {(formData.type === "decentralized") && <>
+                                      <option
+                                      className="bg-white text-black"
+                                      value="eu"
+                                    >
+                                      Europe
+                                    </option>
+                                    <option
+                                      className="bg-white text-black"
+                                      value="ca"
+                                    >
+                                      Canada
+                                    </option>
+                                  </>}
+                                  
                                 </select>
                               </div>
                               </div>
@@ -965,18 +980,32 @@ operations</div>
                                 Select Region
                               </option>
                               <option
-                                className="bg-white text-black"
-                                value="us-east-2"
-                              >
-                                us-east-2
-                              </option>
-                              <option
-                                className="bg-white text-black"
-                                value="ap-southeast-1"
-                              >
-                                ap-southeast-1
-                              </option>
-                            </select>
+                                    className="bg-white text-black"
+                                    value="us"
+                                  >
+                                    US
+                                  </option>
+                                  <option
+                                    className="bg-white text-black"
+                                    value="sg"
+                                  >
+                                    Singapore
+                                  </option>
+                                  {(vpntype === "decentralized") && <>
+                                      <option
+                                      className="bg-white text-black"
+                                      value="eu"
+                                    >
+                                      Europe
+                                    </option>
+                                    <option
+                                      className="bg-white text-black"
+                                      value="ca"
+                                    >
+                                      Canada
+                                    </option>
+                                  </>}                            
+                                  </select>
 
                             <div className="flex text-xs">
                               <button
