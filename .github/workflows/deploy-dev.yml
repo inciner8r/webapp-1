@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy on DEV server
-        if: github.ref == 'refs/heads/dev'
+        if: github.ref == 'refs/heads/dev-next'
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.DEV_REMOTE_SERVER_ADDRESS }}
