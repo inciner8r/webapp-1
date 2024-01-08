@@ -688,6 +688,12 @@ operations</div>
                                     >
                                       Canada
                                     </option>
+                                    <option
+                                      className="bg-white text-black"
+                                      value="jp"
+                                    >
+                                      Japan
+                                    </option>
                                   </>}
                                   
                                 </select>
@@ -1003,6 +1009,12 @@ operations</div>
                                       value="ca"
                                     >
                                       Canada
+                                    </option>
+                                    <option
+                                      className="bg-white text-black"
+                                      value="jp"
+                                    >
+                                      Japan
                                     </option>
                                   </>}                            
                                   </select>
