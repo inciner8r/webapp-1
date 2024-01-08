@@ -80,7 +80,7 @@ return (
   <div
     className="flex flex-col items-center justify-center w-full max-w-sm mx-auto"
   >
-    <div className="w-full h-full p-5 bg-center bg-cover rounded-lg"
+    <div className="w-full h-full p-5 bg-center bg-cover rounded-lg p-4"
     style={background}
     >
       <div className="flex flex-col h-full justify-between">
@@ -112,9 +112,9 @@ return (
               <StarRatingshow totalStars={10} rating={metaData.siteRating} /></div>)
 }
 
-<div className="flex gap-2 mt-4">
+<div className="flex gap-2 mt-4 flex-wrap">
 <h3
-                className="text-lg leading-12 mb-2 text-white"
+                className="text-md leading-12 mb-2 text-white"
                 // style={color}
               >
                 {
@@ -127,10 +127,10 @@ return (
                 
               </h3>
 
-              <div className="text-white text-lg">reviewed</div>
+              <div className="text-white text-md">reviewed</div>
 
               <h3
-                className="text-lg leading-12 mb-2"
+                className="text-md leading-12 mb-2"
                 style={color}
               >
                 <Link href={`/reviews/${metaData.domainAddress.replace(/^https:\/\//, '').replace(/^www\./, '')}`}>
@@ -144,7 +144,7 @@ return (
               </h3>
               </div>
 
-<div className="mt-5 text-white">
+<div className="mt-6 text-white">
                 <p>
                   &quot;{metaData.description}&quot;
                 </p>
@@ -153,7 +153,11 @@ return (
           )}
         </div>
         <Link href={`https://explorer.aptoslabs.com/txn/${reviews?.transactionHash}/?network=testnet`} target="_blank">
-              <button className="mt-10 text-white flex gap-1 py-2 px-2 text-xs rounded-md" style={{backgroundColor:'#11D9C580'}}><Image src={asnft} alt="" className="w-4 h-4"/>Review as NFT</button>
+              <button className="mt-10 text-white flex gap-1 py-1 px-2 text-xs rounded-md" style={{backgroundColor:'#11D9C580'}}>
+                <Image src={asnft} alt="" className=" p-1 w-2 h-2"/>
+              
+              <div className="pt-1">Review as NFT</div>
+              </button>
         </Link>
 
       </div>

@@ -26,7 +26,7 @@ const ReviewContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray, revi
   return (
     <>
       <div
-        className="container mx-auto lg:px-44 md:px-10 py-8"
+        className="container mx-auto py-8"
       >
         {metaDataArray.length === 0 ? (
           renderNoReviewsFound()
