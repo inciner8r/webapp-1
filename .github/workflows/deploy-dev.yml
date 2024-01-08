@@ -54,5 +54,5 @@ jobs:
             cd gateway
             docker stop webapp || true && docker image rm ghcr.io/netsepio/webapp:dev-next
             docker pull ghcr.io/netsepio/webapp:dev-next
-            docker run --name="webapp" --rm --env-file=.env -p 4000:80 --net=bridge -d ghcr.io/netsepio/webapp:dev-next
+            docker run --name="webapp" --rm --env-file=.env -p 4000:8080 --net=bridge -d ghcr.io/netsepio/webapp:dev-next
   
