@@ -2,6 +2,7 @@
 import Cookies from "js-cookie";
 import axios from "axios";
 import emoji from "../../../public/EmojiMessage.png";
+import tick from "../../../public/tick.png";
 import profileimg from "../../../public/female.png";
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import connectWallet from "../../../modules/connectwallet";
@@ -136,6 +137,7 @@ const Profile = () => {
       if (response.status === 200) {
         setFormData(initialFormData);
         setMsg("success");
+        setprofileset(true);
         // localStorage.setItem('submissionProfile', 'true');
       } else {
         setMsg("error");
@@ -325,6 +327,14 @@ const CLIENT_SECRET= "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"
       };
       handleConnectWallet();
     }, [change]);
+
+    useEffect(() => {
+      const timeoutId = setTimeout(() => {
+        setMsg('');
+      }, 3000); // 5 seconds in milliseconds
+  
+      return () => clearTimeout(timeoutId);
+    }, [msg]);
   
 
   return (
@@ -334,9 +344,26 @@ const CLIENT_SECRET= "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"
       <section className="">
         <div className="px-10 mx-auto">
           <div className="w-full mx-auto text-left w-full md:text-center">
-            <h1 className="mb-8 text-start text-4xl font-semibold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
+        
+        <div className="flex">
+        <h1 className="mb-8 text-start text-4xl font-semibold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
               <span className="text-white">Profile</span>
             </h1>
+        {msg == "success" && (
+                      <div className="text-center mx-auto">
+                      <div className="">
+                        <div
+                          style={button}
+                          className="flex gap-1 px-4 py-3 text-xs text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                        >
+                          <Image src={tick} alt="" className="w-4 h-4"/>
+                          Changes Saved
+                        </div>
+                      </div>
+                    </div>
+            )}
+        </div>
+            
 
             {!profileset && (
               <section className="pb-10 rounded-xl" style={bg}>
@@ -502,7 +529,7 @@ const CLIENT_SECRET= "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"
                         </div>
                       </div>
                     )}
-                    {msg == "success" && (
+                    {/* {msg == "success" && (                    
                       <div
                         style={bgverify}
                         className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full"
@@ -511,9 +538,6 @@ const CLIENT_SECRET= "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"
                         <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
                           <div className="relative rounded-lg shadow bg-white">
                             <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
-                              {/* <h3 className="text-2xl font-semibold">
-                Verify Your Registration
-                </h3> */}
                               <button
                                 onClick={handleProfile}
                                 type="button"
@@ -549,17 +573,6 @@ const CLIENT_SECRET= "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"
                                 profile.
                               </p>
                             </div>
-                            {/* <div className="p-4 md:p-5 space-y-4">
-                <p className="text-lg text-center text-white">
-                  {txtvalue}
-                </p>
-            </div>
-            <p style={successtext} className="p-4">{successmsg}</p>
-            
-            {
-              errormsg && !successmsg && (<p style={errortext} className="p-4">{errormsg}. 
-              Try again in 3-5 mins if already added txt in dns.</p>)} */}
-
                             <div className="flex items-center p-4 md:p-5 rounded-b">
                               <button
                                 style={button}
@@ -573,7 +586,7 @@ const CLIENT_SECRET= "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"
                           </div>
                         </div>
                       </div>
-                    )}
+                    )} */}
 
                     {msg == "error" && (
                       <p className="text-red-500">
@@ -632,7 +645,7 @@ const CLIENT_SECRET= "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"
               </>
                 )
               }
-                <section className="pb-10 rounded-xl" style={bg}>
+                <section className="pb-0 rounded-xl" style={bg}>
                   <h1 className="pt-8 pl-8 text-start text-4xl font-semibold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
                     <span className="text-white">Basic information</span>
                   </h1>
@@ -712,7 +725,7 @@ const CLIENT_SECRET= "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"
                           </div>
                         </div>
 
-                        <div className="text-center pt-0 w-3/4 ml-auto pb-52">
+                        <div className="text-center pt-0 w-3/4 ml-auto pb-48">
                           <div className="">
                             <button
                               style={button}
