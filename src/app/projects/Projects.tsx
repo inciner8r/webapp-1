@@ -448,7 +448,7 @@ console.log("jsonData",jsonData);
                   </div>
            
             { pagestatus=='submit' && (
-            <section className="pb-0 rounded-xl mx-10 mx-auto" style={{ overflowY: 'auto', maxHeight: '550px', backgroundColor: '#222944'}}>
+            <section className="pb-0 rounded-xl mx-8 mx-auto" style={{ overflowY: 'auto', maxHeight: '550px', backgroundColor: '#222944'}}>
               <h1 className="pl-10 pt-10 text-2xl text-left font-bold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
                     <span className="text-white">Verify your project</span>
                   </h1>
@@ -837,7 +837,7 @@ click the verify button.
 {
   pagestatus!='submit' && (
     <>
-            <section className="pb-0 rounded-xl">
+            <section className="mx-10 rounded-xl">
               
             {loading ? (
             // <Loader />

@@ -24,8 +24,8 @@ const MyProjectsContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray})
   return (
     <>
       <div
-        className="container mx-auto px-4"
-        style={{ overflowY: 'auto', maxHeight: '470px' }}
+        className="container mx-auto px-4 rounded-xl"
+        style={{ overflowY: 'auto', maxHeight: '470px', backgroundColor:'#30385F' }}
       >
         {metaDataArray?.length === 0 ? (
           renderNoReviewsFound()
@@ -33,14 +33,29 @@ const MyProjectsContainer: React.FC<MyReviewContainerProps> = ({ metaDataArray})
           <div
             
           >
+           <div style={{backgroundColor: '#30385F'}} className='rounded-2xl'
+          >
+            <div className="flex uppercase text-sm pt-8 mb-2 text-left px-8" style={{color:'#98A8BE'}}>
+            <div className="w-1/4">Project Name</div>
+            {/* <div className="w-1/4 ml-10">Domain Name</div>
+            <div className="w-1/4">Category</div> */}
+            <div className="w-1/4 text-center">Blockchain</div>
+            <div className="w-1/4">
+              <div className="text-right">Edit</div>
+            </div>
+            <div className="w-1/4">
+              <div className="text-right">Delete</div>
+            </div>
+            </div>
             {metaDataArray?.map((metaData, index) => (
-              <div key={index} className="py-2 flex">
+              <div key={index} className="flex">
                 <MyProjectsCard
                   metaData={metaData}
                   onReviewDeleted={handleReviewDeleted}
                 />
               </div>
             ))}
+          </div>
           </div>
         )}
       </div>

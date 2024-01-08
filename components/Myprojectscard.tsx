@@ -7,6 +7,7 @@ import { NFTStorage } from "nft.storage";
 import eye2 from '../public/eye2.png';
 import edit from '../public/editpen.png';
 import dlt from '../public/dlt.png';
+import tick2 from '../public/tick2.png';
 import replace from '../public/replace.png';
 import {
   FaCopy,
@@ -298,12 +299,12 @@ console.log("jsonData",jsonData);
      
     >
       <div
-        className="w-full h-full lg:p-10 md:p-10 p-4 rounded-lg"
+        className="w-full h-full p-4 border-gray-500 border-t"
         
       >
             <div>
                 <div className="lg:flex m:flex justify-start">
-                <div className="w-1/4">
+                {/* <div className="w-1/4">
                     <img
                       alt="alt"
                       src={`${
@@ -313,83 +314,57 @@ console.log("jsonData",jsonData);
                       width="150"
                       height="150"
                     />
-                </div>
+                </div> */}
                 <div className="w-full lg:px-4 md:px-4">
                   <h3
                     className="leading-12 mb-2 text-white"
                     
                   >
                     <div className="lg:flex md:flex justify-between">
-                      <div className="text-4xl font-bold">{metaData.title}</div>
-                      <div className="mt-4 text-white">
-                  <button className="text-lg rounded-lg">
-                      Blockchain : {metaData.blockchain}
-                    </button>
-                    </div>
-                    </div>
-                  </h3>
-                  
-              <div style={background} className="p-4 rounded-xl">
-                  <div className="lg:flex md:flex justify-between">
-                  <div
-                    className="mt-4 lg:flex md:flex text-white"
-                   
-                  >
-                    <div className="text-lg rounded-lg pr-1">
-                      {metaData.domainName} /
-                    </div>     
-                    <div className="text-lg rounded-lg pr-1">
-                      {metaData.category}
-                    </div>
-                    <button className="px-2 pt-1 gap-1 flex" onClick={()=>seteditmode(true)}>
-                  <Image src={edit} alt="info" className="w-4 h-4"/>
-                    </button>
-                  </div>
-                  <div className="mt-4 text-white flex gap-2 text-xs">
-                  <Link href={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
-                  <div className="flex py-2 px-1 gap-1 text-black" style={backgroundbutton}>
-                  <Image src={eye2} alt="info" className="w-4 h-4"/> View Project
-                    </div>
-                  </Link>
-                  {/* <button className="px-2 py-1 gap-1 flex pt-2" style={border} onClick={()=>seteditmode(true)}>
-                  <img src={edit} alt="info" className="w-4 h-4"/>
-                      Edit Project
-                    </button> */}
-                    <button className="px-2 py-1 gap-1 flex pt-2" style={border} onClick={()=>setdelproj(true)}>
-                  <Image src={dlt} alt="info" className="w-4 h-4"/>
-                      Delete Project
-                    </button>
-                    </div>
-              </div>
-                  
-
-                  <div className="text-white text-lg flex">
-                    <p
+                      <div className="w-1/4">
+                      <Link href={`/reviews/${metaData.domainName.replace(/^https:\/\//, '')}`}>
+                      <div className="flex">
+                      <div className="text-xl font-bold mb-2 border-b">{metaData.title}</div>
+                      {metaData.verified && (
+                      <Image src={tick2} alt="" className="w-6 h-6 ml-2"/>
+                      )}
+                      </div>
+                      </Link>
                       
-                    >
-                      {metaData.headline}
-                    </p>
-                  </div>
-
-                  <div className="text-md rounded-lg flex text-white">
-                      Verified : {metaData.verified? "True" : "False"}
-
+                      <div className="text-md rounded-lg flex text-white">
                       {!metaData.verified && (
-                      <button className="px-4 pt-1 flex text-sm ml-2" style={color2} onClick={()=>setverifymode(true)}>
+                      <button className="flex text-sm" style={color2} onClick={()=>setverifymode(true)}>
                       Verify Now
                     </button>
                     )}
                     </div>
+                      </div>
 
-                  <div className="mt-5 text-white text-md flex text-left">
-                    <p
-                      
-                    >
-                      {metaData.description}
-                    </p>
-                  </div>
+                    {/* <div className="text-md rounded-lg">
+                      {metaData.domainName}
+                    </div> 
+                        
+                    <div className="text-md rounded-lg">
+                      {metaData.category}
+                    </div> */}
 
-                  </div>
+                    <div className="text-white w-1/4">
+                  <button className="text-md rounded-lg">
+                      {metaData.blockchain}
+                    </button>
+                    </div>
+
+                    <button className="px-2 pt-1 gap-1 flex w-1/4" onClick={()=>seteditmode(true)}>
+                  <Image src={edit} alt="info" className="w-4 h-4 ml-auto"/>
+                    </button>
+
+                    <button className="px-2 py-1 gap-1 flex pt-2 w-1/4" onClick={()=>setdelproj(true)}>
+                  <Image src={dlt} alt="info" className="w-4 h-4 ml-auto"/>       
+                    </button>
+
+                    </div>
+                  </h3>
+                
                   </div>
                   </div>
                   </div>

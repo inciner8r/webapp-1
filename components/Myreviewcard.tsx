@@ -166,7 +166,7 @@ const MyReviewCard: React.FC<ReviewCardProps> = ({
                     <div className="">
                     <div className="lg:flex md:flex gap-6 font-bold">
                     <Link href={`/reviews/${metaData?.domainAddress}`}>
-                      <button>{metaData?.name}</button>
+                      <button className="border-b mb-2">{metaData?.name}</button>
                     </Link>
 
                     </div>

@@ -730,14 +730,14 @@ operations</div>
 
                           {verify && (
                             <div
-                              style={bgverify}
+                              style={{backgroundColor:'#222944E5'}}
                               className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full"
                               id="popupmodal"
                             >
                               <div className="relative p-4 lg:w-1/4 w-full max-w-2xl max-h-full">
                                 <div
                                   className="relative rounded-lg shadow dark:bg-gray-700"
-                                  style={bg2}
+                                  style={{backgroundColor:'#37406D'}}
                                 >
                                   <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
                                     <button

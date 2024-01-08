@@ -149,7 +149,7 @@ const DynamicPage = ({
       try {
         const auth = Cookies.get("platform_token");
 
-        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=1&verified=true&domainName=${id}`, {
+        const response = await axios.get(`${REACT_APP_GATEWAY_URL}api/v1.0/domain?page=1&domainName=${id}`, {
           headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -318,18 +318,6 @@ const handlePrevPage = () => {
 </svg>
             </button>
           </div>
-
-<div className="mb-60 mt-20">
-        <div className="inline-flex items-center justify-center w-full my-10">
-        <h1 className="text-white text-3xl font-bold">Backed by</h1>
-        </div>
-
-        <div className="inline-flex items-center justify-center w-full">
-        <Image src={aptos} className="w-26 h-10" alt=""/>
-        <h1 className="text-white text-3xl">Aptos</h1>
-        </div>
-        </div>
-
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ const VpnContainerDedicated: React.FC<MyReviewContainerProps> = ({ metaDataArray
       className="w-full text-center py-10"
       
     >
-      <h2 className="text-4xl font-semibold text-gray-700">No Dedicated VPNs</h2>
+      <h2 className="text-4xl font-semibold text-gray-300">No Dedicated VPNs</h2>
     </div>
   );
 
